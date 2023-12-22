@@ -2,7 +2,59 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    // TODO : adding customize fontfamily
+    fontFamily: {
+      roboto: ["Roboto", "sans-serif"],
+    },
+
+    extend: {
+      colors: {
+        primary: {
+          DEFAULT: "#AF8AE2",
+          light: "#CFBBEA",
+          dark: "#3B2D4C",
+          subtle: "#F1EAFF",
+        },
+        error: {
+          DEFAULT: "#FF3B3B",
+          light: "#FF5C5C",
+          dark: "#E53535",
+          subtle: "#FF8080",
+        },
+        warning: {
+          DEFAULT: "#FFCC00",
+          light: "#E5B800",
+          dark: "#FDDD48",
+          subtle: "#FDED72",
+        },
+        success: {
+          DEFAULT: "#06C270",
+          light: "#39D98A",
+          dark: "#05A660",
+          subtle: "#57EBA1",
+        },
+        info: {
+          DEFAULT: "#0063F7",
+          light: "#5B8DEF",
+          dark: "#004FC4",
+          subtle: "#9DBFF9",
+        },
+        background: {
+          primary: "#AF8AE",
+          primary_subtle: "#C7C9D9",
+          white: "#FFFFFF",
+        },
+        dark: "#333333",
+        grey: "#BDBDBD",
+        dark_primary: "#3B2D4C",
+      },
+      padding: {
+        "16px": "16px",
+        "20px": "20px",
+        "24px": "24px",
+        "32px": "32px",
+      },
+    },
   },
   plugins: [],
 };
