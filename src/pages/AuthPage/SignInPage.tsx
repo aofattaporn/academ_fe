@@ -1,11 +1,11 @@
 import { useCallback } from "react";
-import axios from "axios";
+import axiosInstance from "../../libs/axios";
 
 const SignInPage = () => {
   const checkAPI = useCallback(async () => {
     try {
-      const response = await axios.get("https://api.publicapis.org/entries2");
-      console.log(response.data);
+      const response = await axiosInstance.get("/entries");
+      console.log(response);
     } catch (err) {
       console.error("Error:", err);
     }
