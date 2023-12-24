@@ -46,7 +46,7 @@ export default {
           subtle: "#9DBFF9",
         },
         background: {
-          primary: "#AF8AE",
+          primary: "#AF8AE2",
           primary_subtle: "#C7C9D9",
           white: "#FFFFFF",
         },

@@ -17,7 +17,7 @@ function App() {
         <Route path="/reset-password" element={<ResetPasswordPage />} />
       </Route>
       <Route element={<HomeLayout />}>
-        <Route path="/home" element={<HomePage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/mytask" element={<MytaskPage />} />
         <Route path="/notification" element={<NotificationPage />} />
       </Route>
