@@ -25,7 +25,7 @@ const AuthLayout = () => {
         </Toolbar>
       </AppBar>
       <BoxBlackground>
-        <div className="my-12 flex justify-center w-full z-10">
+        <div className="flex justify-center w-full z-10">
           <Outlet />
         </div>
       </BoxBlackground>

@@ -20,7 +20,9 @@ const AuthButton = styled(Button)({
 const AuthButtonComp = ({ title }: AuthButtonCompProps) => {
   return (
     <div className="w-full flex justify-center">
-      <AuthButton fullWidth>{title}</AuthButton>
+      <AuthButton type="submit" fullWidth>
+        {title}
+      </AuthButton>
     </div>
   );
 };
