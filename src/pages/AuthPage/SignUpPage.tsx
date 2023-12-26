@@ -3,17 +3,22 @@ import TextFieldComp from "../../components/TextFieldComp";
 import AuthButtonComp from "../../components/Button/AuthButtonComp";
 import GoogleButtonComp from "../../components/Button/GoogleButtonComp";
 import { useForm, SubmitHandler } from "react-hook-form";
-
-type Inputs = {
-  fullName: string;
-  email: string;
-  password: string;
-};
+import {
+  SignUpSchema,
+  labels,
+  placeholders,
+  signInSchema,
+} from "../../types/AuthType";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const SignUpPage = () => {
-  const { register, handleSubmit } = useForm<Inputs>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignUpSchema>({ resolver: zodResolver(signInSchema) });
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<SignUpSchema> = (data) => console.log(data);
 
   return (
     <div>
@@ -27,25 +32,28 @@ const SignUpPage = () => {
 
         <div>
           <TextFieldComp
-            {...register("fullName")}
-            label="Full Name"
-            placeholder="Input your Full Name"
+            {...register("fullName", { required: true })}
+            label={labels.fullName}
+            placeholder={placeholders.fullName}
+            errors={errors.fullName?.message}
           />
         </div>
 
         <div>
           <TextFieldComp
-            {...register("email")}
-            label="Email"
-            placeholder="Input your Email"
+            {...register("email", { required: true })}
+            label={labels.email}
+            placeholder={placeholders.email}
+            errors={errors.email?.message}
           />
         </div>
 
         <div>
           <TextFieldComp
-            {...register("password")}
-            label="Password"
-            placeholder="Input your Password"
+            {...register("password", { required: true })}
+            label={labels.password}
+            placeholder={placeholders.password}
+            errors={errors.password?.message}
           />
         </div>
 

@@ -5,10 +5,11 @@ import { UseFormRegisterReturn } from "react-hook-form";
 type TextFieldCompProps = {
   label: string;
   placeholder: string;
+  errors?: string;
 } & UseFormRegisterReturn;
 
 const TextFieldComp = forwardRef(
-  ({ label, placeholder, ...register }: TextFieldCompProps, ref) => {
+  ({ label, placeholder, errors, ...register }: TextFieldCompProps, ref) => {
     return (
       <div>
         <h1 className="my-2">{label}</h1>
@@ -23,9 +24,13 @@ const TextFieldComp = forwardRef(
           inputRef={ref}
           required
         />
-        {false && (
-          <FormHelperText id="my-helper-text">
-            We'll never share your email.
+        {errors && (
+          <FormHelperText
+            id="my-helper-text"
+            className="text-error"
+            sx={{ color: "#FF3B3B" }}
+          >
+            {errors}
           </FormHelperText>
         )}
       </div>

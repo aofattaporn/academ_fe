@@ -3,16 +3,22 @@ import AuthButtonComp from "../../components/Button/AuthButtonComp";
 import GoogleButtonComp from "../../components/Button/GoogleButtonComp";
 import { Link } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
-
-type SignInProps = {
-  email: string;
-  password: string;
-};
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  SignInSchema,
+  labels,
+  placeholders,
+  signInSchema,
+} from "../../types/AuthType";
 
 const SignInPage = () => {
-  const { register, handleSubmit } = useForm<SignInProps>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignInSchema>({ resolver: zodResolver(signInSchema) });
 
-  const onSubmit: SubmitHandler<SignInProps> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<SignInSchema> = (data) => console.log(data);
 
   return (
     <div>
@@ -27,16 +33,18 @@ const SignInPage = () => {
         <div>
           <TextFieldComp
             {...register("email")}
-            label="Email"
-            placeholder="Input your Email"
+            label={labels.email}
+            placeholder={placeholders.email}
+            errors={errors.email?.message}
           />
         </div>
 
         <div>
           <TextFieldComp
             {...register("password")}
-            label="Password"
-            placeholder="Input your Password"
+            label={labels.password}
+            placeholder={placeholders.password}
+            errors={errors.password?.message}
           />
           <a className="text-primary text-sm">forgot password</a>
         </div>
