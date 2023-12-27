@@ -28,6 +28,11 @@ export const signInSchema = z.object({
 
 export type SignInSchema = z.infer<typeof signInSchema>;
 
+export type SignInType = {
+  email: string;
+  password: string;
+};
+
 // Schema validation for sign-up
 export const signUpSchema = z.object({
   fullName: z.string().min(1, { message: errorMessages.fullNameRequired }),

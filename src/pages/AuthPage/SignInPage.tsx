@@ -10,6 +10,8 @@ import {
   placeholders,
   signInSchema,
 } from "../../types/AuthType";
+import { useMutation } from "react-query";
+import { signInApi } from "../../libs/authApi";
 
 const SignInPage = () => {
   const {
@@ -18,7 +20,11 @@ const SignInPage = () => {
     formState: { errors },
   } = useForm<SignInSchema>({ resolver: zodResolver(signInSchema) });
 
-  const onSubmit: SubmitHandler<SignInSchema> = (data) => console.log(data);
+  const mutation = useMutation({
+    mutationFn: signInApi,
+    onSuccess: () => console.log("sign-in-success"),
+  });
+  const onSubmit: SubmitHandler<SignInSchema> = (data) => mutation.mutate(data);
 
   return (
     <div>
