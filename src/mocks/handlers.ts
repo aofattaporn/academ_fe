@@ -1,4 +1,7 @@
-import { signIn_success } from "./authMock";
-import { test_api } from "./testAPI";
+import { authMock } from "./authMock";
 
-export const handlers = [test_api, signIn_success];
+export const handlers = [
+  authMock.signIn_success,
+  authMock.signIn_failed_form_invalid,
+  authMock.signIn_failed_somthing_when_wrong,
+];

@@ -11,7 +11,9 @@ import {
   signInSchema,
 } from "../../types/AuthType";
 import { useMutation } from "react-query";
-import { signInApi } from "../../libs/authApi";
+import { ErrorCustom, signInApi } from "../../libs/authApi";
+import { Alert } from "@mui/material";
+import { useState } from "react";
 
 const SignInPage = () => {
   const {
@@ -19,10 +21,14 @@ const SignInPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<SignInSchema>({ resolver: zodResolver(signInSchema) });
-
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const mutation = useMutation({
     mutationFn: signInApi,
     onSuccess: () => console.log("sign-in-success"),
+    onError(error: ErrorCustom) {
+      console.log(error.message);
+      setErrorMessage(error.message);
+    },
   });
   const onSubmit: SubmitHandler<SignInSchema> = (data) => mutation.mutate(data);
 
@@ -35,7 +41,6 @@ const SignInPage = () => {
         <div className="flex justify-center w-[492px]">
           <h1 className="text-3xl font-semibold">Welcome back !</h1>
         </div>
-
         <div>
           <TextFieldComp
             {...register("email")}
@@ -55,8 +60,13 @@ const SignInPage = () => {
           <a className="text-primary text-sm">forgot password</a>
         </div>
 
-        <AuthButtonComp title="Get Start" />
-        <GoogleButtonComp />
+        <div className="flex-col space-y-4">
+          {mutation.isError ? (
+            <Alert severity="error">{errorMessage}</Alert>
+          ) : null}
+          <AuthButtonComp title="Get Start" />
+          <GoogleButtonComp />
+        </div>
       </form>
 
       <div className="w-full flex justify-center m-4">
