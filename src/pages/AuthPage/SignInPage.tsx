@@ -6,14 +6,15 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   SignInSchema,
+  SignInType,
   labels,
   placeholders,
   signInSchema,
 } from "../../types/AuthType";
 import { useMutation } from "react-query";
-import { ErrorCustom, signInApi } from "../../libs/authApi";
 import { Alert } from "@mui/material";
-import { useState } from "react";
+import { ErrorCustom } from "../../types/GenericType";
+import authApi from "../../libs/authApi";
 
 const SignInPage = () => {
   const {
@@ -21,14 +22,10 @@ const SignInPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<SignInSchema>({ resolver: zodResolver(signInSchema) });
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const mutation = useMutation({
-    mutationFn: signInApi,
-    onSuccess: () => console.log("sign-in-success"),
-    onError(error: ErrorCustom) {
-      console.log(error.message);
-      setErrorMessage(error.message);
-    },
+    mutationFn: authApi.signInApi,
+    onSuccess: (res: SignInType) => console.log(res),
+    onError: (error: ErrorCustom) => console.error(error.message),
   });
   const onSubmit: SubmitHandler<SignInSchema> = (data) => mutation.mutate(data);
 
@@ -57,12 +54,14 @@ const SignInPage = () => {
             placeholder={placeholders.password}
             errors={errors.password?.message}
           />
-          <a className="text-primary text-sm">forgot password</a>
+          <Link to={"/forgot-password"} className="text-primary text-sm">
+            forgot password
+          </Link>
         </div>
 
         <div className="flex-col space-y-4">
           {mutation.isError ? (
-            <Alert severity="error">{errorMessage}</Alert>
+            <Alert severity="error">{mutation.error.description}</Alert>
           ) : null}
           <AuthButtonComp title="Get Start" />
           <GoogleButtonComp />

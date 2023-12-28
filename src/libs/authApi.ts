@@ -1,10 +1,12 @@
-import { AxiosResponse } from "axios";
-import { SignInSchema, SignInType } from "../types/AuthType";
+import {
+  SignInSchema,
+  SignInType,
+  SignUpSchema,
+  SignUpType,
+} from "../types/AuthType";
 import axiosInstance from "./axiosInstance";
-export type ErrorCustom = {
-  message: string;
-};
-export const signInApi = async (form: SignInSchema): Promise<SignInType> => {
+
+const signInApi = async (form: SignInSchema): Promise<SignInType> => {
   try {
     const response = await axiosInstance.post("api/sign-in", form);
     return response.data;
@@ -13,7 +15,15 @@ export const signInApi = async (form: SignInSchema): Promise<SignInType> => {
   }
 };
 
-export const getApi = () => {
-  const response: Promise<AxiosResponse> = axiosInstance.get("/api/sign-in");
-  return response;
+const signUpApi = async (form: SignUpSchema): Promise<SignUpType> => {
+  try {
+    const response = await axiosInstance.post("api/sign-up", form);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
+
+const authApi = { signInApi, signUpApi };
+
+export default authApi;

@@ -1,6 +1,5 @@
 import { z } from "zod";
 
-// Common labels and placeholders
 export const labels = {
   fullName: "Full Name",
   email: "Email",
@@ -12,15 +11,17 @@ export const placeholders = {
   email: `Input your ${labels.email}`,
   password: `Input your ${labels.password}`,
 };
-
-// Common error messages
 export const errorMessages = {
   fullNameRequired: `${labels.fullName} is required`,
   invalidEmailFormat: "Invalid email format",
   passwordMinLength: `${labels.password} must be at least 6 characters long`,
 };
 
-// Schema validation for sign-in
+// SignIn Type Declaration
+
+export const EMAIL_PASSWORD_INCORRECT = "Email or Password is incorrect";
+export const EMAIL_ALREADY_EXISTING = "Email already existing";
+
 export const signInSchema = z.object({
   email: z.string().email({ message: errorMessages.invalidEmailFormat }),
   password: z.string().min(6, { message: errorMessages.passwordMinLength }),
@@ -33,11 +34,18 @@ export type SignInType = {
   password: string;
 };
 
-// Schema validation for sign-up
+// SignUp Type Declaration
+
 export const signUpSchema = z.object({
   fullName: z.string().min(1, { message: errorMessages.fullNameRequired }),
   email: z.string().email({ message: errorMessages.invalidEmailFormat }),
   password: z.string().min(6, { message: errorMessages.passwordMinLength }),
 });
+
+export type SignUpType = {
+  fullName: string;
+  email: string;
+  password: string;
+};
 
 export type SignUpSchema = z.infer<typeof signUpSchema>;

@@ -1,5 +1,10 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { ErrorCustom } from "./authApi";
+import {
+  ErrorCustom,
+  HTTP_STATUS_UNAUTHORIZED,
+  RESPONSE_INTERNAL_SERVER_ERROR,
+  RESPONSE_TRY_AGAIN_LATHER,
+} from "../types/GenericType";
 
 const baseURL = import.meta.env.VITE_APP_API_BASE_URL;
 
@@ -12,30 +17,21 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse<any>) => {
-    console.log(response.status);
-
-    if (response.status === 500) {
-      // Attach additional information to the error, if needed
-      const error = new Error("Error 500 !!!!");
-      // error.message = response; // Attach the original response for reference
-      console.error("Custom 500 Error:", response.data);
-      throw error;
-    } else if (response.status === 401) {
-      const error = new Error("Error 401 !!!!");
-      // error.response = response;
-      console.error("Custom 401 Error:", response.data);
-      throw error;
-    }
-
-    // Return the response if no error occurred
     return response;
   },
-  (error: AxiosError) => {
-    if (error.response?.status === 401) {
-      const customErr: ErrorCustom = { message: "Something went wrong" };
+  (error: AxiosError<ErrorCustom>) => {
+    if (error.response?.status === HTTP_STATUS_UNAUTHORIZED) {
+      const err: ErrorCustom = error.response.data;
+      const customErr: ErrorCustom = {
+        message: err.message,
+        description: err.description,
+      };
       return Promise.reject(customErr);
     } else {
-      const customErr: ErrorCustom = { message: "Try agian Lather" };
+      const customErr: ErrorCustom = {
+        message: RESPONSE_INTERNAL_SERVER_ERROR,
+        description: RESPONSE_TRY_AGAIN_LATHER,
+      };
       return Promise.reject(customErr);
     }
   }

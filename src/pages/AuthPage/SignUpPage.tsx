@@ -10,6 +10,10 @@ import {
   signInSchema,
 } from "../../types/AuthType";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "react-query";
+import authApi from "../../libs/authApi";
+import { ErrorCustom } from "../../types/GenericType";
+import { Alert } from "@mui/material";
 
 const SignUpPage = () => {
   const {
@@ -17,8 +21,12 @@ const SignUpPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<SignUpSchema>({ resolver: zodResolver(signInSchema) });
-
-  const onSubmit: SubmitHandler<SignUpSchema> = (data) => console.log(data);
+  const mutation = useMutation({
+    mutationFn: authApi.signUpApi,
+    onSuccess: (res: SignUpSchema) => console.log(res),
+    onError: (error: ErrorCustom) => console.error(error.message),
+  });
+  const onSubmit: SubmitHandler<SignUpSchema> = (data) => mutation.mutate(data);
 
   return (
     <div>
@@ -27,9 +35,8 @@ const SignUpPage = () => {
         className="bg-white py-12 px-24 rounded-md flex-col space-y-7 align-middle justify-center shadow-md"
       >
         <div className="flex justify-center w-[492px]">
-          <h1 className="text-3xl font-semibold">Let’s go!</h1>
+          <h1 className="text-3xl font-semibold">Let go!</h1>
         </div>
-
         <div>
           <TextFieldComp
             {...register("fullName", { required: true })}
@@ -38,7 +45,6 @@ const SignUpPage = () => {
             errors={errors.fullName?.message}
           />
         </div>
-
         <div>
           <TextFieldComp
             {...register("email", { required: true })}
@@ -47,7 +53,6 @@ const SignUpPage = () => {
             errors={errors.email?.message}
           />
         </div>
-
         <div>
           <TextFieldComp
             {...register("password", { required: true })}
@@ -56,9 +61,13 @@ const SignUpPage = () => {
             errors={errors.password?.message}
           />
         </div>
-
-        <AuthButtonComp title="Get Start" />
-        <GoogleButtonComp />
+        <div className="flex-col space-y-4">
+          {mutation.isError ? (
+            <Alert severity="error">{mutation.error.description}</Alert>
+          ) : null}
+          <AuthButtonComp title="Get Start" />
+          <GoogleButtonComp />
+        </div>
       </form>
 
       <div className=" w-full flex justify-center m-4">
