@@ -2,32 +2,13 @@ import TextFieldComp from "../../components/TextFieldComp";
 import AuthButtonComp from "../../components/Button/AuthButtonComp";
 import GoogleButtonComp from "../../components/Button/GoogleButtonComp";
 import { Link } from "react-router-dom";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  SignInSchema,
-  SignInType,
-  labels,
-  placeholders,
-  signInSchema,
-} from "../../types/AuthType";
-import { useMutation } from "react-query";
+import { labels, placeholders } from "../../types/AuthType";
 import { Alert } from "@mui/material";
-import { ErrorCustom } from "../../types/GenericType";
-import authApi from "../../libs/authApi";
+import useSignInForm from "../../hooks/useSignInForm";
 
 const SignInPage = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<SignInSchema>({ resolver: zodResolver(signInSchema) });
-  const mutation = useMutation({
-    mutationFn: authApi.signInApi,
-    onSuccess: (res: SignInType) => console.log(res),
-    onError: (error: ErrorCustom) => console.error(error.message),
-  });
-  const onSubmit: SubmitHandler<SignInSchema> = (data) => mutation.mutate(data);
+  const { handleSubmit, register, errors, onSubmit, mutation } =
+    useSignInForm();
 
   return (
     <div>
