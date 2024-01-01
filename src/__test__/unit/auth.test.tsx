@@ -41,11 +41,27 @@ describe("auth component", () => {
       expect(mutation.isSuccess).toEqual(true);
     });
 
-    it("onSubmit: sign-in failed", async () => {
+    it("onSubmit: sign-in failed internal error", async () => {
       // Given
       const { result } = renderHook(() => useSignInForm(), { wrapper });
       const { onSubmit } = result.current;
       server.use(authMock.signIn_failed_internal_error);
+
+      // When
+      await act(() => {
+        onSubmit(form);
+      });
+
+      // Then
+      const { mutation } = result.current;
+      expect(mutation.isError).toEqual(true);
+    });
+
+    it("onSubmit: sign-in failed input invalid", async () => {
+      // Given
+      const { result } = renderHook(() => useSignInForm(), { wrapper });
+      const { onSubmit } = result.current;
+      server.use(authMock.signIn_failed_form_incrrect);
 
       // When
       await act(() => {
@@ -81,9 +97,25 @@ describe("auth component", () => {
       expect(mutation.isSuccess).toEqual(true);
     });
 
-    it("onSubmit: sign-up failed", async () => {
+    it("onSubmit: sign-up failed internal error", async () => {
       // Given
       server.use(authMock.signUp_failed_internal_error);
+      const { result } = renderHook(() => useSignUpForm(), { wrapper });
+      const { onSubmit } = result.current;
+
+      // When
+      await act(() => {
+        onSubmit(form);
+      });
+
+      // Then
+      const { mutation } = result.current;
+      expect(mutation.isError).toEqual(true);
+    });
+
+    it("onSubmit: sign-up failed email alreaddy existing", async () => {
+      // Given
+      server.use(authMock.signUp_failed_email_existing);
       const { result } = renderHook(() => useSignUpForm(), { wrapper });
       const { onSubmit } = result.current;
 
