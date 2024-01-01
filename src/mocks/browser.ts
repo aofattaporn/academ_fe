@@ -4,4 +4,4 @@ import authMock from "./authMock";
 
 export const worker = setupWorker(...handlers);
 
-worker.use(authMock.signUp_failed_email_existing);
+worker.use(authMock.signUp_failed_internal_error);

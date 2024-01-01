@@ -22,18 +22,22 @@ const SignInPage = () => {
         <div>
           <TextFieldComp
             {...register("email")}
+            inputId="email"
             label={labels.email}
             placeholder={placeholders.email}
             errors={errors.email?.message}
+            isPassword={false}
           />
         </div>
 
         <div>
           <TextFieldComp
             {...register("password")}
+            inputId="password"
             label={labels.password}
             placeholder={placeholders.password}
             errors={errors.password?.message}
+            isPassword={true}
           />
           <Link to={"/forgot-password"} className="text-primary text-sm">
             forgot password

@@ -2,31 +2,13 @@ import { Link } from "react-router-dom";
 import TextFieldComp from "../../components/TextFieldComp";
 import AuthButtonComp from "../../components/Button/AuthButtonComp";
 import GoogleButtonComp from "../../components/Button/GoogleButtonComp";
-import { useForm, SubmitHandler } from "react-hook-form";
-import {
-  SignUpSchema,
-  labels,
-  placeholders,
-  signInSchema,
-} from "../../types/AuthType";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "react-query";
-import authApi from "../../libs/authApi";
-import { ErrorCustom } from "../../types/GenericType";
+import { labels, placeholders } from "../../types/AuthType";
 import { Alert } from "@mui/material";
+import useSignUpForm from "../../hooks/useSignUpForm";
 
 const SignUpPage = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<SignUpSchema>({ resolver: zodResolver(signInSchema) });
-  const mutation = useMutation({
-    mutationFn: authApi.signUpApi,
-    onSuccess: (res: SignUpSchema) => console.log(res),
-    onError: (error: ErrorCustom) => console.error(error.message),
-  });
-  const onSubmit: SubmitHandler<SignUpSchema> = (data) => mutation.mutate(data);
+  const { handleSubmit, onSubmit, register, errors, mutation } =
+    useSignUpForm();
 
   return (
     <div>
@@ -40,25 +22,31 @@ const SignUpPage = () => {
         <div>
           <TextFieldComp
             {...register("fullName", { required: true })}
+            inputId="fullName"
             label={labels.fullName}
             placeholder={placeholders.fullName}
             errors={errors.fullName?.message}
+            isPassword={false}
           />
         </div>
         <div>
           <TextFieldComp
             {...register("email", { required: true })}
+            inputId="email"
             label={labels.email}
             placeholder={placeholders.email}
             errors={errors.email?.message}
+            isPassword={false}
           />
         </div>
         <div>
           <TextFieldComp
             {...register("password", { required: true })}
+            inputId="password"
             label={labels.password}
             placeholder={placeholders.password}
             errors={errors.password?.message}
+            isPassword={true}
           />
         </div>
         <div className="flex-col space-y-4">
