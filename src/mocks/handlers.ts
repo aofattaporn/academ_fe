@@ -1,3 +1,8 @@
-import { test_api } from "./testAPI";
+import { authMock } from "./authMock";
 
-export const handlers = [test_api];
+// ingeneral case handler
+export const handlers = [
+  authMock.signIn_success,
+  authMock.signUp_success,
+  authMock.signIn_success,
+];
