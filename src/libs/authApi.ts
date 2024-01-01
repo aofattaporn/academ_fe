@@ -7,21 +7,13 @@ import {
 import axiosInstance from "./axiosInstance";
 
 const signInApi = async (form: SignInSchema): Promise<SignInType> => {
-  try {
-    const response = await axiosInstance.post("api/sign-in", form);
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await axiosInstance.post("api/sign-in", form);
+  return response.data;
 };
 
 const signUpApi = async (form: SignUpSchema): Promise<SignUpType> => {
-  try {
-    const response = await axiosInstance.post("api/sign-up", form);
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await axiosInstance.post("api/sign-up", form);
+  return response.data;
 };
 
 const authApi = { signInApi, signUpApi };
