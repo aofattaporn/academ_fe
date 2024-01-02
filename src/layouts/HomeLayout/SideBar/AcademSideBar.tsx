@@ -6,18 +6,16 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import FolderIcon from "@mui/icons-material/Folder";
 import ClassIcon from "@mui/icons-material/Class";
 import MenuIcon from "@mui/icons-material/Menu";
-import YourSvg from "../../assets/svg/academ_icon.svg";
+import YourSvg from "../../../assets/svg/academ_icon.svg";
 import { pageItem } from "../../../types/GenericType";
 
 const AcademSideBar = () => {
   const location = useLocation();
   const { pathname } = location;
-  console.log(pathname);
-
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <Sidebar backgroundColor="#ffffff" collapsed={collapsed} width="220px">
+    <Sidebar backgroundColor="#ffffff" collapsed={collapsed} width="200px">
       <div className="my-8 flex justify-around align-middle items-center m-2 px-2 h-16 ">
         {!collapsed && (
           <div className="flex items-center gap-1 px-2 bg-primary-dark rounded-md h-3/4 text-white">
