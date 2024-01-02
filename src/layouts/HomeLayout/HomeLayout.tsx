@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import AcademSideBar from "./AcademSideBar";
-import AcademNaveBar from "./AcademNavBar";
+import AcademSideBar from "./SideBar/AcademSideBar";
+import AcademNaveBar from "./Navbar/AcademNavBar";
 
 const HomeLayout = () => {
   return (
