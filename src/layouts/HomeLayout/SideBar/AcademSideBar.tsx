@@ -1,16 +1,13 @@
-import { IconButton, Divider, Button } from "@mui/material";
+import { IconButton, Divider } from "@mui/material";
 import { useState } from "react";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import HomeIcon from "@mui/icons-material/Home";
-import TaskIcon from "@mui/icons-material/Task";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import FolderIcon from "@mui/icons-material/Folder";
 import ClassIcon from "@mui/icons-material/Class";
 import MenuIcon from "@mui/icons-material/Menu";
 import YourSvg from "../../assets/svg/academ_icon.svg";
-import { pageItem } from "../../types/GenericType";
+import { pageItem } from "../../../types/GenericType";
 
 const AcademSideBar = () => {
   const location = useLocation();
