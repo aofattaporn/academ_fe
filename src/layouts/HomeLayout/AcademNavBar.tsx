@@ -1,74 +1,25 @@
-import * as React from "react";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import Avatar from "@mui/material/Avatar";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import { FilledInput, InputAdornment, styled } from "@mui/material";
-
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+import SearchIcon from "@mui/icons-material/Search";
+import { Avatar, styled } from "@mui/material";
 
 const AuthButton = styled(AppBar)({
   background: "#3B2D4C",
+  padding: "0.5rem",
 });
 
 function AcademNaveBar() {
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-  const handleOpenUserMenu = (event: any) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
   return (
-    <AuthButton position="static">
-      <Toolbar className="flex justify-around">
-        <FilledInput
-          id="outlined-adornment-weight"
-          endAdornment={<InputAdornment position="end">kg</InputAdornment>}
-          aria-describedby="outlined-weight-helper-text"
-          inputProps={{
-            "aria-label": "weight",
-          }}
-        />
-        <Box sx={{ flexGrow: 0 }}>
-          <Tooltip title="Open settings">
-            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-            </IconButton>
-          </Tooltip>
-          <Menu
-            sx={{ mt: "45px" }}
-            id="menu-appbar"
-            anchorEl={anchorElUser}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            open={Boolean(anchorElUser)}
-            onClose={handleCloseUserMenu}
-          >
-            {settings.map((setting) => (
-              <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">{setting}</Typography>
-              </MenuItem>
-            ))}
-          </Menu>
-        </Box>
-      </Toolbar>
-    </AuthButton>
+    <div className="grid grid-cols-3 items-center static bg-primary-dark p-1 px-12">
+      {/* #element-2 */}
+      <div className="md:col-start-2 md:col-end-3 col-span-2 h-8 bg-white flex justify-between items-center rounded-3xl hover:cursor-pointer px-8">
+        <p className="text-gray-400">Search Bar</p>
+        <SearchIcon className="text-gray-400" />
+      </div>
+      {/* #element-3 */}
+      <div className="flex justify-end ">
+        <Avatar alt="Attaporn" src="/static/images/avatar/1.jpg" />
+      </div>
+    </div>
   );
 }
 export default AcademNaveBar;

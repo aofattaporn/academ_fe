@@ -18,9 +18,7 @@ const AcademSideBar = () => {
   console.log(pathname);
 
   const [collapsed, setCollapsed] = useState(false);
-  const handleToggleSidebar = () => {
-    setCollapsed(!collapsed);
-  };
+
   return (
     <Sidebar backgroundColor="#ffffff" collapsed={collapsed} width="220px">
       <div className="my-8 flex justify-around align-middle items-center m-2 px-2 h-16 ">
