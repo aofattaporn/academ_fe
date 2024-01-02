@@ -1,12 +1,12 @@
 import { Route, Routes } from "react-router-dom";
-import AuthLayout from "./layouts/AuthLayout";
-import HomeLayout from "./layouts/HomeLayout";
 import NotificationPage from "./pages/NotificationPage";
 import MytaskPage from "./pages/MytaskPage";
 import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/AuthPage/SignUpPage";
 import SignInPage from "./pages/AuthPage/SignInPage";
 import ResetPasswordPage from "./pages/AuthPage/ResetPasswordPage";
+import AuthLayout from "./layouts/AuthLayout";
+import HomeLayout from "./layouts/HomeLayout/HomeLayout";
 
 function App() {
   return (

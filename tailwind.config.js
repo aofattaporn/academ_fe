@@ -50,6 +50,7 @@ export default {
           primary_subtle: "#C7C9D9",
           white: "#FFFFFF",
         },
+        main: "#fafafc",
         dark: "#333333",
         grey: "#BDBDBD",
         dark_primary: "#3B2D4C",
