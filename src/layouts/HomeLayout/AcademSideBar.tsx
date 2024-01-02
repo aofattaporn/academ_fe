@@ -1,4 +1,4 @@
-import { IconButton, Divider } from "@mui/material";
+import { IconButton, Divider, Button } from "@mui/material";
 import { useState } from "react";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { Link, useLocation, useParams } from "react-router-dom";
@@ -65,11 +65,19 @@ const AcademSideBar = () => {
           <Divider />
         </div>
 
-        <SubMenu label="CLASS" icon={<ClassIcon />}>
-          <MenuItem>See all ClASS</MenuItem>
+        <SubMenu
+          className="flex-col justify-center align-middle items-center"
+          label="CLASS"
+          icon={<ClassIcon />}
+        >
+          <div className="py-4 px-4 hover:cursor-pointer bg-slate-600 mx-4 my-2 h-8 rounded-md flex items-center align-middle text-white test">
+            See all ClASS
+          </div>
         </SubMenu>
         <SubMenu label="PROJECTS" icon={<FolderIcon />}>
-          <MenuItem>See all Projects</MenuItem>
+          <div className="py-4 px-4 hover:cursor-pointer bg-slate-600 mx-4 my-2 h-8 rounded-md flex items-center align-middle text-white test">
+            See all Projects
+          </div>
         </SubMenu>
       </Menu>
     </Sidebar>

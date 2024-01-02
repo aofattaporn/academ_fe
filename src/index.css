@@ -20,3 +20,12 @@
 body {
   background-color: #fafafc;
 }
+
+.test {
+  background: linear-gradient(
+    90deg,
+    rgba(215, 128, 225, 1) 0%,
+    rgba(174, 120, 214, 1) 59%,
+    rgba(147, 121, 224, 1) 100%
+  );
+}
