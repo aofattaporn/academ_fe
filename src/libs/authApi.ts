@@ -56,7 +56,7 @@ const signUpApi = async (form: SignUpSchema): Promise<SignUpType> => {
       email: form.email,
     };
 
-    const response = await axiosInstance.post("api/sign-up", regiter, {
+    const response = await axiosInstance.post("api/v1/sign-up", regiter, {
       headers: {
         Authorization: `Bearer ${tokenID}`,
         "Content-Type": "application/json",
