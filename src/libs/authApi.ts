@@ -12,11 +12,36 @@ import {
   RESPONSE_TRY_AGAIN_LATHER,
 } from "../types/GenericType";
 import axiosInstance from "./axiosInstance";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 const signInApi = async (form: SignInSchema): Promise<SignInType> => {
-  const response = await axiosInstance.post("api/sign-in", form);
-  return response.data;
+  try {
+    const app = getAuth();
+    const tokenID = await (
+      await signInWithEmailAndPassword(app, form.email, form.password)
+    ).user.getIdToken();
+
+    const response = await axiosInstance.post(
+      "api/sign-in",
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${tokenID}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    const errorStr = error as string;
+    const customErr = checkErrorSignUp(errorStr);
+
+    throw customErr;
+  }
 };
 
 const signUpApi = async (form: SignUpSchema): Promise<SignUpType> => {
