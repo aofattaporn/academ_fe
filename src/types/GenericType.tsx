@@ -4,6 +4,10 @@ export type ResponseCustom<T> = {
   description: string;
   data: T;
 };
+import { ReactNode } from "react";
+import HomeIcon from "@mui/icons-material/Home";
+import TaskIcon from "@mui/icons-material/Task";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 
 export type ErrorCustom = {
   message: string;
@@ -38,3 +42,27 @@ export const RESPONSE_INTERNAL_SERVER_ERROR: HttpResponse =
 export const RESPONSE_AUTH_ERROR = "Firebase Auth Error";
 export const RESPONSE_TRY_AGAIN_LATHER =
   "Some thing when wrong, Please Try Again";
+
+type pageType = {
+  title: string;
+  Icon: ReactNode;
+  navigate: string;
+};
+
+export const pageItem: pageType[] = [
+  {
+    title: "Home",
+    Icon: <HomeIcon />,
+    navigate: "/",
+  },
+  {
+    title: "My Task",
+    Icon: <TaskIcon />,
+    navigate: "/mytask",
+  },
+  {
+    title: "Notification",
+    Icon: <NotificationsIcon />,
+    navigate: "/notification",
+  },
+];
