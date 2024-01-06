@@ -54,7 +54,7 @@ const SignUpPage = () => {
             <Alert severity="error">{mutation.error.description}</Alert>
           ) : null}
           {mutation.isSuccess ? (
-            <Alert severity="success">{mutation.data.email}</Alert>
+            <Alert severity="success">{"SignUp success"}</Alert>
           ) : null}
           <AuthButtonComp title="Get Start" />
           <GoogleButtonComp />

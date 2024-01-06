@@ -1,3 +1,10 @@
+export type ResponseCustom<T> = {
+  status: number;
+  message: string;
+  description: string;
+  data: T;
+};
+
 export type ErrorCustom = {
   message: string;
   description: string;

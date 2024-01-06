@@ -4,6 +4,7 @@ import {
   HTTP_STATUS_UNAUTHORIZED,
   RESPONSE_INTERNAL_SERVER_ERROR,
   RESPONSE_TRY_AGAIN_LATHER,
+  ResponseCustom,
 } from "../types/GenericType";
 
 const baseURL = import.meta.env.VITE_APP_API_BASE_URL;
@@ -16,7 +17,7 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.response.use(
-  (response: AxiosResponse<any>) => {
+  (response: AxiosResponse<ResponseCustom<any>>) => {
     return response;
   },
   (error: AxiosError<ErrorCustom>) => {
