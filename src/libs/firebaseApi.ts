@@ -1,4 +1,8 @@
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import {
   ErrorCustom,
   RESPONSE_AUTH_ERROR,
@@ -10,6 +14,11 @@ const createUser = async (email: string, password: string) => {
   return await createUserWithEmailAndPassword(app, email, password);
 };
 
+const signInUser = async (email: string, password: string) => {
+  const app = getAuth();
+  return await signInWithEmailAndPassword(app, email, password);
+};
+
 const removeUser = async () => {
   const app = getAuth();
   const user = app.currentUser;
@@ -17,6 +26,11 @@ const removeUser = async () => {
   if (user) {
     await user.delete();
   }
+};
+
+const signOutUser = async () => {
+  const app = getAuth();
+  await app.signOut();
 };
 
 const checkError = (errorMsg: string): ErrorCustom | null => {
@@ -46,6 +60,12 @@ const checkError = (errorMsg: string): ErrorCustom | null => {
   }
 };
 
-const firebaseApi = { createUser, checkError, removeUser };
+const firebaseApi = {
+  createUser,
+  signInUser,
+  checkError,
+  removeUser,
+  signOutUser,
+};
 
 export default firebaseApi;
