@@ -7,24 +7,22 @@ import SignInPage from "./pages/AuthPage/SignInPage";
 import ResetPasswordPage from "./pages/AuthPage/ResetPasswordPage";
 import { AuthProvider } from "./layouts/AuthProvider";
 import AuthLayout from "./layouts/AuthLayout";
-import HomeLayout from "./layouts/HomeLayout/HomeLayout";
+import PrivateRoute from "./layouts/PrivateRoute";
 
 function App() {
   return (
-    <AuthProvider>
-      <Routes>
-        <Route element={<AuthLayout />}>
-          <Route path="/sign-in" element={<SignInPage />} />
-          <Route path="/sign-up" element={<SignUpPage />} />
-          <Route path="/reset-password" element={<ResetPasswordPage />} />
-        </Route>
-        <Route element={<HomeLayout />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/mytask" element={<MytaskPage />} />
-          <Route path="/notification" element={<NotificationPage />} />
-        </Route>
-      </Routes>
-    </AuthProvider>
+    <Routes>
+      <Route element={<AuthLayout />}>
+        <Route path="/sign-in" element={<SignInPage />} />
+        <Route path="/sign-up" element={<SignUpPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
+      </Route>
+      <Route element={<PrivateRoute />}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/mytask" element={<MytaskPage />} />
+        <Route path="/notification" element={<NotificationPage />} />
+      </Route>
+    </Routes>
   );
 }
 
