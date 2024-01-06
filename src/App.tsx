@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import NotificationPage from "./pages/NotificationPage";
 import MytaskPage from "./pages/MytaskPage";
-import HomePage from "./pages/HomePage";
+import HomePage from "./pages/HomePage/HomePage";
 import SignUpPage from "./pages/AuthPage/SignUpPage";
 import SignInPage from "./pages/AuthPage/SignInPage";
 import ResetPasswordPage from "./pages/AuthPage/ResetPasswordPage";
