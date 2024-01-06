@@ -5,7 +5,7 @@ import authApi from "../libs/authApi";
 import {
   SignUpRequestType,
   SignUpSchema,
-  signInSchema,
+  signUpSchema,
 } from "../types/AuthType";
 import { ErrorCustom, RESPONSE_AUTH_ERROR } from "../types/GenericType";
 import firebaseApi from "../libs/firebaseApi";
@@ -15,7 +15,7 @@ const useSignUpForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignUpSchema>({ resolver: zodResolver(signInSchema) });
+  } = useForm<SignUpSchema>({ resolver: zodResolver(signUpSchema) });
 
   const signUpHandler = async (data: SignUpSchema) => {
     try {
