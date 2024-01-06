@@ -6,7 +6,7 @@ const signInApi = async (
   tokenID: string
 ): Promise<ResponseCustom<SignInType>> => {
   const response = await axiosInstance.post(
-    "api/sign-in",
+    "api/v1/sign-in",
     {},
     {
       headers: {
