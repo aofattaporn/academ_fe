@@ -2,14 +2,29 @@ import moment from "moment";
 
 const DASH_DMY = "D MMMM YYYY";
 const DateTimeHomePage = moment().format(DASH_DMY);
+let Greeting = "Have a good day";
 
 const HomePage = () => {
+  const currentHour = new Date().getHours();
+
+  if (currentHour >= 5 && currentHour < 12) {
+    Greeting = "Good Morning";
+  } else if (currentHour >= 12 && currentHour < 18) {
+    Greeting = "Good Afternoon";
+  } else if (currentHour >= 18 && currentHour < 21) {
+    Greeting = "Good Evening";
+  } else if (currentHour >= 21 && currentHour < 5) {
+    Greeting = "Good Night";
+  } else {
+    Greeting = "Have a good day";
+  }
+
   return (
     <div className="w-full h-full bg-main">
       <div className="w-full h-12 bg-primary-light"></div>
       <div className="flex justify-center p-16">
         <div className="flex flex-col items-center">
-          <h1 className="font-bold text-4xl text-dark">Good Morning</h1>
+          <h1 className="font-bold text-4xl text-dark">{Greeting}</h1>
           <h3 className="font-bold text-xl text-grey">{DateTimeHomePage}</h3>
         </div>
       </div>
