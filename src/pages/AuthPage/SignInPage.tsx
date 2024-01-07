@@ -1,7 +1,7 @@
 import TextFieldComp from "../../components/TextFieldComp";
 import AuthButtonComp from "../../components/Button/AuthButtonComp";
 import GoogleButtonComp from "../../components/Button/GoogleButtonComp";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { labels, placeholders } from "../../types/AuthType";
 import { Alert } from "@mui/material";
 import useSignInForm from "../../hooks/useSignInForm";
@@ -9,6 +9,8 @@ import useSignInForm from "../../hooks/useSignInForm";
 const SignInPage = () => {
   const { handleSubmit, register, errors, onSubmit, mutation } =
     useSignInForm();
+
+  if (mutation.isSuccess) return <Navigate to={"/"} />;
 
   return (
     <div>
