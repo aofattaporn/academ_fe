@@ -1,5 +1,5 @@
 import SearchIcon from "@mui/icons-material/Search";
-import { Avatar } from "@mui/material";
+import { Avatar, Button } from "@mui/material";
 import { getAuth, signOut } from "firebase/auth";
 
 function AcademNaveBar() {
@@ -14,7 +14,7 @@ function AcademNaveBar() {
         <SearchIcon className="text-gray-400" />
       </div>
       <div className="flex justify-end" onClick={handleLogOut}>
-        <Avatar alt="Attaporn" src="/static/images/avatar/1.jpg" />
+        <button className="text-white font-roboto font-bold ">LogOut</button>
       </div>
     </div>
   );
