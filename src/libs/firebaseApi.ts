@@ -44,6 +44,7 @@ const checkError = (errorMsg: string): ErrorCustom | null => {
     "auth/invalid-email": "The email address is not valid.",
     "auth/operation-not-allowed": "Operation not allowed.",
     "auth/weak-password": "The password is too weak.",
+    "auth/invalid-credential": "Email or Password incorrect",
   };
 
   const errorCode = Object.keys(authErrorMap).find((code) => {
