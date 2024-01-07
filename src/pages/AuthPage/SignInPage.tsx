@@ -2,12 +2,23 @@ import TextFieldComp from "../../components/TextFieldComp";
 import AuthButtonComp from "../../components/Button/AuthButtonComp";
 import { Link, Navigate } from "react-router-dom";
 import { labels, placeholders } from "../../types/AuthType";
-import { Alert } from "@mui/material";
+import { Alert, Backdrop } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 import useSignInForm from "../../hooks/useSignInForm";
 
 const SignInPage = () => {
   const { handleSubmit, register, errors, onSubmit, mutation } =
     useSignInForm();
+
+  if (mutation.isLoading)
+    return (
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    );
 
   if (mutation.isSuccess) return <Navigate to={"/"} />;
 
@@ -54,7 +65,12 @@ const SignInPage = () => {
       </form>
 
       <div className="w-full flex justify-center m-4">
-        <Link to={"/sign-up"}>SignUp Page</Link>
+        <p>
+          Dont have a account? go to{" "}
+          <Link className="font-bold" to={"/sign-up"}>
+            SignUp
+          </Link>
+        </p>
       </div>
     </div>
   );
