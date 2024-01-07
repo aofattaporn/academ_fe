@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import TextFieldComp from "../../components/TextFieldComp";
 import AuthButtonComp from "../../components/Button/AuthButtonComp";
-import GoogleButtonComp from "../../components/Button/GoogleButtonComp";
 import { labels, placeholders } from "../../types/AuthType";
 import { Alert } from "@mui/material";
 import useSignUpForm from "../../hooks/useSignUpForm";
@@ -57,7 +56,6 @@ const SignUpPage = () => {
             <Alert severity="success">{"SignUp success"}</Alert>
           ) : null}
           <AuthButtonComp title="Get Start" />
-          <GoogleButtonComp />
         </div>
       </form>
 

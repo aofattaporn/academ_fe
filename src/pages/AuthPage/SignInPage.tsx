@@ -1,6 +1,5 @@
 import TextFieldComp from "../../components/TextFieldComp";
 import AuthButtonComp from "../../components/Button/AuthButtonComp";
-import GoogleButtonComp from "../../components/Button/GoogleButtonComp";
 import { Link, Navigate } from "react-router-dom";
 import { labels, placeholders } from "../../types/AuthType";
 import { Alert } from "@mui/material";
@@ -50,11 +49,7 @@ const SignInPage = () => {
           {mutation.isError ? (
             <Alert severity="error">{mutation.error.description}</Alert>
           ) : null}
-          {mutation.isSuccess ? (
-            <Alert severity="success">{mutation.data.email}</Alert>
-          ) : null}
           <AuthButtonComp title="Get Start" />
-          <GoogleButtonComp />
         </div>
       </form>
 
