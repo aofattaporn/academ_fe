@@ -1,14 +1,23 @@
 import { Link } from "react-router-dom";
 import TextFieldComp from "../../components/TextFieldComp";
 import AuthButtonComp from "../../components/Button/AuthButtonComp";
-import GoogleButtonComp from "../../components/Button/GoogleButtonComp";
 import { labels, placeholders } from "../../types/AuthType";
-import { Alert } from "@mui/material";
+import { Alert, Backdrop, CircularProgress } from "@mui/material";
 import useSignUpForm from "../../hooks/useSignUpForm";
 
 const SignUpPage = () => {
   const { handleSubmit, onSubmit, register, errors, mutation } =
     useSignUpForm();
+
+  if (mutation.isLoading)
+    return (
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    );
 
   return (
     <div>
@@ -53,13 +62,20 @@ const SignUpPage = () => {
           {mutation.isError ? (
             <Alert severity="error">{mutation.error.description}</Alert>
           ) : null}
+          {mutation.isSuccess ? (
+            <Alert severity="success">{"SignUp success"}</Alert>
+          ) : null}
           <AuthButtonComp title="Get Start" />
-          <GoogleButtonComp />
         </div>
       </form>
 
       <div className=" w-full flex justify-center m-4">
-        <Link to={"/sign-in"}>SignIn Page</Link>
+        <p>
+          Don't have an account?{" "}
+          <Link className="font-bold" to="/sign-in">
+            Sign In
+          </Link>
+        </p>
       </div>
     </div>
   );

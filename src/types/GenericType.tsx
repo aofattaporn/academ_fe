@@ -1,3 +1,9 @@
+export type ResponseCustom<T> = {
+  status: number;
+  message: string;
+  description: string;
+  data: T;
+};
 import { ReactNode } from "react";
 import HomeIcon from "@mui/icons-material/Home";
 import TaskIcon from "@mui/icons-material/Task";
@@ -33,7 +39,7 @@ export const RESPONSE_FORBIDDEN: HttpResponse = "Forbidden";
 export const RESPONSE_NOT_FOUND: HttpResponse = "Not Found";
 export const RESPONSE_INTERNAL_SERVER_ERROR: HttpResponse =
   "Internal Server Error";
-
+export const RESPONSE_AUTH_ERROR = "Firebase Auth Error";
 export const RESPONSE_TRY_AGAIN_LATHER =
   "Some thing when wrong, Please Try Again";
 
