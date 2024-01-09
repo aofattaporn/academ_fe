@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import TextFieldComp from "../../components/TextFieldComp";
 import AuthButtonComp from "../../components/Button/AuthButtonComp";
 import { labels, placeholders } from "../../types/AuthType";
@@ -18,6 +18,8 @@ const SignUpPage = () => {
         <CircularProgress color="inherit" />
       </Backdrop>
     );
+
+  if (mutation.isSuccess) return <Navigate to={"/verify-email"} replace />;
 
   return (
     <div>

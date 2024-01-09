@@ -7,6 +7,7 @@ import SignInPage from "./pages/AuthPage/SignInPage";
 import ResetPasswordPage from "./pages/AuthPage/ResetPasswordPage";
 import PrivateRoute from "./layouts/PrivateRoute";
 import PublicRoute from "./layouts/PublicRoute";
+import VerifyEmailPage from "./pages/AuthPage/VerifyEmailPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/sign-in" element={<SignInPage />} />
         <Route path="/sign-up" element={<SignUpPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route path="/verify-email" element={<VerifyEmailPage />} />
       </Route>
       <Route element={<PrivateRoute />}>
         <Route path="/" element={<HomePage />} />
