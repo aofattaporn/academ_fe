@@ -1,17 +1,16 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import AuthButtonComp from "../../components/Button/AuthButtonComp";
 import { getAuth } from "firebase/auth";
 
 const VerifyEmailPage = () => {
   const app = getAuth();
-  const navigate = useNavigate();
   const user = app.currentUser;
 
   const handleVerifyClick = () => {
     window.location.href = "mailto:";
   };
 
-  if (!user) navigate(-1);
+  if (!user) <Navigate to={"/"} />;
 
   return (
     <div className="w-6/6 md:w-3/6">

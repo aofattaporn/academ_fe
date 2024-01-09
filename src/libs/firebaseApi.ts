@@ -4,6 +4,7 @@ import {
   getAuth,
   sendEmailVerification,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import {
   EMAIL_DID_NOT_VERIFY,
@@ -15,6 +16,11 @@ import {
 const createUser = async (email: string, password: string) => {
   const app = getAuth();
   return await createUserWithEmailAndPassword(app, email, password);
+};
+
+const resetPasswordByEmail = async (email: string) => {
+  const app = getAuth();
+  return await sendPasswordResetEmail(app, email);
 };
 
 const sendVerifyEmail = async (user: User) => {
@@ -85,6 +91,7 @@ const firebaseApi = {
   removeUser,
   signOutUser,
   sendVerifyEmail,
+  resetPasswordByEmail,
 };
 
 export default firebaseApi;

@@ -8,6 +8,7 @@ import ResetPasswordPage from "./pages/AuthPage/ResetPasswordPage";
 import PrivateRoute from "./layouts/PrivateRoute";
 import PublicRoute from "./layouts/PublicRoute";
 import VerifyEmailPage from "./pages/AuthPage/VerifyEmailPage";
+import ForgotPasswordPage from "./pages/AuthPage/ForgotPasswordPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/sign-up" element={<SignUpPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/verify-email" element={<VerifyEmailPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       </Route>
       <Route element={<PrivateRoute />}>
         <Route path="/" element={<HomePage />} />
