@@ -1,6 +1,8 @@
 import {
+  User,
   createUserWithEmailAndPassword,
   getAuth,
+  sendEmailVerification,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import {
@@ -12,6 +14,10 @@ import {
 const createUser = async (email: string, password: string) => {
   const app = getAuth();
   return await createUserWithEmailAndPassword(app, email, password);
+};
+
+const sendVerifyEmail = async (user: User) => {
+  return await sendEmailVerification(user);
 };
 
 const signInUser = async (email: string, password: string) => {
@@ -67,6 +73,7 @@ const firebaseApi = {
   checkError,
   removeUser,
   signOutUser,
+  sendVerifyEmail,
 };
 
 export default firebaseApi;
