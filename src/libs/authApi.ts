@@ -1,5 +1,6 @@
-import { SignInType, SignUpRequestType } from "../types/AuthType";
+import { SignInType } from "../types/AuthType";
 import { ResponseCustom } from "../types/GenericType";
+import { UserType } from "../types/UserType";
 import axiosInstance from "./axiosInstance";
 
 const signInApi = async (
@@ -18,10 +19,7 @@ const signInApi = async (
   return response.data;
 };
 
-const signUpApi = async (
-  form: SignUpRequestType,
-  token: string
-): Promise<null> => {
+const signUpApi = async (form: UserType, token: string): Promise<null> => {
   const response = await axiosInstance.post("api/v1/sign-up", form, {
     headers: {
       Authorization: `Bearer ${token}`,

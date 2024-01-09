@@ -48,9 +48,4 @@ export type SignUpType = {
   password: string;
 };
 
-export type SignUpRequestType = {
-  fullName: string;
-  email: string;
-};
-
 export type SignUpSchema = z.infer<typeof signUpSchema>;
