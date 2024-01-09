@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import {
+  EMAIL_DID_NOT_VERIFY,
   ErrorCustom,
   RESPONSE_AUTH_ERROR,
   RESPONSE_TRY_AGAIN_LATHER,
@@ -22,7 +23,17 @@ const sendVerifyEmail = async (user: User) => {
 
 const signInUser = async (email: string, password: string) => {
   const app = getAuth();
-  return await signInWithEmailAndPassword(app, email, password);
+  const credential = await signInWithEmailAndPassword(app, email, password);
+
+  if (!credential.user.emailVerified) {
+    const customErr: ErrorCustom = {
+      message: RESPONSE_AUTH_ERROR,
+      description: EMAIL_DID_NOT_VERIFY,
+    };
+    throw customErr;
+  }
+
+  return credential;
 };
 
 const removeUser = async () => {

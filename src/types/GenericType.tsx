@@ -43,6 +43,8 @@ export const RESPONSE_AUTH_ERROR = "Firebase Auth Error";
 export const RESPONSE_TRY_AGAIN_LATHER =
   "Some thing when wrong, Please Try Again";
 
+export const EMAIL_DID_NOT_VERIFY = "Email didn't verify";
+
 type pageType = {
   title: string;
   Icon: ReactNode;
