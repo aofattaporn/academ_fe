@@ -67,9 +67,11 @@ function ForgotPasswordPage() {
         <div className="flex-col space-y-4">
           <AuthButtonComp title="Request reset links" />
         </div>
-        <div className="flex justify-center text-primary-light">
-          <p>Already send !!!</p>
-        </div>
+        {mutation.isSuccess && (
+          <div className="flex justify-center text-primary-light">
+            <p>Already send !!!</p>
+          </div>
+        )}
       </form>
       <div className="w-full flex justify-center m-4">
         <p>
