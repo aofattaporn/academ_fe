@@ -4,4 +4,4 @@ import authMock from "./authMock";
 
 export const worker = setupWorker(...handlers);
 
-worker.use(authMock.signUp_success);
+worker.use(authMock.signIn_success);

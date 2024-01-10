@@ -1,46 +1,12 @@
 import { Link } from "react-router-dom";
 import AuthButtonComp from "../../components/Button/AuthButtonComp";
 import TextFieldComp from "../../components/TextFieldComp";
-import {
-  ForgotSchema,
-  forgotSchema,
-  labels,
-  placeholders,
-} from "../../types/AuthType";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "react-query";
-import firebaseApi from "../../libs/firebaseApi";
-import { RESPONSE_AUTH_ERROR } from "../../types/GenericType";
+import { placeholders } from "../../types/AuthType";
+import useForgotForm from "../../hooks/useForgotForm";
 
 function ForgotPasswordPage() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ForgotSchema>({ resolver: zodResolver(forgotSchema) });
-
-  const forgotPasswordSubmit = async (data: ForgotSchema) => {
-    try {
-      await firebaseApi.resetPasswordByEmail(data.email);
-    } catch (error) {
-      const errorMsg: string = (error as string).toString();
-      const customError = await firebaseApi.checkError(errorMsg.toString());
-
-      if (customError && customError.message === RESPONSE_AUTH_ERROR) {
-        throw customError;
-      } else {
-        await firebaseApi.signOutUser();
-        throw error;
-      }
-    }
-  };
-
-  const mutation = useMutation({
-    mutationFn: forgotPasswordSubmit,
-  });
-
-  const onSubmit: SubmitHandler<ForgotSchema> = (data) => mutation.mutate(data);
+  const { handleSubmit, register, errors, onSubmit, mutation } =
+    useForgotForm();
 
   return (
     <div className="w-6/6 md:w-3/6">

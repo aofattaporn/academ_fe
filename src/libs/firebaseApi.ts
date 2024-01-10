@@ -38,8 +38,6 @@ const signInUser = async (email: string, password: string) => {
     };
     throw customErr;
   }
-
-  return credential;
 };
 
 const removeUser = async () => {
