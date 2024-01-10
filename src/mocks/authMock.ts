@@ -30,8 +30,15 @@ const signUp_failed_email_existing = http.post("/api/v1/sign-up", () => {
 });
 
 // sign-in mocking
-
 const signIn_success = http.post("/api/v1/sign-in", () => {
+  const mockRes: SignInType = {
+    email: "example@mcok.com",
+    password: "12345678",
+  };
+  return HttpResponse.json(mockRes, { status: 200 });
+});
+
+const signIn_google_success = http.post("/api/v1/sign-in/google", () => {
   const mockRes: SignInType = {
     email: "example@mcok.com",
     password: "12345678",
@@ -56,6 +63,7 @@ export const authMock = {
   signUp_failed_internal_error,
   signUp_failed_email_existing,
   signIn_success,
+  signIn_google_success,
   signIn_failed_internal_error,
   signIn_failed_form_incrrect,
 };

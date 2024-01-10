@@ -5,6 +5,7 @@ import { labels, placeholders } from "../../types/AuthType";
 import { Alert, Backdrop } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import useSignInForm from "../../hooks/useSignInForm";
+import GoogleButtonComp from "../../components/Button/GoogleButtonComp";
 
 const SignInPage = () => {
   const { handleSubmit, register, errors, onSubmit, mutation } =
@@ -61,6 +62,7 @@ const SignInPage = () => {
             <Alert severity="error">{mutation.error.description}</Alert>
           ) : null}
           <AuthButtonComp title="Get Start" />
+          <GoogleButtonComp />
         </div>
       </form>
 
