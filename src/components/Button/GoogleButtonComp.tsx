@@ -1,6 +1,12 @@
 import { Button } from "@mui/material";
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  getAuth,
+  getRedirectResult,
+  signInWithRedirect,
+} from "firebase/auth";
 import authApi from "../../libs/authApi";
+import GoogleIcon from "../../assets/svg/google_logo.svg";
 
 const GoogleButtonComp = () => {
   const auth = getAuth();
@@ -11,11 +17,14 @@ const GoogleButtonComp = () => {
       const provider = new GoogleAuthProvider();
       provider.setCustomParameters({ prompt: "select_account" });
 
-      const credential = await signInWithPopup(auth, provider);
-      const token = await credential.user.getIdToken(true);
+      await signInWithRedirect(auth, provider);
+      const credential = await getRedirectResult(auth);
+      const token = await credential?.user.getIdToken(true);
 
       // request to backend
-      await authApi.signInWithGoogle(token);
+      if (token) {
+        await authApi.signInWithGoogle(token);
+      }
     } catch (error) {
       throw error;
     }
@@ -26,13 +35,14 @@ const GoogleButtonComp = () => {
       <Button
         fullWidth
         onClick={handleSignInGoogle}
-        className="shadow-md normal-case"
+        className="shadow-md normal-case flex gap-4"
         sx={{
           textTransform: "capitalize",
           color: "#004FC4",
         }}
       >
-        Continue with Google
+        <img src={GoogleIcon} alt="academ-icon" height={200} width={20} />
+        <p> Continue with Google</p>
       </Button>
     </div>
   );
