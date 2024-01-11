@@ -1,5 +1,4 @@
 import SearchIcon from "@mui/icons-material/Search";
-import { Avatar, Button } from "@mui/material";
 import { getAuth, signOut } from "firebase/auth";
 
 function AcademNaveBar() {
