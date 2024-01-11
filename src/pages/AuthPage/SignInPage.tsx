@@ -27,7 +27,7 @@ const SignInPage = () => {
     <div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-white py-12 px-24 rounded-md flex-col space-y-7 align-middle justify-center shadow-md"
+        className="bg-main md:bg-white py-12 px-24 rounded-md flex-col space-y-7 align-middle justify-center md:shadow-md"
       >
         <div className="flex justify-center w-[492px]">
           <h1 className="text-3xl font-semibold">Welcome back !</h1>
