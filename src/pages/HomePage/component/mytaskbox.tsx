@@ -2,9 +2,20 @@ import { useQuery } from "react-query";
 import homeApi from "../../../libs/homeApi";
 
 const MytaskBox = () => {
-  const { isLoading, isError, data, error } = useQuery("queryKey", async () =>
-    homeApi.mytaskApi("user_id")
-  );
+  const { isLoading, isError, data, error } = useQuery("queryKey", async () => {
+    try {
+      const result = await homeApi.mytaskApi("user_id");
+      console.log("API Response:", result);
+      return result;
+    } catch (error) {
+      console.error("API Error:", error);
+      throw error;
+    }
+  });
+  console.log("MytaskBox isLoading:", isLoading);
+  console.log("MytaskBox isError:", isError);
+  console.log("MytaskBox data:", data);
+
   if (isLoading) {
     return (
       <div className="h-96 p-4 shadow-xl rounded-xl animate-pulse bg-gray-200"></div>
@@ -43,13 +54,15 @@ const MytaskBox = () => {
       <div className="p-2">
         <h2 className="text-black font-bold text-xl">Tasks</h2>
       </div>
-      <div className="h-4/5 bg-main rounded-xl grid grid-cols-2 place-content-start">
-        <div className="w-24 bg-primary rounded-xl grid place-content-center">
-          <p className="text-black font-medium text-base">{data?.taskName}</p>
-        </div>
-        <div>
-          <p className="text-black font-medium text-base">{data?.taskName}</p>
-          <p className="text-grey font-normal text-sm">{data?.taskId}</p>
+      <div className="h-4/5 bg-main rounded-xl grid grid-cols-1 place-content-start">
+        <div className="w-full h-16 mt-6 flex flex-row">
+          <div className="w-20 bg-primary rounded-xl grid place-content-center ml-4">
+            <p className="text-black font-bold text-base">{data?.taskName}</p>
+          </div>
+          <div className="grid content-center ml-6">
+            <p className="text-black font-medium text-base">{data?.taskName}</p>
+            <p className="text-grey font-normal text-sm">{data?.taskId}</p>
+          </div>
         </div>
       </div>
     </div>

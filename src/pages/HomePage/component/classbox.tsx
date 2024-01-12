@@ -43,13 +43,17 @@ const ClassBox = () => {
       <div className="p-2">
         <h2 className="text-black font-bold text-xl">Class</h2>
       </div>
-      <div className="h-4/5 bg-main rounded-xl grid grid-cols-2 place-content-start">
-        <div className="w-24 bg-primary rounded-xl grid place-content-center">
-          <p className="text-black font-medium text-base">{data?.className}</p>
-        </div>
-        <div>
-          <p className="text-black font-medium text-base">{data?.className}</p>
-          <p className="text-grey font-normal text-sm">{data?.classId}</p>
+      <div className="h-4/5 bg-main rounded-xl grid grid-cols-1 place-content-start">
+        <div className="w-full h-16 mt-6 flex flex-row">
+          <div className="w-20 bg-primary rounded-xl grid place-content-center ml-4">
+            <p className="text-black font-bold text-base">{data?.className}</p>
+          </div>
+          <div className="grid content-center ml-6">
+            <p className="text-black font-medium text-base">
+              {data?.className}
+            </p>
+            <p className="text-grey font-normal text-sm">{data?.classId}</p>
+          </div>
         </div>
       </div>
     </div>
