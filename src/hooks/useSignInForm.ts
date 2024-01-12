@@ -1,8 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "react-query";
-import authApi from "../libs/authApi";
-import { SignInSchema, signInSchema, SignInType } from "../types/AuthType";
+import { SignInSchema, signInSchema } from "../types/AuthType";
 import { ErrorCustom, RESPONSE_AUTH_ERROR } from "../types/GenericType";
 import firebaseApi from "../libs/firebaseApi";
 

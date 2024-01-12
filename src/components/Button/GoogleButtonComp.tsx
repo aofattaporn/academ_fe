@@ -7,6 +7,8 @@ import {
 } from "firebase/auth";
 import authApi from "../../libs/authApi";
 import GoogleIcon from "../../assets/svg/google_logo.svg";
+import firebaseApi from "../../libs/firebaseApi";
+import { RESPONSE_AUTH_ERROR } from "../../types/GenericType";
 
 const GoogleButtonComp = () => {
   const auth = getAuth();
@@ -26,7 +28,15 @@ const GoogleButtonComp = () => {
         await authApi.signInWithGoogle(token);
       }
     } catch (error) {
-      throw error;
+      const errorMsg: string = (error as string).toString();
+      const customError = await firebaseApi.checkError(errorMsg.toString());
+
+      if (customError && customError.message === RESPONSE_AUTH_ERROR) {
+        throw customError;
+      } else {
+        await firebaseApi.signOutUser();
+        throw error;
+      }
     }
   };
 
