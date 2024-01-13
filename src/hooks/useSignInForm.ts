@@ -4,6 +4,7 @@ import { useMutation } from "react-query";
 import { SignInSchema, signInSchema } from "../types/AuthType";
 import { ErrorCustom, RESPONSE_AUTH_ERROR } from "../types/GenericType";
 import firebaseApi from "../libs/firebaseApi";
+import authApi from "../libs/authApi";
 
 // Custom hook for the sign-in form logic
 const useSignInForm = () => {
@@ -15,7 +16,8 @@ const useSignInForm = () => {
 
   const signInHander = async (data: SignInSchema) => {
     try {
-      await firebaseApi.signInUser(data.email, data.password);
+      const tokenID = await firebaseApi.signInUser(data.email, data.password);
+      await authApi.signInApi(tokenID);
     } catch (error) {
       const errorMsg: string = (error as string).toString();
       const customError = await firebaseApi.checkError(errorMsg.toString());

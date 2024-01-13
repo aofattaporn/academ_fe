@@ -30,8 +30,11 @@ const signUpApi = async (form: UserType, token: string): Promise<null> => {
   return response.data;
 };
 
-const signInWithGoogle = async (token: string): Promise<null> => {
-  const response = await axiosInstance.post("api/v1/sign-in/google", {
+const signInWithGoogle = async (
+  form: UserType,
+  token: string
+): Promise<null> => {
+  const response = await axiosInstance.post("api/v1/sign-in/google", form, {
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",

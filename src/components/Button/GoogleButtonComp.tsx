@@ -9,28 +9,21 @@ import authApi from "../../libs/authApi";
 import GoogleIcon from "../../assets/svg/google_logo.svg";
 import firebaseApi from "../../libs/firebaseApi";
 import { RESPONSE_AUTH_ERROR } from "../../types/GenericType";
+import { UserType } from "../../types/UserType";
+import { useEffect } from "react";
 
 const GoogleButtonComp = () => {
   const auth = getAuth();
 
   const handleSignInGoogle = async (): Promise<void> => {
     try {
-      // request to google providder
       const provider = new GoogleAuthProvider();
       provider.setCustomParameters({ prompt: "select_account" });
 
       await signInWithRedirect(auth, provider);
-      const credential = await getRedirectResult(auth);
-      const token = await credential?.user.getIdToken(true);
-
-      // request to backend
-      if (token) {
-        await authApi.signInWithGoogle(token);
-      }
     } catch (error) {
       const errorMsg: string = (error as string).toString();
-      const customError = await firebaseApi.checkError(errorMsg.toString());
-
+      const customError = await firebaseApi.checkError(errorMsg);
       if (customError && customError.message === RESPONSE_AUTH_ERROR) {
         throw customError;
       } else {
@@ -39,6 +32,24 @@ const GoogleButtonComp = () => {
       }
     }
   };
+
+  const handleCheck = async () => {
+    const credential = await getRedirectResult(auth);
+
+    if (credential) {
+      const newUser: UserType = {
+        fullName: credential.user.email as string,
+        email: credential.user.email as string,
+      };
+
+      const token = await credential.user.getIdToken();
+      await authApi.signInWithGoogle(newUser, token);
+    }
+  };
+
+  useEffect(() => {
+    handleCheck();
+  }, []);
 
   return (
     <div className="w-full flex justify-center">

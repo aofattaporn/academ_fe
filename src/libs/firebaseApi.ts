@@ -27,9 +27,10 @@ const sendVerifyEmail = async (user: User) => {
   return await sendEmailVerification(user);
 };
 
-const signInUser = async (email: string, password: string) => {
+const signInUser = async (email: string, password: string): Promise<string> => {
   const app = getAuth();
   const credential = await signInWithEmailAndPassword(app, email, password);
+  const tokenID = await credential.user.getIdToken();
 
   if (!credential.user.emailVerified) {
     const customErr: ErrorCustom = {
@@ -38,6 +39,8 @@ const signInUser = async (email: string, password: string) => {
     };
     throw customErr;
   }
+
+  return tokenID;
 };
 
 const removeUser = async () => {
