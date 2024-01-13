@@ -45,9 +45,9 @@ const ProjectBox = () => {
       </div>
       <div className="h-4/5 bg-main rounded-xl grid grid-cols-1 place-content-start">
         <div className="w-full h-16 mt-6 flex flex-row">
-          <div className="w-20 bg-primary rounded-xl grid place-content-center ml-4">
-            <p className="text-black font-bold text-base">
-              {data?.projectName}
+          <div className="w-16 bg-primary rounded-xl grid place-content-center ml-4">
+            <p className="text-black font-bold text-2xl">
+              {data?.projectName.charAt(0)}
             </p>
           </div>
           <div className="grid content-center ml-6">

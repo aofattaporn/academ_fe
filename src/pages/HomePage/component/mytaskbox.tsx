@@ -2,19 +2,9 @@ import { useQuery } from "react-query";
 import homeApi from "../../../libs/homeApi";
 
 const MytaskBox = () => {
-  const { isLoading, isError, data, error } = useQuery("queryKey", async () => {
-    try {
-      const result = await homeApi.mytaskApi("user_id");
-      console.log("API Response:", result);
-      return result;
-    } catch (error) {
-      console.error("API Error:", error);
-      throw error;
-    }
-  });
-  console.log("MytaskBox isLoading:", isLoading);
-  console.log("MytaskBox isError:", isError);
-  console.log("MytaskBox data:", data);
+  const { isLoading, isError, data, error } = useQuery("qloKey", async () =>
+    homeApi.mytaskApi("user_id")
+  );
 
   if (isLoading) {
     return (
@@ -56,8 +46,10 @@ const MytaskBox = () => {
       </div>
       <div className="h-4/5 bg-main rounded-xl grid grid-cols-1 place-content-start">
         <div className="w-full h-16 mt-6 flex flex-row">
-          <div className="w-20 bg-primary rounded-xl grid place-content-center ml-4">
-            <p className="text-black font-bold text-base">{data?.taskName}</p>
+          <div className="w-16 bg-primary rounded-xl grid place-content-center ml-4">
+            <p className="text-black font-bold text-2xl">
+              {data?.taskName.charAt(0)}
+            </p>
           </div>
           <div className="grid content-center ml-6">
             <p className="text-black font-medium text-base">{data?.taskName}</p>
