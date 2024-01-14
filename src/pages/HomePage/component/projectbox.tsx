@@ -39,23 +39,24 @@ const ProjectBox = () => {
   }
 
   return (
-    <div className="h-96 p-4 bg-background-white shadow-xl rounded-xl">
+    <div className="p-4 bg-background-white shadow-xl rounded-xl">
       <div className="p-2">
-        <h2 className="text-black font-bold text-xl">Project</h2>
-      </div>
-      <div className="h-4/5 bg-main rounded-xl grid grid-cols-1 place-content-start">
-        <div className="w-full h-16 mt-6 flex flex-row">
-          <div className="w-16 bg-primary rounded-xl grid place-content-center ml-4">
-            <p className="text-black font-bold text-2xl">
-              {data?.projectName.charAt(0)}
-            </p>
-          </div>
-          <div className="grid content-center ml-6">
-            <p className="text-black font-medium text-base">
-              {data?.projectName}
-            </p>
-            <p className="text-grey font-normal text-sm">{data?.projectId}</p>
-          </div>
+        <h2 className="text-black font-bold text-xl my-2">Project</h2>
+        <div className="rounded-xl grid grid-cols-1 lg:grid-cols-2 gap-4 place-content-start bg-main p-4">
+          {data.map((item) => (
+            <div className="flex align-middl items-center gap-4 p-2 cursor-pointer">
+              <div className="bg-primary w-16 h-16 rounded-md flex justify-center items-center text-center shadow-md">
+                <p className="text-white text-center font-bold text-2xl">
+                  {item.projectName.charAt(0)}
+                </p>
+              </div>
+
+              <div>
+                <h4 className="font-semibold my-1">{item.projectName}</h4>
+                <p className="text-gray-300">{item.projectId}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
