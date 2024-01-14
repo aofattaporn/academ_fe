@@ -2,7 +2,6 @@ import { HttpResponse, http } from "msw";
 import {
   EMAIL_ALREADY_EXISTING,
   EMAIL_PASSWORD_INCORRECT,
-  SignInType,
 } from "../types/AuthType";
 import { RESPONSE_UNAUTHORIZED, ResponseCustom } from "../types/GenericType";
 
@@ -31,27 +30,19 @@ const signUpFailedEmailExisting = http.post("/api/v1/sign-up", () => {
 
 // sign-in mocking
 const signInSuccess = http.post("/api/v1/sign-in", () => {
-  const mockRes: ResponseCustom<SignInType> = {
+  const mockRes: ResponseCustom<null> = {
     status: 200,
     message: "Success",
     description: "SignUp Seccess",
-    data: {
-      email: "example@mcok.com",
-      password: "12345678",
-    },
   };
   return HttpResponse.json(mockRes, { status: 200 });
 });
 
 const signInGoogleSuccess = http.post("/api/v1/sign-in/google", () => {
-  const mockRes: ResponseCustom<SignInType> = {
+  const mockRes: ResponseCustom<null> = {
     status: 200,
     message: "Success",
     description: "SignUp Seccess",
-    data: {
-      email: "example@mcok.com",
-      password: "12345678",
-    },
   };
   return HttpResponse.json(mockRes, { status: 200 });
 });
@@ -61,7 +52,7 @@ const signInFailedInternalError = http.post("/api/v1/sign-in", () =>
 );
 
 const signInFailedFormIncrrect = http.post("/api/v1/sign-in", () => {
-  const mockRes: ResponseCustom<SignInType> = {
+  const mockRes: ResponseCustom<null> = {
     status: 200,
     message: RESPONSE_UNAUTHORIZED,
     description: EMAIL_PASSWORD_INCORRECT,
