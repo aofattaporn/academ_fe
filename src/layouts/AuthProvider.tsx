@@ -8,6 +8,7 @@ import {
 } from "react";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { auth } from "../Firebase";
+import { Backdrop, CircularProgress } from "@mui/material";
 
 interface AuthContextProps {
   user: User | null;
@@ -15,11 +16,23 @@ interface AuthContextProps {
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
+const AuthLoading = () => {
+  return (
+    <Backdrop
+      sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      open
+    >
+      <CircularProgress color="inherit" />
+    </Backdrop>
+  );
+};
+
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
       setLoading(false);
@@ -32,7 +45,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {!loading ? children : <AuthLoading />}
     </AuthContext.Provider>
   );
 };

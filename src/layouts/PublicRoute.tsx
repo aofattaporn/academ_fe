@@ -5,7 +5,7 @@ import { useAuth } from "./AuthProvider";
 const PublicRoute = () => {
   const { user } = useAuth();
 
-  return !user ? <AuthLayout /> : <Navigate to="/" />;
+  return !user?.emailVerified ? <AuthLayout /> : <Navigate to="/" />;
 };
 
 export default PublicRoute;

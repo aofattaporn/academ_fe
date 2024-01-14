@@ -5,6 +5,7 @@ import { labels, placeholders } from "../../types/AuthType";
 import { Alert, Backdrop } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import useSignInForm from "../../hooks/useSignInForm";
+import GoogleButtonComp from "../../components/Button/GoogleButtonComp";
 
 const SignInPage = () => {
   const { handleSubmit, register, errors, onSubmit, mutation } =
@@ -26,7 +27,7 @@ const SignInPage = () => {
     <div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-white py-12 px-24 rounded-md flex-col space-y-7 align-middle justify-center shadow-md"
+        className="bg-main md:bg-white py-12 px-24 rounded-md flex-col space-y-7 align-middle justify-center md:shadow-md"
       >
         <div className="flex justify-center w-[492px]">
           <h1 className="text-3xl font-semibold">Welcome back !</h1>
@@ -61,6 +62,7 @@ const SignInPage = () => {
             <Alert severity="error">{mutation.error.description}</Alert>
           ) : null}
           <AuthButtonComp title="Get Start" />
+          <GoogleButtonComp />
         </div>
       </form>
 

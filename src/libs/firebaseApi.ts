@@ -1,9 +1,13 @@
 import {
+  User,
   createUserWithEmailAndPassword,
   getAuth,
+  sendEmailVerification,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import {
+  EMAIL_DID_NOT_VERIFY,
   ErrorCustom,
   RESPONSE_AUTH_ERROR,
   RESPONSE_TRY_AGAIN_LATHER,
@@ -14,9 +18,29 @@ const createUser = async (email: string, password: string) => {
   return await createUserWithEmailAndPassword(app, email, password);
 };
 
-const signInUser = async (email: string, password: string) => {
+const resetPasswordByEmail = async (email: string) => {
   const app = getAuth();
-  return await signInWithEmailAndPassword(app, email, password);
+  return await sendPasswordResetEmail(app, email);
+};
+
+const sendVerifyEmail = async (user: User) => {
+  return await sendEmailVerification(user);
+};
+
+const signInUser = async (email: string, password: string): Promise<string> => {
+  const app = getAuth();
+  const credential = await signInWithEmailAndPassword(app, email, password);
+  const tokenID = await credential.user.getIdToken();
+
+  if (!credential.user.emailVerified) {
+    const customErr: ErrorCustom = {
+      message: RESPONSE_AUTH_ERROR,
+      description: EMAIL_DID_NOT_VERIFY,
+    };
+    throw customErr;
+  }
+
+  return tokenID;
 };
 
 const removeUser = async () => {
@@ -67,6 +91,8 @@ const firebaseApi = {
   checkError,
   removeUser,
   signOutUser,
+  sendVerifyEmail,
+  resetPasswordByEmail,
 };
 
 export default firebaseApi;

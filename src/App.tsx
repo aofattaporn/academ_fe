@@ -4,9 +4,10 @@ import MytaskPage from "./pages/MytaskPage";
 import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/AuthPage/SignUpPage";
 import SignInPage from "./pages/AuthPage/SignInPage";
-import ResetPasswordPage from "./pages/AuthPage/ResetPasswordPage";
 import PrivateRoute from "./layouts/PrivateRoute";
 import PublicRoute from "./layouts/PublicRoute";
+import VerifyEmailPage from "./pages/AuthPage/VerifyEmailPage";
+import ForgotPasswordPage from "./pages/AuthPage/ForgotPasswordPage";
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
       <Route element={<PublicRoute />}>
         <Route path="/sign-in" element={<SignInPage />} />
         <Route path="/sign-up" element={<SignUpPage />} />
-        <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route path="/verify-email" element={<VerifyEmailPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       </Route>
       <Route element={<PrivateRoute />}>
         <Route path="/" element={<HomePage />} />

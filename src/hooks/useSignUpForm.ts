@@ -2,13 +2,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useMutation } from "react-query";
 import authApi from "../libs/authApi";
-import {
-  SignUpRequestType,
-  SignUpSchema,
-  signUpSchema,
-} from "../types/AuthType";
+import { SignUpSchema, signUpSchema } from "../types/AuthType";
 import { ErrorCustom, RESPONSE_AUTH_ERROR } from "../types/GenericType";
 import firebaseApi from "../libs/firebaseApi";
+import { UserType } from "../types/UserType";
 
 const useSignUpForm = () => {
   const {
@@ -24,13 +21,15 @@ const useSignUpForm = () => {
         data.password
       );
       const tokenID = await userCredential.user.getIdToken();
+      await firebaseApi.signOutUser();
 
-      const registerData: SignUpRequestType = {
+      const form: UserType = {
         fullName: data.fullName,
         email: data.email,
       };
 
-      await authApi.signUpApi(registerData, tokenID);
+      await authApi.signUpApi(form, tokenID);
+      await firebaseApi.sendVerifyEmail(userCredential.user);
     } catch (error) {
       const errorMsg: string = (error as string).toString();
       const customError = await firebaseApi.checkError(errorMsg.toString());

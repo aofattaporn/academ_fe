@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import TextFieldComp from "../../components/TextFieldComp";
 import AuthButtonComp from "../../components/Button/AuthButtonComp";
 import { labels, placeholders } from "../../types/AuthType";
 import { Alert, Backdrop, CircularProgress } from "@mui/material";
 import useSignUpForm from "../../hooks/useSignUpForm";
+import GoogleButtonComp from "../../components/Button/GoogleButtonComp";
 
 const SignUpPage = () => {
   const { handleSubmit, onSubmit, register, errors, mutation } =
@@ -19,11 +20,13 @@ const SignUpPage = () => {
       </Backdrop>
     );
 
+  if (mutation.isSuccess) return <Navigate to={"/verify-email"} replace />;
+
   return (
     <div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-white py-12 px-24 rounded-md flex-col space-y-7 align-middle justify-center shadow-md"
+        className="bg-main md:bg-white py-12 px-24 rounded-md flex-col space-y-7 align-middle justify-center md:shadow-md"
       >
         <div className="flex justify-center w-[492px]">
           <h1 className="text-3xl font-semibold">Let go!</h1>
@@ -66,6 +69,7 @@ const SignUpPage = () => {
             <Alert severity="success">{"SignUp success"}</Alert>
           ) : null}
           <AuthButtonComp title="Get Start" />
+          <GoogleButtonComp />
         </div>
       </form>
 

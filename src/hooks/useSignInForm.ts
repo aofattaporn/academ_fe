@@ -1,10 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "react-query";
-import authApi from "../libs/authApi";
-import { SignInSchema, signInSchema, SignInType } from "../types/AuthType";
+import { SignInSchema, signInSchema } from "../types/AuthType";
 import { ErrorCustom, RESPONSE_AUTH_ERROR } from "../types/GenericType";
 import firebaseApi from "../libs/firebaseApi";
+import authApi from "../libs/authApi";
 
 // Custom hook for the sign-in form logic
 const useSignInForm = () => {
@@ -16,11 +16,7 @@ const useSignInForm = () => {
 
   const signInHander = async (data: SignInSchema) => {
     try {
-      const userCredential = await firebaseApi.signInUser(
-        data.email,
-        data.password
-      );
-      const tokenID = await userCredential.user.getIdToken();
+      const tokenID = await firebaseApi.signInUser(data.email, data.password);
       await authApi.signInApi(tokenID);
     } catch (error) {
       const errorMsg: string = (error as string).toString();

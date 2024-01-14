@@ -12,7 +12,7 @@ import { UseFormRegisterReturn } from "react-hook-form";
 
 type TextFieldCompProps = {
   inputId: string;
-  label: string;
+  label?: string;
   placeholder: string;
   errors?: string;
   isPassword: boolean;

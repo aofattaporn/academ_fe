@@ -48,9 +48,16 @@ export type SignUpType = {
   password: string;
 };
 
-export type SignUpRequestType = {
-  fullName: string;
+export type SignUpSchema = z.infer<typeof signUpSchema>;
+
+// SignUp Type Declaration
+
+export const forgotSchema = z.object({
+  email: z.string().email({ message: errorMessages.invalidEmailFormat }),
+});
+
+export type ForgotType = {
   email: string;
 };
 
-export type SignUpSchema = z.infer<typeof signUpSchema>;
+export type ForgotSchema = z.infer<typeof forgotSchema>;

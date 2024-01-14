@@ -5,7 +5,7 @@ import HomeLayout from "./HomeLayout/HomeLayout";
 const PrivateRoute = () => {
   const { user } = useAuth();
 
-  return user ? <HomeLayout /> : <Navigate to="/sign-in" />;
+  return user?.emailVerified ? <HomeLayout /> : <Navigate to="/sign-in" />;
 };
 
 export default PrivateRoute;
