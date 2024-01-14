@@ -1,17 +1,62 @@
 import SearchIcon from "@mui/icons-material/Search";
-import { Avatar } from "@mui/material";
+import { Box, IconButton, Avatar, Menu, MenuItem } from "@mui/material";
+import { getAuth, signOut } from "firebase/auth";
+import { MouseEvent, ReactElement, useState } from "react";
 
-function AcademNaveBar() {
+const settings: string[] = ["Profile", "Account", "Logout"];
+
+function AcademNaveBar(): ReactElement {
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+
+  const handleOpenUserMenu = (event: MouseEvent<HTMLButtonElement>): void => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = (): void => {
+    setAnchorElUser(null);
+  };
+
+  const handleLogOut = async (): Promise<void> => {
+    const auth = getAuth();
+    await signOut(auth);
+  };
+
   return (
     <div className="grid grid-cols-3 items-center static bg-primary-dark p-1 px-12">
       <div className="md:col-start-2 md:col-end-3 col-span-2 h-8 bg-white flex justify-between items-center rounded-3xl hover:cursor-pointer px-8">
         <p className="text-gray-400">Search Bar</p>
         <SearchIcon className="text-gray-400" />
       </div>
-      <div className="flex justify-end ">
-        <Avatar alt="Attaporn" src="/static/images/avatar/1.jpg" />
+      <div className="flex justify-end items-center">
+        <Box>
+          <IconButton onClick={handleOpenUserMenu}>
+            <Avatar
+              src="/path-to-avatar-image.jpg"
+              alt={"Attaporn"}
+              sx={{ width: 32, height: 32 }}
+            />
+          </IconButton>
+          <Menu
+            anchorEl={anchorElUser}
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+          >
+            {settings.map((setting, index) => (
+              <MenuItem
+                key={index}
+                onClick={
+                  setting === "Logout" ? handleLogOut : handleCloseUserMenu
+                }
+                className={setting === "Logout" ? "text-error" : ""}
+              >
+                {setting}
+              </MenuItem>
+            ))}
+          </Menu>
+        </Box>
       </div>
     </div>
   );
 }
+
 export default AcademNaveBar;

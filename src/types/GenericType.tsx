@@ -1,3 +1,9 @@
+export type ResponseCustom<T> = {
+  status: number;
+  message: string;
+  description: string;
+  data?: T;
+};
 import { ReactNode } from "react";
 import HomeIcon from "@mui/icons-material/Home";
 import TaskIcon from "@mui/icons-material/Task";
@@ -8,7 +14,7 @@ export type ErrorCustom = {
   description: string;
 };
 
-export type HttpStatus = 200 | 201 | 400 | 401 | 500;
+export type HttpStatus = 200 | 201 | 400 | 401 | 403 | 404 | 408 | 500;
 
 export type HttpResponse =
   | "OK"
@@ -22,7 +28,10 @@ export type HttpResponse =
 export const HTTP_STATUS_OK: HttpStatus = 200;
 export const HTTP_STATUS_CREATED: HttpStatus = 201;
 export const HTTP_STATUS_BAD_REQUEST: HttpStatus = 400;
+export const HTTP_STATUS_NOT_FOUND: HttpStatus = 404;
 export const HTTP_STATUS_UNAUTHORIZED: HttpStatus = 401;
+export const HTTP_STATUS_FORBIDDEN: HttpStatus = 403;
+export const HTTP_STATUS_REQUES_TIME_OUT: HttpStatus = 408;
 export const HTTP_STATUS_INTERNAL_SERVER_ERROR: HttpStatus = 500;
 
 export const RESPONSE_OK: HttpResponse = "OK";
@@ -33,9 +42,11 @@ export const RESPONSE_FORBIDDEN: HttpResponse = "Forbidden";
 export const RESPONSE_NOT_FOUND: HttpResponse = "Not Found";
 export const RESPONSE_INTERNAL_SERVER_ERROR: HttpResponse =
   "Internal Server Error";
-
+export const RESPONSE_AUTH_ERROR = "Firebase Auth Error";
 export const RESPONSE_TRY_AGAIN_LATHER =
   "Some thing when wrong, Please Try Again";
+
+export const EMAIL_DID_NOT_VERIFY = "Email didn't verify";
 
 type pageType = {
   title: string;

@@ -4,19 +4,21 @@ import MytaskPage from "./pages/MytaskPage";
 import HomePage from "./pages/HomePage/HomePage";
 import SignUpPage from "./pages/AuthPage/SignUpPage";
 import SignInPage from "./pages/AuthPage/SignInPage";
-import ResetPasswordPage from "./pages/AuthPage/ResetPasswordPage";
-import AuthLayout from "./layouts/AuthLayout";
-import HomeLayout from "./layouts/HomeLayout/HomeLayout";
+import PrivateRoute from "./layouts/PrivateRoute";
+import PublicRoute from "./layouts/PublicRoute";
+import VerifyEmailPage from "./pages/AuthPage/VerifyEmailPage";
+import ForgotPasswordPage from "./pages/AuthPage/ForgotPasswordPage";
 
 function App() {
   return (
     <Routes>
-      <Route element={<AuthLayout />}>
+      <Route element={<PublicRoute />}>
         <Route path="/sign-in" element={<SignInPage />} />
         <Route path="/sign-up" element={<SignUpPage />} />
-        <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route path="/verify-email" element={<VerifyEmailPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       </Route>
-      <Route element={<HomeLayout />}>
+      <Route element={<PrivateRoute />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/mytask" element={<MytaskPage />} />
         <Route path="/notification" element={<NotificationPage />} />

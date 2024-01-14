@@ -49,3 +49,15 @@ export type SignUpType = {
 };
 
 export type SignUpSchema = z.infer<typeof signUpSchema>;
+
+// SignUp Type Declaration
+
+export const forgotSchema = z.object({
+  email: z.string().email({ message: errorMessages.invalidEmailFormat }),
+});
+
+export type ForgotType = {
+  email: string;
+};
+
+export type ForgotSchema = z.infer<typeof forgotSchema>;

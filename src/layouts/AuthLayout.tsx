@@ -23,7 +23,7 @@ const AuthLayout = () => {
       >
         <Toolbar>
           <div className="flex items-center gap-8">
-            <img src={AcademIcon} alt="Your SVG" height={200} width={45} />
+            <img src={AcademIcon} alt="academ-icon" height={200} width={45} />
             <h1 className="text-dark font-bold text-2xl">Academ</h1>
           </div>
         </Toolbar>
