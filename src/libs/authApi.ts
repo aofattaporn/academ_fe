@@ -3,11 +3,15 @@ import { UserType } from "../types/UserType";
 import axiosInstance from "./axiosInstance";
 
 const signInApi = async (tokenID: string): Promise<ResponseCustom<null>> => {
-  const response = await axiosInstance.post("api/v1/sign-in", {
-    headers: {
-      Authorization: `Bearer ${tokenID}`,
-    },
-  });
+  const response = await axiosInstance.post(
+    "api/v1/sign-in",
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${tokenID}`,
+      },
+    }
+  );
   return response.data;
 };
 
