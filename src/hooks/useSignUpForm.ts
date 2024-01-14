@@ -21,13 +21,14 @@ const useSignUpForm = () => {
         data.password
       );
       const tokenID = await userCredential.user.getIdToken();
+      await firebaseApi.signOutUser();
 
-      const registerData: UserType = {
+      const form: UserType = {
         fullName: data.fullName,
         email: data.email,
       };
 
-      await authApi.signUpApi(registerData, tokenID);
+      await authApi.signUpApi(form, tokenID);
       await firebaseApi.sendVerifyEmail(userCredential.user);
     } catch (error) {
       const errorMsg: string = (error as string).toString();

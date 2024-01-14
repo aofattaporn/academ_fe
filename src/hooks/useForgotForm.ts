@@ -5,7 +5,6 @@ import firebaseApi from "../libs/firebaseApi";
 import { ForgotSchema, forgotSchema } from "../types/AuthType";
 import { RESPONSE_AUTH_ERROR } from "../types/GenericType";
 
-// Custom hook for the sign-in form logic
 const useForgotForm = () => {
   const {
     register,

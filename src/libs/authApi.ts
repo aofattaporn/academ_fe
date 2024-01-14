@@ -1,11 +1,8 @@
-import { SignInType } from "../types/AuthType";
 import { ResponseCustom } from "../types/GenericType";
 import { UserType } from "../types/UserType";
 import axiosInstance from "./axiosInstance";
 
-const signInApi = async (
-  tokenID: string
-): Promise<ResponseCustom<SignInType>> => {
+const signInApi = async (tokenID: string): Promise<ResponseCustom<null>> => {
   const response = await axiosInstance.post("api/v1/sign-in", {
     headers: {
       Authorization: `Bearer ${tokenID}`,
@@ -30,7 +27,7 @@ const signUpApi = async (
 const signInWithGoogle = async (
   form: UserType,
   token: string
-): Promise<ResponseCustom<UserType>> => {
+): Promise<ResponseCustom<null>> => {
   const response = await axiosInstance.post("api/v1/sign-in/google", form, {
     headers: {
       Authorization: `Bearer ${token}`,
