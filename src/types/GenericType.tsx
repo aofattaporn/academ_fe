@@ -14,7 +14,7 @@ export type ErrorCustom = {
   description: string;
 };
 
-export type HttpStatus = 200 | 201 | 400 | 401 | 500;
+export type HttpStatus = 200 | 201 | 400 | 401 | 403 | 404 | 408 | 500;
 
 export type HttpResponse =
   | "OK"
@@ -28,7 +28,10 @@ export type HttpResponse =
 export const HTTP_STATUS_OK: HttpStatus = 200;
 export const HTTP_STATUS_CREATED: HttpStatus = 201;
 export const HTTP_STATUS_BAD_REQUEST: HttpStatus = 400;
+export const HTTP_STATUS_NOT_FOUND: HttpStatus = 404;
 export const HTTP_STATUS_UNAUTHORIZED: HttpStatus = 401;
+export const HTTP_STATUS_FORBIDDEN: HttpStatus = 403;
+export const HTTP_STATUS_REQUES_TIME_OUT: HttpStatus = 408;
 export const HTTP_STATUS_INTERNAL_SERVER_ERROR: HttpStatus = 500;
 
 export const RESPONSE_OK: HttpResponse = "OK";
