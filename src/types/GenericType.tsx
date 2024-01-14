@@ -2,7 +2,7 @@ export type ResponseCustom<T> = {
   status: number;
   message: string;
   description: string;
-  data: T;
+  data?: T;
 };
 import { ReactNode } from "react";
 import HomeIcon from "@mui/icons-material/Home";
