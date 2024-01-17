@@ -26,9 +26,16 @@ const project_succes = http.get("/api/v1/project/:userid", () => {
 });
 
 const class_succes = http.get("/api/v1/class/:userid", () => {
-  const mockRes: ClassType = {
-    className: "Software Engineer",
-    classId: "123",
+  const mockRes: ResponseCustom<ClassType[]> = {
+    status: 200,
+    message: "Success",
+    description: "Get Class Homepage Success",
+    data:[
+      {
+        className: "Software Engineer",
+        classId: "123",
+      }
+    ]
   };
   return HttpResponse.json(mockRes, { status: 200 });
 });
