@@ -44,18 +44,21 @@ const MytaskBox = () => {
       <div className="p-2">
         <h2 className="text-black font-bold text-xl">Tasks</h2>
       </div>
-      <div className="h-4/5 bg-main rounded-xl grid grid-cols-1 place-content-start">
-        <div className="w-full h-16 mt-6 flex flex-row">
+      <div className="h-4/5 bg-main rounded-xl grid grid-cols-1 md:grid-cols-2 gap-2 place-content-start">
+      {data.map(function(data){
+          return <div className="w-full h-16 mt-6 flex flex-row">
           <div className="w-16 bg-primary rounded-xl grid place-content-center ml-4">
-            <p className="text-black font-bold text-2xl">
-              {/* {data?.taskName.charAt(0)} */}
-            </p>
+            <p
+            className="text-white text-center font-bold text-2xl">{data.taskName.charAt(0)}</p>
           </div>
           <div className="grid content-center ml-6">
-            <p className="text-black font-medium text-base">{data?.taskName}</p>
-            <p className="text-grey font-normal text-sm">{data?.taskId}</p>
+            <p className="font-semibold my-1">
+              {data.taskName}
+            </p>
+            <p className="text-gray-300">{data.taskId}</p>
           </div>
         </div>
+        })}
       </div>
     </div>
   );

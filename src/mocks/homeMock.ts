@@ -33,15 +33,15 @@ const class_succes = http.get("/api/v1/class/:userid", () => {
     data:[
       {
         className: "Software Engineer",
-        classId: "123",
+        classId: "CSS 333",
       },
       {
         className: "Start Up",
-        classId: "333",
+        classId: "CSS 495",
       },
       {
         className: "Cooking",
-        classId: "201",
+        classId: "GEN 201",
       }
     ]
   };
@@ -49,9 +49,25 @@ const class_succes = http.get("/api/v1/class/:userid", () => {
 });
 
 const mytask_succes = http.get("/api/v1/tasks/:userid", () => {
-  const mockRes: MytaskType = {
-    taskName: "Homepage Academ",
-    taskId: "1112",
+  const mockRes: ResponseCustom<MytaskType[]> = {
+    status: 200,
+    message: "Success",
+    description: "Get Tasks Homepage Success",
+    data:[
+      {
+        taskName: "Homepage Academ",
+        taskId: "1112",
+      },
+      {
+        taskName: "Classpage Academ",
+        taskId: "11547",
+      },
+      {
+        taskName: "Taskspage Academ",
+        taskId: "12354",
+      }
+    ]
+  
   };
   return HttpResponse.json(mockRes, { status: 200 });
 });
