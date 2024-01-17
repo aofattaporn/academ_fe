@@ -34,6 +34,14 @@ const class_succes = http.get("/api/v1/class/:userid", () => {
       {
         className: "Software Engineer",
         classId: "123",
+      },
+      {
+        className: "Start Up",
+        classId: "333",
+      },
+      {
+        className: "Cooking",
+        classId: "201",
       }
     ]
   };

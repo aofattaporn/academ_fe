@@ -8,7 +8,7 @@ const projectApi = async (user_id: string): Promise<ProjectType[]> => {
 
 const classApi = async (user_id: string): Promise<ClassType[]> => {
   const response = await axiosInstance.get(`api/v1/class/${user_id}`);
-  return response.data;
+  return response.data.data;
 };
 
 const mytaskApi = async (user_id: string): Promise<MytaskType> => {
