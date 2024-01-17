@@ -1,13 +1,12 @@
 // sum.test.js
 import { QueryClient, QueryClientProvider } from "react-query";
-import { renderHook, act, waitFor } from "@testing-library/react-hooks";
+import { renderHook, act } from "@testing-library/react-hooks";
 import { describe, it, expect, beforeAll, afterEach, afterAll } from "vitest";
 import { ReactNode } from "react";
-import useSignInForm from "../../hooks/useSignInForm";
 import useSignUpForm from "../../hooks/useSignUpForm";
 import authMock from "../../mocks/authMock";
 import { server } from "../../mocks/server";
-import { SignInSchema, SignUpSchema } from "../../types/AuthType";
+import { SignUpSchema } from "../../types/AuthType";
 import { AuthProvider } from "../../layouts/AuthProvider";
 import { deleteUser, getAuth } from "firebase/auth";
 
@@ -32,7 +31,7 @@ describe("auth component", () => {
 
     it("onSubmit: sign-up success", async () => {
       // Given
-      server.use(authMock.signUp_success);
+      server.use(authMock.signInSuccess);
       const { result, waitFor } = await renderHook(() => useSignUpForm(), {
         wrapper,
       });
