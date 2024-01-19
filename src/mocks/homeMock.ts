@@ -57,14 +57,20 @@ const mytask_succes = http.get("/api/v1/tasks/:userid", () => {
       {
         taskName: "Homepage Academ",
         taskId: "1112",
+        taskDuedate: "14 Dec",
+        taskFromproject: "Academ",
       },
       {
         taskName: "Classpage Academ",
         taskId: "11547",
+        taskDuedate: "16 Dec",
+        taskFromproject: "Academ",
       },
       {
         taskName: "Taskspage Academ",
         taskId: "12354",
+        taskDuedate: "15 Dec",
+        taskFromproject: "Academ",
       }
     ]
   

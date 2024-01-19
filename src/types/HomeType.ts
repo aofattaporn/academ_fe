@@ -11,4 +11,6 @@ export type ClassType = {
 export type MytaskType  = {
   taskName: string;
   taskId: string;
+  taskDuedate: string;
+  taskFromproject: string;
 };
