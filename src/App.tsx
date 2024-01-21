@@ -8,6 +8,7 @@ import PrivateRoute from "./layouts/PrivateRoute";
 import PublicRoute from "./layouts/PublicRoute";
 import VerifyEmailPage from "./pages/AuthPage/VerifyEmailPage";
 import ForgotPasswordPage from "./pages/AuthPage/ForgotPasswordPage";
+import ProjectPage from "./pages/ProjectPage/ProjectPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/mytask" element={<MytaskPage />} />
         <Route path="/notification" element={<NotificationPage />} />
+        <Route path="/projects" element={<ProjectPage />} />
       </Route>
     </Routes>
   );

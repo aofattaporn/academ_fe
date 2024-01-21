@@ -69,7 +69,9 @@ const AcademSideBar = () => {
         </SubMenu>
         <SubMenu label="PROJECTS" icon={<FolderIcon />}>
           <div className="py-4 px-4 hover:cursor-pointer bg-slate-600 mx-4 my-2 h-8 rounded-md flex items-center align-middle text-white test">
-            See all Projects
+            <Link to={"/projects"} replace>
+              See all Projects
+            </Link>
           </div>
         </SubMenu>
       </Menu>
