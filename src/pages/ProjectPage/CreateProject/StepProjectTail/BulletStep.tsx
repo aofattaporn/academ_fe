@@ -8,30 +8,15 @@ const ButtletStep = () => {
 
   return (
     <div className="mt-6 flex justify-center gap-4">
-      <div
-        onClick={() => dispatch(selectStep(Number(1 || 0)))}
-        className={`rounded-full w-3 h-3 ${
-          step >= 1 ? "bg-primary" : "bg-gray-200"
-        }`}
-      ></div>
-      <div
-        onClick={() => dispatch(selectStep(Number(2 || 0)))}
-        className={`rounded-full w-3 h-3 ${
-          step >= 2 ? "bg-primary" : "bg-gray-200"
-        }`}
-      ></div>
-      <div
-        onClick={() => dispatch(selectStep(Number(3 || 0)))}
-        className={`rounded-full w-3 h-3 ${
-          step >= 3 ? "bg-primary" : "bg-gray-200"
-        }`}
-      ></div>
-      <div
-        onClick={() => dispatch(selectStep(Number(4 || 0)))}
-        className={`rounded-full w-3 h-3 ${
-          step >= 4 ? "bg-primary" : "bg-gray-200"
-        }`}
-      ></div>
+      {[1, 2, 3, 4].map((index) => (
+        <div
+          key={index}
+          onClick={() => dispatch(selectStep(index))}
+          className={`rounded-full w-3 h-3 cursor-pointer ${
+            step >= index ? "bg-primary" : "bg-gray-200"
+          }`}
+        ></div>
+      ))}
     </div>
   );
 };
