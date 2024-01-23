@@ -3,25 +3,19 @@ import StepProjectHeader from "../StepProjectHeader/StepProjectHeader";
 
 type StepSettingViewsProps = {
   title: string;
-  handleClose: () => void;
-  handleChange: () => void;
 };
-function StepSettingViews({
-  title,
-  handleClose,
-  handleChange,
-}: StepSettingViewsProps) {
+function StepSettingViews({ title }: StepSettingViewsProps) {
   return (
     <>
-      <StepProjectHeader title={title} handleClose={handleClose} />
+      <StepProjectHeader title={title} />
 
       <div className="bg-main mt-6 p-8"></div>
 
-      <div className="bg-main mt-6" onClick={handleChange}>
+      <div className="bg-main mt-6">
         <CreateProjectButtonComp
           title="Next"
           disable={false}
-          handleChange={handleChange}
+          handleChange={() => {}}
         />
       </div>
     </>
