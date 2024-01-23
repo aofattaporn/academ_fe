@@ -47,7 +47,7 @@ const MytaskBox = () => {
       <div className="h-4/5 bg-main rounded-xl grid grid-cols-1 place-content-start place-items-center">
         {data.map(function (data) {
           return (
-            <div className="w-11/12 h-9 bg-background-white shadow-xl rounded-lg mt-4 flex flex-row justify-between">
+            <div className="w-11/12 h-9 bg-background-white shadow rounded-lg mt-4 flex flex-row justify-between">
               <div className="grid content-center ml-6">
                 <p className="font-semibold my-1">{data.taskName}</p>
               </div>
