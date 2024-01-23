@@ -1,14 +1,11 @@
 import { Backdrop, IconButton } from "@mui/material";
 import QueueIcon from "@mui/icons-material/Queue";
-import StepAddName from "./StepProject/StepAddName";
-import StepSettingViews from "./StepProject/StepSettingViews";
-import ButtletStep from "./BulletStep/ButtletStep";
+import StepAddName from "./StepProjecBody/StepAddName";
+import StepSettingViews from "./StepProjecBody/StepSettingViews";
+import ButtletStep from "./StepProjectTail/BulletStep";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../stores/store";
-import {
-  openModal,
-  reset,
-} from "../../../stores/createProject/createProjectSlice";
+import { openModal } from "../../../stores/createProject/createProjectSlice";
 
 const CreateProject = () => {
   const dispatch = useDispatch();
