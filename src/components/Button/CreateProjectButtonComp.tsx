@@ -31,7 +31,12 @@ const CreateProjectButtonComp = ({
 }: CreateProjectButtonProps) => {
   return (
     <div className="w-full flex justify-center">
-      <CreateProjectButton type="submit" fullWidth disabled={disable}>
+      <CreateProjectButton
+        type="submit"
+        fullWidth
+        disabled={disable}
+        onClick={handleChange}
+      >
         {title}
       </CreateProjectButton>
     </div>

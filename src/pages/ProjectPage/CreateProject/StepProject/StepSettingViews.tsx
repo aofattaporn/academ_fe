@@ -1,23 +1,19 @@
-import { IconButton } from "@mui/material";
 import CreateProjectButtonComp from "../../../../components/Button/CreateProjectButtonComp";
-import CloseIcon from "@mui/icons-material/Close";
+import StepProjectHeader from "../StepProjectHeader/StepProjectHeader";
 
 type StepSettingViewsProps = {
+  title: string;
   handleClose: () => void;
   handleChange: () => void;
 };
 function StepSettingViews({
+  title,
   handleClose,
   handleChange,
 }: StepSettingViewsProps) {
   return (
     <>
-      <div className="flex justify-between items-center">
-        <h1 className="text-dark font-bold text-xl">Project Name</h1>
-        <IconButton onClick={handleClose}>
-          <CloseIcon />
-        </IconButton>
-      </div>
+      <StepProjectHeader title={title} handleClose={handleClose} />
 
       <div className="bg-main mt-6 p-8"></div>
 

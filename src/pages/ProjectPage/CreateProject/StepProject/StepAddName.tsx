@@ -1,14 +1,19 @@
-import { IconButton, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import CreateProjectButtonComp from "../../../../components/Button/CreateProjectButtonComp";
 import { useState } from "react";
-import CloseIcon from "@mui/icons-material/Close";
+import StepProjectHeader from "../StepProjectHeader/StepProjectHeader";
 
 type StepAddNameProps = {
+  title: string;
   handleClose: () => void;
   handleChange: () => void;
 };
 
-const StepAddName = ({ handleClose, handleChange }: StepAddNameProps) => {
+const StepAddName = ({
+  title,
+  handleClose,
+  handleChange,
+}: StepAddNameProps) => {
   const [nameProject, setNameProject] = useState<String>("");
 
   const handleNameProject = (nameProject: String) => {
@@ -17,12 +22,7 @@ const StepAddName = ({ handleClose, handleChange }: StepAddNameProps) => {
 
   return (
     <>
-      <div className="flex justify-between items-center">
-        <h1 className="text-dark font-bold text-xl">Project Name</h1>
-        <IconButton onClick={handleClose}>
-          <CloseIcon />
-        </IconButton>
-      </div>
+      <StepProjectHeader title={title} handleClose={handleClose} />
 
       <div className="bg-main mt-6 p-8">
         <div className="flex gap-4">
@@ -57,7 +57,7 @@ const StepAddName = ({ handleClose, handleChange }: StepAddNameProps) => {
         </div>
       </div>
 
-      <div className="bg-main mt-6" onClick={handleChange}>
+      <div className="bg-main mt-6">
         <CreateProjectButtonComp
           title="Next"
           disable={nameProject ? false : true}
