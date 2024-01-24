@@ -33,15 +33,15 @@ const StepAddName = ({ title }: StepAddNameProps) => {
           <div>
             <p className="text-sm text-grey mb-2">Colors</p>
             <div className="flex gap-2">
-              <div className="rounded-full bg-gray-200 w-4 h-4"></div>
-              <div className="rounded-full bg-gray-200 w-4 h-4"></div>
-              <div className="rounded-full bg-gray-200 w-4 h-4"></div>
-              <div className="rounded-full bg-gray-200 w-4 h-4"></div>
-              <div className="rounded-full bg-gray-200 w-4 h-4"></div>
-              <div className="rounded-full bg-gray-200 w-4 h-4"></div>
-              <div className="rounded-full bg-gray-200 w-4 h-4"></div>
-              <div className="rounded-full bg-gray-200 w-4 h-4"></div>
-              <div className="rounded-full bg-gray-200 w-4 h-4"></div>
+              <div className="rounded-full bg-[#AF8AE2] w-4 h-4"></div>
+              <div className="rounded-full bg-[#6985FF] w-4 h-4"></div>
+              <div className="rounded-full bg-[#6985FF] w-4 h-4"></div>
+              <div className="rounded-full bg-[#3FB1B2] w-4 h-4"></div>
+              <div className="rounded-full bg-[#64C7A2] w-4 h-4"></div>
+              <div className="rounded-full bg-[#FABE34] w-4 h-4"></div>
+              <div className="rounded-full bg-[#E78945] w-4 h-4"></div>
+              <div className="rounded-full bg-[#DD646A] w-4 h-4"></div>
+              <div className="rounded-full bg-[#BDBDBD] w-4 h-4"></div>
             </div>
           </div>
         </div>

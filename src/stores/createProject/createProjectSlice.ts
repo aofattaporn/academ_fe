@@ -6,6 +6,7 @@ export interface CounterState {
   step: number;
   currentStep: number;
   projectName: string;
+  views: string[];
 }
 
 const initialState: CounterState = {
@@ -13,6 +14,7 @@ const initialState: CounterState = {
   step: 1,
   currentStep: 1,
   projectName: "",
+  views: [],
 };
 
 export const createProjectSlice = createSlice({
@@ -37,10 +39,27 @@ export const createProjectSlice = createSlice({
     openModal: (state) => {
       state.isOpen = true;
     },
+    addViews: (state, action: PayloadAction<string>) => {
+      state.views.push(action.payload);
+    },
+    removeViews: (state, action: PayloadAction<string>) => {
+      const index = state.views.indexOf(action.payload);
+      if (index !== -1) {
+        state.views.splice(index, 1);
+      }
+    },
+
+    // TODO:  select all
   },
 });
 
-export const { increment, selectStep, setProjectName, reset, openModal } =
-  createProjectSlice.actions;
+export const {
+  increment,
+  selectStep,
+  setProjectName,
+  reset,
+  openModal,
+  addViews,
+} = createProjectSlice.actions;
 
 export default createProjectSlice.reducer;
