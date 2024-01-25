@@ -106,6 +106,7 @@ const StepShareInvite = () => {
         </div>
 
         <EmailItem email="thunyathep2544@gmail.com" role="Owner" />
+        <EmailItem email="thunyathep2544@gmail.com" role="Owner" />
       </div>
       <div className="bg-main mt-6">
         <CreateProjectButtonComp
