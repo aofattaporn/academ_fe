@@ -6,7 +6,7 @@ import {
   reset,
   selectStep,
 } from "../../stores/createProject/createProjectSlice";
-import CreateModalComp from "../../components/CreateModalComp";
+import CreateModalComp from "../../components/CreateModal/CreateModalComp";
 import { RootState } from "../../stores/store";
 import { stepCreateProject } from "../../types/ProjectType";
 

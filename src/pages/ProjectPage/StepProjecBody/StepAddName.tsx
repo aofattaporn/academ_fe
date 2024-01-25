@@ -1,11 +1,11 @@
 import { TextField } from "@mui/material";
-import CreateProjectButtonComp from "../../../../components/Button/CreateProjectButtonComp";
+import CreateProjectButtonComp from "../../../components/Button/CreateProjectButtonComp";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../../../stores/store";
+import { RootState } from "../../../stores/store";
 import {
   increment,
   setProjectName,
-} from "../../../../stores/createProject/createProjectSlice";
+} from "../../../stores/createProject/createProjectSlice";
 
 const StepAddName = () => {
   const projectName = useSelector(

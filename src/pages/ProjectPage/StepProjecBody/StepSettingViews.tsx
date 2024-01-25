@@ -1,7 +1,7 @@
-import CreateProjectButtonComp from "../../../../components/Button/CreateProjectButtonComp";
+import CreateProjectButtonComp from "../../../components/Button/CreateProjectButtonComp";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import CheckBox from "./CheckBox/CheckBox";
-import { views } from "../../../../types/ProjectType";
+import { views } from "../../../types/ProjectType";
 
 function StepSettingViews() {
   return (

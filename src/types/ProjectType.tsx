@@ -5,9 +5,9 @@ import ListIcon from "@mui/icons-material/List";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ViewTimelineIcon from "@mui/icons-material/ViewTimeline";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-import StepAddName from "../pages/ProjectPage/CreateProject/StepProjecBody/StepAddName";
-import StepSettingViews from "../pages/ProjectPage/CreateProject/StepProjecBody/StepSettingViews";
-import StepOverview from "../pages/ProjectPage/CreateProject/StepProjecBody/StepOverview";
+import StepAddName from "../pages/ProjectPage/StepProjecBody/StepAddName";
+import StepSettingViews from "../pages/ProjectPage/StepProjecBody/StepSettingViews";
+import StepOverview from "../pages/ProjectPage/StepProjecBody/StepOverview";
 
 type Views = {
   name: string;

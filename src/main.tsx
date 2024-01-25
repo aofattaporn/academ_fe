@@ -7,7 +7,7 @@ import "./index.css";
 import { AuthProvider } from "./layouts/AuthProvider.tsx";
 import { store } from "./stores/store.ts";
 import { Provider } from "react-redux";
-import CreateProject from "./components/CreateModalComp.tsx";
+import CreateProject from "./components/CreateModal/CreateModalComp.tsx";
 
 async function enableMocking() {
   console.log(import.meta.env.MODE);
