@@ -2,6 +2,7 @@ import CreateProjectButtonComp from "../../../../components/Button/CreateProject
 import StepProjectHeader from "../StepProjectHeader/StepProjectHeader";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import CheckBox from "./CheckBox/CheckBox";
+import { views } from "../../../../types/ProjectType";
 
 type StepSettingViewsProps = {
   title: string;
@@ -13,11 +14,9 @@ function StepSettingViews({ title }: StepSettingViewsProps) {
       <StepProjectHeader title={title} />
 
       <div className="bg-main mt-6 p-8 grid gap-4 grid-cols-2">
-        {["List", "Board", "TimeLine", "Calendar", "Note"].map(
-          (element, index) => (
-            <CheckBox key={index} isCheck={true} title={element} />
-          )
-        )}
+        {views.map((item, index) => (
+          <CheckBox key={index} Icon={item.icon} title={item.name} />
+        ))}
       </div>
 
       <div className="flex text-dark justify-end mt-6 font-bold text-sm items-center gap-4 cursor-pointer">

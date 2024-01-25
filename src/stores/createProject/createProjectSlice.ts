@@ -60,6 +60,7 @@ export const {
   reset,
   openModal,
   addViews,
+  removeViews,
 } = createProjectSlice.actions;
 
 export default createProjectSlice.reducer;

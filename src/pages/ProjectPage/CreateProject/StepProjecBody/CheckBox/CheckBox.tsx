@@ -1,49 +1,60 @@
-import { Checkbox } from "@mui/material";
+import { Checkbox, SvgIconTypeMap, styled } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../../stores/store";
-import { addViews } from "../../../../../stores/createProject/createProjectSlice";
+import {
+  addViews,
+  removeViews,
+} from "../../../../../stores/createProject/createProjectSlice";
+import { OverridableComponent } from "@mui/material/OverridableComponent";
 
 type CheckBoxProps = {
-  isCheck: boolean;
   title: string;
+  Icon: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
 };
 
-const CheckBox = ({ isCheck, title }: CheckBoxProps) => {
+const CheckBoxProjectSelected = styled(Checkbox)({
+  color: "#AF8AE2",
+  "&.Mui-checked": {
+    color: "#AF8AE2",
+    border: "0.5px",
+  },
+});
+
+const CheckBoxProject = styled(Checkbox)({
+  color: "#CAD4E0",
+  "&.Mui-checked": {
+    color: "#CAD4E0",
+    border: "0.5px",
+  },
+});
+
+const CheckBox = ({ title, Icon }: CheckBoxProps) => {
   const views = useSelector((state: RootState) => state.createProject.views);
   const dispatch = useDispatch();
 
   if (views.includes(title)) {
-    <div className=" bg-white border-solid border-2"></div>;
-  } else {
-  }
-
-  return (
-    <div
-      className={`bg-white border-solid border-2 ${
-        !views.includes(title) ? "border-gray-300" : "border-primary shadow-md"
-      } rounded-sm flex items-center p-2 cursor-pointer`}
-      onClick={() => dispatch(addViews(title))}
-    >
-      <Checkbox
-        checked={views.includes(title)}
-        disabled
-        sx={{
-          color: views.includes(title) ? "#CAD4E0" : "#AF8AE2",
-          "&.Mui-checked": {
-            color: !views.includes(title) ? "#CAD4E0" : "#AF8AE2",
-            border: "0.5px",
-          },
-        }}
-      />
-      <h1
-        className={
-          !views.includes(title) ? "text-gray-200" : "text-[#AF8AE2] font-bold"
-        }
+    return (
+      <div
+        className="border-solid border-2 border-primary shadow-md rounded-sm flex items-center p-2 cursor-pointer"
+        onClick={() => dispatch(removeViews(title))}
       >
-        {title}
-      </h1>
-    </div>
-  );
+        <CheckBoxProjectSelected checked />
+        <Icon className="text-[#AF8AE2] mx-2" />
+        <h1 className="text-[#AF8AE2] font-bold">{title}</h1>
+      </div>
+    );
+  } else {
+    return (
+      <div
+        className="border-solid border-2 border-gray-300 rounded-sm flex items-center p-2 cursor-pointer"
+        onClick={() => dispatch(addViews(title))}
+      >
+        <CheckBoxProject />
+        <Icon className="text-gray-200 mx-2" />
+        <h1 className="text-gray-200">{title}</h1>
+      </div>
+    );
+  }
 };
 
 export default CheckBox;
