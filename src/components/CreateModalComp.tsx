@@ -7,8 +7,9 @@ type CreateModalProps = {
   title: string;
   component: JSX.Element;
   maxStep: number;
+  step: number;
   currentStep: number;
-  handleSelectStep: () => void;
+  handleSelectStep: (step: number) => void;
   handleReset: () => void;
 };
 
@@ -17,6 +18,7 @@ const CreateModalComp = ({
   title,
   component,
   maxStep,
+  step,
   currentStep,
   handleSelectStep,
   handleReset,
@@ -29,7 +31,8 @@ const CreateModalComp = ({
           {component}
           <ButtletStep
             maxStep={maxStep}
-            step={currentStep}
+            step={step}
+            currentStep={currentStep}
             handleSelectStep={handleSelectStep}
           />
         </div>

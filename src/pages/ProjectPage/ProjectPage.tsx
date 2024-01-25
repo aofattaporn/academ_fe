@@ -14,8 +14,8 @@ const ProjectPage = () => {
   const createProject = useSelector((state: RootState) => state.createProject);
   const currentStepData = stepCreateProject[createProject.currentStep];
   const dispatch = useDispatch();
-  const handleNextStep = () => {
-    dispatch(selectStep(createProject.currentStep + 1));
+  const handleNextStep = (step: number) => {
+    dispatch(selectStep(step));
   };
 
   return (
@@ -28,12 +28,12 @@ const ProjectPage = () => {
             <IconButton onClick={() => dispatch(openCreateProjectModal())}>
               <QueueIcon />
             </IconButton>
-            {/* modal */}
             <CreateModalComp
               isOpen={createProject.isOpen}
               title={currentStepData.title}
               component={currentStepData.component}
               maxStep={createProject.maxStep}
+              step={createProject.step}
               currentStep={createProject.currentStep}
               handleSelectStep={handleNextStep}
               handleReset={() => dispatch(reset())}
