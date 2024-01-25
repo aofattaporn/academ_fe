@@ -23,7 +23,7 @@ const ProjectPage = () => {
       <div className="flex justify-between">
         <div>
           <div className="flex gap-4 items-center">
-            <h1 className="text-xl font-bold">Published Classes</h1>
+            <h1 className="text-xl font-bold">Published Project</h1>
 
             <IconButton onClick={() => dispatch(openCreateProjectModal())}>
               <QueueIcon />

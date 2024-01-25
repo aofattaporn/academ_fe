@@ -2,8 +2,17 @@ import CreateProjectButtonComp from "../../../components/Button/CreateProjectBut
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import CheckBox from "./CheckBox/CheckBox";
 import { views } from "../../../types/ProjectType";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  increment,
+  selectAllViews,
+} from "../../../stores/createProject/createProjectSlice";
+import { RootState } from "../../../stores/store";
 
 function StepSettingViews() {
+  const myViews = useSelector((state: RootState) => state.createProject.views);
+  const dispatch = useDispatch();
+
   return (
     <>
       <div className="bg-main mt-6 p-8 grid gap-4 grid-cols-2">
@@ -12,16 +21,21 @@ function StepSettingViews() {
         ))}
       </div>
 
-      <div className="flex text-dark justify-end mt-6 font-bold text-sm items-center gap-4 cursor-pointer">
-        <p>Selected all views</p>
-        <DoneAllIcon />
+      <div className="flex text-dark justify-end mt-6 font-bold text-sm items-center gap-4">
+        <div
+          className="cursor-pointer hover:text-primary flex"
+          onClick={() => dispatch(selectAllViews())}
+        >
+          <p> Selected all views</p>
+          <DoneAllIcon />
+        </div>
       </div>
 
       <div className="bg-main mt-6">
         <CreateProjectButtonComp
           title="Next"
-          disable={false}
-          handleChange={() => {}}
+          disable={myViews.length < 1}
+          handleChange={() => dispatch(increment())}
         />
       </div>
     </>

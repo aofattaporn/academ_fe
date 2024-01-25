@@ -8,6 +8,7 @@ import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import StepAddName from "../pages/ProjectPage/StepProjecBody/StepAddName";
 import StepSettingViews from "../pages/ProjectPage/StepProjecBody/StepSettingViews";
 import StepOverview from "../pages/ProjectPage/StepProjecBody/StepOverview";
+import StepShareInvite from "../pages/ProjectPage/StepProjecBody/StepShareInvite";
 
 type Views = {
   name: string;
@@ -53,7 +54,7 @@ export const stepCreateProject: CreateProjectType[] = [
   },
   {
     title: "Share with",
-    component: <StepSettingViews />,
+    component: <StepShareInvite />,
   },
   {
     title: "Project Summary",

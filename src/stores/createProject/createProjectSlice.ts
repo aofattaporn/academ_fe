@@ -51,7 +51,9 @@ export const createProjectSlice = createSlice({
       }
     },
 
-    // TODO:  select all
+    selectAllViews: (state) => {
+      state.views = ["List", "Board", "Calendar", "TimeLine", "Note"];
+    },
   },
 });
 
@@ -63,6 +65,7 @@ export const {
   openCreateProjectModal,
   addViews,
   removeViews,
+  selectAllViews,
 } = createProjectSlice.actions;
 
 export default createProjectSlice.reducer;
