@@ -1,6 +1,5 @@
 import { TextField } from "@mui/material";
 import CreateProjectButtonComp from "../../../../components/Button/CreateProjectButtonComp";
-import StepProjectHeader from "../StepProjectHeader/StepProjectHeader";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../../stores/store";
 import {
@@ -8,11 +7,7 @@ import {
   setProjectName,
 } from "../../../../stores/createProject/createProjectSlice";
 
-type StepAddNameProps = {
-  title: string;
-};
-
-const StepAddName = ({ title }: StepAddNameProps) => {
+const StepAddName = () => {
   const projectName = useSelector(
     (state: RootState) => state.createProject.projectName
   );
@@ -21,8 +16,6 @@ const StepAddName = ({ title }: StepAddNameProps) => {
 
   return (
     <>
-      <StepProjectHeader title={title} />
-
       <div className="bg-main mt-6 p-8">
         <div className="flex gap-4">
           <div className="rounded-md bg-primary w-16 h-16 flex justify-center items-center">

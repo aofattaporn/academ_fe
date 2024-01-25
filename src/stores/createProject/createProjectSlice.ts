@@ -4,6 +4,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 export interface CounterState {
   isOpen: boolean;
   step: number;
+  maxStep: number;
   currentStep: number;
   projectName: string;
   views: string[];
@@ -11,8 +12,9 @@ export interface CounterState {
 
 const initialState: CounterState = {
   isOpen: false,
-  step: 1,
-  currentStep: 1,
+  step: 0,
+  maxStep: 4,
+  currentStep: 0,
   projectName: "",
   views: [],
 };
@@ -36,7 +38,7 @@ export const createProjectSlice = createSlice({
       state.projectName = action.payload;
     },
     reset: () => initialState,
-    openModal: (state) => {
+    openCreateProjectModal: (state) => {
       state.isOpen = true;
     },
     addViews: (state, action: PayloadAction<string>) => {
@@ -58,7 +60,7 @@ export const {
   selectStep,
   setProjectName,
   reset,
-  openModal,
+  openCreateProjectModal,
   addViews,
   removeViews,
 } = createProjectSlice.actions;

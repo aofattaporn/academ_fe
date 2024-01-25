@@ -1,19 +1,18 @@
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../../stores/store";
-import { selectStep } from "../../../../stores/createProject/createProjectSlice";
+type ButtletStepProps = {
+  maxStep: number;
+  step: number;
+  handleSelectStep: () => void;
+};
 
-const ButtletStep = () => {
-  const step = useSelector((state: RootState) => state.createProject.step);
-  const dispatch = useDispatch();
-
+const ButtletStep = ({ maxStep, step, handleSelectStep }: ButtletStepProps) => {
   return (
     <div className="mt-6 flex justify-center gap-4">
-      {[1, 2, 3, 4].map((index) => (
+      {[...Array(maxStep).keys()].map((index) => (
         <div
           key={index}
-          onClick={() => dispatch(selectStep(index))}
+          onClick={handleSelectStep}
           className={`rounded-full w-3 h-3 cursor-pointer ${
-            step >= index ? "bg-primary" : "bg-gray-200"
+            step > index - 1 ? "bg-primary" : "bg-gray-200"
           }`}
         ></div>
       ))}

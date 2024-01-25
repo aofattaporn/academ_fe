@@ -5,15 +5,14 @@ import { useDispatch } from "react-redux";
 
 type StepProjectHeaderProps = {
   title: string;
+  handleReset: () => void;
 };
 
-const StepProjectHeader = ({ title }: StepProjectHeaderProps) => {
-  const dispatch = useDispatch();
-
+const StepProjectHeader = ({ title, handleReset }: StepProjectHeaderProps) => {
   return (
     <div className="flex justify-between items-center">
       <h1 className="text-dark font-bold text-xl">{title}</h1>
-      <IconButton onClick={() => dispatch(reset())}>
+      <IconButton onClick={handleReset}>
         <CloseIcon />
       </IconButton>
     </div>
