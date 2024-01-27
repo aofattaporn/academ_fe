@@ -6,37 +6,23 @@ import {
   increment,
   setProjectName,
 } from "../../../../stores/createProject/createProjectSlice";
+import AvatarProject from "./AvatarProject/AvatarProject";
+import { useState } from "react";
+import ColorSelected from "./ColorSelected/ColorSelected";
 
 const StepAddName = () => {
+  const [color, setColor] = useState<string>("#AF8AE2");
+  const dispatch = useDispatch();
   const projectName = useSelector(
     (state: RootState) => state.createProject.projectName
   );
-
-  const dispatch = useDispatch();
 
   return (
     <>
       <div className="bg-main mt-6 p-8">
         <div className="flex gap-4">
-          <div className="rounded-md bg-primary w-16 h-16 flex justify-center items-center">
-            <p className=" font-bold text-white text-3xl">
-              {projectName ? projectName.at(0) : "-"}
-            </p>
-          </div>
-          <div>
-            <p className="text-sm text-grey mb-2">Colors</p>
-            <div className="flex gap-2">
-              <div className="rounded-full bg-[#AF8AE2] w-4 h-4"></div>
-              <div className="rounded-full bg-[#6985FF] w-4 h-4"></div>
-              <div className="rounded-full bg-[#6985FF] w-4 h-4"></div>
-              <div className="rounded-full bg-[#3FB1B2] w-4 h-4"></div>
-              <div className="rounded-full bg-[#64C7A2] w-4 h-4"></div>
-              <div className="rounded-full bg-[#FABE34] w-4 h-4"></div>
-              <div className="rounded-full bg-[#E78945] w-4 h-4"></div>
-              <div className="rounded-full bg-[#DD646A] w-4 h-4"></div>
-              <div className="rounded-full bg-[#BDBDBD] w-4 h-4"></div>
-            </div>
-          </div>
+          <AvatarProject projectName={projectName} color={color} />
+          <ColorSelected handleSelected={(color: string) => setColor(color)} />
         </div>
         <div className="mt-4">
           <p>Project Name</p>

@@ -40,11 +40,11 @@ const InviteButton = styled(Button)({
 const StepShareInvite = () => {
   const [selectedRole, setSelectedRole] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const dispatch = useDispatch();
 
   const invites = useSelector(
     (state: RootState) => state.createProject.invites
   );
-  const dispatch = useDispatch();
 
   const handleAddInvite = () => {
     dispatch(
@@ -60,6 +60,7 @@ const StepShareInvite = () => {
   return (
     <>
       <div className="bg-main mt-6 p-8 font-roboto ">
+        {/* TODO: extract input fields  */}
         <div className="flex items-center gap-2">
           <TextField
             size="small"
