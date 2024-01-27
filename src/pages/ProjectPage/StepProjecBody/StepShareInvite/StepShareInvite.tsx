@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../stores/store";
 import {
   addInviteProject,
+  increment,
   removeInviteProject,
 } from "../../../../stores/createProject/createProjectSlice";
 import OwnerItem from "./OwnerItem/OwnerIten";
@@ -109,7 +110,7 @@ const StepShareInvite = () => {
         <CreateProjectButtonComp
           title="Next"
           disable={false}
-          handleChange={() => {}}
+          handleChange={() => dispatch(increment())}
         />
       </div>
     </>
