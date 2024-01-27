@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { InviteProjectType } from "../../types/ProjectType";
 
 export interface CounterState {
   isOpen: boolean;
@@ -8,6 +9,7 @@ export interface CounterState {
   currentStep: number;
   projectName: string;
   views: string[];
+  invites: InviteProjectType[];
 }
 
 const initialState: CounterState = {
@@ -17,6 +19,7 @@ const initialState: CounterState = {
   currentStep: 0,
   projectName: "",
   views: [],
+  invites: [],
 };
 
 export const createProjectSlice = createSlice({
@@ -50,9 +53,17 @@ export const createProjectSlice = createSlice({
         state.views.splice(index, 1);
       }
     },
-
     selectAllViews: (state) => {
       state.views = ["List", "Board", "Calendar", "TimeLine", "Note"];
+    },
+    addInviteProject: (state, action: PayloadAction<InviteProjectType>) => {
+      state.invites.push(action.payload);
+    },
+    removeInviteProject: (state, action: PayloadAction<number>) => {
+      console.log(action.payload);
+      if (action.payload !== -1) {
+        state.invites.splice(action.payload, 1);
+      }
     },
   },
 });
@@ -66,6 +77,8 @@ export const {
   addViews,
   removeViews,
   selectAllViews,
+  addInviteProject,
+  removeInviteProject,
 } = createProjectSlice.actions;
 
 export default createProjectSlice.reducer;

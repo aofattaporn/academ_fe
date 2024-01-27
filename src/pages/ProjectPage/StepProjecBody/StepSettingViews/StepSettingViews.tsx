@@ -1,13 +1,13 @@
-import CreateProjectButtonComp from "../../../components/Button/CreateProjectButtonComp";
+import CreateProjectButtonComp from "../../../../components/Button/CreateProjectButtonComp";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import CheckBox from "./CheckBox/CheckBox";
-import { views } from "../../../types/ProjectType";
+import { views } from "../../../../types/ProjectType";
 import { useDispatch, useSelector } from "react-redux";
 import {
   increment,
   selectAllViews,
-} from "../../../stores/createProject/createProjectSlice";
-import { RootState } from "../../../stores/store";
+} from "../../../../stores/createProject/createProjectSlice";
+import { RootState } from "../../../../stores/store";
 
 function StepSettingViews() {
   const myViews = useSelector((state: RootState) => state.createProject.views);

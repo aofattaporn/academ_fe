@@ -5,10 +5,10 @@ import ListIcon from "@mui/icons-material/List";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ViewTimelineIcon from "@mui/icons-material/ViewTimeline";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-import StepAddName from "../pages/ProjectPage/StepProjecBody/StepAddName";
-import StepSettingViews from "../pages/ProjectPage/StepProjecBody/StepSettingViews";
-import StepOverview from "../pages/ProjectPage/StepProjecBody/StepOverview";
-import StepShareInvite from "../pages/ProjectPage/StepProjecBody/StepShareInvite";
+import StepAddName from "../pages/ProjectPage/StepProjecBody/StepAddName/StepAddName";
+import StepSettingViews from "../pages/ProjectPage/StepProjecBody/StepSettingViews/StepSettingViews";
+import StepOverview from "../pages/ProjectPage/StepProjecBody/StepOverview/StepOverview";
+import StepShareInvite from "../pages/ProjectPage/StepProjecBody/StepShareInvite/StepShareInvite";
 
 type Views = {
   name: string;
@@ -61,3 +61,8 @@ export const stepCreateProject: CreateProjectType[] = [
     component: <StepOverview />,
   },
 ];
+
+export type InviteProjectType = {
+  email: string;
+  role: string;
+};

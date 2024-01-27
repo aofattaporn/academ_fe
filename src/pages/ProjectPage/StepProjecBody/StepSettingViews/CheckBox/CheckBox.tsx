@@ -1,10 +1,10 @@
 import { Checkbox, SvgIconTypeMap, styled } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../../stores/store";
+import { RootState } from "../../../../../stores/store";
 import {
   addViews,
   removeViews,
-} from "../../../../stores/createProject/createProjectSlice";
+} from "../../../../../stores/createProject/createProjectSlice";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 
 type CheckBoxProps = {
