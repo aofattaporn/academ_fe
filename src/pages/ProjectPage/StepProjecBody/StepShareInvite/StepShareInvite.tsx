@@ -1,13 +1,4 @@
 import { useState } from "react";
-import {
-  TextField,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  styled,
-  Button,
-} from "@mui/material";
 import CreateProjectButtonComp from "../../../../components/Button/CreateProjectButtonComp";
 import InviteItem from "./InviteItem/InviteItem";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,24 +9,9 @@ import {
   removeInviteProject,
 } from "../../../../stores/createProject/createProjectSlice";
 import OwnerItem from "./OwnerItem/OwnerIten";
+import ShareInviteField from "../../../../components/Field/ShareInviteField";
 
 const roles = ["Owner", "Member"];
-
-const InviteButton = styled(Button)({
-  backgroundColor: "#AF8AE2",
-  font: "normal",
-  color: "#FFFFFF",
-  textTransform: "none",
-  "&:disabled": {
-    background: "#F1EAFF",
-    color: "#BDBDBD",
-    boxShadow: "none",
-  },
-  "&:hover": {
-    backgroundColor: "#AF8AE2",
-    color: "#FFFFFF",
-  },
-});
 
 const StepShareInvite = () => {
   const [selectedRole, setSelectedRole] = useState<string>("");
@@ -60,40 +36,15 @@ const StepShareInvite = () => {
   return (
     <>
       <div className="bg-main mt-6 p-8 font-roboto ">
-        {/* TODO: extract input fields  */}
-        <div className="flex items-center gap-2">
-          <TextField
-            size="small"
-            className="w-7/12"
-            placeholder="Type email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <FormControl size="small" className="w-3/12">
-            <InputLabel id="demo-simple-select-label">Role</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={selectedRole}
-              label="Role"
-              onChange={(e) => setSelectedRole(e.target.value)}
-            >
-              {roles.map((role) => (
-                <MenuItem key={role} value={role}>
-                  {role}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <InviteButton
-            className="w-2/12 shadow-md"
-            disabled={selectedRole === "" || email === ""}
-            onClick={handleAddInvite}
-          >
-            Invite
-          </InviteButton>
-        </div>
-
+        <ShareInviteField
+          label="Role"
+          options={roles}
+          email={email}
+          selected={selectedRole}
+          handleEmail={(email: string) => setEmail(email)}
+          handleSelected={(role: string) => setSelectedRole(role)}
+          handleSave={handleAddInvite}
+        />
         <OwnerItem />
 
         {invites.map((item, index) => {
