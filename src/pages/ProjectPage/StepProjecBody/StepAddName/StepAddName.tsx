@@ -8,7 +8,6 @@ import {
   setProjectName,
 } from "../../../../stores/createProject/createProjectSlice";
 import AvatarProject from "./AvatarProject/AvatarProject";
-import { useState } from "react";
 import ColorSelected from "./ColorSelected/ColorSelected";
 
 const StepAddName = () => {
