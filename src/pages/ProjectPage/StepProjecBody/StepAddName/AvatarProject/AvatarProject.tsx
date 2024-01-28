@@ -6,7 +6,8 @@ type AvatarProjectProps = {
 const AvatarProject = ({ projectName, color }: AvatarProjectProps) => {
   return (
     <div
-      className={`bg-[${color}] rounded-md w-16 h-16 flex justify-center items-center`}
+      className="rounded-md w-16 h-16 flex justify-center items-center"
+      style={{ backgroundColor: color }}
     >
       <p className="font-bold text-white text-3xl">
         {projectName ? projectName.toUpperCase().at(0) : "-"}

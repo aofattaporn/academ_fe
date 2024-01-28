@@ -5,6 +5,7 @@ import { InviteProjectType } from "../../types/ProjectType";
 export interface CounterState {
   isOpen: boolean;
   step: number;
+  colorAvatar: string;
   maxStep: number;
   currentStep: number;
   projectName: string;
@@ -14,6 +15,7 @@ export interface CounterState {
 
 const initialState: CounterState = {
   isOpen: false,
+  colorAvatar: "#AF8AE2",
   step: 0,
   maxStep: 4,
   currentStep: 0,
@@ -33,6 +35,9 @@ export const createProjectSlice = createSlice({
         state.step += 1;
         state.currentStep += 1;
       }
+    },
+    selectColor: (state, action: PayloadAction<string>) => {
+      state.colorAvatar = action.payload;
     },
     selectStep: (state, action: PayloadAction<number>) => {
       state.currentStep = action.payload;
@@ -72,6 +77,7 @@ export const {
   increment,
   selectStep,
   setProjectName,
+  selectColor,
   reset,
   openCreateProjectModal,
   addViews,

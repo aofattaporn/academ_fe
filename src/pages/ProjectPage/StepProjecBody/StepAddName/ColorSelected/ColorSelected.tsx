@@ -1,6 +1,7 @@
 type ColorSelectedProps = {
   handleSelected: (color: string) => void;
 };
+
 const ColorSelected = ({ handleSelected }: ColorSelectedProps) => {
   const colors: string[] = [
     "#AF8AE2",
@@ -12,6 +13,7 @@ const ColorSelected = ({ handleSelected }: ColorSelectedProps) => {
     "#DD646A",
     "#BDBDBD",
   ];
+
   return (
     <div>
       <p className="text-grey text-sm mb-2">Colors</p>
@@ -20,7 +22,8 @@ const ColorSelected = ({ handleSelected }: ColorSelectedProps) => {
           <div
             key={index}
             onClick={() => handleSelected(color)}
-            className={`bg-[${color}] rounded-full w-4 h-4 cursor-pointer`}
+            className="rounded-full w-4 h-4 cursor-pointer"
+            style={{ backgroundColor: color }}
           ></div>
         ))}
       </div>
