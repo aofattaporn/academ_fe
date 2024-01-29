@@ -2,8 +2,9 @@ import { useQuery } from "react-query";
 import homeApi from "../../../libs/homeApi";
 
 const ClassBox = () => {
-  const { isLoading, isError, data, error } = useQuery("uniKey", async () =>
-    homeApi.classApi("user_id")
+  const { isLoading, isError, data, error } = useQuery(
+    "classBoxKey",
+    async () => homeApi.classApi("user_id")
   );
   if (isLoading) {
     return (

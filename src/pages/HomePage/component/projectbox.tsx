@@ -2,8 +2,9 @@ import { useQuery } from "react-query";
 import homeApi from "../../../libs/homeApi";
 
 const ProjectBox = () => {
-  const { isLoading, isError, data, error } = useQuery("queryKey", async () =>
-    homeApi.projectApi("user_id")
+  const { isLoading, isError, data, error } = useQuery(
+    "projectBoxKey",
+    async () => homeApi.projectApi("user_id")
   );
   if (isLoading) {
     return (
@@ -38,7 +39,7 @@ const ProjectBox = () => {
     );
   }
 
-  console.log(data)
+  console.log(data);
 
   return (
     <div className="p-4 bg-background-white shadow-xl rounded-xl">

@@ -2,8 +2,9 @@ import { useQuery } from "react-query";
 import homeApi from "../../../libs/homeApi";
 
 const MytaskBox = () => {
-  const { isLoading, isError, data, error } = useQuery("qloKey", async () =>
-    homeApi.mytaskApi("user_id")
+  const { isLoading, isError, data, error } = useQuery(
+    "myTaskBoxKey",
+    async () => homeApi.mytaskApi("user_id")
   );
 
   if (isLoading) {
