@@ -36,6 +36,7 @@ export const createProjectSlice = createSlice({
         state.currentStep += 1;
       }
     },
+    reset: () => initialState,
     selectColor: (state, action: PayloadAction<string>) => {
       state.colorAvatar = action.payload;
     },
@@ -45,7 +46,6 @@ export const createProjectSlice = createSlice({
     setProjectName: (state, action: PayloadAction<string>) => {
       state.projectName = action.payload;
     },
-    reset: () => initialState,
     openCreateProjectModal: (state) => {
       state.isOpen = true;
     },
