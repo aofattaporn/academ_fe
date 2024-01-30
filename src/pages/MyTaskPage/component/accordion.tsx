@@ -52,14 +52,14 @@ export default function CustomizedAccordions() {
     };
 
   return (
-    <div>
+    <div className="my-4">
       <Accordion
         expanded={expanded === "panel1"}
         onChange={handleChange("panel1")}
       >
         <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
           <div className="flex">
-            <div className="h-full w-2 bg-grey"></div>
+            <div className="h-full w-1 bg-grey"></div>
             <p className="ml-2 text-black font-bold text-md">To do</p>
           </div>
         </AccordionSummary>
@@ -72,12 +72,6 @@ export default function CustomizedAccordions() {
               <p className="ml-2 text-black font-semibold text-sm">Due Date</p>
             </div>
           </div>
-          {/* <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum
-            dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada
-            lacus ex, sit amet blandit leo lobortis eget.
-          </Typography> */}
         </AccordionDetails>
       </Accordion>
     </div>

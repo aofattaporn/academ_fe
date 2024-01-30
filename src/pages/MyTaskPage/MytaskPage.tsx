@@ -14,16 +14,8 @@ const MytaskPage = () => {
           <p className="text-black font-bold text-2xl">My Task</p>
         </div>
       </div>
-      {/* <div className="w-12/12 h-3/5 bg-background-white shadow-xl rounded-xl m-4">
-        <div className="w-full h-1/4 bg-grey grid content-center">
-          <div className="bg-primary w-16 h-16 rounded-md flex justify-center items-center text-center shadow-md">
-            <p className="text-white text-center font-bold text-2xl">J</p>
-          </div>
-          <p className="text-black font-bold text-xl">Jit:D</p>
-        </div>
-      </div> */}
       <div className="m-4">
-        <Accordion className="mb-4 shadow-2xl rounded-xl">
+        <Accordion className="mb-4">
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1-content"
@@ -38,8 +30,11 @@ const MytaskPage = () => {
               </div>
             </div>
           </AccordionSummary>
+
           <AccordionDetails>
-            <CustomizedAccordions />
+            {[1, 2].map(() => {
+              return <CustomizedAccordions />;
+            })}
           </AccordionDetails>
         </Accordion>
       </div>
