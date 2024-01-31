@@ -3,8 +3,8 @@ import CreateProjectButtonComp from "../../../../components/Button/CreateProject
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../../stores/store";
 import {
-  increment,
-  selectColor,
+  incrementStep,
+  selectAvatarColor,
   setProjectName,
 } from "../../../../stores/createProject/createProjectSlice";
 import AvatarProject from "./AvatarProject/AvatarProject";
@@ -20,10 +20,12 @@ const StepAddName = () => {
         <div className="flex gap-4">
           <AvatarProject
             projectName={project.projectName}
-            color={project.colorAvatar}
+            color={project.avatarColor}
           />
           <ColorSelected
-            handleSelected={(color: string) => dispatch(selectColor(color))}
+            handleSelected={(color: string) =>
+              dispatch(selectAvatarColor(color))
+            }
           />
         </div>
         <div className="mt-4">
@@ -41,7 +43,7 @@ const StepAddName = () => {
         <CreateProjectButtonComp
           title="Next"
           disable={project.projectName ? false : true}
-          handleChange={() => dispatch(increment())}
+          handleChange={() => dispatch(incrementStep())}
         />
       </div>
     </>

@@ -4,9 +4,9 @@ import InviteItem from "./InviteItem/InviteItem";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../stores/store";
 import {
-  addInviteProject,
-  increment,
-  removeInviteProject,
+  addInvitedUser,
+  incrementStep,
+  removeInvitedUser,
 } from "../../../../stores/createProject/createProjectSlice";
 import OwnerItem from "./OwnerItem/OwnerIten";
 import ShareInviteField from "../../../../components/Field/ShareInviteField";
@@ -19,12 +19,12 @@ const StepShareInvite = () => {
   const dispatch = useDispatch();
 
   const invites = useSelector(
-    (state: RootState) => state.createProject.invites
+    (state: RootState) => state.createProject.invitedUsers
   );
 
   const handleAddInvite = () => {
     dispatch(
-      addInviteProject({
+      addInvitedUser({
         email: email,
         role: selectedRole,
       })
@@ -53,7 +53,7 @@ const StepShareInvite = () => {
               key={index}
               email={item.email}
               role={item.role}
-              handleRemove={() => dispatch(removeInviteProject(index))}
+              handleRemove={() => dispatch(removeInvitedUser(index))}
             />
           );
         })}
@@ -62,7 +62,7 @@ const StepShareInvite = () => {
         <CreateProjectButtonComp
           title="Next"
           disable={false}
-          handleChange={() => dispatch(increment())}
+          handleChange={() => dispatch(incrementStep())}
         />
       </div>
     </>

@@ -4,13 +4,15 @@ import CheckBox from "./CheckBox/CheckBox";
 import { views } from "../../../../types/ProjectType";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  increment,
+  incrementStep,
   selectAllViews,
 } from "../../../../stores/createProject/createProjectSlice";
 import { RootState } from "../../../../stores/store";
 
 function StepSettingViews() {
-  const myViews = useSelector((state: RootState) => state.createProject.views);
+  const myViews = useSelector(
+    (state: RootState) => state.createProject.selectedViews
+  );
   const dispatch = useDispatch();
 
   return (
@@ -35,7 +37,7 @@ function StepSettingViews() {
         <CreateProjectButtonComp
           title="Next"
           disable={myViews.length < 1}
-          handleChange={() => dispatch(increment())}
+          handleChange={() => dispatch(incrementStep())}
         />
       </div>
     </>

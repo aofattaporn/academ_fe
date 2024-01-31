@@ -10,8 +10,16 @@ import StepSettingViews from "../pages/ProjectPage/StepProjecBody/StepSettingVie
 import StepOverview from "../pages/ProjectPage/StepProjecBody/StepOverview/StepOverview";
 import StepShareInvite from "../pages/ProjectPage/StepProjecBody/StepShareInvite/StepShareInvite";
 
-type Views = {
-  name: string;
+export enum Views {
+  LIST = "List",
+  BOARD = "Board",
+  CALENDAR = "Calendar",
+  TIMELINE = "TimeLine",
+  NOTE = "Note",
+}
+
+type ViewItem = {
+  name: Views;
   icon: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
 };
 
@@ -20,25 +28,25 @@ type CreateProjectType = {
   component: JSX.Element;
 };
 
-export const views: Views[] = [
+export const views: ViewItem[] = [
   {
-    name: "List",
+    name: Views.LIST,
     icon: ListIcon,
   },
   {
-    name: "Board",
+    name: Views.BOARD,
     icon: DashboardIcon,
   },
   {
-    name: "Calendar",
+    name: Views.CALENDAR,
     icon: CalendarTodayIcon,
   },
   {
-    name: "TimeLine",
+    name: Views.TIMELINE,
     icon: ViewTimelineIcon,
   },
   {
-    name: "Note",
+    name: Views.NOTE,
     icon: NoteAddIcon,
   },
 ];

@@ -1,14 +1,14 @@
 import { IconButton } from "@mui/material";
 import QueueIcon from "@mui/icons-material/Queue";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  openCreateProjectModal,
-  reset,
-  selectStep,
-} from "../../stores/createProject/createProjectSlice";
 import CreateModalComp from "../../components/CreateModal/CreateModalComp";
 import { RootState } from "../../stores/store";
 import { stepCreateProject } from "../../types/ProjectType";
+import {
+  openModal,
+  resetState,
+  setCurrentStep,
+} from "../../stores/createProject/createProjectSlice";
 
 const ProjectPage = () => {
   const createStore = useSelector((state: RootState) => state.createProject);
@@ -20,18 +20,18 @@ const ProjectPage = () => {
       <div>
         <div className="flex gap-4 items-center">
           <h1 className="text-xl font-bold">Published Project</h1>
-          <IconButton onClick={() => dispatch(openCreateProjectModal())}>
+          <IconButton onClick={() => dispatch(openModal())}>
             <QueueIcon />
           </IconButton>
           <CreateModalComp
-            isOpen={createStore.isOpen}
-            maxStep={createStore.maxStep}
-            step={createStore.step}
+            isOpen={createStore.isModalOpen}
+            maxStep={createStore.totalSteps}
+            step={createStore.currentStep}
             currentStep={createStore.currentStep}
             title={currentStepCreate.title}
             component={currentStepCreate.component}
-            handleSelectStep={(step: number) => dispatch(selectStep(step))}
-            handleReset={() => dispatch(reset())}
+            handleSelectStep={(step: number) => dispatch(setCurrentStep(step))}
+            handleReset={() => dispatch(resetState())}
           />
         </div>
         <h4 className="text-gray-300">These projects are available.</h4>

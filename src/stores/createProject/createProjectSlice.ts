@@ -1,90 +1,84 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { InviteProjectType } from "../../types/ProjectType";
 
-export interface CounterState {
-  isOpen: boolean;
-  step: number;
-  colorAvatar: string;
-  maxStep: number;
+export interface ProjectCreationState {
+  isModalOpen: boolean;
+  totalSteps: number;
   currentStep: number;
+  avatarColor: string;
   projectName: string;
-  views: string[];
-  invites: InviteProjectType[];
+  selectedViews: string[];
+  invitedUsers: InviteProjectType[];
 }
 
-const initialState: CounterState = {
-  isOpen: true,
-  colorAvatar: "#AF8AE2",
-  step: 0,
-  maxStep: 4,
+const initialState: ProjectCreationState = {
+  isModalOpen: false,
+  avatarColor: "#AF8AE2",
+  totalSteps: 4,
   currentStep: 0,
   projectName: "",
-  views: [],
-  invites: [],
+  selectedViews: [],
+  invitedUsers: [],
 };
 
-export const createProjectSlice = createSlice({
-  name: "createProject",
+export const projectCreationSlice = createSlice({
+  name: "projectCreation",
   initialState,
   reducers: {
-    increment: (state) => {
-      if (state.step > state.currentStep) {
-        state.currentStep += 1;
-      } else {
-        state.step += 1;
+    incrementStep: (state) => {
+      if (state.currentStep < state.totalSteps) {
         state.currentStep += 1;
       }
     },
-    reset: () => initialState,
-    selectColor: (state, action: PayloadAction<string>) => {
-      state.colorAvatar = action.payload;
+    resetState: () => initialState,
+    selectAvatarColor: (state, action: PayloadAction<string>) => {
+      state.avatarColor = action.payload;
     },
-    selectStep: (state, action: PayloadAction<number>) => {
+    setCurrentStep: (state, action: PayloadAction<number>) => {
       state.currentStep = action.payload;
     },
     setProjectName: (state, action: PayloadAction<string>) => {
       state.projectName = action.payload;
     },
-    openCreateProjectModal: (state) => {
-      state.isOpen = true;
+    openModal: (state) => {
+      state.isModalOpen = true;
     },
-    addViews: (state, action: PayloadAction<string>) => {
-      state.views.push(action.payload);
+    addSelectedView: (state, action: PayloadAction<string>) => {
+      state.selectedViews.push(action.payload);
     },
-    removeViews: (state, action: PayloadAction<string>) => {
-      const index = state.views.indexOf(action.payload);
+    removeSelectedView: (state, action: PayloadAction<string>) => {
+      const index = state.selectedViews.indexOf(action.payload);
       if (index !== -1) {
-        state.views.splice(index, 1);
+        state.selectedViews.splice(index, 1);
       }
     },
     selectAllViews: (state) => {
-      state.views = ["List", "Board", "Calendar", "TimeLine", "Note"];
+      state.selectedViews = ["List", "Board", "Calendar", "TimeLine", "Note"];
     },
-    addInviteProject: (state, action: PayloadAction<InviteProjectType>) => {
-      state.invites.push(action.payload);
+    addInvitedUser: (state, action: PayloadAction<InviteProjectType>) => {
+      state.invitedUsers.push(action.payload);
     },
-    removeInviteProject: (state, action: PayloadAction<number>) => {
-      console.log(action.payload);
-      if (action.payload !== -1) {
-        state.invites.splice(action.payload, 1);
+    removeInvitedUser: (state, action: PayloadAction<number>) => {
+      const index = action.payload;
+      if (index !== -1 && index < state.invitedUsers.length) {
+        state.invitedUsers.splice(index, 1);
       }
     },
   },
 });
 
 export const {
-  increment,
-  selectStep,
+  incrementStep,
+  setCurrentStep,
   setProjectName,
-  selectColor,
-  reset,
-  openCreateProjectModal,
-  addViews,
-  removeViews,
+  selectAvatarColor,
+  resetState,
+  openModal,
+  addSelectedView,
+  removeSelectedView,
   selectAllViews,
-  addInviteProject,
-  removeInviteProject,
-} = createProjectSlice.actions;
+  addInvitedUser,
+  removeInvitedUser,
+} = projectCreationSlice.actions;
 
-export default createProjectSlice.reducer;
+export default projectCreationSlice.reducer;
