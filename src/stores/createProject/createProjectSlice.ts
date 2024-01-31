@@ -14,7 +14,7 @@ export interface CounterState {
 }
 
 const initialState: CounterState = {
-  isOpen: false,
+  isOpen: true,
   colorAvatar: "#AF8AE2",
   step: 0,
   maxStep: 4,

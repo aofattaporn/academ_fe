@@ -18,13 +18,23 @@ const SummaryViews = ({ views2 }: SummaryViewsProps) => {
               return (
                 <div
                   key={index}
-                  className="flex-col align-middle items-center justify-center text-gray-300 w-12"
+                  className="flex-col items-center justify-center text-gray-300 w-16"
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
                 >
-                  <div className="flex justify-center">
+                  <div
+                    className="flex justify-center"
+                    style={{ display: "flex", justifyContent: "center" }}
+                  >
                     <item.icon />
                   </div>
-
-                  <div>{item.name}</div>
+                  <div style={{ textAlign: "center" }}>
+                    <p>{item.name}</p>
+                  </div>
                 </div>
               );
           })}

@@ -66,3 +66,20 @@ export type InviteProjectType = {
   email: string;
   role: string;
 };
+
+export interface ProjectType {
+  projectName: string;
+  projectStartDate: Date;
+  projectEndDate: Date;
+  views: string[];
+  members: string[];
+  invitationRequest: InviteProjectType[];
+}
+
+export interface ProjectRequestType {
+  projectName: string;
+  projectStartDate: Date;
+  projectEndDate: Date;
+  views: string[];
+  invitationRequest: InviteProjectType[];
+}
