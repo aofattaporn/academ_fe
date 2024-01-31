@@ -9,6 +9,7 @@ import PublicRoute from "./layouts/PublicRoute";
 import VerifyEmailPage from "./pages/AuthPage/VerifyEmailPage";
 import ForgotPasswordPage from "./pages/AuthPage/ForgotPasswordPage";
 import ProjectPage from "./pages/ProjectPage/ProjectPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/notification" element={<NotificationPage />} />
         <Route path="/projects" element={<ProjectPage />} />
       </Route>
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }
