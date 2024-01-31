@@ -1,12 +1,12 @@
 import { Outlet } from "react-router-dom";
-import AcademSideBar from "./SideBar/AcademSideBar";
 import AcademNaveBar from "./Navbar/AcademNavBar";
+import SideBar from "./SideBar/SideBar";
 
 const HomeLayout = () => {
   return (
-    <div className="text-md flex overflow-x-scroll" style={{ height: "100vh" }}>
-      <AcademSideBar />
-      <div className="w-screen overflow-scroll">
+    <div className="flex">
+      <SideBar />
+      <div className="h-screen flex-1">
         <AcademNaveBar />
         <Outlet />
       </div>

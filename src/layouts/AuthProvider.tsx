@@ -9,8 +9,6 @@ import {
 import { onAuthStateChanged, User } from "firebase/auth";
 import { auth } from "../Firebase";
 import { Backdrop, CircularProgress } from "@mui/material";
-import { useQuery } from "react-query";
-import userApi from "../libs/userApi";
 
 interface AuthContextProps {
   user: User | null;

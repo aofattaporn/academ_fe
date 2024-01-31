@@ -57,17 +57,17 @@ type pageType = {
 export const pageItem: pageType[] = [
   {
     title: "Home",
-    Icon: <HomeIcon />,
+    Icon: <HomeIcon style={{ width: "36px" }} />,
     navigate: "/",
   },
   {
-    title: "My Task",
-    Icon: <TaskIcon />,
+    title: "My_Task",
+    Icon: <TaskIcon style={{ width: "36px" }} />,
     navigate: "/mytask",
   },
   {
     title: "Notification",
-    Icon: <NotificationsIcon />,
+    Icon: <NotificationsIcon style={{ width: "36px" }} />,
     navigate: "/notification",
   },
 ];
