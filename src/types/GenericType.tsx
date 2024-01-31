@@ -48,7 +48,7 @@ export const RESPONSE_TRY_AGAIN_LATHER =
 
 export const EMAIL_DID_NOT_VERIFY = "Email didn't verify";
 
-type pageType = {
+export type pageType = {
   title: string;
   Icon: ReactNode;
   navigate: string;

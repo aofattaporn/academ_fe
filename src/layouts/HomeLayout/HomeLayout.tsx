@@ -6,7 +6,7 @@ const HomeLayout = () => {
   return (
     <div className="flex">
       <SideBar />
-      <div className="h-screen flex-1">
+      <div className="h-screen flex-1 min-w-96 overflow-x-scroll">
         <AcademNaveBar />
         <Outlet />
       </div>
