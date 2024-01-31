@@ -1,7 +1,6 @@
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { ReactNode, useState } from "react";
 import { Link } from "react-router-dom";
-import ProjectSideTile from "./ProjectSideTile/ProjectSideTile";
 
 type ClassToggleProps = {
   icons: ReactNode;
@@ -48,11 +47,7 @@ const ClassToggle = ({ icons, item, isOpen }: ClassToggleProps) => {
             <p className="overflow-scroll  text-white">see all Projects</p>
           </div>
         </Link>
-        <div className="flex-col">
-          {[0, 1].map((item, index) => {
-            return <ProjectSideTile projectName="Project" projectId="zzzz" />;
-          })}
-        </div>
+        <div className="flex-col"></div>
       </div>
     </>
   );

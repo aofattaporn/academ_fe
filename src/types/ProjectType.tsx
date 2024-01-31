@@ -84,6 +84,11 @@ export interface ProjectType {
   invitationRequest: InviteProjectType[];
 }
 
+export interface ProjectList {
+  projectId: string;
+  projectName: string;
+}
+
 export interface ProjectRequestType {
   projectName: string;
   projectStartDate: Date;
