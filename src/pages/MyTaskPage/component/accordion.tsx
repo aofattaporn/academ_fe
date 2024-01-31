@@ -72,6 +72,11 @@ export default function CustomizedAccordions() {
               <p className="ml-2 text-black font-semibold text-sm">Due Date</p>
             </div>
           </div>
+          <div className=" flex">
+            <div className="w1/2 h-8 flex align-middle items-center">
+              <p className="text-black font-normal text-sm">task1</p>
+            </div>
+          </div>
         </AccordionDetails>
       </Accordion>
     </div>
