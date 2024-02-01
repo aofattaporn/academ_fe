@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import { Link, useParams } from "react-router-dom";
 import projectApi from "../../../../libs/projectApi";
 import ProjectSideTile from "./ProjectSideTile/ProjectSideTile";
+import RefreshIcon from "@mui/icons-material/Refresh";
 
 type ClassToggleProps = {
   icons: ReactNode;
@@ -15,12 +16,10 @@ const ClassToggle = ({ icons, item, isOpen }: ClassToggleProps) => {
   const [isCollapse, setIsCollapse] = useState<boolean>(false);
   const { projectId } = useParams();
 
-  const { data, isLoading, isSuccess } = useQuery(
+  const { data, isLoading, isSuccess, isError, refetch } = useQuery(
     "allProjectData",
     projectApi.getAllProject
   );
-
-  if (isLoading) console.log("loading");
 
   return (
     <>
@@ -58,16 +57,33 @@ const ClassToggle = ({ icons, item, isOpen }: ClassToggleProps) => {
             <p className="overflow-scroll  text-white">see all Projects</p>
           </div>
         </Link>
-        <div className="flex-col">
-          {isSuccess &&
-            data?.map((project, index) => (
-              <ProjectSideTile
-                key={index}
-                projectId={project.projectId}
-                projectName={project.projectName}
-                isSelected={project.projectId === projectId}
-              />
-            ))}
+        <div>
+          {isLoading ? (
+            <div className="p-4 flex cursor-pointer justify-between animate-pulse w-full h-4 bg-gray-200 rounded-md"></div>
+          ) : null}
+        </div>
+        <div>
+          {isSuccess
+            ? data?.map((project, index) => (
+                <ProjectSideTile
+                  key={index}
+                  projectId={project.projectId}
+                  projectName={project.projectName}
+                  isSelected={project.projectId === projectId}
+                />
+              ))
+            : null}
+        </div>
+        <div>
+          {isError ? (
+            <div
+              className="py-2 px-4 flex cursor-pointer justify-between hover:text-primary"
+              onClick={() => refetch()}
+            >
+              <p className=" font-semibold">Try to Refresh</p>
+              <RefreshIcon />
+            </div>
+          ) : null}
         </div>
       </div>
     </>
