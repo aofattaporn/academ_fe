@@ -15,53 +15,52 @@ const ClassToggle = ({ icons, item, isOpen }: ClassToggleProps) => {
   const [isCollapse, setIsCollapse] = useState<boolean>(false);
   const { projectId } = useParams();
 
-  const {
-    data: projectData,
-    isLoading,
-    isSuccess,
-  } = useQuery("allProjectData", projectApi.getAllProject);
+  const { data, isLoading, isSuccess } = useQuery(
+    "allProjectData",
+    projectApi.getAllProject
+  );
 
   if (isLoading) console.log("loading");
 
-  if (isSuccess) {
-    return (
-      <>
-        <li
-          onClick={() => setIsCollapse(!isCollapse)}
-          className={`flex rounded-md p-2 py-3 cursor-pointer hover:bg-light-white 
+  return (
+    <>
+      <li
+        onClick={() => setIsCollapse(!isCollapse)}
+        className={`flex rounded-md p-2 py-3 cursor-pointer hover:bg-light-white 
           text-dark text-md items-center gap-x-2
           ${false ? "mt-9" : "mt-2"}   h-12 overflow-scroll  `}
-        >
-          {icons}
-          <div
-            className={`${
-              !isOpen && "hidden"
-            } origin-left duration-200 font-roboto text-md w-full flex justify-between`}
-          >
-            {item}
-            {isOpen && (
-              <ExpandLessIcon
-                className={`${isCollapse ? "rotate-180" : "rotate-90"} `}
-              />
-            )}
-          </div>
-        </li>
-
+      >
+        {icons}
         <div
-          className={`overflow-scroll relative duration-100 mb-2 ${
-            !isCollapse || !isOpen ? "h-0" : " h-auto"
-          }`}
+          className={`${
+            !isOpen && "hidden"
+          } origin-left duration-200 font-roboto text-md w-full flex justify-between`}
         >
-          <Link to={"/projects"}>
-            <div
-              className="overflow-x-scroll  px-4 py-2 bg-slate-300 rounded-md 
+          {item}
+          {isOpen && (
+            <ExpandLessIcon
+              className={`${isCollapse ? "rotate-180" : "rotate-90"} `}
+            />
+          )}
+        </div>
+      </li>
+
+      <div
+        className={`overflow-scroll relative duration-100 mb-2 ${
+          !isCollapse || !isOpen ? "h-0" : " h-auto"
+        }`}
+      >
+        <Link to={"/projects"}>
+          <div
+            className="overflow-x-scroll  px-4 py-2 bg-slate-300 rounded-md 
             bg-gradient-to-r from-[#9379E0] via-[#AE78D6] to-[#D780E1] overflow-y-hidden h-10  mb-2"
-            >
-              <p className="overflow-scroll  text-white">see all Projects</p>
-            </div>
-          </Link>
-          <div className="flex-col">
-            {projectData.map((project, index) => (
+          >
+            <p className="overflow-scroll  text-white">see all Projects</p>
+          </div>
+        </Link>
+        <div className="flex-col">
+          {isSuccess &&
+            data?.map((project, index) => (
               <ProjectSideTile
                 key={index}
                 projectId={project.projectId}
@@ -69,11 +68,10 @@ const ClassToggle = ({ icons, item, isOpen }: ClassToggleProps) => {
                 isSelected={project.projectId === projectId}
               />
             ))}
-          </div>
         </div>
-      </>
-    );
-  }
+      </div>
+    </>
+  );
 };
 
 export default ClassToggle;
