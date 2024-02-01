@@ -1,11 +1,11 @@
 import { useAuth } from "./AuthProvider";
-import { Navigate } from "react-router-dom";
 import HomeLayout from "./HomeLayout/HomeLayout";
+import AuthLayout from "./AuthLayout";
 
 const PrivateRoute = () => {
   const { user } = useAuth();
 
-  return user?.emailVerified ? <HomeLayout /> : <Navigate to="/sign-in" />;
+  return user?.emailVerified ? <HomeLayout /> : <AuthLayout />;
 };
 
 export default PrivateRoute;
