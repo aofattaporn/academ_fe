@@ -1,7 +1,7 @@
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { ReactNode, useState } from "react";
 import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import projectApi from "../../../../libs/projectApi";
 import ProjectSideTile from "./ProjectSideTile/ProjectSideTile";
 
@@ -13,6 +13,7 @@ type ClassToggleProps = {
 
 const ClassToggle = ({ icons, item, isOpen }: ClassToggleProps) => {
   const [isCollapse, setIsCollapse] = useState<boolean>(false);
+  const { projectId } = useParams();
 
   const {
     data: projectData,
@@ -65,6 +66,7 @@ const ClassToggle = ({ icons, item, isOpen }: ClassToggleProps) => {
                 key={index}
                 projectId={project.projectId}
                 projectName={project.projectName}
+                isSelected={project.projectId === projectId}
               />
             ))}
           </div>
