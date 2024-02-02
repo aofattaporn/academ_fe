@@ -75,7 +75,7 @@ const ClassToggle = ({ icons, item, isOpen }: ClassToggleProps) => {
             : null}
         </div>
         <div>
-          {isError ? (
+          {(isSuccess && !data) || isError ? (
             <div
               className="py-2 px-4 flex cursor-pointer justify-between hover:text-primary"
               onClick={() => refetch()}
