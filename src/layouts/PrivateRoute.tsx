@@ -5,7 +5,7 @@ import AuthLayout from "./AuthLayout";
 const PrivateRoute = () => {
   const { user } = useAuth();
 
-  return user?.emailVerified ? <HomeLayout /> : <AuthLayout />;
+  return !user?.emailVerified ? <HomeLayout /> : <AuthLayout />;
 };
 
 export default PrivateRoute;
