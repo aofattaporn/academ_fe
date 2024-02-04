@@ -35,6 +35,11 @@ const MyProjectsPage = () => {
           />
         </div>
         <h4 className="text-gray-300">These projects are available.</h4>
+        <div className="h-screen w-full my-8 grid lg:grid-cols-3 grid-cols-1 gap-8">
+          <div className="h-56 bg-white shadow-md rounded-md"></div>
+          <div className="h-56 bg-white shadow-md rounded-md"></div>
+          <div className="h-56 bg-white shadow-md rounded-md"></div>
+        </div>
       </div>
     </div>
   );

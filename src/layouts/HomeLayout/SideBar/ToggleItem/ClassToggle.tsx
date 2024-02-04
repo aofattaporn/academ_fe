@@ -21,6 +21,8 @@ const ClassToggle = ({ icons, item, isOpen }: ClassToggleProps) => {
     projectApi.getAllProject
   );
 
+  console.log();
+
   return (
     <>
       <li
@@ -75,7 +77,7 @@ const ClassToggle = ({ icons, item, isOpen }: ClassToggleProps) => {
             : null}
         </div>
         <div>
-          {(isSuccess && !data) || isError ? (
+          {!data || isError ? (
             <div
               className="py-2 px-4 flex cursor-pointer justify-between hover:text-primary"
               onClick={() => refetch()}

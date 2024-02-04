@@ -15,7 +15,7 @@ const getAllProjectError = http.get("/api/v1/projects", () =>
   HttpResponse.error()
 );
 
-const getAllProjectSuccess = http.get("/api/v1/projects", async () => {
+const getAllProjectSuccess = http.get("api/v1/projects", async () => {
   const mockRes: ResponseCustom<ProjectList[]> = {
     status: 200,
     message: RESPONSE_OK,
