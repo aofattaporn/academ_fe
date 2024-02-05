@@ -19,7 +19,7 @@ const Accordion = styled((props: AccordionProps) => (
   },
 }));
 
-const AccordionSummary = styled((props: AccordionSummaryProps) => (
+const AccordionHeader = styled((props: AccordionSummaryProps) => (
   <MuiAccordionSummary
     expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: "0.9rem" }} />}
     {...props}
@@ -57,12 +57,12 @@ export default function CustomizedAccordions() {
         expanded={expanded === "panel1"}
         onChange={handleChange("panel1")}
       >
-        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+        <AccordionHeader aria-controls="panel1d-content" id="panel1d-header">
           <div className="flex">
             <div className="h-full w-1 bg-grey"></div>
             <p className="ml-2 text-black font-bold text-md">To do</p>
           </div>
-        </AccordionSummary>
+        </AccordionHeader>
         <AccordionDetails>
           <div className="flex">
             <div className="w-1/2 h-8 bg-grey mr-2 flex align-middle items-center">
