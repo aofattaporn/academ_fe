@@ -27,8 +27,11 @@ const ProjectBox = () => {
       <div className="p-2">
         <h2 className="text-black font-bold text-xl my-2">Project</h2>
         <div className="rounded-xl grid grid-cols-1 lg:grid-cols-2 gap-4 place-content-start bg-main p-4">
-          {data.map((item) => (
-            <div className="flex align-middl items-center gap-4 p-2 cursor-pointer">
+          {data.map((item, index) => (
+            <div
+              key={index}
+              className="flex align-middl items-center gap-4 p-2 cursor-pointer"
+            >
               <div className="bg-primary w-16 h-16 rounded-md flex justify-center items-center text-center shadow-md">
                 <p className="text-white text-center font-bold text-2xl">
                   {item.projectName.charAt(0)}
