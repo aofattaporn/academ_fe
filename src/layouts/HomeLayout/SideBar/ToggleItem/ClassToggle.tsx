@@ -1,6 +1,6 @@
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { ReactNode, useState } from "react";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 import { Link, useParams } from "react-router-dom";
 import projectApi from "../../../../libs/projectApi";
 import ProjectSideTile from "./ProjectSideTile/ProjectSideTile";
@@ -16,18 +16,15 @@ type ClassToggleProps = {
 };
 
 const ClassToggle = ({ icons, item, isOpen }: ClassToggleProps) => {
-  const [isCollapse, setIsCollapse] = useState<boolean>(false);
   const { projectId } = useParams();
-
   const dispatch = useDispatch();
-  const data = useSelector((state: RootState) => state.projects.projects);
+  const projects = useSelector((state: RootState) => state.projects.projects);
+  const [isCollapse, setIsCollapse] = useState<boolean>(false);
 
-  const { isLoading, isSuccess, isError, refetch } = useQuery(
+  const { isLoading, isSuccess, isError, refetch, data } = useQuery(
     "allProjectData",
-    projectApi.getAllProject,
+    () => projectApi.getAllProject(projects),
     {
-      cacheTime: Infinity,
-      staleTime: Infinity,
       onSuccess: (data) => {
         dispatch(saveProjects(data));
       },
