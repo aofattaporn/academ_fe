@@ -28,7 +28,7 @@ const getAllProject = async (
   } else {
     try {
       const token = await firebaseApi.getToken();
-      const response = await axiosInstance.get("api/v1/projects", {
+      const response = await axiosInstance.get("api/v1/projects/user", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

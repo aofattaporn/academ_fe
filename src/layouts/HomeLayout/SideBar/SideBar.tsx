@@ -38,14 +38,14 @@ const SideBar1 = () => {
         <Divider sx={{ marginTop: "2rem" }} />
         <ToggleItem
           icons={<SchoolIcon style={{ width: "36px" }} />}
-          item={"CLASS"}
+          title={"CLASS"}
           isOpen={isOpen}
           navigate={"/projects"}
         />
         <Divider />
         <ToggleItem
           icons={<FolderIcon style={{ width: "36px" }} />}
-          item={"PROJECTS"}
+          title={"PROJECTS"}
           isOpen={isOpen}
           navigate={"/class"}
         />

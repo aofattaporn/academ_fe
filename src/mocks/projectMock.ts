@@ -11,29 +11,28 @@ const createProjectSuccess = http.post("/api/v1/projects", async () => {
   return HttpResponse.json(mockRes, { status: 200 });
 });
 
-const getAllProjectError = http.get("/api/v1/projects", () =>
+const getAllProjectError = http.get("/api/v1/projects/user", () =>
   HttpResponse.error()
 );
 
-const getAllProjectSuccess = http.get("api/v1/projects", async () => {
+const getAllProjectSuccess = http.get("api/v1/projects/user", async () => {
   const mockRes: ResponseCustom<ProjectList[]> = {
     status: 200,
     message: RESPONSE_OK,
     description: "Success",
     data: [
       {
-        projectId: "AB123213",
+        projectId: "6adc6173-8c9b-4357-a051-aa41a9978257",
         projectName: "JitD",
       },
       {
-        projectId: "AB23214",
+        projectId: "e7e603f0-b7cb-46c2-a856-10b36d1be070",
         projectName: "TungTee",
       },
     ],
   };
 
   await delay(3000);
-
   return HttpResponse.json(mockRes, { status: 200 });
 });
 

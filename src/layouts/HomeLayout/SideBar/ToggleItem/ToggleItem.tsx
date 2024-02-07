@@ -11,13 +11,13 @@ import ToggleTitle from "./ToggleTitle/ToggleTitle";
 import SeemoreButton from "./SeemoreButton/SeemoreButton";
 
 type ToggleItemProps = {
+  title: string;
   icons: ReactNode;
-  item: string;
   isOpen: boolean;
   navigate: string;
 };
 
-const ToggleItem = ({ icons, item, isOpen, navigate }: ToggleItemProps) => {
+const ToggleItem = ({ icons, title, isOpen, navigate }: ToggleItemProps) => {
   const { projectId } = useParams();
   const [isCollapse, setIsCollapse] = useState<boolean>(false);
 
@@ -40,7 +40,7 @@ const ToggleItem = ({ icons, item, isOpen, navigate }: ToggleItemProps) => {
         handleCloseCollapse={() => setIsCollapse(!isCollapse)}
         icons={icons}
         isOpen={isOpen}
-        item={item}
+        title={title}
         isCollapse={isCollapse}
       />
 

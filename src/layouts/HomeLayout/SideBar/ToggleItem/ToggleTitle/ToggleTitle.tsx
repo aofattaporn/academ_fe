@@ -5,7 +5,7 @@ type ToggleTitleProps = {
   handleCloseCollapse: () => void;
   icons: ReactNode;
   isOpen: boolean;
-  item: string;
+  title: string;
   isCollapse: boolean;
 };
 
@@ -13,7 +13,7 @@ const ToggleTitle = ({
   handleCloseCollapse,
   icons,
   isOpen,
-  item,
+  title,
   isCollapse,
 }: ToggleTitleProps) => {
   return (
@@ -29,7 +29,7 @@ const ToggleTitle = ({
           !isOpen && "hidden"
         } origin-left duration-200 font-roboto text-md w-full flex justify-between`}
       >
-        {item}
+        {title}
         {isOpen && (
           <ExpandLessIcon
             className={`${isCollapse ? "rotate-180" : "rotate-90"} `}
