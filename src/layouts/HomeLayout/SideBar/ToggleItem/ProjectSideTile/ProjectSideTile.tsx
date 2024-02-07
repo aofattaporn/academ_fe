@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 
 type ProjectSideTileProps = {
+  title: string;
   projectId: string;
   projectName: string;
   isSelected: boolean;
 };
 
 const ProjectSideTile = ({
+  title,
   projectName,
   projectId,
   isSelected,
@@ -24,9 +26,15 @@ const ProjectSideTile = ({
           }`}
         ></div>
         <div className="py-2 rounded-md flex gap-4">
-          <div className="bg-primary h-6 w-6 flex items-center justify-center rounded-md">
-            <p className="font-bold text-white">{projectName.charAt(0)}</p>
-          </div>
+          {title === "PROJECTS" ? (
+            <div className="bg-primary h-6 w-6 flex items-center justify-center rounded-md overflow-hidden">
+              <p className="font-bold text-white">{projectName.charAt(0)}</p>
+            </div>
+          ) : (
+            <div className="bg-main flex px-2 py-1 items-center justify-center rounded-md shadow-sm overflow-hidden">
+              <p className="font-bold text-dark">{"CSS112"}</p>
+            </div>
+          )}
           <p
             className={
               isSelected ? "text-white font-bold" : "text-primary-dark"

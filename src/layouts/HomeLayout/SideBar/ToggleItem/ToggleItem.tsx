@@ -60,6 +60,7 @@ const ToggleItem = ({ icons, title, isOpen, navigate }: ToggleItemProps) => {
             ? data?.map((project, index) => (
                 <ProjectSideTile
                   key={index}
+                  title={title}
                   projectId={project.projectId}
                   projectName={project.projectName}
                   isSelected={project.projectId === projectId}
