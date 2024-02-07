@@ -14,13 +14,15 @@ type ToggleItemProps = {
   icons: ReactNode;
   item: string;
   isOpen: boolean;
+  navigate: string;
 };
 
-const ToggleItem = ({ icons, item, isOpen }: ToggleItemProps) => {
+const ToggleItem = ({ icons, item, isOpen, navigate }: ToggleItemProps) => {
   const { projectId } = useParams();
+  const [isCollapse, setIsCollapse] = useState<boolean>(false);
+
   const dispatch = useDispatch();
   const projects = useSelector((state: RootState) => state.projects.projects);
-  const [isCollapse, setIsCollapse] = useState<boolean>(false);
 
   const { isLoading, isSuccess, isError, refetch, data } = useQuery(
     "allProjectData",
@@ -47,7 +49,7 @@ const ToggleItem = ({ icons, item, isOpen }: ToggleItemProps) => {
           !isCollapse || !isOpen ? "h-0" : " h-auto"
         }`}
       >
-        <SeemoreButton navigate="/projects" />
+        <SeemoreButton navigate={navigate} />
         <>
           {isLoading ? (
             <div className="p-4 flex cursor-pointer justify-between animate-pulse w-full h-4 bg-gray-200 rounded-md"></div>

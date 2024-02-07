@@ -11,7 +11,9 @@ import ToggleItem from "./ToggleItem/ToggleItem";
 const SideBar1 = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  // TODO : Fetch Project and class toggle
+  // TODO : Fetch Project
+
+  // TODO : Fetch Class
 
   return (
     <div
@@ -38,12 +40,14 @@ const SideBar1 = () => {
           icons={<SchoolIcon style={{ width: "36px" }} />}
           item={"CLASS"}
           isOpen={isOpen}
+          navigate={"/projects"}
         />
         <Divider />
         <ToggleItem
           icons={<FolderIcon style={{ width: "36px" }} />}
           item={"PROJECTS"}
           isOpen={isOpen}
+          navigate={"/class"}
         />
         <Divider />
       </ul>
