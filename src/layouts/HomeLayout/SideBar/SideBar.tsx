@@ -1,13 +1,12 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
 import { pageItem } from "../../../types/GenericType";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import AcademIcon from "../../../assets/svg/academ_icon.svg";
 import { Divider } from "@mui/material";
 import ClassToggle from "./ToggleItem/ClassToggle";
 import SchoolIcon from "@mui/icons-material/School";
 import FolderIcon from "@mui/icons-material/Folder";
-import NavigateItem from "./NavigateItem.tsx/NavigateItem";
+import NavigateItem from "./NavigateItem/NavigateItem";
+import AcademTitle from "./AcademTitle/AcademTitle";
 
 const SideBar1 = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -26,12 +25,7 @@ const SideBar1 = () => {
       >
         <ExpandLessIcon />
       </div>
-      <div className="flex gap-x-4 items-center bg-primary-dark rounded-md mt-8">
-        <div className="flex items-center gap-4 px-2 h-12 bg-primary-dark rounded-md text-white">
-          <img src={AcademIcon} alt="Academ-icons" />
-          {isOpen ? <h1 className=" font-bold">Academ</h1> : null}
-        </div>
-      </div>
+      <AcademTitle isOpen={isOpen} />
       <ul className="pt-6">
         {pageItem.map((menu, index) => (
           <NavigateItem index={index} menu={menu} open={isOpen} />
