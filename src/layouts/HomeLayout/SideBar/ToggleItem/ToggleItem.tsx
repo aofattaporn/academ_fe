@@ -1,21 +1,22 @@
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { ReactNode, useState } from "react";
 import { useQuery } from "react-query";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import projectApi from "../../../../libs/projectApi";
 import ProjectSideTile from "./ProjectSideTile/ProjectSideTile";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../stores/store";
 import { saveProjects } from "../../../../stores/allProject/projectSlice";
+import ToggleTitle from "./ToggleTitle/ToggleTitle";
+import SeemoreButton from "./SeemoreButton/SeemoreButton";
 
-type ClassToggleProps = {
+type ToggleItemProps = {
   icons: ReactNode;
   item: string;
   isOpen: boolean;
 };
 
-const ClassToggle = ({ icons, item, isOpen }: ClassToggleProps) => {
+const ToggleItem = ({ icons, item, isOpen }: ToggleItemProps) => {
   const { projectId } = useParams();
   const dispatch = useDispatch();
   const projects = useSelector((state: RootState) => state.projects.projects);
@@ -33,46 +34,26 @@ const ClassToggle = ({ icons, item, isOpen }: ClassToggleProps) => {
 
   return (
     <>
-      <li
-        onClick={() => setIsCollapse(!isCollapse)}
-        className={`flex rounded-md p-2 py-3 cursor-pointer hover:bg-light-white 
-          text-dark text-md items-center gap-x-2
-          ${false ? "mt-9" : "mt-2"}   h-12 overflow-scroll  `}
-      >
-        {icons}
-        <div
-          className={`${
-            !isOpen && "hidden"
-          } origin-left duration-200 font-roboto text-md w-full flex justify-between`}
-        >
-          {item}
-          {isOpen && (
-            <ExpandLessIcon
-              className={`${isCollapse ? "rotate-180" : "rotate-90"} `}
-            />
-          )}
-        </div>
-      </li>
+      <ToggleTitle
+        handleCloseCollapse={() => setIsCollapse(!isCollapse)}
+        icons={icons}
+        isOpen={isOpen}
+        item={item}
+        isCollapse={isCollapse}
+      />
 
       <div
         className={`overflow-scroll relative duration-100 mb-2 ${
           !isCollapse || !isOpen ? "h-0" : " h-auto"
         }`}
       >
-        <Link to={"/projects"}>
-          <div
-            className="overflow-x-scroll  px-4 py-2 bg-slate-300 rounded-md 
-            bg-gradient-to-r from-[#9379E0] via-[#AE78D6] to-[#D780E1] overflow-y-hidden h-10  mb-2"
-          >
-            <p className="overflow-scroll  text-white">see all Projects</p>
-          </div>
-        </Link>
-        <div>
+        <SeemoreButton navigate="/projects" />
+        <>
           {isLoading ? (
             <div className="p-4 flex cursor-pointer justify-between animate-pulse w-full h-4 bg-gray-200 rounded-md"></div>
           ) : null}
-        </div>
-        <div>
+        </>
+        <>
           {isSuccess
             ? data?.map((project, index) => (
                 <ProjectSideTile
@@ -83,9 +64,9 @@ const ClassToggle = ({ icons, item, isOpen }: ClassToggleProps) => {
                 />
               ))
             : null}
-        </div>
-        <div>
-          {!data || isError ? (
+        </>
+        <>
+          {isError ? (
             <div
               className="py-2 px-4 flex cursor-pointer justify-between hover:text-primary"
               onClick={() => refetch()}
@@ -94,10 +75,10 @@ const ClassToggle = ({ icons, item, isOpen }: ClassToggleProps) => {
               <RefreshIcon />
             </div>
           ) : null}
-        </div>
+        </>
       </div>
     </>
   );
 };
 
-export default ClassToggle;
+export default ToggleItem;

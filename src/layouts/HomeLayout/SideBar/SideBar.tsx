@@ -2,14 +2,16 @@ import { useState } from "react";
 import { pageItem } from "../../../types/GenericType";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { Divider } from "@mui/material";
-import ClassToggle from "./ToggleItem/ClassToggle";
 import SchoolIcon from "@mui/icons-material/School";
 import FolderIcon from "@mui/icons-material/Folder";
 import NavigateItem from "./NavigateItem/NavigateItem";
 import AcademTitle from "./AcademTitle/AcademTitle";
+import ToggleItem from "./ToggleItem/ToggleItem";
 
 const SideBar1 = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  // TODO : Fetch Project and class toggle
 
   return (
     <div
@@ -32,13 +34,13 @@ const SideBar1 = () => {
         ))}
 
         <Divider sx={{ marginTop: "2rem" }} />
-        <ClassToggle
+        <ToggleItem
           icons={<SchoolIcon style={{ width: "36px" }} />}
           item={"CLASS"}
           isOpen={isOpen}
         />
         <Divider />
-        <ClassToggle
+        <ToggleItem
           icons={<FolderIcon style={{ width: "36px" }} />}
           item={"PROJECTS"}
           isOpen={isOpen}
