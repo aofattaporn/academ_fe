@@ -21,7 +21,7 @@ const ProjectSideTile = ({
         }`}
       >
         <div
-          className={`h-10 w-2 rounded-l-md  ${
+          className={` h-10 w-2 rounded-l-md  ${
             isSelected && "bg-primary-dark"
           }`}
         ></div>
@@ -31,7 +31,7 @@ const ProjectSideTile = ({
               <p className="font-bold text-white">{projectName.charAt(0)}</p>
             </div>
           ) : (
-            <div className="bg-main flex px-2 py-1 items-center justify-center rounded-md shadow-sm overflow-hidden">
+            <div className="bg-main flex px-2 items-center justify-center rounded-md shadow-sm overflow-hidden">
               <p className="font-bold text-dark">{"CSS112"}</p>
             </div>
           )}

@@ -7,13 +7,40 @@ import FolderIcon from "@mui/icons-material/Folder";
 import NavigateItem from "./NavigateItem/NavigateItem";
 import AcademTitle from "./AcademTitle/AcademTitle";
 import ToggleItem from "./ToggleItem/ToggleItem";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../stores/store";
+import { useQuery } from "react-query";
+import projectApi from "../../../libs/projectApi";
+import { saveProjects } from "../../../stores/allProject/projectSlice";
 
-const SideBar1 = () => {
+const SideBar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const dispatch = useDispatch();
+  const projects = useSelector((state: RootState) => state.projects.projects);
 
-  // TODO : Fetch Project
+  const {
+    isLoading: projectIsLoading,
+    isSuccess: projectIsSuccess,
+    isError: projectIsError,
+    refetch: projectRefetch,
+    data: projectData,
+  } = useQuery("allProjectData", () => projectApi.getAllProject(projects), {
+    onSuccess: (data) => {
+      dispatch(saveProjects(data));
+    },
+  });
 
-  // TODO : Fetch Class
+  const {
+    isLoading: classIsLoading,
+    isSuccess: classIsSuccess,
+    isError: classIsError,
+    refetch: classRefetch,
+    data: classData,
+  } = useQuery("allClassData", () => projectApi.getAllProject(projects), {
+    onSuccess: (data) => {
+      dispatch(saveProjects(data));
+    },
+  });
 
   return (
     <div
@@ -39,15 +66,25 @@ const SideBar1 = () => {
         <ToggleItem
           icons={<SchoolIcon style={{ width: "36px" }} />}
           title={"CLASS"}
-          isOpen={isOpen}
           navigate={"/projects"}
+          isOpen={isOpen}
+          isLoading={projectIsLoading}
+          isSuccess={projectIsSuccess}
+          isError={projectIsError}
+          refetch={() => projectRefetch()}
+          data={projectData}
         />
         <Divider />
         <ToggleItem
           icons={<FolderIcon style={{ width: "36px" }} />}
           title={"PROJECTS"}
-          isOpen={isOpen}
           navigate={"/class"}
+          isOpen={isOpen}
+          isLoading={classIsLoading}
+          isSuccess={classIsSuccess}
+          isError={classIsError}
+          refetch={() => classRefetch()}
+          data={classData}
         />
         <Divider />
       </ul>
@@ -55,4 +92,4 @@ const SideBar1 = () => {
   );
 };
 
-export default SideBar1;
+export default SideBar;
