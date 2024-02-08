@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import projectApi from "../../../../libs/projectApi";
 import ProjectSideTile from "./ProjectSideTile/ProjectSideTile";
 import RefreshIcon from "@mui/icons-material/Refresh";
@@ -28,8 +28,8 @@ const ToggleItem = ({
   isLoading,
   isSuccess,
   isError,
-  refetch,
   data,
+  refetch,
 }: ToggleItemProps) => {
   const { projectId } = useParams();
   const [isCollapse, setIsCollapse] = useState<boolean>(false);
@@ -55,13 +55,15 @@ const ToggleItem = ({
           !isCollapse || !isOpen ? "h-0" : " h-auto"
         }`}
       >
-        <SeemoreButton navigate={navigate} />
+        <SeemoreButton navigate={navigate} title={title} />
+
         {isLoading ? (
           <div
             className="p-4 flex cursor-pointer justify-between 
             animate-pulse w-full h-4 bg-gray-200 rounded-md"
           ></div>
         ) : null}
+
         {isSuccess
           ? data?.map((project, index) => (
               <ProjectSideTile
@@ -73,13 +75,14 @@ const ToggleItem = ({
               />
             ))
           : null}
+
         {isError ? (
           <div
             className="py-2 px-4 flex cursor-pointer 
               justify-between hover:text-primary"
             onClick={refetch}
           >
-            <p className=" font-semibold">Try to Refresh</p>
+            <p className="font-semibold">Try to Refresh</p>
             <RefreshIcon />
           </div>
         ) : null}

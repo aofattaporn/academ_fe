@@ -30,23 +30,13 @@ const SideBar = () => {
     },
   });
 
-  const {
-    isLoading: classIsLoading,
-    isSuccess: classIsSuccess,
-    isError: classIsError,
-    refetch: classRefetch,
-    data: classData,
-  } = useQuery("allClassData", () => projectApi.getAllProject(projects), {
-    onSuccess: (data) => {
-      dispatch(saveProjects(data));
-    },
-  });
+  // TODO : Get All Class
 
   return (
     <div
       className={` ${
         isOpen ? "w-56" : "w-[84px]"
-      } bg-dark-purple h-screen p-4  pt-8 relative duration-300 shadow-lg bg-white`}
+      } bg-dark-purple p-4  pt-8 relative duration-300 shadow-lg bg-white`}
     >
       <div
         className={`absolute cursor-pointer -right-3 top-3 w-8 h-8 border-dark-purple 
@@ -64,8 +54,8 @@ const SideBar = () => {
 
         <Divider sx={{ marginTop: "2rem" }} />
         <ToggleItem
-          icons={<SchoolIcon style={{ width: "36px" }} />}
-          title={"CLASS"}
+          icons={<FolderIcon style={{ width: "36px" }} />}
+          title={"PROJECTS"}
           navigate={"/projects"}
           isOpen={isOpen}
           isLoading={projectIsLoading}
@@ -76,15 +66,14 @@ const SideBar = () => {
         />
         <Divider />
         <ToggleItem
-          icons={<FolderIcon style={{ width: "36px" }} />}
-          title={"PROJECTS"}
+          icons={<SchoolIcon style={{ width: "36px" }} />}
+          title={"CLASS"}
           navigate={"/class"}
           isOpen={isOpen}
-          isLoading={classIsLoading}
-          isSuccess={classIsSuccess}
-          isError={classIsError}
-          refetch={() => classRefetch()}
-          data={classData}
+          isLoading={false}
+          isSuccess={false}
+          isError={true}
+          refetch={() => {}}
         />
         <Divider />
       </ul>
