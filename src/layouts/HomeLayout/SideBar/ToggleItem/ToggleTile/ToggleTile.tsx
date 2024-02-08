@@ -18,7 +18,7 @@ const ToggleTile = ({
   isSelected,
 }: ToggleTileProps) => {
   return (
-    <Link to={`/${title.toLocaleLowerCase}/${ItemId}`}>
+    <Link to={`/${title.toLocaleLowerCase()}/${ItemId}`}>
       <div
         className={`my-2 rounded-sm flex gap-2 ${
           isSelected && "bg-primary-light"
