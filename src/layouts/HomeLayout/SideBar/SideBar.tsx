@@ -18,7 +18,6 @@ import { useQuery } from "react-query";
 import projectApi from "../../../libs/projectApi";
 import {
   saveOnError,
-  saveOnLoading,
   saveProjects,
 } from "../../../stores/projectSlice/projectSlice";
 

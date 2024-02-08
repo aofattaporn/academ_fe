@@ -14,7 +14,7 @@ const PublicRoute = () => {
     data: userData,
     isSuccess,
     isLoading,
-  } = useQuery("userData", () => userApi.getUserApi());
+  } = useQuery("userData", async () => await userApi.getUserApi());
 
   if (isLoading) return <p>Loading...</p>;
   if (isSuccess) dispatch(saveUser(userData));
