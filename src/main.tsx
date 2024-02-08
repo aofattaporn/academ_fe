@@ -7,7 +7,6 @@ import "./index.css";
 import { AuthProvider } from "./layouts/AuthProvider.tsx";
 import { store } from "./stores/store.ts";
 import { Provider } from "react-redux";
-import CreateProject from "./components/CreateModal/CreateModalComp.tsx";
 
 async function enableMocking() {
   console.log(import.meta.env.MODE);
@@ -16,14 +15,14 @@ async function enableMocking() {
   }
 
   const { worker } = await import("./mocks/browser");
-
   return worker.start();
 }
 
 const queryClient = new QueryClient();
 
 enableMocking().then(() => {
-  ReactDOM.createRoot(document.getElementById("root")!).render(
+  const root = ReactDOM.createRoot(document.getElementById("root")!);
+  root.render(
     <React.StrictMode>
       <AuthProvider>
         <Provider store={store}>
