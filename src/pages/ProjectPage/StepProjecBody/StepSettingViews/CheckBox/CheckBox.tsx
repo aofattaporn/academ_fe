@@ -4,7 +4,7 @@ import { RootState } from "../../../../../stores/store";
 import {
   removeSelectedView,
   addSelectedView,
-} from "../../../../../stores/createProject/createProjectSlice";
+} from "../../../../../stores/projectSlice/createProjectSlice";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 
 type CheckBoxProps = {

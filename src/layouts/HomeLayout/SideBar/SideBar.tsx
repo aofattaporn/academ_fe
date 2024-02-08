@@ -16,7 +16,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../stores/store";
 import { useQuery } from "react-query";
 import projectApi from "../../../libs/projectApi";
-import { saveProjects } from "../../../stores/allProject/projectSlice";
+import {
+  saveOnError,
+  saveOnLoading,
+  saveProjects,
+} from "../../../stores/projectSlice/projectSlice";
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -32,6 +36,9 @@ const SideBar = () => {
   } = useQuery("allProjectData", () => projectApi.getAllProject(projects), {
     onSuccess: (data) => {
       dispatch(saveProjects(data));
+    },
+    onError: () => {
+      dispatch(saveOnError(true));
     },
   });
 
@@ -54,7 +61,7 @@ const SideBar = () => {
       <AcademTitle isOpen={isOpen} />
       <ul className="pt-6">
         {PAGE_ITEM.map((menu, index) => (
-          <NavigateItem index={index} menu={menu} open={isOpen} />
+          <NavigateItem key={index} index={index} menu={menu} open={isOpen} />
         ))}
 
         <Divider sx={{ marginTop: "2rem" }} />

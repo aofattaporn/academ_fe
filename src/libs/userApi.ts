@@ -13,6 +13,8 @@ const getUserApi = async (): Promise<UserType> => {
 
     const userData = response.data.data as UserType;
 
+    console.log(userData);
+
     return userData;
   } catch (error) {
     console.error("Error fetching user data:", error);

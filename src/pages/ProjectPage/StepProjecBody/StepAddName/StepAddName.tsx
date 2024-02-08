@@ -6,7 +6,7 @@ import {
   incrementStep,
   selectAvatarColor,
   setProjectName,
-} from "../../../../stores/createProject/createProjectSlice";
+} from "../../../../stores/projectSlice/createProjectSlice";
 import AvatarProject from "./AvatarProject/AvatarProject";
 import ColorSelected from "./ColorSelected/ColorSelected";
 

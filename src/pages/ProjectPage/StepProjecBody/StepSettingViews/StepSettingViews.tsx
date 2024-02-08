@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   incrementStep,
   selectAllViews,
-} from "../../../../stores/createProject/createProjectSlice";
+} from "../../../../stores/projectSlice/createProjectSlice";
 import { RootState } from "../../../../stores/store";
 
 function StepSettingViews() {

@@ -4,7 +4,7 @@ import { useAuth } from "./AuthProvider";
 import { useQuery } from "react-query";
 import userApi from "../libs/userApi";
 import { useDispatch } from "react-redux";
-import { saveUser } from "../stores/user/userSlice";
+import { saveUser } from "../stores/userSlice/userSlice";
 
 const PublicRoute = () => {
   const { user } = useAuth();
@@ -14,7 +14,7 @@ const PublicRoute = () => {
     data: userData,
     isSuccess,
     isLoading,
-  } = useQuery("userData", userApi.getUserApi);
+  } = useQuery("userData", () => userApi.getUserApi());
 
   if (isLoading) return <p>Loading...</p>;
   if (isSuccess) dispatch(saveUser(userData));

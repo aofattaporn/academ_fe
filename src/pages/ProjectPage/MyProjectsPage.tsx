@@ -8,7 +8,7 @@ import {
   openModal,
   resetState,
   setCurrentStep,
-} from "../../stores/createProject/createProjectSlice";
+} from "../../stores/projectSlice/createProjectSlice";
 
 const MyProjectsPage = () => {
   const createStore = useSelector((state: RootState) => state.createProject);

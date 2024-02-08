@@ -7,7 +7,7 @@ import {
   addInvitedUser,
   incrementStep,
   removeInvitedUser,
-} from "../../../../stores/createProject/createProjectSlice";
+} from "../../../../stores/projectSlice/createProjectSlice";
 import OwnerItem from "./OwnerItem/OwnerIten";
 import ShareInviteField from "../../../../components/Field/ShareInviteField";
 
