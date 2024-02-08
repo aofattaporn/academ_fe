@@ -14,7 +14,7 @@ const PrivateRoute = () => {
     data: userData,
     isSuccess,
     isLoading,
-  } = useQuery("userData", async () => await userApi.getUserApi());
+  } = useQuery("userData", userApi.getUserApi);
 
   if (isLoading) return <p>Loading...</p>;
   if (isSuccess) dispatch(saveUser(userData));
