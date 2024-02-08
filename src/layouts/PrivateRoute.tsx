@@ -10,13 +10,11 @@ const PrivateRoute = () => {
   const { user } = useAuth();
   const dispatch = useDispatch();
 
-  const {
-    data: userData,
-    isSuccess,
-    isLoading,
-  } = useQuery("userData", userApi.getUserApi);
+  const { data: userData, isSuccess } = useQuery(
+    "userData",
+    userApi.getUserApi
+  );
 
-  if (isLoading) return <p>Loading...</p>;
   if (isSuccess) dispatch(saveUser(userData));
 
   return user?.emailVerified ? <HomeLayout /> : <AuthLayout />;
