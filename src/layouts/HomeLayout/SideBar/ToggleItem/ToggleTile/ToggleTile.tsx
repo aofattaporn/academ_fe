@@ -1,20 +1,24 @@
 import { Link } from "react-router-dom";
+import {
+  PAGE_ITEM_CLASS,
+  PAGE_ITEM_PROJECT,
+} from "../../../../../types/GenericType";
 
 type ToggleTileProps = {
   title: string;
-  projectId: string;
-  projectName: string;
+  ItemId: string;
+  ItemName: string;
   isSelected: boolean;
 };
 
 const ToggleTile = ({
   title,
-  projectName,
-  projectId,
+  ItemName,
+  ItemId,
   isSelected,
 }: ToggleTileProps) => {
   return (
-    <Link to={`/projects/${projectId}`}>
+    <Link to={`/${title.toLocaleLowerCase}/${ItemId}`}>
       <div
         className={`my-2 rounded-sm flex gap-2 ${
           isSelected && "bg-primary-light"
@@ -26,21 +30,24 @@ const ToggleTile = ({
           }`}
         ></div>
         <div className="py-2 rounded-md flex gap-4">
-          {title === "PROJECTS" ? (
+          {title === PAGE_ITEM_PROJECT ? (
             <div className="bg-primary h-6 w-6 flex items-center justify-center rounded-md overflow-hidden">
-              <p className="font-bold text-white">{projectName.charAt(0)}</p>
+              <p className="font-bold text-white">{ItemName.charAt(0)}</p>
             </div>
-          ) : (
+          ) : null}
+
+          {title === PAGE_ITEM_CLASS ? (
             <div className="bg-main flex px-2 items-center justify-center rounded-md shadow-sm overflow-hidden">
               <p className="font-bold text-dark">{"CSS112"}</p>
             </div>
-          )}
+          ) : null}
+
           <p
             className={
               isSelected ? "text-white font-bold" : "text-primary-dark"
             }
           >
-            {projectName}
+            {ItemName}
           </p>
         </div>
       </div>

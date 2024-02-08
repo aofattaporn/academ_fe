@@ -29,7 +29,7 @@ const ToggleItem = ({
   data,
   refetch,
 }: ToggleItemProps) => {
-  const { projectId } = useParams();
+  const { itemId } = useParams();
   const [isCollapse, setIsCollapse] = useState<boolean>(false);
 
   useEffect(() => {
@@ -67,9 +67,9 @@ const ToggleItem = ({
               <ToggleTile
                 key={index}
                 title={title}
-                projectId={project.projectId}
-                projectName={project.projectName}
-                isSelected={project.projectId === projectId}
+                ItemId={project.projectId}
+                ItemName={project.projectName}
+                isSelected={project.projectId === itemId}
               />
             ))
           : null}
