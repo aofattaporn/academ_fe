@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import AuthButtonComp from "../../components/Button/AuthButtonComp";
-import TextFieldComp from "../../components/TextFieldComp";
+import TextFieldComp from "../../components/Field/TextFieldComp";
 import { placeholders } from "../../types/AuthType";
 import useForgotForm from "../../hooks/useForgotForm";
 

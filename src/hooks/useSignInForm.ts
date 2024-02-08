@@ -6,7 +6,6 @@ import { ErrorCustom, RESPONSE_AUTH_ERROR } from "../types/GenericType";
 import firebaseApi from "../libs/firebaseApi";
 import authApi from "../libs/authApi";
 
-// Custom hook for the sign-in form logic
 const useSignInForm = () => {
   const {
     register,

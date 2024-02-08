@@ -1,7 +1,7 @@
 import { setupWorker } from "msw/browser";
 import { handlers } from "./handlers";
-import authMock from "./authMock";
+import { projectMock } from "./projectMock";
 
 export const worker = setupWorker(...handlers);
 
-worker.use(authMock.signInSuccess);
+worker.use(projectMock.getAllProjectSuccess);

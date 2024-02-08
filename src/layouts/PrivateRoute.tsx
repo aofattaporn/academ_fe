@@ -1,11 +1,25 @@
 import { useAuth } from "./AuthProvider";
-import { Navigate } from "react-router-dom";
 import HomeLayout from "./HomeLayout/HomeLayout";
+import AuthLayout from "./AuthLayout";
+import { useQuery } from "react-query";
+import userApi from "../libs/userApi";
+import { saveUser } from "../stores/userSlice/userSlice";
+import { useDispatch } from "react-redux";
 
 const PrivateRoute = () => {
   const { user } = useAuth();
+  const dispatch = useDispatch();
 
-  return user?.emailVerified ? <HomeLayout /> : <Navigate to="/sign-in" />;
+  const {
+    data: userData,
+    isSuccess,
+    isLoading,
+  } = useQuery("userData", userApi.getUserApi);
+
+  if (isLoading) return <p>Loading...</p>;
+  if (isSuccess) dispatch(saveUser(userData));
+
+  return user?.emailVerified ? <HomeLayout /> : <AuthLayout />;
 };
 
 export default PrivateRoute;
