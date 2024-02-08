@@ -1,18 +1,18 @@
 import { Link } from "react-router-dom";
 
-type ProjectSideTileProps = {
+type ToggleTileProps = {
   title: string;
   projectId: string;
   projectName: string;
   isSelected: boolean;
 };
 
-const ProjectSideTile = ({
+const ToggleTile = ({
   title,
   projectName,
   projectId,
   isSelected,
-}: ProjectSideTileProps) => {
+}: ToggleTileProps) => {
   return (
     <Link to={`/projects/${projectId}`}>
       <div
@@ -48,4 +48,4 @@ const ProjectSideTile = ({
   );
 };
 
-export default ProjectSideTile;
+export default ToggleTile;

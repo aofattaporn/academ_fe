@@ -1,12 +1,10 @@
 import { ReactNode, useEffect, useState } from "react";
-import { useQuery } from "react-query";
-import { useNavigate, useParams } from "react-router-dom";
-import projectApi from "../../../../libs/projectApi";
-import ProjectSideTile from "./ProjectSideTile/ProjectSideTile";
+import { useParams } from "react-router-dom";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import ToggleTitle from "./ToggleTitle/ToggleTitle";
 import SeemoreButton from "./SeemoreButton/SeemoreButton";
 import { ProjectList } from "../../../../types/ProjectType";
+import ToggleTile from "./ToggleTile/ToggleTile";
 
 type ToggleItemProps = {
   title: string;
@@ -66,7 +64,7 @@ const ToggleItem = ({
 
         {isSuccess
           ? data?.map((project, index) => (
-              <ProjectSideTile
+              <ToggleTile
                 key={index}
                 title={title}
                 projectId={project.projectId}
