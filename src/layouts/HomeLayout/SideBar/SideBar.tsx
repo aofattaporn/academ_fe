@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { pageItem } from "../../../types/GenericType";
+import {
+  NAVIGATOR,
+  PAGE_ITEM,
+  PAGE_ITEM_CLASS,
+  PAGE_ITEM_PROJECT,
+} from "../../../types/GenericType";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { Divider } from "@mui/material";
 import SchoolIcon from "@mui/icons-material/School";
@@ -48,15 +53,15 @@ const SideBar = () => {
       </div>
       <AcademTitle isOpen={isOpen} />
       <ul className="pt-6">
-        {pageItem.map((menu, index) => (
+        {PAGE_ITEM.map((menu, index) => (
           <NavigateItem index={index} menu={menu} open={isOpen} />
         ))}
 
         <Divider sx={{ marginTop: "2rem" }} />
         <ToggleItem
           icons={<FolderIcon style={{ width: "36px" }} />}
-          title={"PROJECTS"}
-          navigate={"/projects"}
+          title={PAGE_ITEM_PROJECT}
+          navigate={NAVIGATOR.PROJECT}
           isOpen={isOpen}
           isLoading={projectIsLoading}
           isSuccess={projectIsSuccess}
@@ -67,8 +72,8 @@ const SideBar = () => {
         <Divider />
         <ToggleItem
           icons={<SchoolIcon style={{ width: "36px" }} />}
-          title={"CLASS"}
-          navigate={"/class"}
+          title={PAGE_ITEM_CLASS}
+          navigate={NAVIGATOR.CLASS}
           isOpen={isOpen}
           isLoading={false}
           isSuccess={false}

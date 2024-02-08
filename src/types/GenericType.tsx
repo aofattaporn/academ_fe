@@ -48,13 +48,15 @@ export const RESPONSE_TRY_AGAIN_LATHER =
 
 export const EMAIL_DID_NOT_VERIFY = "Email didn't verify";
 
-export type pageType = {
+export type PAGE = {
   title: string;
   Icon: ReactNode;
   navigate: string;
 };
 
-export const pageItem: pageType[] = [
+export const PAGE_ITEM_PROJECT = "PROJECTS";
+export const PAGE_ITEM_CLASS = "CLASS";
+export const PAGE_ITEM: PAGE[] = [
   {
     title: "Home",
     Icon: <HomeIcon style={{ width: "36px" }} />,
@@ -71,3 +73,8 @@ export const pageItem: pageType[] = [
     navigate: "/notification",
   },
 ];
+
+export const NAVIGATOR = {
+  PROJECT: "/projects",
+  CLASS: "/class",
+};

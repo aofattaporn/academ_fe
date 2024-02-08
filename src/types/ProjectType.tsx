@@ -84,7 +84,7 @@ export interface ProjectType {
   invitationRequest: InviteProjectType[];
 }
 
-export interface ProjectList {
+export interface ListProject {
   projectId: string;
   projectName: string;
 }

@@ -1,5 +1,5 @@
 import { ResponseCustom } from "../types/GenericType";
-import { ProjectList, ProjectRequestType } from "../types/ProjectType";
+import { ListProject, ProjectRequestType } from "../types/ProjectType";
 import axiosInstance from "./axiosInstance";
 import firebaseApi from "./firebaseApi";
 
@@ -21,8 +21,8 @@ const createProject = async (
 };
 
 const getAllProject = async (
-  projects: ProjectList[]
-): Promise<ProjectList[]> => {
+  projects: ListProject[]
+): Promise<ListProject[]> => {
   if (projects.length) {
     return projects;
   } else {

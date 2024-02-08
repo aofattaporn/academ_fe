@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import ToggleTitle from "./ToggleTitle/ToggleTitle";
 import SeemoreButton from "./SeemoreButton/SeemoreButton";
-import { ProjectList } from "../../../../types/ProjectType";
+import { ListProject } from "../../../../types/ProjectType";
 import ToggleTile from "./ToggleTile/ToggleTile";
 
 type ToggleItemProps = {
@@ -14,7 +14,7 @@ type ToggleItemProps = {
   isLoading: boolean;
   isSuccess: boolean;
   isError: boolean;
-  data?: ProjectList[];
+  data?: ListProject[];
   refetch: () => void;
 };
 

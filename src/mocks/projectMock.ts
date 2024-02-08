@@ -1,6 +1,6 @@
 import { HttpResponse, delay, http } from "msw";
 import { RESPONSE_OK, ResponseCustom } from "../types/GenericType";
-import { ProjectList } from "../types/ProjectType";
+import { ListProject } from "../types/ProjectType";
 
 const createProjectSuccess = http.post("/api/v1/projects", async () => {
   const mockRes: ResponseCustom<null> = {
@@ -16,7 +16,7 @@ const getAllProjectError = http.get("/api/v1/projects/user", () =>
 );
 
 const getAllProjectSuccess = http.get("api/v1/projects/user", async () => {
-  const mockRes: ResponseCustom<ProjectList[]> = {
+  const mockRes: ResponseCustom<ListProject[]> = {
     status: 200,
     message: RESPONSE_OK,
     description: "Success",
