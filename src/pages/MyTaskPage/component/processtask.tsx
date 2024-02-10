@@ -5,6 +5,7 @@ import MuiAccordion, { AccordionProps } from "@mui/material/Accordion";
 import MuiAccordionSummary, {
   AccordionSummaryProps,
 } from "@mui/material/AccordionSummary";
+import ListMyTasks from "./listMyTasks";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 
 const Accordion = styled((props: AccordionProps) => (
@@ -68,13 +69,16 @@ export default function CustomizedAccordions() {
             <div className="w-1/2 h-8 bg-grey mr-2 flex align-middle items-center">
               <p className="ml-2 text-black font-semibold text-sm">Task Name</p>
             </div>
-            <div className="w-1/2 h-8 bg-grey ml-2 flex align-middle items-center">
+            <div className="w-1/2 h-8 bg-grey ml-2 flex align-middle justify-center items-center">
               <p className="ml-2 text-black font-semibold text-sm">Due Date</p>
             </div>
           </div>
-          <div className=" flex">
-            <div className="w1/2 h-8 flex align-middle items-center">
+          <div className="flex">
+            <div className="w-1/2 h-8 flex pl-8 align-middle items-center">
               <p className="text-black font-normal text-sm">task1</p>
+            </div>
+            <div className="w-1/2 h-8 flex ml-4  align-middle justify-center items-center">
+              <p className="text-black font-normal text-sm">Today</p>
             </div>
           </div>
         </AccordionDetails>
