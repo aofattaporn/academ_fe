@@ -26,19 +26,17 @@ const ClassBox = () => {
         <h2 className="text-black font-bold text-xl">Class</h2>
       </div>
       <div className="h-4/5 bg-main rounded-xl grid grid-cols-1 md:grid-cols-2 gap-2 place-content-start">
-        {data.map(function (data, index) {
-          return (
-            <div
-              key={index}
-              className="w-11/12 h-20 bg-background-white shadow-xl rounded-xl mt-6 ml-4"
-            >
-              <div className="grid content-center ml-6">
-                <p className="my-2">{data.classId}</p>
-                <p className="font-semibold">{data.className}</p>
-              </div>
+        {data.map((item, index) => (
+          <div
+            key={index}
+            className="w-11/12 h-20 bg-background-white shadow-xl rounded-xl mt-6 ml-4"
+          >
+            <div className="grid content-center ml-6">
+              <p className="my-2">{item.classId}</p>
+              <p className="font-semibold">{item.className}</p>
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
     </div>
   );

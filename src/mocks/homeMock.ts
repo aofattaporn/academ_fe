@@ -2,7 +2,7 @@ import { HttpResponse, http } from "msw";
 import { ClassType, MytaskType, ProjectType } from "../types/HomeType";
 import { ResponseCustom } from "../types/GenericType";
 
-const project_succes = http.get("/api/v1/project/:userid", () => {
+const projectSucces = http.get("/api/v1/project/:userid", () => {
   const mockRes: ResponseCustom<ProjectType[]> = {
     status: 200,
     message: "Success",
@@ -25,7 +25,16 @@ const project_succes = http.get("/api/v1/project/:userid", () => {
   return HttpResponse.json(mockRes, { status: 200 });
 });
 
-const class_succes = http.get("/api/v1/class/:userid", () => {
+const projectBussinessError = http.get("/api/v1/project/:userid", () => {
+  const mockRes: ResponseCustom<ProjectType[]> = {
+    status: 400,
+    message: "response business error",
+    description: "cant to get project by project_id",
+  };
+  return HttpResponse.json(mockRes, { status: 400 });
+});
+
+const classSucces = http.get("/api/v1/class/:userid", () => {
   const mockRes: ResponseCustom<ClassType[]> = {
     status: 200,
     message: "Success",
@@ -48,7 +57,17 @@ const class_succes = http.get("/api/v1/class/:userid", () => {
   return HttpResponse.json(mockRes, { status: 200 });
 });
 
-const mytask_succes = http.get("/api/v1/tasks/:userid", () => {
+const classBussinessError = http.get("/api/v1/class/:userid", () => {
+  const mockRes: ResponseCustom<ClassType[]> = {
+    status: 400,
+    message: "response business error",
+    description: "cant to get class by class_id",
+  };
+  return HttpResponse.json(mockRes, { status: 400 });
+});
+
+
+const mytaskSucces = http.get("/api/v1/tasks/:userid", () => {
   const mockRes: ResponseCustom<MytaskType[]> = {
     status: 200,
     message: "Success",
@@ -78,10 +97,22 @@ const mytask_succes = http.get("/api/v1/tasks/:userid", () => {
   return HttpResponse.json(mockRes, { status: 200 });
 });
 
+const myTasksBussinessError = http.get("/api/v1/tasks/:userid", () => {
+  const mockRes: ResponseCustom<MytaskType[]> = {
+    status: 400,
+    message: "response business error",
+    description: "cant to get myTasks by myTasks_id",
+  };
+  return HttpResponse.json(mockRes, { status: 400 });
+});
+
 export const homeMock = {
-  project_succes,
-  class_succes,
-  mytask_succes,
+  projectSucces,
+  classSucces,
+  mytaskSucces,
+  projectBussinessError,
+  classBussinessError,
+  myTasksBussinessError,
 };
 
 export default homeMock;

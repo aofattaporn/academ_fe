@@ -3,9 +3,12 @@ import homeMock from "./homeMock";
 
 // ingeneral case handler
 export const handlers = [
-  homeMock.project_succes,
-  homeMock.class_succes,
-  homeMock.mytask_succes,
+  homeMock.projectSucces,
+  homeMock.classSucces,
+  homeMock.mytaskSucces,
+  homeMock.projectBussinessError,
+  homeMock.classBussinessError,
+  homeMock.myTasksBussinessError,
   authMock.signInSuccess,
   authMock.signUpSuccess,
   authMock.signInGoogleSuccess,
