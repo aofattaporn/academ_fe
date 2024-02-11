@@ -5,7 +5,6 @@ import MuiAccordion, { AccordionProps } from "@mui/material/Accordion";
 import MuiAccordionSummary, {
   AccordionSummaryProps,
 } from "@mui/material/AccordionSummary";
-import ListMyTasks from "./listMyTasks";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 
 const Accordion = styled((props: AccordionProps) => (
