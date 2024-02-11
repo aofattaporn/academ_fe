@@ -16,7 +16,7 @@ const ClassBox = () => {
     console.log(error);
     return <BoxError title={"Class"} />;
   }
-  if (data == null) {
+  if (!data) {
     return <BoxNulldata title={"Class"} />;
   }
 

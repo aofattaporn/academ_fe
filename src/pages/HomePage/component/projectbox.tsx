@@ -16,7 +16,7 @@ const ProjectBox = () => {
     console.log(error);
     return <BoxError title={"Project"} />;
   }
-  if (data == null) {
+  if (!data) {
     return <BoxNulldata title={"Project"} />;
   }
 

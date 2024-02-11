@@ -16,7 +16,7 @@ const MytaskBox = () => {
     console.log(error);
     return <BoxError title={"Tasks"} />;
   }
-  if (data == null) {
+  if (!data) {
     return <BoxNulldata title={"Tasks"} />;
   }
 
