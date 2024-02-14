@@ -1,4 +1,6 @@
 import { authMock } from "./authMock";
+import { projectMock } from "./projectMock";
+import userMock from "./userMock";
 import homeMock from "./homeMock";
 
 // ingeneral case handler
@@ -12,4 +14,7 @@ export const handlers = [
   authMock.signInSuccess,
   authMock.signUpSuccess,
   authMock.signInGoogleSuccess,
+  userMock.getUserSuccess,
+  projectMock.createProjectSuccess,
+  projectMock.getAllProjectSuccess,
 ];

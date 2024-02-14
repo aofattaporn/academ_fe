@@ -1,5 +1,5 @@
 import { Link, Navigate } from "react-router-dom";
-import TextFieldComp from "../../components/TextFieldComp";
+import TextFieldComp from "../../components/Field/TextFieldComp";
 import AuthButtonComp from "../../components/Button/AuthButtonComp";
 import { labels, placeholders } from "../../types/AuthType";
 import { Alert, Backdrop, CircularProgress } from "@mui/material";

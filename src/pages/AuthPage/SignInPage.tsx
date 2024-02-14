@@ -1,4 +1,4 @@
-import TextFieldComp from "../../components/TextFieldComp";
+import TextFieldComp from "../../components/Field/TextFieldComp";
 import AuthButtonComp from "../../components/Button/AuthButtonComp";
 import { Link, Navigate } from "react-router-dom";
 import { labels, placeholders } from "../../types/AuthType";
