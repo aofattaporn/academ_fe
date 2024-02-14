@@ -14,3 +14,13 @@ export type MytaskType  = {
   taskDuedate: string;
   taskFromproject: string;
 };
+
+export const GreetingType ={
+  DASH_DMY:"D MMMM YYYY",
+  Morning:"Good Morning",
+  AfterNoon:"Good Afternoon",
+  Evening:"Good Evening",
+  Night:"Good Night",
+  GreetingOther:"Have a good day"
+}
+
