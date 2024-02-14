@@ -60,8 +60,6 @@ const MytaskBox = () => {
               <div className="grid content-center mr-6">
                 <p className="font-semibold my-1">{data.taskDuedate}</p>
               </div>
-              {/* <p className="font-semibold my-1">{data.taskName}</p>
-              <p className="font-semibold my-1">{data.taskId}</p> */}
             </div>
           );
         })}

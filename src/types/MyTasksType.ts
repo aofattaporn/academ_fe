@@ -1,22 +1,31 @@
 export type MytaskType = {
-    projectName: string;
-    projectId: string;
-    toDoProcess: toDoProcess[];
-    inProgessProcess: inProgressProcess[];
-    doneProcess: doneProcess[];
+    project:project[];
+    tasks:myTasks[];
 };
 
-type toDoProcess = {
-    toDoName: string;
-    toDoDueDate: string;
+type project = {
+    project_id:string;
+    projectName:string;
+    projectStartDate:string;
+    projectEndDate:string;
+    createdAt:string;
+    updatedAt:string;
+    process:process[];
 };
 
-type inProgressProcess = {
-    inProgressName: string;
-    inProgressDate: string;
+type process = {
+    process_id:string;
+    processsName:string;
 };
 
-type doneProcess = {
-    doneName: string;
-    doneDate: string;
+type myTasks = {
+    tasks_id:string;
+    project_id:string;
+    taskName:string;
+    assignee_id:string;
+    dueDate:string;
+    startDate:string;
+    createdAt:string;
+    updatedAt:string;
+    process_id:string;
 };
