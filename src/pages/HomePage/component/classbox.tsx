@@ -7,7 +7,11 @@ import BoxError from "../../../components/BoxHomepage/BoxError";
 const ClassBox = () => {
   const { isLoading, isError, data, error } = useQuery(
     "classApiKey",
-    async () => homeApi.classApi("user_id")
+    () => homeApi.classApi("user_id"),
+    {
+      staleTime: Infinity,
+      cacheTime: Infinity,
+    }
   );
   if (isLoading) {
     return <BoxLoading />;
@@ -21,15 +25,15 @@ const ClassBox = () => {
   }
 
   return (
-    <div className="h-96 p-4 bg-background-white shadow-xl rounded-xl">
+    <div className=" p-4 bg-background-white shadow-xl rounded-xl">
       <div className="p-2">
         <h2 className="text-black font-bold text-xl">Class</h2>
       </div>
-      <div className="h-4/5 bg-main rounded-xl grid grid-cols-1 md:grid-cols-2 gap-2 place-content-start">
+      <div className="bg-main rounded-xl grid grid-cols-1 lg:grid-cols-2 gap-2 place-content-start p-4">
         {data.map((item, index) => (
           <div
             key={index}
-            className="w-11/12 h-20 bg-background-white shadow-xl rounded-xl mt-6 ml-4"
+            className="w-11/12 h-20 bg-background-white shadow-xl rounded-xl "
           >
             <div className="grid content-center ml-6">
               <p className="my-2">{item.classId}</p>

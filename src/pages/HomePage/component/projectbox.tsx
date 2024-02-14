@@ -7,7 +7,11 @@ import BoxError from "../../../components/BoxHomepage/BoxError";
 const ProjectBox = () => {
   const { isLoading, isError, data, error } = useQuery(
     "projectApiKey",
-    async () => homeApi.projectApi("user_id")
+    () => homeApi.projectApi("user_id"),
+    {
+      staleTime: Infinity,
+      cacheTime: Infinity,
+    }
   );
   if (isLoading) {
     return <BoxLoading />;
@@ -30,7 +34,7 @@ const ProjectBox = () => {
           {data.map((item, index) => (
             <div
               key={index}
-              className="flex align-middl items-center gap-4 p-2 cursor-pointer"
+              className="flex align-middle items-center gap-4 p-2 cursor-pointer"
             >
               <div className="bg-primary w-16 h-16 rounded-md flex justify-center items-center text-center shadow-md">
                 <p className="text-white text-center font-bold text-2xl">
