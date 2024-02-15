@@ -9,7 +9,7 @@ import PublicRoute from "./layouts/PublicRoute";
 import VerifyEmailPage from "./pages/AuthPage/VerifyEmailPage";
 import ForgotPasswordPage from "./pages/AuthPage/ForgotPasswordPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import MyProjectsPage from "./pages/ProjectPage/MyProjectsPage";
+import MyProjectsPage from "./pages/AllMyProject/MyProjectsPage";
 import ProjectPage from "./pages/ProjectPage/ProjectPage";
 
 function App() {

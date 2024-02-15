@@ -9,6 +9,7 @@ import {
   resetState,
   setCurrentStep,
 } from "../../stores/projectSlice/createProjectSlice";
+import ProjectBox from "./ProjectBox/ProjectBox";
 
 const MyProjectsPage = () => {
   const createStore = useSelector((state: RootState) => state.createProject);
@@ -35,10 +36,19 @@ const MyProjectsPage = () => {
           />
         </div>
         <h4 className="text-gray-300">These projects are available.</h4>
-        <div className="h-screen w-full my-8 grid lg:grid-cols-3 grid-cols-1 gap-8">
-          <div className="h-56 bg-white shadow-md rounded-md"></div>
-          <div className="h-56 bg-white shadow-md rounded-md"></div>
-          <div className="h-56 bg-white shadow-md rounded-md"></div>
+        <div className="w-full my-8 grid lg:grid-cols-3 grid-cols-1 gap-8">
+          <ProjectBox
+            projectName="Academ"
+            avatarColor="#AF8AE2"
+            membersCounts={4}
+            projectEndDate={new Date()}
+          />
+          <ProjectBox
+            projectName="JitD"
+            avatarColor="#6985FF"
+            membersCounts={2}
+            projectEndDate={new Date()}
+          />
         </div>
       </div>
     </div>

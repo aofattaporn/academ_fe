@@ -5,10 +5,10 @@ import ListIcon from "@mui/icons-material/List";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ViewTimelineIcon from "@mui/icons-material/ViewTimeline";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-import StepAddName from "../pages/ProjectPage/StepProjecBody/StepAddName/StepAddName";
-import StepSettingViews from "../pages/ProjectPage/StepProjecBody/StepSettingViews/StepSettingViews";
-import StepOverview from "../pages/ProjectPage/StepProjecBody/StepOverview/StepOverview";
-import StepShareInvite from "../pages/ProjectPage/StepProjecBody/StepShareInvite/StepShareInvite";
+import StepAddName from "../pages/AllMyProject/StepProjecBody/StepAddName/StepAddName";
+import StepSettingViews from "../pages/AllMyProject/StepProjecBody/StepSettingViews/StepSettingViews";
+import StepOverview from "../pages/AllMyProject/StepProjecBody/StepOverview/StepOverview";
+import StepShareInvite from "../pages/AllMyProject/StepProjecBody/StepShareInvite/StepShareInvite";
 
 export enum Views {
   LIST = "List",
@@ -95,4 +95,10 @@ export interface ProjectRequestType {
   projectEndDate: Date;
   views: string[];
   invitationRequest: InviteProjectType[];
+}
+
+export enum Size {
+  small,
+  medium,
+  large,
 }
