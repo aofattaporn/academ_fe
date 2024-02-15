@@ -3,24 +3,24 @@ import { useEffect, useState } from "react";
 import ProjectBox from "./component/projectbox";
 import ClassBox from "./component/classbox";
 import MytaskBox from "./component/mytaskbox";
+import { GreetingType } from "../../types/HomeType";
 
 const HomePage = () => {
   const currentHour = new Date().getHours();
-  const DASH_DMY = "D MMMM YYYY";
-  const DateTimeHomePage = moment().format(DASH_DMY);
-  const [greeting, setGreeting] = useState<string>("Have a good day");
+  const DateTimeHomePage = moment().format(GreetingType.DASH_DMY);
+  const [greeting, setGreeting] = useState<string>(GreetingType.GreetingOther);
 
   useEffect(() => {
     if (currentHour >= 5 && currentHour < 12) {
-      setGreeting("Good Morning");
+      setGreeting(GreetingType.Morning);
     } else if (currentHour >= 12 && currentHour < 18) {
-      setGreeting("Good Afternoon");
+      setGreeting(GreetingType.AfterNoon);
     } else if (currentHour >= 18 && currentHour < 21) {
-      setGreeting("Good Evening");
+      setGreeting(GreetingType.Evening);
     } else if (currentHour >= 21 && currentHour < 5) {
-      setGreeting("Good Night");
+      setGreeting(GreetingType.Night);
     } else {
-      setGreeting("Have a good day");
+      setGreeting(GreetingType.GreetingOther);
     }
   }, [currentHour]);
 

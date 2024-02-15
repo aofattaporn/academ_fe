@@ -13,6 +13,16 @@ import {
   RESPONSE_TRY_AGAIN_LATHER,
 } from "../types/GenericType";
 
+const getToken = async (): Promise<string> => {
+  const app = getAuth();
+  const user = app.currentUser;
+
+  const token = await user?.getIdToken();
+
+  if (token) return token;
+  else return "";
+};
+
 const createUser = async (email: string, password: string) => {
   const app = getAuth();
   return await createUserWithEmailAndPassword(app, email, password);
@@ -86,6 +96,7 @@ const checkError = (errorMsg: string): ErrorCustom | null => {
 };
 
 const firebaseApi = {
+  getToken,
   createUser,
   signInUser,
   checkError,
