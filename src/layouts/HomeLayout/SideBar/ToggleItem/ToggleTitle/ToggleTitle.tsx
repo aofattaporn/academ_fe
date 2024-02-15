@@ -20,8 +20,7 @@ const ToggleTitle = ({
     <li
       onClick={isOpen ? handleCloseCollapse : () => {}}
       className={`flex rounded-md p-2 py-3 cursor-pointer hover:bg-light-white 
-    text-dark text-md items-center gap-x-2
-    ${false ? "mt-9" : "mt-2"}   h-12 overflow-scroll  `}
+    text-dark text-md items-center gap-x-2 mt-2  h-12`}
     >
       {icons}
       <div
