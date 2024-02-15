@@ -23,7 +23,9 @@ const ProjectBox = ({
             size={Size.small}
           />
           <div>
-            <h1 className="text-[24px] font-semibold text-dark mb-2">Academ</h1>
+            <h1 className="text-[24px] font-semibold text-dark mb-2">
+              {projectName}
+            </h1>
             <p className=" text-gray-600 text-sm">
               have {membersCounts} members
             </p>
