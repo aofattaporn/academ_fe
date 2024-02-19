@@ -1,4 +1,4 @@
-import { views } from "../../../../types/ProjectType";
+import { viewItems } from "../../../../types/ProjectType";
 
 type SummaryViewsProps = {
   views2: string[];
@@ -13,7 +13,7 @@ const SummaryViews = ({ views2 }: SummaryViewsProps) => {
       <div className="items-center flex-col gap-4">
         <p className="text-md text-dark">{views2.length} views selected </p>
         <div className="flex gap-4">
-          {views.map((item, index) => {
+          {viewItems.map((item, index) => {
             if (views2.includes(item.name))
               return (
                 <div

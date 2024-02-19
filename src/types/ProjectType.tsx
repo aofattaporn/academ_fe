@@ -10,6 +10,9 @@ import StepSettingViews from "../pages/AllMyProject/StepProjecBody/StepSettingVi
 import StepOverview from "../pages/AllMyProject/StepProjecBody/StepOverview/StepOverview";
 import StepShareInvite from "../pages/AllMyProject/StepProjecBody/StepShareInvite/StepShareInvite";
 
+// ------------- create-project type ---------------------
+// -------------------------------------------------------
+
 export enum Views {
   LIST = "List",
   BOARD = "Board",
@@ -23,12 +26,12 @@ type ViewItem = {
   icon: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
 };
 
-type CreateProjectType = {
+type CreateProjectStep = {
   title: string;
   component: JSX.Element;
 };
 
-export const views: ViewItem[] = [
+export const viewItems: ViewItem[] = [
   {
     name: Views.LIST,
     icon: ListIcon,
@@ -51,7 +54,7 @@ export const views: ViewItem[] = [
   },
 ];
 
-export const stepCreateProject: CreateProjectType[] = [
+export const stepCreateProject: CreateProjectStep[] = [
   {
     title: "Project Name",
     component: <StepAddName />,
@@ -70,31 +73,33 @@ export const stepCreateProject: CreateProjectType[] = [
   },
 ];
 
-export type InviteProjectType = {
-  email: string;
-  role: string;
-};
-
-export interface ProjectType {
-  projectName: string;
-  projectStartDate: Date;
-  projectEndDate: Date;
-  views: string[];
-  members: string[];
-  invitationRequest: InviteProjectType[];
-}
+// ------------- create-project type ---------------------
+// -------------------------------------------------------
 
 export interface ListProject {
   projectId: string;
   projectName: string;
 }
 
-export interface ProjectRequestType {
+// ------------- new create-project type ---------------------
+// -------------------------------------------------------
+
+export interface CreateInvite {
+  inviteRole: string;
+  inviteEmail: string;
+}
+
+export interface ProjectProfile {
   projectName: string;
+  avatarColor: string;
+}
+
+export interface CreateProject {
+  projectProfile: ProjectProfile;
   projectStartDate: Date;
   projectEndDate: Date;
   views: string[];
-  invitationRequest: InviteProjectType[];
+  inviteRequests: CreateInvite[];
 }
 
 export enum Size {
@@ -102,3 +107,5 @@ export enum Size {
   medium,
   large,
 }
+
+export const BTN_CREATE_PROJECT = "Create Project";

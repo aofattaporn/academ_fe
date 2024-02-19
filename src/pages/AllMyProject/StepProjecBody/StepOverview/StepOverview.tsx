@@ -7,6 +7,7 @@ import SummaryViews from "./SummaryViews";
 import { useMutation } from "react-query";
 import projectApi from "../../../../libs/projectApi";
 import { useNavigate } from "react-router-dom";
+import { BTN_CREATE_PROJECT } from "../../../../types/ProjectType";
 
 const StepOverview = () => {
   const project = useSelector((state: RootState) => state.createProject);
@@ -30,15 +31,18 @@ const StepOverview = () => {
       </div>
       <div className="bg-main mt-6">
         <CreateProjectButtonComp
-          title="Create Project"
+          title={BTN_CREATE_PROJECT}
           disable={false}
           handleChange={() =>
             mutation.mutate({
-              projectName: project.projectName,
+              projectProfile: {
+                projectName: project.projectName,
+                avatarColor: project.avatarColor,
+              },
               projectStartDate: new Date(),
               projectEndDate: new Date(),
               views: project.selectedViews,
-              invitationRequest: project.invitedUsers,
+              inviteRequests: project.invitedUsers,
             })
           }
         />

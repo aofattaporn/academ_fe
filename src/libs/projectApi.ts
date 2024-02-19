@@ -1,10 +1,10 @@
 import { ResponseCustom } from "../types/GenericType";
-import { ListProject, ProjectRequestType } from "../types/ProjectType";
+import { CreateProject, ListProject } from "../types/ProjectType";
 import axiosInstance from "./axiosInstance";
 import firebaseApi from "./firebaseApi";
 
 const createProject = async (
-  data: ProjectRequestType
+  data: CreateProject
 ): Promise<ResponseCustom<null>> => {
   try {
     const token = await firebaseApi.getToken();

@@ -26,9 +26,7 @@ const ProjectBox = ({
             <h1 className="text-[24px] font-semibold text-dark mb-2">
               {projectName}
             </h1>
-            <p className=" text-gray-600 text-sm">
-              have {membersCounts} members
-            </p>
+            <p className=" text-gray-600 text-sm">{membersCounts} members</p>
           </div>
         </div>
       </div>

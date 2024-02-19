@@ -1,8 +1,8 @@
-import { InviteProjectType } from "../../../../types/ProjectType";
+import { CreateInvite } from "../../../../types/ProjectType";
 import InviteItem from "../StepShareInvite/InviteItem/InviteItem";
 
 type SummaryInviteShareProps = {
-  invites: InviteProjectType[];
+  invites: CreateInvite[];
 };
 const SummaryInviteShare = ({ invites }: SummaryInviteShareProps) => {
   return (
@@ -10,7 +10,11 @@ const SummaryInviteShare = ({ invites }: SummaryInviteShareProps) => {
       <h1 className="text-lg font-bold text-primary-dark">Share with </h1>
       <div className="flex gap-2 items-center">
         {invites.map((item, index) => (
-          <InviteItem key={index} email={item.email} role={item.role} />
+          <InviteItem
+            key={index}
+            email={item.inviteEmail}
+            role={item.inviteRole}
+          />
         ))}
       </div>
     </div>

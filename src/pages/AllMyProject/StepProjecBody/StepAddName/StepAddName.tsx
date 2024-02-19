@@ -9,6 +9,7 @@ import {
 } from "../../../../stores/projectSlice/createProjectSlice";
 import AvatarProject from "./AvatarProject/AvatarProject";
 import ColorSelected from "./ColorSelected/ColorSelected";
+import { Size } from "../../../../types/ProjectType";
 
 const StepAddName = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const StepAddName = () => {
       <div className="bg-main mt-6 p-8">
         <div className="flex gap-4">
           <AvatarProject
+            size={Size.medium}
             projectName={project.projectName}
             color={project.avatarColor}
           />

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { InviteProjectType } from "../../types/ProjectType";
+import { CreateInvite } from "../../types/ProjectType";
 
 export interface ProjectCreationState {
   isModalOpen: boolean;
@@ -8,7 +8,7 @@ export interface ProjectCreationState {
   avatarColor: string;
   projectName: string;
   selectedViews: string[];
-  invitedUsers: InviteProjectType[];
+  invitedUsers: CreateInvite[];
 }
 
 const initialState: ProjectCreationState = {
@@ -55,7 +55,7 @@ export const projectCreationSlice = createSlice({
     selectAllViews: (state) => {
       state.selectedViews = ["List", "Board", "Calendar", "TimeLine", "Note"];
     },
-    addInvitedUser: (state, action: PayloadAction<InviteProjectType>) => {
+    addInvitedUser: (state, action: PayloadAction<CreateInvite>) => {
       state.invitedUsers.push(action.payload);
     },
     removeInvitedUser: (state, action: PayloadAction<number>) => {
