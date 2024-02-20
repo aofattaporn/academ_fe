@@ -1,11 +1,11 @@
+import NotAccessPage from "../pages/NotAccessPage";
 import { useAuth } from "./AuthProvider";
 import HomeLayout from "./HomeLayout/HomeLayout";
-import { Navigate } from "react-router-dom";
 
 const PrivateRoute = () => {
   const { user } = useAuth();
 
-  return user?.emailVerified ? <HomeLayout /> : <Navigate to={"/sign-in"} />;
+  return user?.emailVerified ? <HomeLayout /> : <NotAccessPage />;
 };
 
 export default PrivateRoute;
