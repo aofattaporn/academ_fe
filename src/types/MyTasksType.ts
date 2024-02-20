@@ -3,7 +3,7 @@ export type MytaskType = {
     tasks:myTasks[];
 };
 
-type project = {
+export type project = {
     project_id:string;
     projectName:string;
     projectStartDate:string;
@@ -18,7 +18,7 @@ type process = {
     processsName:string;
 };
 
-type myTasks = {
+export type myTasks = {
     tasks_id:string;
     project_id:string;
     taskName:string;

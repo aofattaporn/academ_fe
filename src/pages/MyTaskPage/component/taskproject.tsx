@@ -40,10 +40,9 @@ const TaskProject = () => {
     );
   }
 
-  // console.log(isLoading, data, data.project);
   return (
     <div className="m-4">
-      {data.project?.map((item, index) => (
+      {data.project?.map((project, index) => (
         <Accordion key={index} className="mb-4">
           <AccordionHeader
             expandIcon={<ExpandMoreIcon />}
@@ -53,17 +52,17 @@ const TaskProject = () => {
             <div className="flex align-middle items-center gap-4 p-2 cursor-pointer">
               <div className="bg-primary w-16 h-16 rounded-md flex justify-center items-center text-center shadow-md">
                 <p className="text-white text-center font-bold text-2xl">
-                  {item.projectName.charAt(0)}
+                  {project.projectName.charAt(0)}
                 </p>
               </div>
               <div>
-                <p className="font-bold text-3xl">{item.projectName}</p>
+                <p className="font-bold text-3xl">{project.projectName}</p>
               </div>
             </div>
           </AccordionHeader>
 
           <AccordionDetails>
-            <ProcessAccordions />
+            <ProcessAccordions project={project} myTasks={data.tasks} />
           </AccordionDetails>
         </Accordion>
       ))}

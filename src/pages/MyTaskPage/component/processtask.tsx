@@ -6,6 +6,13 @@ import MuiAccordionSummary, {
   AccordionSummaryProps,
 } from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
+import { myTasks, project } from "../../../types/MyTasksType";
+import ListMyTasks from "./listMyTasks";
+
+type ProcessAccordionsProp = {
+  project: project;
+  myTasks: myTasks[];
+};
 
 const Accordion = styled((props: AccordionProps) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -43,45 +50,43 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: "1px solid rgba(0, 0, 0, .125)",
 }));
 
-export default function ProcessAccordions() {
-  const [expanded, setExpanded] = React.useState<string | false>("panel1");
-
-  const handleChange =
-    (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
-      setExpanded(newExpanded ? panel : false);
-    };
-
+export default function ProcessAccordions({
+  project,
+  myTasks,
+}: ProcessAccordionsProp) {
   return (
     <div className="my-4">
-      <Accordion
-        expanded={expanded === "panel1"}
-        onChange={handleChange("panel1")}
-      >
-        <AccordionHeader aria-controls="panel1d-content" id="panel1d-header">
-          <div className="flex">
-            <div className="h-full w-1 bg-grey"></div>
-            <p className="ml-2 text-black font-bold text-md">To do</p>
-          </div>
-        </AccordionHeader>
-        <AccordionDetails>
-          <div className="flex">
-            <div className="w-1/2 h-8 bg-grey mr-2 flex align-middle items-center">
-              <p className="ml-2 text-black font-semibold text-sm">Task Name</p>
+      {project.process.map((item, index) => (
+        <Accordion key={index}>
+          <AccordionHeader>
+            <div className="flex">
+              <div className="h-full w-1 bg-grey"></div>
+              <p className="ml-2 text-black font-bold text-md">
+                {project.process[index].processsName}
+              </p>
             </div>
-            <div className="w-1/2 h-8 bg-grey ml-2 flex align-middle justify-center items-center">
-              <p className="ml-2 text-black font-semibold text-sm">Due Date</p>
+          </AccordionHeader>
+          <AccordionDetails>
+            <div className="flex">
+              <div className="w-1/2 h-8 bg-grey mr-2 flex align-middle items-center">
+                <p className="ml-2 text-black font-semibold text-sm">
+                  Task Name
+                </p>
+              </div>
+              <div className="w-1/2 h-8 bg-grey ml-2 flex align-middle justify-center items-center">
+                <p className="ml-2 text-black font-semibold text-sm">
+                  Due Date
+                </p>
+              </div>
             </div>
-          </div>
-          <div className="flex">
-            <div className="w-1/2 h-8 flex pl-8 align-middle items-center">
-              <p className="text-black font-normal text-sm">task1</p>
-            </div>
-            <div className="w-1/2 h-8 flex ml-4  align-middle justify-center items-center">
-              <p className="text-black font-normal text-sm">Today</p>
-            </div>
-          </div>
-        </AccordionDetails>
-      </Accordion>
+            <ListMyTasks
+              myTasks={myTasks}
+              processId={item.process_id}
+              projectId={project.project_id}
+            />
+          </AccordionDetails>
+        </Accordion>
+      ))}
     </div>
   );
 }
