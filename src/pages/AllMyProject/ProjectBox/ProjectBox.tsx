@@ -14,7 +14,7 @@ const ProjectBox = ({
   projectEndDate,
 }: ProjectBoxProps) => {
   return (
-    <div className="h-48 bg-white shadow-3xl rounded-md cursor-pointer">
+    <div className="h-48 bg-white shadow-3xl rounded-md cursor-pointer min-w-96">
       <div className="w-full h-4/6 items-center pt-8 px-8">
         <div className="flex gap-4">
           <AvatarProject
