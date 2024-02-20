@@ -5,8 +5,6 @@ import HomeLayout from "./HomeLayout/HomeLayout";
 const PrivateRoute = () => {
   const { user } = useAuth();
 
-  if (user?.emailVerified) console.log("PrivateRoute");
-
   return user?.emailVerified ? <HomeLayout /> : <NotAccessPage />;
 };
 
