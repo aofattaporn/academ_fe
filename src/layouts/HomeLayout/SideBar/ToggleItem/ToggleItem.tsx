@@ -49,7 +49,7 @@ const ToggleItem = ({
       />
 
       <div
-        className={`overflow-scroll relative duration-100 mb-2 ${
+        className={`overflow-hidden relative duration-100 mb-2 ${
           !isCollapse || !isOpen ? "h-0" : " h-auto"
         }`}
       >

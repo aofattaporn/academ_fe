@@ -50,6 +50,9 @@ export default {
           primary_subtle: "#C7C9D9",
           white: "#FFFFFF",
         },
+        boxShadow: {
+          homepageItemBox: '0 2px 8px 0px rgba(99, 99, 99, 0.2)',
+        },
         main: "#fafafc",
         dark: "#333333",
         grey: "#BDBDBD",
