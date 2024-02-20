@@ -2,11 +2,13 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Box, IconButton, Avatar, Menu, MenuItem } from "@mui/material";
 import { getAuth, signOut } from "firebase/auth";
 import { MouseEvent, ReactElement, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const settings: string[] = ["Profile", "Account", "Logout"];
 
 function AcademNaveBar(): ReactElement {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const navigate = useNavigate();
 
   const handleOpenUserMenu = (event: MouseEvent<HTMLButtonElement>): void => {
     setAnchorElUser(event.currentTarget);
@@ -19,6 +21,7 @@ function AcademNaveBar(): ReactElement {
   const handleLogOut = async (): Promise<void> => {
     const auth = getAuth();
     await signOut(auth);
+    navigate("/sign-in", { replace: true });
   };
 
   return (

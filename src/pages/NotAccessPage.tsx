@@ -1,7 +1,7 @@
 import { Button, Typography, Container } from "@mui/material";
 import { Link } from "react-router-dom";
 
-const NotFoundPage = () => {
+const NotAccessPage = () => {
   return (
     <Container
       maxWidth="sm"
@@ -21,13 +21,13 @@ const NotFoundPage = () => {
         Oops!
       </Typography>
       <Typography variant="h2" sx={{ mb: 2 }}>
-        404 - PAGE NOT FOUND
+        Not Access This Page
       </Typography>
       <Typography variant="body1" sx={{ mb: 2 }}>
-        The page you are looking for might have been removed, had its name
-        changed, or is temporarily unavailable.
+        It seems like you don't have permission to use this portal. Please sign
+        in before access.
       </Typography>
-      <Link to={"/"}>
+      <Link to={"/sign-in"}>
         <Button
           variant="contained"
           color="primary"
@@ -38,11 +38,11 @@ const NotFoundPage = () => {
             },
           }}
         >
-          GO TO HOMEPAGE
+          GO TO SIGN IN
         </Button>
       </Link>
     </Container>
   );
 };
 
-export default NotFoundPage;
+export default NotAccessPage;
