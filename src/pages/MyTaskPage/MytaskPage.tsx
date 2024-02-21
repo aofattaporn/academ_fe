@@ -1,4 +1,4 @@
-import TaskProject from "./component/taskproject";
+import TaskProject from "./component/TasksProject";
 
 const MytaskPage = () => {
   return (

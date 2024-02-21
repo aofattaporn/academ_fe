@@ -6,7 +6,7 @@ import MuiAccordionSummary, {
 } from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import { myTasks, project } from "../../../types/MyTasksType";
-import ListMyTasks from "./listMyTasks";
+import ListMyTasks from "./ListMyTask";
 
 type ProcessAccordionsProp = {
   project: project;
