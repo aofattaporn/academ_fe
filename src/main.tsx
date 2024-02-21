@@ -7,6 +7,8 @@ import "./index.css";
 import { AuthProvider } from "./layouts/AuthProvider.tsx";
 import { store } from "./stores/store.ts";
 import { Provider } from "react-redux";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 
 async function enableMocking() {
   console.log(import.meta.env.MODE);
@@ -28,7 +30,9 @@ enableMocking().then(() => {
         <Provider store={store}>
           <QueryClientProvider client={queryClient}>
             <BrowserRouter>
-              <App />
+              <LocalizationProvider dateAdapter={AdapterMoment}>
+                <App />
+              </LocalizationProvider>
             </BrowserRouter>
           </QueryClientProvider>
         </Provider>
