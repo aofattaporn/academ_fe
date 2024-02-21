@@ -4,7 +4,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useQuery } from "react-query";
 import myTasksApi from "../../../libs/mytaskApi";
-import ProcessAccordions from "./processtask";
+import ProcessAccordions from "./ProcessTasks";
 
 const TaskProject = () => {
   const { isLoading, isError, data, error } = useQuery(
