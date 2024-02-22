@@ -1,13 +1,7 @@
-import { SvgIconTypeMap } from "@mui/material";
-import { OverridableComponent } from "@mui/material/OverridableComponent";
-import NoteAddIcon from "@mui/icons-material/NoteAdd";
-import ListIcon from "@mui/icons-material/List";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import ViewTimelineIcon from "@mui/icons-material/ViewTimeline";
-import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-
 // ------------- create-project type ---------------------
 // -------------------------------------------------------
+
+import { Moment } from "moment";
 
 export enum Views {
   LIST = "List",
@@ -16,33 +10,12 @@ export enum Views {
   TIMELINE = "TimeLine",
   NOTE = "Note",
 }
-
-type ViewItem = {
-  name: Views;
-  icon: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
-};
-
-export const viewItems: ViewItem[] = [
-  {
-    name: Views.LIST,
-    icon: ListIcon,
-  },
-  {
-    name: Views.BOARD,
-    icon: DashboardIcon,
-  },
-  {
-    name: Views.CALENDAR,
-    icon: CalendarTodayIcon,
-  },
-  {
-    name: Views.TIMELINE,
-    icon: ViewTimelineIcon,
-  },
-  {
-    name: Views.NOTE,
-    icon: NoteAddIcon,
-  },
+export const ALL_VIEWS: Views[] = [
+  Views.LIST,
+  Views.BOARD,
+  Views.CALENDAR,
+  Views.TIMELINE,
+  Views.NOTE,
 ];
 
 // ------------- create-project type ---------------------
@@ -67,11 +40,9 @@ export interface ProjectProfile {
 }
 
 export interface CreateProject {
-  projectProfile: ProjectProfile;
-  projectStartDate: Date;
-  projectEndDate: Date;
+  projectName: string;
+  projectEndDate: Moment | null;
   views: string[];
-  inviteRequests: CreateInvite[];
 }
 
 export enum Size {

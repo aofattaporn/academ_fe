@@ -1,13 +1,13 @@
-import moment from "moment";
+import moment, { Moment } from "moment";
 import CreateProjectButtonComp from "../../../components/Button/CreateProjectButtonComp";
 import CloseIcon from "@mui/icons-material/Close";
-import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import NoteAddIcon from "@mui/icons-material/NoteAdd";
-import ListIcon from "@mui/icons-material/List";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import ViewTimelineIcon from "@mui/icons-material/ViewTimeline";
 import { IconButton, TextField } from "@mui/material";
+import { useState } from "react";
+import AllViewToggle from "./ViewToggle/AllViewToggle";
+import { Views } from "../../../types/ProjectType";
+import { useMutation } from "react-query";
+import projectApi from "../../../libs/projectApi";
 type CreateProjectSideBarProps = {
   isOpen: boolean;
   handleClose: () => void;
@@ -16,6 +16,35 @@ const CreateProjectSideBar = ({
   isOpen,
   handleClose,
 }: CreateProjectSideBarProps) => {
+  const [projectName, setProjectName] = useState<string>("");
+  const [endDate, setEndDate] = useState<Moment | null>();
+  const [viewsSelected, setViewsSelected] = useState<Views[]>([]);
+
+  const mutation = useMutation({
+    mutationFn: () =>
+      projectApi.createProject({
+        projectName: projectName,
+        projectEndDate: endDate ? endDate : moment(),
+        views: viewsSelected,
+      }),
+    onSuccess: () => console.log("create-project-success"),
+  });
+
+  const handleSetSelected = (view: Views) => {
+    const isSelected = viewsSelected.some(
+      (selectedView) => selectedView === view
+    );
+
+    if (isSelected) {
+      const updatedViews = viewsSelected.filter(
+        (selectedView) => selectedView !== view
+      );
+      setViewsSelected(updatedViews);
+    } else {
+      setViewsSelected((prevViews) => [...prevViews, view]);
+    }
+  };
+
   return (
     <div
       className={`duration-700 overflow-x-hidden bg-white max-h-full shadow-3xl 
@@ -34,46 +63,44 @@ const CreateProjectSideBar = ({
               Start building your next big idea with ease.
             </p>
             <div className="my-8">
-              <p className="text-md text-dark">project Name</p>
+              <p className="text-md text-dark my-2">Project Name</p>
               <TextField
                 id="outlined-basic"
                 variant="outlined"
                 size="small"
                 sx={{ borderRadius: "200px" }}
+                placeholder="Enter your project name"
                 fullWidth
+                value={projectName}
+                onChange={(e) => setProjectName(e.target.value)}
               />
             </div>
             <div className="my-8">
-              <p className="text-md text-dark">project duration</p>
-              <div className="flex justify-between gap-4">
-                <DatePicker defaultValue={moment("2022-04-17")} />
-                <DatePicker defaultValue={moment("2022-04-17")} />
+              <p className="text-md text-dark my-2">Project End date</p>
+              <div className="flex justify-between gap-2">
+                <DatePicker
+                  sx={{ width: "100%" }}
+                  defaultValue={endDate}
+                  onChange={(newValue) => setEndDate(newValue)}
+                  slotProps={{
+                    field: {
+                      clearable: true,
+                    },
+                  }}
+                />
               </div>
             </div>
             <div className="my-8">
-              <p className="text-md text-dark">views defualt</p>
-              <div className="flex justify-between gap-4 border-transparent px-0.5">
-                <div className="bg-white w-12 h-12 rounded-md border border-solid flex justify-center items-center ">
-                  <NoteAddIcon sx={{ color: "grey" }} />
-                </div>{" "}
-                <div className="bg-white w-12 h-12 rounded-md border border-solid flex justify-center items-center ">
-                  <ListIcon sx={{ color: "grey" }} />
-                </div>{" "}
-                <div className="bg-white w-12 h-12 rounded-md border border-solid flex justify-center items-center ">
-                  <ViewTimelineIcon sx={{ color: "grey" }} />
-                </div>
-                <div className="bg-white w-12 h-12 rounded-md border border-solid flex justify-center items-center ">
-                  <DashboardIcon sx={{ color: "grey" }} />
-                </div>
-                <div className="bg-white w-12 h-12 rounded-md border border-solid flex justify-center items-center ">
-                  <CalendarTodayIcon sx={{ color: "grey" }} />
-                </div>
-              </div>
+              <p className="text-md text-dark my-2">Views defualt</p>
+              <AllViewToggle
+                viewsSelected={viewsSelected}
+                handleSelected={handleSetSelected}
+              />
             </div>
             <CreateProjectButtonComp
               title="Create project"
               disable={false}
-              handleChange={() => {}}
+              handleChange={mutation.mutate}
             />
           </div>
         </div>
