@@ -1,4 +1,4 @@
-import { Size } from "../../../../../types/ProjectType";
+import { Size } from "../../types/ProjectType";
 
 type AvatarProjectProps = {
   projectName: string;

@@ -1,5 +1,5 @@
 import { Size } from "../../../types/ProjectType";
-import AvatarProject from "../StepProjecBody/StepAddName/AvatarProject/AvatarProject";
+import AvatarProject from "../../../components/AvatarProject/AvatarProject";
 type ProjectBoxProps = {
   projectName: string;
   avatarColor: string;
