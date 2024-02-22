@@ -1,9 +1,5 @@
 import { IconButton, TextField } from "@mui/material";
-import QueueIcon from "@mui/icons-material/Queue";
-import { useDispatch, useSelector } from "react-redux";
-import CreateModalComp from "../../components/CreateModal/CreateModalComp";
-import { RootState } from "../../stores/store";
-import { stepCreateProject } from "../../types/ProjectType";
+
 import CloseIcon from "@mui/icons-material/Close";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -11,21 +7,12 @@ import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import ListIcon from "@mui/icons-material/List";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ViewTimelineIcon from "@mui/icons-material/ViewTimeline";
-
-import {
-  resetState,
-  setCurrentStep,
-} from "../../stores/projectSlice/createProjectSlice";
 import ProjectBox from "./ProjectBox/ProjectBox";
 import { useState } from "react";
 import moment from "moment";
 import CreateProjectButtonComp from "../../components/Button/CreateProjectButtonComp";
 
 const MyProjectsPage = () => {
-  const createStore = useSelector((state: RootState) => state.createProject);
-  const currentStepCreate = stepCreateProject[createStore.currentStep];
-  const dispatch = useDispatch();
-
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
@@ -44,18 +31,6 @@ const MyProjectsPage = () => {
             <IconButton onClick={() => setIsOpen(!isOpen)}>
               <QueueIcon />
             </IconButton>
-            <CreateModalComp
-              isOpen={createStore.isModalOpen}
-              maxStep={createStore.totalSteps}
-              step={createStore.currentStep}
-              currentStep={createStore.currentStep}
-              title={currentStepCreate.title}
-              component={currentStepCreate.component}
-              handleSelectStep={(step: number) =>
-                dispatch(setCurrentStep(step))
-              }
-              handleReset={() => dispatch(resetState())}
-            />
           </div>
           <h4 className="text-gray-300">These projects are available.</h4>
           <div

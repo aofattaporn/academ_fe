@@ -5,10 +5,6 @@ import ListIcon from "@mui/icons-material/List";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ViewTimelineIcon from "@mui/icons-material/ViewTimeline";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-import StepAddName from "../pages/AllMyProject/StepProjecBody/StepAddName/StepAddName";
-import StepSettingViews from "../pages/AllMyProject/StepProjecBody/StepSettingViews/StepSettingViews";
-import StepOverview from "../pages/AllMyProject/StepProjecBody/StepOverview/StepOverview";
-import StepShareInvite from "../pages/AllMyProject/StepProjecBody/StepShareInvite/StepShareInvite";
 
 // ------------- create-project type ---------------------
 // -------------------------------------------------------
@@ -24,11 +20,6 @@ export enum Views {
 type ViewItem = {
   name: Views;
   icon: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
-};
-
-type CreateProjectStep = {
-  title: string;
-  component: JSX.Element;
 };
 
 export const viewItems: ViewItem[] = [
@@ -51,25 +42,6 @@ export const viewItems: ViewItem[] = [
   {
     name: Views.NOTE,
     icon: NoteAddIcon,
-  },
-];
-
-export const stepCreateProject: CreateProjectStep[] = [
-  {
-    title: "Project Name",
-    component: <StepAddName />,
-  },
-  {
-    title: "Default Settings for Views",
-    component: <StepSettingViews />,
-  },
-  {
-    title: "Share with",
-    component: <StepShareInvite />,
-  },
-  {
-    title: "Project Summary",
-    component: <StepOverview />,
   },
 ];
 
