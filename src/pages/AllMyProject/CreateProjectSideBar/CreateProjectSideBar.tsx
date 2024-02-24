@@ -1,18 +1,14 @@
-import moment, { Moment } from "moment";
 import CreateProjectButtonComp from "../../../components/Button/CreateProjectButtonComp";
 import CloseIcon from "@mui/icons-material/Close";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { IconButton, TextField } from "@mui/material";
-import { useState } from "react";
 import AllViewToggle from "./ViewToggle/AllViewToggle";
-import { useMutation, useQueryClient } from "react-query";
-import projectApi from "../../../libs/projectApi";
-import { QUERY_KEY } from "../../../types/GenericType";
 import {
   BTN_CREATE_PROJECT,
-  ListProject,
-  Views,
+  PLACHOLDER_INPUT_PROJECT,
 } from "../../../types/ProjectType";
+import useCreateProject from "../../../hooks/projectHook/useCreateProject";
+import moment from "moment";
 type CreateProjectSideBarProps = {
   isOpen: boolean;
   handleClose: () => void;
@@ -21,47 +17,15 @@ const CreateProjectSideBar = ({
   isOpen,
   handleClose,
 }: CreateProjectSideBarProps) => {
-  const [projectName, setProjectName] = useState<string>("");
-  const [endDate, setEndDate] = useState<Moment | null>();
-  const [viewsSelected, setViewsSelected] = useState<Views[]>([]);
-  const queryClient = useQueryClient();
-
-  const mutation = useMutation({
-    mutationFn: () =>
-      projectApi.createProject({
-        projectName: projectName,
-        projectEndDate: endDate ? endDate : moment(),
-        views: viewsSelected,
-      }),
-    onSuccess: (data) => {
-      setProjectName("");
-      setEndDate(null);
-      setViewsSelected([]);
-      handleClose();
-
-      queryClient.setQueryData(
-        [QUERY_KEY.ALL_PROJECT],
-        (oldData: ListProject[] | undefined) => {
-          return oldData ? [...oldData, data] : [];
-        }
-      );
-    },
-  });
-
-  const handleSetSelected = (view: Views) => {
-    const isSelected = viewsSelected.some(
-      (selectedView) => selectedView === view
-    );
-
-    if (isSelected) {
-      const updatedViews = viewsSelected.filter(
-        (selectedView) => selectedView !== view
-      );
-      setViewsSelected(updatedViews);
-    } else {
-      setViewsSelected((prevViews) => [...prevViews, view]);
-    }
-  };
+  const {
+    mutation,
+    projectName,
+    endDate,
+    viewsSelected,
+    handleSetProjectName,
+    handleSetEndDate,
+    handleSetSelected,
+  } = useCreateProject({ handleClose });
 
   return (
     <div
@@ -81,25 +45,30 @@ const CreateProjectSideBar = ({
               Start building your next big idea with ease.
             </p>
             <div className="my-8">
-              <p className="text-md text-dark my-2">Project Name</p>
+              <p className="text-md text-dark my-2">
+                Project Name <span className="text-error">*</span>
+              </p>
               <TextField
                 id="outlined-basic"
                 variant="outlined"
                 size="small"
                 sx={{ borderRadius: "200px" }}
-                placeholder="Enter your project name"
+                placeholder={PLACHOLDER_INPUT_PROJECT}
                 fullWidth
                 value={projectName}
-                onChange={(e) => setProjectName(e.target.value)}
+                onChange={(e) => handleSetProjectName(e.target.value)}
               />
             </div>
             <div className="my-8">
-              <p className="text-md text-dark my-2">Project End date</p>
+              <p className="text-md text-dark my-2">
+                Project End date <span className="text-error">*</span>
+              </p>
               <div className="flex justify-between gap-2">
                 <DatePicker
                   sx={{ width: "100%" }}
+                  minDate={moment()}
                   defaultValue={endDate}
-                  onChange={(newValue) => setEndDate(newValue)}
+                  onChange={(newValue) => handleSetEndDate(newValue)}
                   slotProps={{
                     field: {
                       clearable: true,
@@ -109,7 +78,9 @@ const CreateProjectSideBar = ({
               </div>
             </div>
             <div className="my-8">
-              <p className="text-md text-dark my-2">Views defualt</p>
+              <p className="text-md text-dark my-2">
+                Views defualt <span className="text-error">*</span>
+              </p>
               <AllViewToggle
                 viewsSelected={viewsSelected}
                 handleSelected={handleSetSelected}
@@ -117,7 +88,8 @@ const CreateProjectSideBar = ({
             </div>
             <CreateProjectButtonComp
               title={BTN_CREATE_PROJECT}
-              disable={false}
+              disable={viewsSelected.length === 0 || projectName.length === 0}
+              isCreating={mutation.isLoading}
               handleChange={mutation.mutate}
             />
           </div>

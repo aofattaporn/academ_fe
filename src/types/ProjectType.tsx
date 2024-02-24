@@ -55,3 +55,4 @@ export enum Size {
 
 export const COUNT_ITEMS_SKELETON: number = 3;
 export const BTN_CREATE_PROJECT: string = "Create Project";
+export const PLACHOLDER_INPUT_PROJECT: string = "Enter your project name";

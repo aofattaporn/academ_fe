@@ -1,4 +1,4 @@
-import { HttpResponse, http } from "msw";
+import { HttpResponse, delay, http } from "msw";
 import { RESPONSE_OK, ResponseCustom } from "../types/GenericType";
 import { ListProject } from "../types/ProjectType";
 
@@ -17,6 +17,8 @@ const createProjectSuccess = http.post("/api/v1/projects", async () => {
       projectEndDate: new Date(),
     },
   };
+
+  await delay(2000);
   return HttpResponse.json(mockRes, { status: 200 });
 });
 
