@@ -5,7 +5,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { IconButton, TextField } from "@mui/material";
 import { useState } from "react";
 import AllViewToggle from "./ViewToggle/AllViewToggle";
-import { Views } from "../../../types/ProjectType";
+import { BTN_CREATE_PROJECT, Views } from "../../../types/ProjectType";
 import { useMutation } from "react-query";
 import projectApi from "../../../libs/projectApi";
 type CreateProjectSideBarProps = {
@@ -98,7 +98,7 @@ const CreateProjectSideBar = ({
               />
             </div>
             <CreateProjectButtonComp
-              title="Create project"
+              title={BTN_CREATE_PROJECT}
               disable={false}
               handleChange={mutation.mutate}
             />

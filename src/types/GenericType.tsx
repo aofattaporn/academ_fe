@@ -78,3 +78,7 @@ export const NAVIGATOR = {
   PROJECT: "/projects",
   CLASS: "/class",
 };
+
+export const QUERY_KEY = {
+  ALL_PROJECT: "allProjectData",
+};

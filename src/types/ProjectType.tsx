@@ -53,4 +53,5 @@ export enum Size {
   large,
 }
 
-export const BTN_CREATE_PROJECT = "Create Project";
+export const COUNT_ITEMS_SKELETON: number = 3;
+export const BTN_CREATE_PROJECT: string = "Create Project";

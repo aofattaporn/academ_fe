@@ -4,7 +4,9 @@ import ProjectBox from "./ProjectBox/ProjectBox";
 import { useState } from "react";
 import CreateProjectSideBar from "./CreateProjectSideBar/CreateProjectSideBar";
 import useAllMyProjects from "../../hooks/projectHook/useAllMyProjects";
-import RefreshIcon from "@mui/icons-material/Refresh";
+import ProjectBoxLoading from "./ProjectBox/ProjectBoxLoading";
+import ProjectBoxFailed from "./ProjectBox/ProjectBoxFailed";
+import { COUNT_ITEMS_SKELETON } from "../../types/ProjectType";
 
 const MyProjectsPage = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -50,28 +52,13 @@ const MyProjectsPage = () => {
               : null}
 
             {projectIsLoading
-              ? Array.from({ length: 3 }).map(() => {
-                  return (
-                    <div className="h-48 animate-pulse  bg-gray-200 rounded-md cursor-pointer min-w-96"></div>
-                  );
+              ? Array.from({ length: COUNT_ITEMS_SKELETON }).map(() => {
+                  return <ProjectBoxLoading />;
                 })
               : null}
 
             {projectIsError ? (
-              <div className="flex items-center justify-center w-full h-full my-8">
-                <div className="text-center">
-                  <h2 className="font-extrabold text-2xl text-gray-200">
-                    Something went wrong
-                  </h2>
-                  <button
-                    onClick={() => projectRefetch()}
-                    className="font-semibold text-md text-gray-500 cursor-pointer"
-                  >
-                    Please try again.
-                    <RefreshIcon />
-                  </button>
-                </div>
-              </div>
+              <ProjectBoxFailed projectRefetch={() => projectRefetch()} />
             ) : null}
           </div>
         </div>

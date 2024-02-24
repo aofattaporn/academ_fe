@@ -1,5 +1,6 @@
 import { useQuery } from "react-query";
 import projectApi from "../../libs/projectApi";
+import { QUERY_KEY } from "../../types/GenericType";
 
 const useAllMyProjects = () => {
   const {
@@ -8,7 +9,7 @@ const useAllMyProjects = () => {
     isError: projectIsError,
     refetch: projectRefetch,
     data: projectData,
-  } = useQuery("allProjectData", () => projectApi.getAllProject());
+  } = useQuery(QUERY_KEY.ALL_PROJECT, () => projectApi.getAllProject());
   return {
     projectIsLoading,
     projectIsSuccess,
