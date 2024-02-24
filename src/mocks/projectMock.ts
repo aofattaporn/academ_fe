@@ -22,6 +22,10 @@ const createProjectSuccess = http.post("/api/v1/projects", async () => {
   return HttpResponse.json(mockRes, { status: 200 });
 });
 
+const createProjectError = http.post("/api/v1/projects/user", () =>
+  HttpResponse.error()
+);
+
 const getAllProjectError = http.get("/api/v1/projects/user", () =>
   HttpResponse.error()
 );
@@ -69,4 +73,5 @@ export const projectMock = {
   createProjectSuccess,
   getAllProjectSuccess,
   getAllProjectError,
+  createProjectError,
 };

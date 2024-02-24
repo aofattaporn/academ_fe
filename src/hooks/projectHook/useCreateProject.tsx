@@ -51,8 +51,9 @@ const useCreateProject = ({ handleClose }: useCreateProjectProps) => {
     }
   };
 
-  const handleSetProjectName = (projectName: string) =>
+  const handleSetProjectName = (projectName: string) => {
     setProjectName(projectName);
+  };
   const handleSetEndDate = (endDate: Moment | null) => setEndDate(endDate);
 
   return {
