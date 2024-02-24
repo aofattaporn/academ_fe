@@ -9,8 +9,8 @@ import PublicRoute from "./layouts/PublicRoute";
 import VerifyEmailPage from "./pages/AuthPage/VerifyEmailPage";
 import ForgotPasswordPage from "./pages/AuthPage/ForgotPasswordPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import MyProjectsPage from "./pages/AllMyProject/MyProjectsPage";
 import ProjectPage from "./pages/ProjectPage/ProjectPage";
+import AllMyProjectPage from "./pages/AllMyProjectPage/AllMyProjectPage";
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/mytask" element={<MytaskPage />} />
         <Route path="/notification" element={<NotificationPage />} />
-        <Route path="/projects" element={<MyProjectsPage />} />
+        <Route path="/projects" element={<AllMyProjectPage />} />
         <Route path="/projects/:itemId" element={<ProjectPage />} />
       </Route>
       <Route path="*" element={<NotFoundPage />} />

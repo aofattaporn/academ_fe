@@ -8,7 +8,7 @@ import ProjectBoxLoading from "./ProjectBox/ProjectBoxLoading";
 import ProjectBoxFailed from "./ProjectBox/ProjectBoxFailed";
 import { COUNT_ITEMS_SKELETON } from "../../types/ProjectType";
 
-const MyProjectsPage = () => {
+const AllMyProjectPage = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const {
     projectData,
@@ -72,4 +72,4 @@ const MyProjectsPage = () => {
   );
 };
 
-export default MyProjectsPage;
+export default AllMyProjectPage;
