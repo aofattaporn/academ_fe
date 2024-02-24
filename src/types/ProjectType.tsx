@@ -23,7 +23,9 @@ export const ALL_VIEWS: Views[] = [
 
 export interface ListProject {
   projectId: string;
-  projectName: string;
+  projectProfile: ProjectProfile;
+  membersCounts: number;
+  projectEndDate: Date;
 }
 
 // ------------- new create-project type ---------------------

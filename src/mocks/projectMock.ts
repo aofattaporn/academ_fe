@@ -1,4 +1,4 @@
-import { HttpResponse, delay, http } from "msw";
+import { HttpResponse, http } from "msw";
 import { RESPONSE_OK, ResponseCustom } from "../types/GenericType";
 import { ListProject } from "../types/ProjectType";
 
@@ -22,17 +22,35 @@ const getAllProjectSuccess = http.get("api/v1/projects/user", async () => {
     description: "Success",
     data: [
       {
-        projectId: "6adc6173-8c9b-4357-a051-aa41a9978257",
-        projectName: "JitD",
+        projectId: "1",
+        projectProfile: {
+          projectName: "Academ",
+          avatarColor: "#AF8AE2",
+        },
+        membersCounts: 4,
+        projectEndDate: new Date(),
       },
       {
-        projectId: "e7e603f0-b7cb-46c2-a856-10b36d1be070",
-        projectName: "TungTee",
+        projectId: "2",
+        projectProfile: {
+          projectName: "TungTee",
+          avatarColor: "#FFA8A7",
+        },
+        membersCounts: 4,
+        projectEndDate: new Date(),
+      },
+      {
+        projectId: "3",
+        projectProfile: {
+          projectName: "XTra",
+          avatarColor: "#6985FF",
+        },
+        membersCounts: 4,
+        projectEndDate: new Date(),
       },
     ],
   };
 
-  await delay(3000);
   return HttpResponse.json(mockRes, { status: 200 });
 });
 

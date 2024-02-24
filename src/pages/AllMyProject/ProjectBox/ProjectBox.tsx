@@ -1,5 +1,6 @@
 import { Size } from "../../../types/ProjectType";
 import AvatarProject from "../../../components/AvatarProject/AvatarProject";
+import moment from "moment";
 type ProjectBoxProps = {
   projectName: string;
   avatarColor: string;
@@ -34,7 +35,7 @@ const ProjectBox = ({
         <div>
           <p className="text-gray-300 text-sm">End Date</p>
           <p className="text-gray-600 text-sm font-semibold">
-            {projectEndDate.toDateString()}
+            {moment(projectEndDate).format("ll")}
           </p>
         </div>
       </div>

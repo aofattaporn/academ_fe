@@ -20,24 +20,18 @@ const createProject = async (
   }
 };
 
-const getAllProject = async (
-  projects: ListProject[]
-): Promise<ListProject[]> => {
-  if (projects.length) {
-    return projects;
-  } else {
-    try {
-      const token = await firebaseApi.getToken();
-      const response = await axiosInstance.get("api/v1/projects/user", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      return response.data.data;
-    } catch (error) {
-      console.error("Error fetching projects:", error);
-      throw error;
-    }
+const getAllProject = async (): Promise<ListProject[]> => {
+  try {
+    const token = await firebaseApi.getToken();
+    const response = await axiosInstance.get("api/v1/projects/user", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.data;
+  } catch (error) {
+    console.error("Error fetching projects:", error);
+    throw error;
   }
 };
 

@@ -3,47 +3,21 @@ import QueueIcon from "@mui/icons-material/Queue";
 import ProjectBox from "./ProjectBox/ProjectBox";
 import { useState } from "react";
 import CreateProjectSideBar from "./CreateProjectSideBar/CreateProjectSideBar";
-
-type TempMockProjectList = {
-  projectName: string;
-  avatarColor: string;
-  membersCounts: number;
-  projectEndDate: Date;
-};
-
-const mockProjectList: TempMockProjectList[] = [
-  {
-    projectName: "Academ",
-    avatarColor: "#AF8AE2",
-    membersCounts: 4,
-    projectEndDate: new Date(),
-  },
-  {
-    projectName: "TungTee",
-    avatarColor: "#6985FF",
-    membersCounts: 2,
-    projectEndDate: new Date(),
-  },
-  {
-    projectName: "XTra",
-    avatarColor: "#6985FF",
-    membersCounts: 3,
-    projectEndDate: new Date(),
-  },
-  {
-    projectName: "XTra",
-    avatarColor: "#6985FF",
-    membersCounts: 3,
-    projectEndDate: new Date(),
-  },
-];
+import useAllMyProjects from "../../hooks/projectHook/useAllMyProjects";
+import RefreshIcon from "@mui/icons-material/Refresh";
 
 const MyProjectsPage = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const {
+    projectData,
+    projectIsSuccess,
+    projectIsLoading,
+    projectIsError,
+    projectRefetch,
+  } = useAllMyProjects();
 
   return (
     <div className="flex justify-between h-full">
-      {/* // all-project-contents */}
       <div
         className={`my-20 duration-700 
        ${
@@ -61,22 +35,48 @@ const MyProjectsPage = () => {
           </div>
           <h4 className="text-gray-300">These projects are available.</h4>
           <div className="flex flex-wrap my-8 gap-4  w-full justify-center sm:justify-start duration-700">
-            {mockProjectList.map((project, index) => {
-              return (
-                <ProjectBox
-                  key={index}
-                  projectName={project.projectName}
-                  avatarColor={project.avatarColor}
-                  membersCounts={project.membersCounts}
-                  projectEndDate={project.projectEndDate}
-                />
-              );
-            })}
+            {projectIsSuccess
+              ? projectData?.map((project, index) => {
+                  return (
+                    <ProjectBox
+                      key={index}
+                      projectName={project.projectProfile.projectName}
+                      avatarColor={project.projectProfile.avatarColor}
+                      membersCounts={project.membersCounts}
+                      projectEndDate={project.projectEndDate}
+                    />
+                  );
+                })
+              : null}
+
+            {projectIsLoading
+              ? Array.from({ length: 3 }).map(() => {
+                  return (
+                    <div className="h-48 animate-pulse  bg-gray-200 rounded-md cursor-pointer min-w-96"></div>
+                  );
+                })
+              : null}
+
+            {projectIsError ? (
+              <div className="flex items-center justify-center w-full h-full my-8">
+                <div className="text-center">
+                  <h2 className="font-extrabold text-2xl text-gray-200">
+                    Something went wrong
+                  </h2>
+                  <button
+                    onClick={() => projectRefetch()}
+                    className="font-semibold text-md text-gray-500 cursor-pointer"
+                  >
+                    Please try again.
+                    <RefreshIcon />
+                  </button>
+                </div>
+              </div>
+            ) : null}
           </div>
         </div>
       </div>
 
-      {/* // create-project-sidebar */}
       <CreateProjectSideBar
         isOpen={isOpen}
         handleClose={() => setIsOpen(false)}

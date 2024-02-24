@@ -9,6 +9,7 @@ type ToggleTileProps = {
   ItemId: string;
   ItemName: string;
   isSelected: boolean;
+  avatarColor: string;
 };
 
 const ToggleTile = ({
@@ -16,6 +17,7 @@ const ToggleTile = ({
   ItemName,
   ItemId,
   isSelected,
+  avatarColor,
 }: ToggleTileProps) => {
   return (
     <Link to={`/${title.toLocaleLowerCase()}/${ItemId}`}>
@@ -31,7 +33,10 @@ const ToggleTile = ({
         ></div>
         <div className="py-2 rounded-md flex gap-4">
           {title === PAGE_ITEM_PROJECT ? (
-            <div className="bg-primary h-6 w-6 flex items-center justify-center rounded-md overflow-hidden">
+            <div
+              style={{ backgroundColor: avatarColor }}
+              className={`h-6 w-6 flex items-center justify-center rounded-md overflow-hidden`}
+            >
               <p className="font-bold text-white">{ItemName.charAt(0)}</p>
             </div>
           ) : null}
