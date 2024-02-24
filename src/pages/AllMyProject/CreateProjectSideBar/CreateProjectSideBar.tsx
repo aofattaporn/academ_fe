@@ -5,9 +5,14 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { IconButton, TextField } from "@mui/material";
 import { useState } from "react";
 import AllViewToggle from "./ViewToggle/AllViewToggle";
-import { BTN_CREATE_PROJECT, Views } from "../../../types/ProjectType";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import projectApi from "../../../libs/projectApi";
+import { QUERY_KEY } from "../../../types/GenericType";
+import {
+  BTN_CREATE_PROJECT,
+  ListProject,
+  Views,
+} from "../../../types/ProjectType";
 type CreateProjectSideBarProps = {
   isOpen: boolean;
   handleClose: () => void;
@@ -19,6 +24,7 @@ const CreateProjectSideBar = ({
   const [projectName, setProjectName] = useState<string>("");
   const [endDate, setEndDate] = useState<Moment | null>();
   const [viewsSelected, setViewsSelected] = useState<Views[]>([]);
+  const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: () =>
@@ -27,7 +33,19 @@ const CreateProjectSideBar = ({
         projectEndDate: endDate ? endDate : moment(),
         views: viewsSelected,
       }),
-    onSuccess: () => console.log("create-project-success"),
+    onSuccess: (data) => {
+      setProjectName("");
+      setEndDate(null);
+      setViewsSelected([]);
+      handleClose();
+
+      queryClient.setQueryData(
+        [QUERY_KEY.ALL_PROJECT],
+        (oldData: ListProject[] | undefined) => {
+          return oldData ? [...oldData, data] : [];
+        }
+      );
+    },
   });
 
   const handleSetSelected = (view: Views) => {

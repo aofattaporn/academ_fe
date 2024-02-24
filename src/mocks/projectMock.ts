@@ -3,10 +3,19 @@ import { RESPONSE_OK, ResponseCustom } from "../types/GenericType";
 import { ListProject } from "../types/ProjectType";
 
 const createProjectSuccess = http.post("/api/v1/projects", async () => {
-  const mockRes: ResponseCustom<null> = {
+  const mockRes: ResponseCustom<ListProject> = {
     status: 200,
     message: RESPONSE_OK,
     description: "Success",
+    data: {
+      projectId: "4",
+      projectProfile: {
+        projectName: "EchoEcho",
+        avatarColor: "#6985FF",
+      },
+      membersCounts: 4,
+      projectEndDate: new Date(),
+    },
   };
   return HttpResponse.json(mockRes, { status: 200 });
 });

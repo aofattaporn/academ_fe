@@ -52,8 +52,8 @@ const MyProjectsPage = () => {
               : null}
 
             {projectIsLoading
-              ? Array.from({ length: COUNT_ITEMS_SKELETON }).map(() => {
-                  return <ProjectBoxLoading />;
+              ? Array.from({ length: COUNT_ITEMS_SKELETON }).map((_, index) => {
+                  return <ProjectBoxLoading key={index} />;
                 })
               : null}
 
