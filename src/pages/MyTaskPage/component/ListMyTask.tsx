@@ -1,7 +1,7 @@
-import { myTasks } from "../../../types/MyTasksType";
+import { MyTasks } from "../../../types/MyTasksType";
 
 type listMyTasksProp = {
-  myTasks: myTasks[];
+  myTasks: MyTasks[];
   projectId: string;
   processId: string;
 };

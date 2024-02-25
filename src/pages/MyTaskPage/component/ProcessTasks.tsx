@@ -5,12 +5,12 @@ import MuiAccordionSummary, {
   AccordionSummaryProps,
 } from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
-import { myTasks, project } from "../../../types/MyTasksType";
+import { MyTasks, Project } from "../../../types/MyTasksType";
 import ListMyTasks from "./ListMyTask";
 
 type ProcessAccordionsProp = {
-  project: project;
-  myTasks: myTasks[];
+  project: Project;
+  myTasks: MyTasks[];
 };
 
 const Accordion = styled((props: AccordionProps) => (
