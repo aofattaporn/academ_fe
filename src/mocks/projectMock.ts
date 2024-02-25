@@ -3,13 +3,28 @@ import { RESPONSE_OK, ResponseCustom } from "../types/GenericType";
 import { ListProject } from "../types/ProjectType";
 
 const createProjectSuccess = http.post("/api/v1/projects", async () => {
-  const mockRes: ResponseCustom<null> = {
+  const mockRes: ResponseCustom<ListProject> = {
     status: 200,
     message: RESPONSE_OK,
     description: "Success",
+    data: {
+      projectId: "4",
+      projectProfile: {
+        projectName: "EchoEcho",
+        avatarColor: "#6985FF",
+      },
+      membersCounts: 4,
+      projectEndDate: new Date(),
+    },
   };
+
+  await delay(2000);
   return HttpResponse.json(mockRes, { status: 200 });
 });
+
+const createProjectError = http.post("/api/v1/projects/user", () =>
+  HttpResponse.error()
+);
 
 const getAllProjectError = http.get("/api/v1/projects/user", () =>
   HttpResponse.error()
@@ -22,17 +37,35 @@ const getAllProjectSuccess = http.get("api/v1/projects/user", async () => {
     description: "Success",
     data: [
       {
-        projectId: "6adc6173-8c9b-4357-a051-aa41a9978257",
-        projectName: "JitD",
+        projectId: "1",
+        projectProfile: {
+          projectName: "Academ",
+          avatarColor: "#AF8AE2",
+        },
+        membersCounts: 4,
+        projectEndDate: new Date(),
       },
       {
-        projectId: "e7e603f0-b7cb-46c2-a856-10b36d1be070",
-        projectName: "TungTee",
+        projectId: "2",
+        projectProfile: {
+          projectName: "TungTee",
+          avatarColor: "#FFA8A7",
+        },
+        membersCounts: 4,
+        projectEndDate: new Date(),
+      },
+      {
+        projectId: "3",
+        projectProfile: {
+          projectName: "XTra",
+          avatarColor: "#6985FF",
+        },
+        membersCounts: 4,
+        projectEndDate: new Date(),
       },
     ],
   };
 
-  await delay(3000);
   return HttpResponse.json(mockRes, { status: 200 });
 });
 
@@ -40,4 +73,5 @@ export const projectMock = {
   createProjectSuccess,
   getAllProjectSuccess,
   getAllProjectError,
+  createProjectError,
 };

@@ -24,8 +24,6 @@ const ProjectBox = () => {
     return <BoxNulldata title={"Project"} />;
   }
 
-  console.log(data);
-
   return (
     <div className="p-4 bg-background-white shadow-xl rounded-xl">
       <div className="p-2">

@@ -68,8 +68,9 @@ const ToggleItem = ({
                 key={index}
                 title={title}
                 ItemId={project.projectId}
-                ItemName={project.projectName}
+                ItemName={project.projectProfile.projectName}
                 isSelected={project.projectId === itemId}
+                avatarColor={project.projectProfile.avatarColor}
               />
             ))
           : null}

@@ -1,8 +1,9 @@
-import { styled, Button } from "@mui/material";
+import { styled, Button, CircularProgress } from "@mui/material";
 
 type CreateProjectButtonProps = {
   title: string;
   disable: boolean;
+  isCreating: boolean;
   handleChange: () => void;
 };
 
@@ -27,6 +28,7 @@ const CreateProjectButton = styled(Button)({
 const CreateProjectButtonComp = ({
   title,
   disable,
+  isCreating,
   handleChange,
 }: CreateProjectButtonProps) => {
   return (
@@ -37,7 +39,11 @@ const CreateProjectButtonComp = ({
         disabled={disable}
         onClick={handleChange}
       >
-        {title}
+        {isCreating ? (
+          <CircularProgress color="inherit" size={24} />
+        ) : (
+          <p>{title}</p>
+        )}
       </CreateProjectButton>
     </div>
   );
