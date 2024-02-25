@@ -1,9 +1,9 @@
 import moment from "moment";
 import { useEffect, useState } from "react";
-import ProjectBox from "./component/projectbox";
-import ClassBox from "./component/classbox";
-import MytaskBox from "./component/mytaskbox";
+import MytaskBox from "./component/MyTasksBox";
 import { GreetingType } from "../../types/HomeType";
+import ClassBox from "./component/classbox";
+import ProjectBox from "./component/projectbox";
 
 const HomePage = () => {
   const currentHour = new Date().getHours();
