@@ -2,35 +2,38 @@ import { HttpResponse, delay, http } from "msw";
 import { RESPONSE_OK, ResponseCustom } from "../types/GenericType";
 import { ListProject } from "../types/ProjectType";
 
-const createProjectSuccess = http.post("/api/v1/projects", async () => {
-  const mockRes: ResponseCustom<ListProject> = {
-    status: 200,
-    message: RESPONSE_OK,
-    description: "Success",
-    data: {
-      projectId: "4",
-      projectProfile: {
-        projectName: "EchoEcho",
-        avatarColor: "#6985FF",
+const createProjectSuccess = http.post(
+  "/api/v1/projects/users/id",
+  async () => {
+    const mockRes: ResponseCustom<ListProject> = {
+      status: 200,
+      message: RESPONSE_OK,
+      description: "Success",
+      data: {
+        projectId: "4",
+        projectProfile: {
+          projectName: "EchoEcho",
+          avatarColor: "#6985FF",
+        },
+        membersCounts: 4,
+        projectEndDate: new Date(),
       },
-      membersCounts: 4,
-      projectEndDate: new Date(),
-    },
-  };
+    };
 
-  await delay(2000);
-  return HttpResponse.json(mockRes, { status: 200 });
-});
+    await delay(2000);
+    return HttpResponse.json(mockRes, { status: 200 });
+  }
+);
 
-const createProjectError = http.post("/api/v1/projects/user", () =>
+const createProjectError = http.post("/api/v1/projects/users/id", () =>
   HttpResponse.error()
 );
 
-const getAllProjectError = http.get("/api/v1/projects/user", () =>
+const getAllProjectError = http.get("/api/v1/projects/users/id", () =>
   HttpResponse.error()
 );
 
-const getAllProjectSuccess = http.get("api/v1/projects/user", async () => {
+const getAllProjectSuccess = http.get("/api/v1/projects/users/id", async () => {
   const mockRes: ResponseCustom<ListProject[]> = {
     status: 200,
     message: RESPONSE_OK,

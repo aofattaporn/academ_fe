@@ -20,7 +20,7 @@ const createProject = async (data: CreateProject): Promise<ListProject> => {
 const getAllProject = async (): Promise<ListProject[]> => {
   try {
     const token = await firebaseApi.getToken();
-    const response = await axiosInstance.get("api/v1/projects/user", {
+    const response = await axiosInstance.get("/api/v1/projects/users/id", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
