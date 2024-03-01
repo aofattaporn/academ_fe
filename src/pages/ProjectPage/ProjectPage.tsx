@@ -1,13 +1,17 @@
+import AvatarProject from "../../components/AvatarProject/AvatarProject";
+import { Size } from "../../types/ProjectType";
+
 const ProjectPage = () => {
   return (
-    <div className="h-20 bg-white w-full shadow-sm flex  py-2 px-8 gap-8 items-end">
-      <div className="w-16 h-full rounded-md flex justify-center items-center bg-primary">
-        <p className="font-bold text-4xl text-white">A</p>
+    <div className="bg-white w-full shadow-sm flex px-8 gap-8 items-end text-dark font-roboto">
+      <div className="py-2">
+        <AvatarProject projectName={"A"} color={"#AF8AE2"} size={Size.medium} />
       </div>
+
       <div>
-        <h2 className="text-xl font-bold text-dark">Academ Projex</h2>
-        <div className="flex text-dark gap-1 mt-2">
-          <div className="w-24 bg-primary-subtle flex justify-center rounded-s-md cursor-pointer">
+        <h2 className="text-xl font-bold">Academ Projex</h2>
+        <div className="flex gap-1 mt-2">
+          <div className="w-24 bg-primary-subtle flex justify-center rounded-tl-md cursor-pointer">
             List
           </div>
           <div className="w-24 bg-primary-subtle flex justify-center cursor-pointer">
@@ -19,7 +23,7 @@ const ProjectPage = () => {
           <div className="w-24 bg-primary-subtle flex justify-center cursor-pointer">
             Note
           </div>
-          <div className="w-24 bg-primary-subtle flex justify-center rounded-e-md cursor-pointer">
+          <div className="w-24 bg-primary-subtle flex justify-center rounded-tr-md cursor-pointer">
             Timeline
           </div>
         </div>
