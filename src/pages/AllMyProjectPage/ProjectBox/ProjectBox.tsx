@@ -26,6 +26,7 @@ const ProjectBox = ({
               projectName={projectName}
               color={avatarColor}
               size={Size.small}
+              isLoading={false}
             />
             <div>
               <h1 className="text-[24px] font-semibold text-dark mb-2">

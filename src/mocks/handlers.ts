@@ -19,4 +19,5 @@ export const handlers = [
   userMock.getUserSuccess,
   projectMock.createProjectSuccess,
   projectMock.getAllProjectSuccess,
+  projectMock.getProjectSuccess,
 ];

@@ -81,6 +81,7 @@ export const NAVIGATOR = {
 
 export const QUERY_KEY = {
   ALL_PROJECT: "allProjectData",
+  PROJECR: "project",
 };
 
 export const SLICE_KEY = {

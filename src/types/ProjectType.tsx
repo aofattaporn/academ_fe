@@ -52,7 +52,7 @@ export interface CreateProject {
 
 export interface Project {
   projectInfo: ProjectInfo;
-  taskPermssion: TaskPermission;
+  taskPermission: TaskPermission;
 }
 
 export interface ProjectInfo {
