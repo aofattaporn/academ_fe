@@ -11,6 +11,7 @@ import ForgotPasswordPage from "./pages/AuthPage/ForgotPasswordPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ProjectPage from "./pages/ProjectPage/ProjectPage";
 import AllMyProjectPage from "./pages/AllMyProjectPage/AllMyProjectPage";
+import List from "./pages/ProjectPage/List/List";
 
 function App() {
   return (
@@ -26,7 +27,9 @@ function App() {
         <Route path="/mytask" element={<MytaskPage />} />
         <Route path="/notification" element={<NotificationPage />} />
         <Route path="/projects" element={<AllMyProjectPage />} />
-        <Route path="/projects/:projectId" element={<ProjectPage />} />
+        <Route path="/projects/:projectId" element={<ProjectPage />}>
+          <Route path="list" element={<List />} />
+        </Route>
       </Route>
       <Route path="*" element={<NotFoundPage />} />
     </Routes>

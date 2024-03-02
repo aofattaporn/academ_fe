@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import AvatarProject from "../../../components/AvatarProject/AvatarProject";
 import { Project, Size } from "../../../types/ProjectType";
 
@@ -10,7 +11,8 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
 
   const renderViews = () => {
     return views.map((view, index) => (
-      <div
+      <Link
+        to={view}
         key={index}
         className={`w-24 bg-primary-subtle flex justify-center cursor-pointer
           ${index === 0 ? "rounded-tl-md" : "rounded-none"}
@@ -18,7 +20,7 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
         `}
       >
         {view}
-      </div>
+      </Link>
     ));
   };
 

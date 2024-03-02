@@ -13,7 +13,7 @@ const useProject = () => {
     refetch: projectRefetch,
     data: projectData,
   } = useQuery(
-    QUERY_KEY.PROJECR + projectId,
+    [QUERY_KEY.PROJECR, projectId],
     () => projectApi.getProject(projectId as string),
     {
       refetchOnWindowFocus: false,
