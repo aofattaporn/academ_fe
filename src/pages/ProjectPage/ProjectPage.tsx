@@ -1,7 +1,10 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useOutletContext } from "react-router-dom";
 import useProject from "../../hooks/projectHook/useProject";
 import ProjectInfo from "./ProjectInfo/ProjectInfo";
 import ProjectInfoLoading from "./ProjectInfo/ProjectInfoLoading";
+import { TaskPermission } from "../../types/ProjectType";
+
+type ContextType = { taskPermission: TaskPermission | undefined };
 
 const ProjectPage = () => {
   const { projectIsLoading, projectIsSuccess, projectData } = useProject();
@@ -14,9 +17,13 @@ const ProjectPage = () => {
         ) : null}
         {projectIsLoading ? <ProjectInfoLoading /> : null}
       </div>
-      <Outlet />
+      <Outlet context={{ taskPermission: projectData?.taskPermission }} />
     </>
   );
 };
+
+export function useProjectPermission() {
+  return useOutletContext<ContextType>();
+}
 
 export default ProjectPage;

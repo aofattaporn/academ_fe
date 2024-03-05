@@ -29,6 +29,9 @@ function App() {
         <Route path="/projects" element={<AllMyProjectPage />} />
         <Route path="/projects/:projectId" element={<ProjectPage />}>
           <Route path="list" element={<List />} />
+          <Route path="board" element={<List />} />
+          <Route path="timeline" element={<List />} />
+          <Route path="calendar" element={<List />} />
         </Route>
       </Route>
       <Route path="*" element={<NotFoundPage />} />
