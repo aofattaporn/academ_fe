@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { ListProject } from "../../types/ProjectType";
+import { SLICE_KEY } from "../../types/GenericType";
 
 export interface ProjectsState {
   projects: ListProject[];
@@ -14,7 +15,7 @@ const initialState: ProjectsState = {
 };
 
 export const projectsSlice = createSlice({
-  name: "projects",
+  name: SLICE_KEY.ALL_PROJECT,
   initialState,
   reducers: {
     saveProjects: (state, action: PayloadAction<ListProject[]>) => {

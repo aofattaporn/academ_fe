@@ -42,6 +42,7 @@ const AllMyProjectPage = () => {
                   return (
                     <ProjectBox
                       key={index}
+                      prjectId={project.projectId}
                       projectName={project.projectProfile.projectName}
                       avatarColor={project.projectProfile.avatarColor}
                       membersCounts={project.membersCounts}
