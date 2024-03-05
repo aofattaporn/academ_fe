@@ -29,7 +29,7 @@ const ToggleItem = ({
   data,
   refetch,
 }: ToggleItemProps) => {
-  const { itemId } = useParams();
+  const { projectId } = useParams();
   const [isCollapse, setIsCollapse] = useState<boolean>(false);
 
   useEffect(() => {
@@ -69,7 +69,7 @@ const ToggleItem = ({
                 title={title}
                 ItemId={project.projectId}
                 ItemName={project.projectProfile.projectName}
-                isSelected={project.projectId === itemId}
+                isSelected={project.projectId === projectId}
                 avatarColor={project.projectProfile.avatarColor}
               />
             ))

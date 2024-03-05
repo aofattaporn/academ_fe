@@ -1,20 +1,27 @@
 import { Size } from "../../types/ProjectType";
 
 type AvatarProjectProps = {
-  projectName: string;
-  color: string;
+  projectName?: string;
+  color?: string;
+  isLoading: boolean;
   size: Size;
 };
 
-const AvatarProject = ({ projectName, color, size }: AvatarProjectProps) => {
+const AvatarProject = ({
+  projectName,
+  color,
+  size,
+  isLoading,
+}: AvatarProjectProps) => {
   return (
     <div
       className={`rounded-md flex justify-center items-center
           ${size === Size.small ? "w-10 h-10" : null} 
           ${size === Size.medium ? "w-16 h-16" : null} 
+          ${isLoading ? "animate-pulse" : null}
 
       `}
-      style={{ backgroundColor: color }}
+      style={{ backgroundColor: isLoading ? "rgb(229, 231, 235)" : color }}
     >
       <p
         className={`font-bold text-white 
