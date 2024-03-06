@@ -15,7 +15,6 @@ type ListAccordionProps = {
 const ListAccordion = ({ process, tasks }: ListAccordionProps) => {
   const [isToggle, setIsToggle] = useState<boolean>(false);
   const [tempTasks, setTempTasks] = useState<Tasks[]>(tasks);
-  const [activeId, setActiveId] = useState(null);
 
   const handleToggle = (isToggle: boolean) => setIsToggle(isToggle);
 
@@ -37,10 +36,6 @@ const ListAccordion = ({ process, tasks }: ListAccordionProps) => {
       }
     }
   };
-
-  function handleDragStart(event: any) {
-    setActiveId(event.active.id);
-  }
 
   function arrayMove<T>(array: T[], fromIndex: number, toIndex: number): T[] {
     const newArray = [...array];
