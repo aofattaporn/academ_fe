@@ -15,6 +15,7 @@ type ListAccordionProps = {
 const ListAccordion = ({ process, tasks }: ListAccordionProps) => {
   const [isToggle, setIsToggle] = useState<boolean>(false);
   const [tempTasks, setTempTasks] = useState<Tasks[]>(tasks);
+  const [activeId, setActiveId] = useState<string | null>(null);
 
   const handleToggle = (isToggle: boolean) => setIsToggle(isToggle);
 
@@ -36,6 +37,10 @@ const ListAccordion = ({ process, tasks }: ListAccordionProps) => {
       }
     }
   };
+
+  function handleDragStart(event: any) {
+    setActiveId(event.active.id);
+  }
 
   function arrayMove<T>(array: T[], fromIndex: number, toIndex: number): T[] {
     const newArray = [...array];
@@ -73,14 +78,14 @@ const ListAccordion = ({ process, tasks }: ListAccordionProps) => {
       >
         <TaksTitle />
 
-        <DndContext onDragEnd={handleDragEnd}>
+        <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
           <div>
             {tempTasks
               .filter((task, _) => task.processId === process.processId)
               .map((item, index) => {
                 return (
-                  <Droppable id={item.tasksId}>
-                    <Draggable id={item.tasksId}>
+                  <Droppable active={activeId} dropId={item.tasksId}>
+                    <Draggable dragId={item.tasksId} dropId={item.tasksId}>
                       <TasksTile task={item} key={index} />
                     </Draggable>
                   </Droppable>

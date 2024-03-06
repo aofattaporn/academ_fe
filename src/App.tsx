@@ -12,6 +12,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import ProjectPage from "./pages/ProjectPage/ProjectPage";
 import AllMyProjectPage from "./pages/AllMyProjectPage/AllMyProjectPage";
 import List from "./pages/ProjectPage/List/List";
+import DragDropPlayGround from "./pages/ProjectPage/DragDropPlayGround/DragDropPlayGround";
 
 function App() {
   return (
@@ -31,7 +32,7 @@ function App() {
           <Route path="list" element={<List />} />
           <Route path="board" element={<List />} />
           <Route path="timeline" element={<List />} />
-          <Route path="calendar" element={<List />} />
+          <Route path="calendar" element={<DragDropPlayGround />} />
         </Route>
       </Route>
       <Route path="*" element={<NotFoundPage />} />
