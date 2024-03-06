@@ -11,8 +11,8 @@ const TasksTile = ({ task }: TasksTileProps) => {
       <div className="w-full grid grid-cols-4">
         <p className="text-center">{task.tasksName}</p>
         <p className="text-center">{task.assignee}</p>
-        <p className="text-center">{task.startDate.format("ll")}</p>
-        <p className="text-center">{task.dueDate.format("ll")}</p>
+        <p className="text-center">{}</p>
+        <p className="text-center">{}</p>
       </div>
     </div>
   );
