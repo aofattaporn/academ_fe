@@ -3,7 +3,6 @@ import { useDraggable } from "@dnd-kit/core";
 
 type DraggableProps = {
   dragId: string;
-  dropId: string;
   children: ReactNode;
 };
 

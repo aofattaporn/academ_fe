@@ -72,27 +72,29 @@ const ListAccordion = ({ process, tasks }: ListAccordionProps) => {
       </button>
 
       <div
-        className={`duration-300 overflow-hidden ${
-          isToggle ? "h-fit mt-4" : "h-0"
+        className={`duration-300  ${
+          isToggle ? "h-fit mt-4" : "h-0 overflow-hidden"
         } `}
       >
         <TaksTitle />
 
-        <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+        <Draggable dragId={process.processId}>
+          {/* <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}> */}
           <div>
             {tempTasks
               .filter((task, _) => task.processId === process.processId)
               .map((item, index) => {
                 return (
                   <Droppable active={activeId} dropId={item.tasksId}>
-                    <Draggable dragId={item.tasksId} dropId={item.tasksId}>
+                    <Draggable dragId={item.tasksId}>
                       <TasksTile task={item} key={index} />
                     </Draggable>
                   </Droppable>
                 );
               })}
           </div>
-        </DndContext>
+          {/* </DndContext> */}
+        </Draggable>
       </div>
     </div>
   );

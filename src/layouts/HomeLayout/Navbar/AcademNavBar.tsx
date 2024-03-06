@@ -25,7 +25,7 @@ function AcademNaveBar(): ReactElement {
   };
 
   return (
-    <div className="grid grid-cols-3 items-center static bg-primary-dark p-1 px-12">
+    <div className="grid grid-cols-3 items-center static bg-primary-dark p-1 px-12 min-w-[1000px]">
       <div className="md:col-start-2 md:col-end-3 col-span-2 h-8 bg-white flex justify-between items-center rounded-3xl hover:cursor-pointer px-8">
         <p className="text-gray-400">Search Bar</p>
         <SearchIcon className="text-gray-400" />
