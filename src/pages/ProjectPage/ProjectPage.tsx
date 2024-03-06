@@ -2,9 +2,12 @@ import { Outlet, useOutletContext } from "react-router-dom";
 import useProject from "../../hooks/projectHook/useProject";
 import ProjectInfo from "./ProjectInfo/ProjectInfo";
 import ProjectInfoLoading from "./ProjectInfo/ProjectInfoLoading";
-import { TaskPermission } from "../../types/ProjectType";
+import { Process, TaskPermission } from "../../types/ProjectType";
 
-type ContextType = { taskPermission: TaskPermission | undefined };
+type ContextType = {
+  taskPermission: TaskPermission | undefined;
+  process: Process[] | undefined;
+};
 
 const ProjectPage = () => {
   const { projectIsLoading, projectIsSuccess, projectData } = useProject();
@@ -17,7 +20,12 @@ const ProjectPage = () => {
         ) : null}
         {projectIsLoading ? <ProjectInfoLoading /> : null}
       </div>
-      <Outlet context={{ taskPermission: projectData?.taskPermission }} />
+      <Outlet
+        context={{
+          taskPermission: projectData?.taskPermission,
+          process: projectData?.projectInfo.process,
+        }}
+      />
     </>
   );
 };
