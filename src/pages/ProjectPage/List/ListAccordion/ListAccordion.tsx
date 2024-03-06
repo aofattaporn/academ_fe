@@ -15,7 +15,7 @@ const ListAccordion = ({ process, tasks }: ListAccordionProps) => {
   const handleToggle = (isToggle: boolean) => setIsToggle(isToggle);
 
   return (
-    <div className="w-full bg-white p-4 rounded-md shadow-3xl my-4 ">
+    <div className="w-full p-4 rounded-md shadow-3xl my-4">
       <button
         className="flex gap-4 w-full"
         onClick={() => handleToggle(!isToggle)}
@@ -37,7 +37,7 @@ const ListAccordion = ({ process, tasks }: ListAccordionProps) => {
       </button>
 
       <div
-        className={`duration-300 overflow-hidden ${
+        className={`duration-300 overflow-hidden bg-red-600 ${
           isToggle ? "h-fit mt-4" : "h-0"
         } `}
       >

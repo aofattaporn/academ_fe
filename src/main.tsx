@@ -9,6 +9,7 @@ import { store } from "./stores/store.ts";
 import { Provider } from "react-redux";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { DndContext } from "@dnd-kit/core";
 
 async function enableMocking() {
   console.log(import.meta.env.MODE);
