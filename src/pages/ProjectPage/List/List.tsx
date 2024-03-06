@@ -12,11 +12,31 @@ const List = () => {
   const { process } = useProjectPermission();
   const { allTaksIsSuccesss, allTaksData } = useAllTasks();
 
-  const containers = ["A", "B", "C"];
+  const [containers, setContainers] = useState<string[]>(["A", "B", "C"]);
   const [parent, setParent] = useState("A");
   function handleDragEnd(event: any) {
     const { over } = event;
     setParent(over?.id ? over.id : over.id);
+  }
+
+  function handleDragEnd2(event: any) {
+    const { active, over } = event;
+
+    if (active && over) {
+      const activeId = active.id;
+      const overId = over.id;
+
+      if (activeId !== overId) {
+        const newContainers = containers.slice();
+        const activeIndex = newContainers.indexOf(activeId);
+        const overIndex = newContainers.indexOf(overId);
+
+        newContainers.splice(activeIndex, 1);
+        newContainers.splice(overIndex, 0, activeId);
+
+        setContainers(newContainers);
+      }
+    }
   }
 
   return (
@@ -33,7 +53,7 @@ const List = () => {
           })}
 
       <div className="p-4 bg-amber-100">
-        <h1>Drag n Drop playground</h1>
+        <h1>Drag n Drop playground - for list</h1>
         <DndContext onDragEnd={handleDragEnd}>
           {containers.map((id) => (
             <Droppable key={id} id={id}>
@@ -52,6 +72,24 @@ const List = () => {
               )}
             </Droppable>
           ))}
+        </DndContext>
+      </div>
+
+      <div className="p-4 bg-purple-300 my-8">
+        <h1>Drag n Drop playground - for list</h1>
+
+        <DndContext onDragEnd={handleDragEnd2}>
+          {containers.map((id) => {
+            return (
+              <Droppable id={id}>
+                <Draggable id={id}>
+                  <div className="p-2 bg-red-200 w-full flex justify-center my-2">
+                    {id}
+                  </div>
+                </Draggable>
+              </Droppable>
+            );
+          })}
         </DndContext>
       </div>
     </div>

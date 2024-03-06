@@ -6,8 +6,8 @@ type TasksTileProps = {
 
 const TasksTile = ({ task }: TasksTileProps) => {
   return (
-    <div className="flex gap-4 items-center my-4">
-      <div className="bg-slate-50 w-4 h-4 p-4 rounded-md"></div>
+    <div className="flex gap-4 items-center my-2 bg-main border-solid border-b-2">
+      <div className=" w-4 h-4 p-4 rounded-md"></div>
       <div className="w-full grid grid-cols-4">
         <p className="text-center">{task.tasksName}</p>
         <p className="text-center">{task.assignee}</p>

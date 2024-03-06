@@ -9,12 +9,12 @@ function Droppable({ id, children }: DroppableProps) {
   const { isOver, setNodeRef } = useDroppable({
     id: id,
   });
-  const style = {
-    color: isOver ? "green" : undefined,
-  };
 
   return (
-    <div ref={setNodeRef} style={style}>
+    <div
+      className={`w-full ${isOver ? " bg-gray-100 p-2" : undefined}`}
+      ref={setNodeRef}
+    >
       {children}
     </div>
   );
