@@ -73,7 +73,7 @@ const ListAccordion = ({ process, tasks }: ListAccordionProps) => {
       >
         <TaksTitle />
 
-        <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+        <DndContext onDragEnd={handleDragEnd}>
           <div>
             {tempTasks
               .filter((task, _) => task.processId === process.processId)
