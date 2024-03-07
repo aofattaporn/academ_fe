@@ -5,6 +5,8 @@ import { useProjectPermission } from "../ProjectPage";
 import ListAccordion from "./ListAccordion/ListAccordion";
 import ListAccordionLoading from "./ListAccordionLoading/ListAccordionLoading";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { openDetails } from "../../../stores/projectSlice/tastsDetailsSlice";
 
 enum DragState {
   NONE,
@@ -18,6 +20,7 @@ const List = () => {
   const { allTaksIsSuccesss, tempTasks, setTempTasks } = useAllTasks();
   const [activeId, setActiveId] = useState<string | null>(null);
   const [message, setMessage] = useState<DragState>(DragState.NONE);
+  const dispatch = useDispatch();
 
   const handleDragStart = (event: any) => {
     setActiveId(event.active.id);
@@ -45,7 +48,8 @@ const List = () => {
 
         setTempTasks(newTasks);
       } else {
-        setMessage(DragState.CLICK);
+        dispatch(openDetails(true));
+        console.log(active);
       }
     }
   };
@@ -62,7 +66,11 @@ const List = () => {
       <h1 className="text-2xl font-bold">List</h1>
 
       <h1 className="text-3xl font-bold">{message}</h1>
-      <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+      <DndContext
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+        onDragMove={() => setMessage(DragState.MOVE)}
+      >
         {process && allTaksIsSuccesss && tempTasks
           ? process.map((item, index) => {
               return (
