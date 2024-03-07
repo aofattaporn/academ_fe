@@ -4,9 +4,11 @@ import { useDraggable } from "@dnd-kit/core";
 type DraggableProps = {
   dragId: string;
   children: ReactNode;
+  isClick: boolean;
+  handleClick: () => void;
 };
 
-function Draggable({ dragId, children }: DraggableProps) {
+function Draggable({ dragId, children, handleClick }: DraggableProps) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: dragId,
   });
@@ -17,15 +19,17 @@ function Draggable({ dragId, children }: DraggableProps) {
     : undefined;
 
   return (
-    <button
-      className={`w-full`}
-      ref={setNodeRef}
-      style={style}
-      {...listeners}
-      {...attributes}
-    >
-      {children}
-    </button>
+    <div ref={setNodeRef}>
+      <button
+        className={`w-full`}
+        onClick={handleClick}
+        style={style}
+        {...listeners}
+        {...attributes}
+      >
+        {children}
+      </button>
+    </div>
   );
 }
 

@@ -126,8 +126,6 @@ const getProjectSuccess = http.get("/api/v1/projects/:projectId", async () => {
     },
   };
 
-  await delay(3000);
-
   return HttpResponse.json(mockRes, { status: 200 });
 });
 
