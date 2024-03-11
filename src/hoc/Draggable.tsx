@@ -8,9 +8,10 @@ type DraggableProps = {
   handleClick: () => void;
 };
 
-function Draggable({ dragId, children, handleClick }: DraggableProps) {
+function Draggable({ dragId, children, isClick, handleClick }: DraggableProps) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: dragId,
+    disabled: isClick,
   });
   const style = transform
     ? {
@@ -19,16 +20,15 @@ function Draggable({ dragId, children, handleClick }: DraggableProps) {
     : undefined;
 
   return (
-    <div ref={setNodeRef}>
-      <button
-        className={`w-full`}
-        onClick={handleClick}
-        style={style}
-        {...listeners}
-        {...attributes}
-      >
-        {children}
-      </button>
+    <div
+      ref={setNodeRef}
+      className={`w-full`}
+      onClick={handleClick}
+      style={style}
+      {...listeners}
+      {...attributes}
+    >
+      {children}
     </div>
   );
 }

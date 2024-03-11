@@ -6,7 +6,6 @@ import ListAccordion from "./ListAccordion/ListAccordion";
 import ListAccordionLoading from "./ListAccordionLoading/ListAccordionLoading";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { openDetails } from "../../../stores/projectSlice/tastsDetailsSlice";
 
 enum DragState {
   NONE,
@@ -20,7 +19,6 @@ const List = () => {
   const { allTaksIsSuccesss, tempTasks, setTempTasks } = useAllTasks();
   const [activeId, setActiveId] = useState<string | null>(null);
   const [message, setMessage] = useState<DragState>(DragState.NONE);
-  const dispatch = useDispatch();
 
   const handleDragStart = (event: any) => {
     setActiveId(event.active.id);
@@ -47,9 +45,6 @@ const List = () => {
         );
 
         setTempTasks(newTasks);
-      } else {
-        dispatch(openDetails(true));
-        console.log(active);
       }
     }
   };

@@ -3,10 +3,12 @@ import { SLICE_KEY } from "../../types/GenericType";
 
 export interface TasksState {
   isSideBar: boolean;
+  tasksSeletedId: string;
 }
 
 const initialState: TasksState = {
   isSideBar: false,
+  tasksSeletedId: "",
 };
 
 export const tastsDetailsSlice = createSlice({
@@ -15,10 +17,16 @@ export const tastsDetailsSlice = createSlice({
   reducers: {
     openDetails: (state, action: PayloadAction<boolean>) => {
       state.isSideBar = action.payload;
+      if (!action.payload) {
+        state.tasksSeletedId = "";
+      }
+    },
+    seletedId: (state, action: PayloadAction<string>) => {
+      state.tasksSeletedId = action.payload;
     },
   },
 });
 
-export const { openDetails } = tastsDetailsSlice.actions;
+export const { openDetails, seletedId } = tastsDetailsSlice.actions;
 
 export default tastsDetailsSlice.reducer;

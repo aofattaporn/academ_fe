@@ -15,7 +15,7 @@ function Droppable({ active, dropId, children }: DroppableProps) {
     <div
       className={`w-full ${
         isOver && dropId !== active
-          ? "border-primary-light border-b-4 border-solid"
+          ? "border-primary-light border-b-2 border-solid"
           : "border-gray-200 border-b-2 border-solid "
       }`}
       ref={setNodeRef}
