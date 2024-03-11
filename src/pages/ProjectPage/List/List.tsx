@@ -5,20 +5,11 @@ import { useProjectPermission } from "../ProjectPage";
 import ListAccordion from "./ListAccordion/ListAccordion";
 import ListAccordionLoading from "./ListAccordionLoading/ListAccordionLoading";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-
-enum DragState {
-  NONE,
-  CLICK,
-  MOVE,
-  PRESSED,
-}
 
 const List = () => {
   const { process } = useProjectPermission();
   const { allTaksIsSuccesss, tempTasks, setTempTasks } = useAllTasks();
   const [activeId, setActiveId] = useState<string | null>(null);
-  const [message, setMessage] = useState<DragState>(DragState.NONE);
 
   const handleDragStart = (event: any) => {
     setActiveId(event.active.id);
@@ -59,11 +50,7 @@ const List = () => {
   return (
     <div className="p-6 text-dark font-roboto">
       <h1 className="text-2xl font-bold">List</h1>
-      <DndContext
-        onDragStart={handleDragStart}
-        onDragEnd={handleDragEnd}
-        onDragMove={() => setMessage(DragState.MOVE)}
-      >
+      <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
         {process && allTaksIsSuccesss && tempTasks
           ? process.map((item, index) => {
               return (

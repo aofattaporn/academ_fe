@@ -12,6 +12,7 @@ import {
 } from "../../../../stores/projectSlice/tastsDetailsSlice";
 import { RootState } from "../../../../stores/store";
 import ProcessTitle from "./ProcessTitle/ProcessTitle";
+import CreateTasks from "./CreateTasks/CreateTasks";
 
 type ListAccordionProps = {
   activeId: string | null;
@@ -91,13 +92,7 @@ const ListAccordion = ({ process, activeId, tasks }: ListAccordionProps) => {
             })}
 
           {/* TO-DO */}
-          <div className="w-full p-2 bg-gray-100 rounded-md cursor-pointer text-gray-300">
-            <div className="flex gap-4 items-center">
-              <div className="ps-12 w-full grid grid-cols-4 gap-4 font-bold">
-                <p className="text-center">Create Tasks</p>
-              </div>
-            </div>
-          </div>
+          <CreateTasks />
         </div>
       </div>
     </div>

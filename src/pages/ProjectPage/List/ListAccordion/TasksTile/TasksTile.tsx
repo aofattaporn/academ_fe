@@ -10,7 +10,7 @@ const TasksTile = ({ task }: TasksTileProps) => {
   const tasksDetails = useSelector((state: RootState) => state.tasksDetails);
   return (
     <div
-      className={`flex gap-4 items-center ${
+      className={`flex gap-4 items-center p-1 ${
         tasksDetails.tasksSeletedId === task.tasksId
           ? "bg-primary-subtle"
           : "bg-main"
