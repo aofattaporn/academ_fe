@@ -59,8 +59,6 @@ const List = () => {
   return (
     <div className="p-6 text-dark font-roboto">
       <h1 className="text-2xl font-bold">List</h1>
-
-      <h1 className="text-3xl font-bold">{message}</h1>
       <DndContext
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
