@@ -1,7 +1,4 @@
-import { useState, useRef } from "react";
-import { useMutation } from "react-query";
-import tasksApi from "../../../../../libs/tasksApi";
-import { CreateTasks, Tasks } from "../../../../../types/MyTasksType";
+import useCreateTasks from "../../../../../hooks/tasksHook/useCreateTasks";
 
 type CreateTasksProps = {
   projectId: string;
@@ -9,32 +6,42 @@ type CreateTasksProps = {
 };
 
 const CreateTasksItem = ({ projectId, processId }: CreateTasksProps) => {
-  const [isCreating, setIsCreating] = useState<boolean>(false);
-  const [tasks, setTasks] = useState<string>("");
-  const inputRef = useRef<HTMLInputElement>(null);
+  const {
+    isCreating,
+    inputRef,
+    tasks,
+    setIsCreating,
+    handleButtonClick,
+    handleSetTasks,
+    handleSubmit,
+  } = useCreateTasks({ projectId, processId });
 
-  const handleButtonClick = () => {
-    setIsCreating(true);
-    setTimeout(() => {
-      if (inputRef.current) {
-        inputRef.current.focus();
-      }
-    }, 0);
+  const cancelButton = () => {
+    return (
+      <button className="items-center flex justify-center text-white bottom-0">
+        <p
+          className="bg-gray-300 hover:bg-gray-400 p-1 px-4 rounded-md"
+          onClick={() => setIsCreating(false)}
+        >
+          Cancel
+        </p>
+      </button>
+    );
   };
 
-  const handleSetTasks = (tasksName: string) => setTasks(tasksName);
-
-  const mutation = useMutation({
-    mutationFn: (data: CreateTasks) => tasksApi.createTasks(data),
-    onSuccess: (data: Tasks[]) => console.log(data),
-  });
-
-  const handleSubmit = () =>
-    mutation.mutate({
-      projectId: projectId,
-      processId: processId,
-      tasksName: tasks,
-    });
+  const saveButton = () => {
+    return (
+      <button
+        className="items-center flex justify-center text-white bottom-0"
+        onClick={(e) => {
+          e.preventDefault();
+          handleSubmit();
+        }}
+      >
+        <p className=" bg-info hover:bg-info-dark p-1 px-4 rounded-md">Save</p>
+      </button>
+    );
+  };
 
   if (isCreating) {
     return (
@@ -50,25 +57,7 @@ const CreateTasksItem = ({ projectId, processId }: CreateTasksProps) => {
             />
 
             <div className="flex gap-4">
-              <button className="items-center flex justify-center text-white bottom-0">
-                <p
-                  className="bg-gray-300 hover:bg-gray-400 p-1 px-4 rounded-md"
-                  onClick={() => setIsCreating(false)}
-                >
-                  Cancel
-                </p>
-              </button>
-              <button
-                className="items-center flex justify-center text-white bottom-0"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleSubmit();
-                }}
-              >
-                <p className=" bg-info hover:bg-info-dark p-1 px-4 rounded-md">
-                  Save
-                </p>
-              </button>
+              {cancelButton()} {saveButton()}
             </div>
           </div>
         </div>

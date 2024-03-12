@@ -66,8 +66,8 @@ const createTasks = http.post("api/v1/tasks", () => {
     description: "Success",
     data: [
       {
-        tasksId: "N123456789",
-        tasksName: "New Complete Report222",
+        tasksId: "123456789",
+        tasksName: "Complete Report222",
         processId: "1",
         assignee: "John Doe",
         startDate: moment("2024-03-06"),
@@ -75,7 +75,7 @@ const createTasks = http.post("api/v1/tasks", () => {
       },
       {
         tasksId: "987654321",
-        tasksName: "New Review Presentation",
+        tasksName: "Review Presentation",
         processId: "1",
         assignee: "Jane Smith",
         startDate: moment("2024-03-08"),
@@ -83,7 +83,7 @@ const createTasks = http.post("api/v1/tasks", () => {
       },
       {
         tasksId: "987654325",
-        tasksName: "New Review Presentation",
+        tasksName: "Review Presentation",
         processId: "1",
         assignee: "Jane Smith",
         startDate: moment("2024-03-08"),
@@ -91,7 +91,7 @@ const createTasks = http.post("api/v1/tasks", () => {
       },
       {
         tasksId: "987654215",
-        tasksName: "New Review Testcase",
+        tasksName: "Review Testcase",
         processId: "2",
         assignee: "Jane Smith",
         startDate: moment("2024-03-08"),
@@ -99,9 +99,17 @@ const createTasks = http.post("api/v1/tasks", () => {
       },
       {
         tasksId: "987654324",
-        tasksName: "New Testing",
+        tasksName: "Testing",
         processId: "2",
         assignee: "Jane Smith",
+        startDate: moment("2024-03-08"),
+        dueDate: moment("2024-03-12"),
+      },
+      {
+        tasksId: "9876543777",
+        tasksName: "New Testing",
+        processId: "1",
+        assignee: "",
         startDate: moment("2024-03-08"),
         dueDate: moment("2024-03-12"),
       },
