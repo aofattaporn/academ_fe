@@ -42,6 +42,12 @@ export interface Tasks {
   dueDate: Moment;
 }
 
+export interface CreateTasks {
+  tasksName: string;
+  projectId: string;
+  processId: string;
+}
+
 export const mockedTasks: Tasks[] = [
   {
     tasksId: "123456789",

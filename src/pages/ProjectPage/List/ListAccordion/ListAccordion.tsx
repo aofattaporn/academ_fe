@@ -12,7 +12,8 @@ import {
 } from "../../../../stores/projectSlice/tastsDetailsSlice";
 import { RootState } from "../../../../stores/store";
 import ProcessTitle from "./ProcessTitle/ProcessTitle";
-import CreateTasks from "./CreateTasks/CreateTasks";
+import CreateTasksItem from "./CreateTasksItem/CreateTasksItem";
+import { useParams } from "react-router-dom";
 
 type ListAccordionProps = {
   activeId: string | null;
@@ -22,6 +23,7 @@ type ListAccordionProps = {
 const ListAccordion = ({ process, activeId, tasks }: ListAccordionProps) => {
   const [isToggle, setIsToggle] = useState<boolean>(false);
   const tasksDetails = useSelector((state: RootState) => state.tasksDetails);
+  let { projectId } = useParams();
 
   const dispatch = useDispatch();
   const mouseDownPosition = useRef({ x: 0, y: 0 });
@@ -66,33 +68,34 @@ const ListAccordion = ({ process, activeId, tasks }: ListAccordionProps) => {
         <div>
           {tasks
             .filter((task, _) => task.processId === process.processId)
-            .map((item, index) => {
-              if (item)
-                return (
-                  <button
-                    className="w-full"
-                    onMouseUp={handleMouseUp}
-                    onMouseDown={(event) => handleMouseDown(event, item)}
+            .map((item, index) => (
+              <button
+                key={index}
+                className="w-full"
+                onMouseUp={handleMouseUp}
+                onMouseDown={(event) => handleMouseDown(event, item)}
+              >
+                <Droppable
+                  active={activeId}
+                  dropId={`${item.processId}-${item.tasksId}`}
+                  key={index}
+                >
+                  <Draggable
+                    dragId={`${item.processId}-${item.tasksId}`}
+                    isClick={tasksDetails.isSideBar}
+                    handleClick={() => dispatch(openDetails(true))}
                   >
-                    <Droppable
-                      active={activeId}
-                      dropId={`${item.processId}-${item.tasksId}`}
-                      key={index}
-                    >
-                      <Draggable
-                        dragId={`${item.processId}-${item.tasksId}`}
-                        isClick={tasksDetails.isSideBar}
-                        handleClick={() => dispatch(openDetails(true))}
-                      >
-                        <TasksTile task={item} key={index} />
-                      </Draggable>
-                    </Droppable>
-                  </button>
-                );
-            })}
+                    <TasksTile task={item} key={index} />
+                  </Draggable>
+                </Droppable>
+              </button>
+            ))}
 
           {/* TO-DO */}
-          <CreateTasks />
+          <CreateTasksItem
+            projectId={projectId as string}
+            processId={process.processId}
+          />
         </div>
       </div>
     </div>

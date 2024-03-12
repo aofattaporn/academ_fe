@@ -59,7 +59,7 @@ const getAllTasksByProjectId = http.get(
   }
 );
 
-const createTasks = http.post("api/v1/projects/:projectId/tasks", () => {
+const createTasks = http.post("api/v1/tasks", () => {
   const mockRes: ResponseCustom<Tasks[]> = {
     status: 200,
     message: RESPONSE_OK,

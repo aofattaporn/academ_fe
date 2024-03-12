@@ -1,4 +1,4 @@
-import { Tasks } from "../types/MyTasksType";
+import { CreateTasks, Tasks } from "../types/MyTasksType";
 import axiosInstance from "./axiosInstance";
 
 const getAllTasksByProjectId = async (projectId: string): Promise<Tasks[]> => {
@@ -9,6 +9,12 @@ const getAllTasksByProjectId = async (projectId: string): Promise<Tasks[]> => {
   return response.data.data;
 };
 
-const tasksApi = { getAllTasksByProjectId };
+const createTasks = async (data: CreateTasks): Promise<Tasks[]> => {
+  const response = await axiosInstance.post(`api/v1/tasks`, data);
+
+  return response.data.data;
+};
+
+const tasksApi = { getAllTasksByProjectId, createTasks };
 
 export default tasksApi;

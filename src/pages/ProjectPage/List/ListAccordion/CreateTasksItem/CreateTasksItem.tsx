@@ -1,8 +1,14 @@
 import { useState, useRef } from "react";
-import useAllTasks from "../../../../../hooks/tasksHook/useAllTasks";
+import { useMutation } from "react-query";
+import tasksApi from "../../../../../libs/tasksApi";
+import { CreateTasks, Tasks } from "../../../../../types/MyTasksType";
 
-const CreateTasks = () => {
-  const { allTaksRefetch } = useAllTasks();
+type CreateTasksProps = {
+  projectId: string;
+  processId: string;
+};
+
+const CreateTasksItem = ({ projectId, processId }: CreateTasksProps) => {
   const [isCreating, setIsCreating] = useState<boolean>(false);
   const [tasks, setTasks] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -16,13 +22,23 @@ const CreateTasks = () => {
     }, 0);
   };
 
-  const handleSetTasks = (tasksName: string) => {
-    setTasks(tasksName);
-  };
+  const handleSetTasks = (tasksName: string) => setTasks(tasksName);
+
+  const mutation = useMutation({
+    mutationFn: (data: CreateTasks) => tasksApi.createTasks(data),
+    onSuccess: (data: Tasks[]) => console.log(data),
+  });
+
+  const handleSubmit = () =>
+    mutation.mutate({
+      projectId: projectId,
+      processId: processId,
+      tasksName: tasks,
+    });
 
   if (isCreating) {
     return (
-      <button className="w-full p-1 rounded-md cursor-pointer text-gray-300">
+      <div className="w-full p-1 rounded-md cursor-pointer text-gray-300">
         <div className="flex gap-4 items-center">
           <div className="w-full flex gap-20">
             <input
@@ -42,18 +58,21 @@ const CreateTasks = () => {
                   Cancel
                 </p>
               </button>
-              <button className="items-center flex justify-center text-white bottom-0">
-                <p
-                  className=" bg-info hover:bg-info-dark p-1 px-4 rounded-md"
-                  onClick={() => allTaksRefetch()}
-                >
+              <button
+                className="items-center flex justify-center text-white bottom-0"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleSubmit();
+                }}
+              >
+                <p className=" bg-info hover:bg-info-dark p-1 px-4 rounded-md">
                   Save
                 </p>
               </button>
             </div>
           </div>
         </div>
-      </button>
+      </div>
     );
   }
   return (
@@ -70,4 +89,4 @@ const CreateTasks = () => {
   );
 };
 
-export default CreateTasks;
+export default CreateTasksItem;
