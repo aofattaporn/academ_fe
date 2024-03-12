@@ -59,6 +59,59 @@ const getAllTasksByProjectId = http.get(
   }
 );
 
+const createTasks = http.post("api/v1/projects/:projectId/tasks", () => {
+  const mockRes: ResponseCustom<Tasks[]> = {
+    status: 200,
+    message: RESPONSE_OK,
+    description: "Success",
+    data: [
+      {
+        tasksId: "N123456789",
+        tasksName: "New Complete Report222",
+        processId: "1",
+        assignee: "John Doe",
+        startDate: moment("2024-03-06"),
+        dueDate: moment("2024-03-10"),
+      },
+      {
+        tasksId: "987654321",
+        tasksName: "New Review Presentation",
+        processId: "1",
+        assignee: "Jane Smith",
+        startDate: moment("2024-03-08"),
+        dueDate: moment("2024-03-12"),
+      },
+      {
+        tasksId: "987654325",
+        tasksName: "New Review Presentation",
+        processId: "1",
+        assignee: "Jane Smith",
+        startDate: moment("2024-03-08"),
+        dueDate: moment("2024-03-12"),
+      },
+      {
+        tasksId: "987654215",
+        tasksName: "New Review Testcase",
+        processId: "2",
+        assignee: "Jane Smith",
+        startDate: moment("2024-03-08"),
+        dueDate: moment("2024-03-12"),
+      },
+      {
+        tasksId: "987654324",
+        tasksName: "New Testing",
+        processId: "2",
+        assignee: "Jane Smith",
+        startDate: moment("2024-03-08"),
+        dueDate: moment("2024-03-12"),
+      },
+    ],
+  };
+
+  return HttpResponse.json(mockRes, { status: 200 });
+});
+
 export const tasksMock = {
   getAllTasksByProjectId,
+  createTasks,
 };
