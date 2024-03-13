@@ -10,15 +10,13 @@ const List = () => {
   const { process } = useProjectPermission();
   const { allTaksIsSuccesss, tempTasks, setTempTasks } = useAllTasks();
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [test, setTest] = useState<string>("");
 
   const handleDragStart = (event: any) => {
     setActiveId(event.active.id);
   };
 
   const handleDragEnd = (event: any) => {
-    // TODO : STEP 1 check process change
-
-    // TODO : step 2 reorder of tasks
     const { active, over } = event;
 
     if (active && over) {
@@ -26,16 +24,32 @@ const List = () => {
       const overId = over.id;
 
       if (activeId !== overId) {
-        const activeSplit: string = activeId.split("-")[1];
-        const overSplit: string = overId.split("-")[1];
+        const [processActive, tasksActive] = activeId.split("-");
+        const [processOver, tasksOver] = overId.split("-");
 
         const newTasks = arrayMove(
           tempTasks,
-          tempTasks.findIndex((task) => task.tasksId === activeSplit),
-          tempTasks.findIndex((task) => task.tasksId === overSplit)
+          tempTasks.findIndex((task) => task.tasksId === tasksActive),
+          tempTasks.findIndex((task) => task.tasksId === tasksOver)
         );
 
-        setTempTasks(newTasks);
+        if (processActive !== processOver) {
+          console.log(processActive);
+          setTest(processOver);
+
+          setTempTasks(() => {
+            return newTasks.map((task) => {
+              if (task.tasksId === tasksActive) {
+                setTest("bra!!!!");
+                return { ...task, processId: processOver };
+              } else {
+                return task;
+              }
+            });
+          });
+        } else {
+          setTempTasks(newTasks);
+        }
       }
     }
   };
@@ -49,7 +63,7 @@ const List = () => {
 
   return (
     <div className="p-6 text-dark font-roboto">
-      <h1 className="text-2xl font-bold">List</h1>
+      <h1 className="text-2xl font-bold">List {test}</h1>
       <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
         {process && allTaksIsSuccesss && tempTasks
           ? process.map((item, index) => {

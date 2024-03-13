@@ -48,6 +48,8 @@ const ListAccordion = ({ process, activeId, tasks }: ListAccordionProps) => {
     }
   };
 
+  const i = tasks.findIndex((e) => e.processId === process.processId);
+
   return (
     <div className="w-full p-4 rounded-md shadow-3xl my-4">
       <h1 className="text-3xl font-bold"></h1>
@@ -90,6 +92,12 @@ const ListAccordion = ({ process, activeId, tasks }: ListAccordionProps) => {
                 </Droppable>
               </button>
             ))}
+
+          {i <= -1 ? (
+            <Droppable active={activeId} dropId={process.processId}>
+              <div className="my-4"></div>
+            </Droppable>
+          ) : null}
 
           {/* TO-DO */}
           <CreateTasksItem
