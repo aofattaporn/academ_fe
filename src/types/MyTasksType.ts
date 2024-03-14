@@ -1,6 +1,8 @@
 import moment from "moment";
 import { Moment } from "moment";
 
+export const BTN_UPDATE_TASKS: string = "Save Tasks";
+
 export type MytaskType = {
   project: Project[];
   tasks: MyTasks[];
