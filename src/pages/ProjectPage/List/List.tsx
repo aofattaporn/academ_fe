@@ -5,12 +5,17 @@ import { useProjectPermission } from "../ProjectPage";
 import ListAccordion from "./ListAccordion/ListAccordion";
 import ListAccordionLoading from "./ListAccordionLoading/ListAccordionLoading";
 import { useState } from "react";
+import { useMutation } from "react-query";
+import tasksApi from "../../../libs/tasksApi";
 
 const List = () => {
   const { process } = useProjectPermission();
   const { allTaksIsSuccesss, tempTasks, setTempTasks } = useAllTasks();
   const [activeId, setActiveId] = useState<string | null>(null);
-  const [test, setTest] = useState<string>("");
+
+  const mutation = useMutation({
+    mutationFn: (processId: string) => tasksApi.changeProcess(processId),
+  });
 
   const handleDragStart = (event: any) => {
     setActiveId(event.active.id);
@@ -34,13 +39,10 @@ const List = () => {
         );
 
         if (processActive !== processOver) {
-          console.log(processActive);
-          setTest(processOver);
-
+          mutation.mutate(processOver);
           setTempTasks(() => {
             return newTasks.map((task) => {
               if (task.tasksId === tasksActive) {
-                setTest("bra!!!!");
                 return { ...task, processId: processOver };
               } else {
                 return task;
@@ -63,7 +65,7 @@ const List = () => {
 
   return (
     <div className="p-6 text-dark font-roboto">
-      <h1 className="text-2xl font-bold">List {test}</h1>
+      <h1 className="text-2xl font-bold">List</h1>
       <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
         {process && allTaksIsSuccesss && tempTasks
           ? process.map((item, index) => {

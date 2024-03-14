@@ -23,4 +23,5 @@ export const handlers = [
   projectMock.getProjectSuccess,
   tasksMock.getAllTasksByProjectId,
   tasksMock.createTasks,
+  tasksMock.changeProcess,
 ];
