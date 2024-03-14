@@ -1,5 +1,3 @@
-import { Tasks } from "../../../../../types/MyTasksType";
-
 const TaksTitle = () => {
   return (
     <div className="flex gap-4 items-center">

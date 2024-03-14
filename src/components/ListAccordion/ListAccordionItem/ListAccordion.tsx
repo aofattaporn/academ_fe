@@ -1,16 +1,16 @@
 import { useRef, useState } from "react";
 import TasksTile from "./TasksTile/TasksTile";
 import TaksTitle from "./TaksTitle/TaksTitle";
-import { Process } from "../../../../types/ProjectType";
-import { Tasks } from "../../../../types/MyTasksType";
-import Droppable from "../../../../hoc/Droppable";
-import Draggable from "../../../../hoc/Draggable";
+import { Process } from "../../../types/ProjectType";
+import { Tasks } from "../../../types/MyTasksType";
+import Droppable from "../../../hoc/Droppable";
+import Draggable from "../../../hoc/Draggable";
 import { useDispatch, useSelector } from "react-redux";
 import {
   openDetails,
   seletedId,
-} from "../../../../stores/projectSlice/tastsDetailsSlice";
-import { RootState } from "../../../../stores/store";
+} from "../../../stores/projectSlice/tastsDetailsSlice";
+import { RootState } from "../../../stores/store";
 import ProcessTitle from "./ProcessTitle/ProcessTitle";
 import CreateTasksItem from "./CreateTasksItem/CreateTasksItem";
 import { useParams } from "react-router-dom";

@@ -1,4 +1,4 @@
-import useCreateTasks from "../../../../../hooks/tasksHook/useCreateTasks";
+import useCreateTasks from "../../../../hooks/tasksHook/useCreateTasks";
 
 type CreateTasksProps = {
   projectId: string;

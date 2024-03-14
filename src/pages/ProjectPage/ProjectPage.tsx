@@ -3,9 +3,9 @@ import useProject from "../../hooks/projectHook/useProject";
 import ProjectInfo from "./ProjectInfo/ProjectInfo";
 import ProjectInfoLoading from "./ProjectInfo/ProjectInfoLoading";
 import { Process, TaskPermission } from "../../types/ProjectType";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../stores/store";
-import { openDetails } from "../../stores/projectSlice/tastsDetailsSlice";
+import TasksDetails from "./TasksDetails/TasksDetails";
 
 type ContextType = {
   taskPermission: TaskPermission | undefined;
@@ -15,7 +15,6 @@ type ContextType = {
 const ProjectPage = () => {
   const { projectIsLoading, projectIsSuccess, projectData } = useProject();
   const tasksDetails = useSelector((state: RootState) => state.tasksDetails);
-  const dispatch = useDispatch();
 
   return (
     <div className="flex">
@@ -38,14 +37,7 @@ const ProjectPage = () => {
         />
       </div>
 
-      <div
-        className={`${
-          tasksDetails.isSideBar ? "w-2/6" : "w-0"
-        } bg-white h-screen shadow-md duration-700 overflow-hidden`}
-      >
-        <button onClick={() => dispatch(openDetails(false))}>Close</button>
-        <h1>Test Hwllo world</h1>
-      </div>
+      <TasksDetails />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../../stores/store";
-import { Tasks } from "../../../../../types/MyTasksType";
+import { RootState } from "../../../../stores/store";
+import { Tasks } from "../../../../types/MyTasksType";
 
 type TasksTileProps = {
   task: Tasks;
