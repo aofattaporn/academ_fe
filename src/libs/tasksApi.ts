@@ -13,8 +13,11 @@ const createTasks = async (data: CreateTasks): Promise<Tasks[]> => {
   return response.data.data;
 };
 
-const changeProcess = async (processId: string): Promise<void> => {
-  await axiosInstance.put(`api/v1/tasks/:tasksId/process/${processId}`);
+const changeProcess = async (
+  tasks: string,
+  processId: string
+): Promise<void> => {
+  await axiosInstance.put(`api/v1/tasks/${tasks}/process/${processId}`);
 };
 
 const tasksApi = { getAllTasksByProjectId, createTasks, changeProcess };

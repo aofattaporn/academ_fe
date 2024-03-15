@@ -48,7 +48,9 @@ const ListAccordion = ({ process, activeId, tasks }: ListAccordionProps) => {
     }
   };
 
-  const i = tasks.findIndex((e) => e.processId === process.processId);
+  const indexProcess = tasks.findIndex(
+    (e) => e.processId === process.processId
+  );
 
   return (
     <div className="w-full p-4 rounded-md shadow-3xl my-4">
@@ -93,7 +95,7 @@ const ListAccordion = ({ process, activeId, tasks }: ListAccordionProps) => {
               </button>
             ))}
 
-          {i <= -1 ? (
+          {indexProcess <= -1 ? (
             <Droppable active={activeId} dropId={process.processId}>
               <div className="my-4"></div>
             </Droppable>

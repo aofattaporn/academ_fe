@@ -14,7 +14,8 @@ const List = () => {
   const [activeId, setActiveId] = useState<string | null>(null);
 
   const mutation = useMutation({
-    mutationFn: (processId: string) => tasksApi.changeProcess(processId),
+    mutationFn: ({ tasks, processId }: { tasks: string; processId: string }) =>
+      tasksApi.changeProcess(tasks, processId),
   });
 
   const handleDragStart = (event: any) => {
@@ -39,7 +40,7 @@ const List = () => {
         );
 
         if (processActive !== processOver) {
-          mutation.mutate(processOver);
+          mutation.mutate({ tasks: tasksActive, processId: processOver });
           setTempTasks(() => {
             return newTasks.map((task) => {
               if (task.tasksId === tasksActive) {
