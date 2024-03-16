@@ -8,8 +8,13 @@ import tasksApi from "../../../libs/tasksApi";
 import { useQuery } from "react-query";
 import TasksDetailsLoading from "./TasksDetailsLoading";
 import TasksDetailsSuccess from "./TasksDetailsSuccess";
+import { Project } from "../../../types/ProjectType";
 
-function TasksDetails() {
+type TasksDetailsProps = {
+  project?: Project;
+};
+
+function TasksDetails({ project }: TasksDetailsProps) {
   const dispatch = useDispatch();
   const tasksDetails = useSelector((state: RootState) => state.tasksDetails);
 
@@ -36,7 +41,7 @@ function TasksDetails() {
           {TasksIsLoading ? <TasksDetailsLoading /> : null}
           {TasksIsError ? <TasksDetailsLoading /> : null}
           {TasksIsSuccesss && TaksData ? (
-            <TasksDetailsSuccess tasksData={TaksData} projectName="s" />
+            <TasksDetailsSuccess tasksData={TaksData} projectData={project} />
           ) : null}
         </div>
       </div>

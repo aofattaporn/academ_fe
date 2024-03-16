@@ -37,7 +37,7 @@ const ProjectPage = () => {
         />
       </div>
 
-      <TasksDetails />
+      <TasksDetails project={projectData} />
     </div>
   );
 };

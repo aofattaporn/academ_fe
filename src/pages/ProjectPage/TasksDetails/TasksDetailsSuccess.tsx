@@ -1,15 +1,17 @@
 import SaveTasksDetails from "../../../components/Button/SaveTasksDetails";
 import { BTN_UPDATE_TASKS, Tasks } from "../../../types/MyTasksType";
-import useProject from "../../../hooks/projectHook/useProject";
 import moment from "moment";
+import { Project } from "../../../types/ProjectType";
 
 type TasksDetailsSuccessProps = {
   tasksData: Tasks;
-  projectName: string;
+  projectData?: Project;
 };
 
-const TasksDetailsSuccess = ({ tasksData }: TasksDetailsSuccessProps) => {
-  const { projectData } = useProject();
+const TasksDetailsSuccess = ({
+  tasksData,
+  projectData,
+}: TasksDetailsSuccessProps) => {
   return (
     <div className="pt-1 overflow-hidden whitespace-nowrap overflow-ellipsis w-full">
       <h2 className="text-3xl min-h-2 font-bold overflow-hidden whitespace-nowrap overflow-ellipsis">
