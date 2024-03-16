@@ -17,17 +17,17 @@ const ProjectPage = () => {
   const tasksDetails = useSelector((state: RootState) => state.tasksDetails);
 
   return (
-    <div className="flex">
+    <div className="flex text-dark font-roboto">
       <div
         className={`${
           tasksDetails.isSideBar ? "w-4/6" : "w-full"
         } duration-700`}
       >
-        <div className="bg-white w-full shadow-sm flex px-8 gap-8 items-end text-dark font-roboto">
+        <div className="bg-white w-full shadow-sm flex px-8 gap-8 items-end">
+          {projectIsLoading ? <ProjectInfoLoading /> : null}
           {projectIsSuccess && projectData ? (
             <ProjectInfo projectData={projectData} />
           ) : null}
-          {projectIsLoading ? <ProjectInfoLoading /> : null}
         </div>
         <Outlet
           context={{

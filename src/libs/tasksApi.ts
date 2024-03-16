@@ -1,28 +1,70 @@
 import { CreateTasks, Tasks } from "../types/MyTasksType";
 import axiosInstance from "./axiosInstance";
+import firebaseApi from "./firebaseApi";
 
 const getAllTasksByProjectId = async (projectId: string): Promise<Tasks[]> => {
-  const response = await axiosInstance.get(
-    `api/v1/projects/${projectId}/tasks`
-  );
-  return response.data.data;
+  try {
+    const token = await firebaseApi.getToken();
+    const response = await axiosInstance.get(
+      `api/v1/projects/${projectId}/tasks`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data.data;
+  } catch (error) {
+    console.error("Error fetching projects:", error);
+    throw error;
+  }
 };
 
 const getTasksByProjectId = async (tasksId: string): Promise<Tasks> => {
-  const response = await axiosInstance.get(`api/v1/tasks/${tasksId}`);
-  return response.data.data;
+  try {
+    const token = await firebaseApi.getToken();
+    const response = await axiosInstance.get(`api/v1/tasks/${tasksId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.data;
+  } catch (error) {
+    console.error("Error fetching projects:", error);
+    throw error;
+  }
 };
 
 const createTasks = async (data: CreateTasks): Promise<Tasks[]> => {
-  const response = await axiosInstance.post(`api/v1/tasks`, data);
-  return response.data.data;
+  try {
+    const token = await firebaseApi.getToken();
+    const response = await axiosInstance.post(`api/v1/tasks`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.data;
+  } catch (error) {
+    console.error("Error fetching projects:", error);
+    throw error;
+  }
 };
 
 const changeProcess = async (
   tasks: string,
   processId: string
 ): Promise<void> => {
-  await axiosInstance.put(`api/v1/tasks/${tasks}/process/${processId}`);
+  try {
+    const token = await firebaseApi.getToken();
+    await axiosInstance.post(`api/v1/tasks/${tasks}/process/${processId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (error) {
+    console.error("Error fetching projects:", error);
+    throw error;
+  }
 };
 
 const tasksApi = {

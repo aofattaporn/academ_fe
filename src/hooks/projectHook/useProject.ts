@@ -4,7 +4,7 @@ import { QUERY_KEY } from "../../types/GenericType";
 import { useParams } from "react-router-dom";
 
 const useProject = () => {
-  let { projectId } = useParams();
+  const { projectId } = useParams<string>();
 
   const {
     isLoading: projectIsLoading,
