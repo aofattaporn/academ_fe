@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../stores/store";
 import { Tasks } from "../../../../types/MyTasksType";
+import moment from "moment";
 
 type TasksTileProps = {
   task: Tasks;
@@ -20,8 +21,8 @@ const TasksTile = ({ task }: TasksTileProps) => {
       <div className="w-full grid grid-cols-4">
         <p className="text-center">{task.tasksName}</p>
         <p className="text-center">{task.assignee}</p>
-        <p className="text-center">{}</p>
-        <p className="text-center">{}</p>
+        <p className="text-center">{moment(task.startDate).format("l")}</p>
+        <p className="text-center">{moment(task.dueDate).format("l")}</p>
       </div>
     </div>
   );

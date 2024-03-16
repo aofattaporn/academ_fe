@@ -8,6 +8,11 @@ const getAllTasksByProjectId = async (projectId: string): Promise<Tasks[]> => {
   return response.data.data;
 };
 
+const getTasksByProjectId = async (tasksId: string): Promise<Tasks> => {
+  const response = await axiosInstance.get(`api/v1/tasks/${tasksId}`);
+  return response.data.data;
+};
+
 const createTasks = async (data: CreateTasks): Promise<Tasks[]> => {
   const response = await axiosInstance.post(`api/v1/tasks`, data);
   return response.data.data;
@@ -20,6 +25,11 @@ const changeProcess = async (
   await axiosInstance.put(`api/v1/tasks/${tasks}/process/${processId}`);
 };
 
-const tasksApi = { getAllTasksByProjectId, createTasks, changeProcess };
+const tasksApi = {
+  getAllTasksByProjectId,
+  getTasksByProjectId,
+  createTasks,
+  changeProcess,
+};
 
 export default tasksApi;

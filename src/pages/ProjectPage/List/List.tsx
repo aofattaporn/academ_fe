@@ -25,34 +25,34 @@ const List = () => {
   const handleDragEnd = (event: any) => {
     const { active, over } = event;
 
-    if (active && over) {
-      const activeId = active.id;
-      const overId = over.id;
+    if (!active || !over) return;
 
-      if (activeId !== overId) {
-        const [processActive, tasksActive] = activeId.split("-");
-        const [processOver, tasksOver] = overId.split("-");
+    const activeId = active.id;
+    const overId = over.id;
 
-        const newTasks = arrayMove(
-          tempTasks,
-          tempTasks.findIndex((task) => task.tasksId === tasksActive),
-          tempTasks.findIndex((task) => task.tasksId === tasksOver)
-        );
+    if (activeId !== overId) {
+      const [processActive, tasksActive] = activeId.split("-");
+      const [processOver, tasksOver] = overId.split("-");
 
-        if (processActive !== processOver) {
-          mutation.mutate({ tasks: tasksActive, processId: processOver });
-          setTempTasks(() => {
-            return newTasks.map((task) => {
-              if (task.tasksId === tasksActive) {
-                return { ...task, processId: processOver };
-              } else {
-                return task;
-              }
-            });
+      const newTasks = arrayMove(
+        tempTasks,
+        tempTasks.findIndex((task) => task.tasksId === tasksActive),
+        tempTasks.findIndex((task) => task.tasksId === tasksOver)
+      );
+
+      if (processActive !== processOver) {
+        mutation.mutate({ tasks: tasksActive, processId: processOver });
+        setTempTasks(() => {
+          return newTasks.map((task) => {
+            if (task.tasksId === tasksActive) {
+              return { ...task, processId: processOver };
+            } else {
+              return task;
+            }
           });
-        } else {
-          setTempTasks(newTasks);
-        }
+        });
+      } else {
+        setTempTasks(newTasks);
       }
     }
   };

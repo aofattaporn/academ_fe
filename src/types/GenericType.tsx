@@ -83,6 +83,7 @@ export const QUERY_KEY = {
   ALL_PROJECT: "allProjectData",
   PROJECR: "project",
   ALL_TASKS: "allTasks",
+  Tasks: "tasks",
 };
 
 export const SLICE_KEY = {
