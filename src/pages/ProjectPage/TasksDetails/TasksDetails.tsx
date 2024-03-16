@@ -38,9 +38,9 @@ function TasksDetails({ project }: TasksDetailsProps) {
             <CloseIcon />
           </IconButton>
 
-          {TasksIsLoading ? <TasksDetailsLoading /> : null}
+          {TasksIsLoading || !project ? <TasksDetailsLoading /> : null}
           {TasksIsError ? <TasksDetailsLoading /> : null}
-          {TasksIsSuccesss && TaksData ? (
+          {TasksIsSuccesss && TaksData && project ? (
             <TasksDetailsSuccess tasksData={TaksData} projectData={project} />
           ) : null}
         </div>

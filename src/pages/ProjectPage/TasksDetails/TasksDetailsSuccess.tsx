@@ -5,7 +5,7 @@ import { Project } from "../../../types/ProjectType";
 
 type TasksDetailsSuccessProps = {
   tasksData: Tasks;
-  projectData?: Project;
+  projectData: Project;
 };
 
 const TasksDetailsSuccess = ({
