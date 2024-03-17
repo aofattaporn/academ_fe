@@ -6,13 +6,14 @@ const getAllTasksByProjectId = async (projectId: string): Promise<Tasks[]> => {
   try {
     const token = await firebaseApi.getToken();
     const response = await axiosInstance.get(
-      `api/v1/projects/${projectId}/tasks`,
+      `api/v1/tasks/projects/${projectId}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       }
     );
+    console.log(response.data.data);
     return response.data.data;
   } catch (error) {
     console.error("Error fetching projects:", error);

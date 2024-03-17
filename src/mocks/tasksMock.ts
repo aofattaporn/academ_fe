@@ -5,7 +5,7 @@ import moment from "moment";
 
 // get-project-api
 const getAllTasksByProjectId = http.get(
-  "api/v1/projects/:projectId/tasks",
+  "api/v1/tasks/projects/:projectId",
   () => {
     const mockRes: ResponseCustom<Tasks[]> = {
       status: 200,

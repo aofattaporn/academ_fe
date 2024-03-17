@@ -17,6 +17,8 @@ const useProject = () => {
     () => projectApi.getProject(projectId as string),
     {
       refetchOnWindowFocus: false,
+      staleTime: Infinity,
+      cacheTime: Infinity,
     }
   );
   return {

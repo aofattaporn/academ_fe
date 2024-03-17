@@ -11,7 +11,12 @@ const HomeLayout = () => {
 
   const { data: userData, isSuccess } = useQuery(
     "userData",
-    userApi.getUserApi
+    userApi.getUserApi,
+    {
+      refetchOnWindowFocus: false,
+      staleTime: Infinity,
+      cacheTime: Infinity,
+    }
   );
 
   if (isSuccess) dispatch(saveUser(userData));
