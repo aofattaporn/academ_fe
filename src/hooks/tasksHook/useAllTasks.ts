@@ -19,6 +19,9 @@ const useAllTasks = () => {
     QUERY_KEY.ALL_TASKS,
     () => tasksApi.getAllTasksByProjectId(projectId as string),
     {
+      refetchOnWindowFocus: false,
+      staleTime: Infinity,
+      cacheTime: Infinity,
       onSuccess(data) {
         setTempTasks(data);
       },
