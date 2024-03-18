@@ -51,6 +51,21 @@ const createTasks = async (data: CreateTasks): Promise<Tasks[]> => {
   }
 };
 
+const deleteTasksById = async (tasksId: string): Promise<Tasks[]> => {
+  try {
+    const token = await firebaseApi.getToken();
+    const response = await axiosInstance.delete(`api/v1/tasks/${tasksId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.data;
+  } catch (error) {
+    console.error("Error deleting tasks:", error);
+    throw error;
+  }
+};
+
 const changeProcess = async (
   tasks: string,
   processId: string
@@ -73,6 +88,7 @@ const tasksApi = {
   getTasksByProjectId,
   createTasks,
   changeProcess,
+  deleteTasksById,
 };
 
 export default tasksApi;

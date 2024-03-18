@@ -1,3 +1,6 @@
+import { IconButton, Menu, MenuItem } from "@mui/material";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+
 const TaksTitle = () => {
   return (
     <div className="flex gap-4 items-center">
@@ -7,6 +10,9 @@ const TaksTitle = () => {
         <p className="bg-main text-center">Start Date</p>
         <p className="bg-main text-center">Due Date</p>
       </div>
+      <IconButton className="invisible">
+        <MoreVertIcon />
+      </IconButton>
     </div>
   );
 };

@@ -5,6 +5,7 @@ import ProjectInfoLoading from "./ProjectInfo/ProjectInfoLoading";
 import { Process, TaskPermission } from "../../types/ProjectType";
 import { useSelector } from "react-redux";
 import { RootState } from "../../stores/store";
+import TasksDetails from "./TasksDetails/TasksDetails";
 
 type ContextType = {
   taskPermission: TaskPermission | undefined;
@@ -36,7 +37,7 @@ const ProjectPage = () => {
         />
       </div>
 
-      {/* <TasksDetails project={projectData} /> */}
+      <TasksDetails project={projectData} />
     </div>
   );
 };

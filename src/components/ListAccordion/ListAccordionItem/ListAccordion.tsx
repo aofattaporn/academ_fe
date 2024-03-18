@@ -14,6 +14,7 @@ import { RootState } from "../../../stores/store";
 import ProcessTitle from "./ProcessTitle/ProcessTitle";
 import CreateTasksItem from "./CreateTasksItem/CreateTasksItem";
 import { useParams } from "react-router-dom";
+import SettingTasksTile from "./SettingTasksTile/SettingTasksTile";
 
 type ListAccordionProps = {
   activeId: string | null;
@@ -21,7 +22,7 @@ type ListAccordionProps = {
   tasks: Tasks[];
 };
 const ListAccordion = ({ process, activeId, tasks }: ListAccordionProps) => {
-  const [isToggle, setIsToggle] = useState<boolean>(false);
+  const [isToggle, setIsToggle] = useState<boolean>(true);
   const tasksDetails = useSelector((state: RootState) => state.tasksDetails);
   let { projectId } = useParams();
 
@@ -68,14 +69,13 @@ const ListAccordion = ({ process, activeId, tasks }: ListAccordionProps) => {
         } `}
       >
         <TaksTitle />
-
-        <div>
-          {tasks
-            .filter((task, _) => task.processId === process.processId)
-            .map((item, index) => (
+        {tasks
+          .filter((task, _) => task.processId === process.processId)
+          .map((item, index) => (
+            <div className="flex justify-between group" key={index}>
               <button
                 key={index}
-                className="w-full"
+                className="w-full flex"
                 onMouseUp={handleMouseUp}
                 onMouseDown={(event) => handleMouseDown(event, item)}
               >
@@ -93,20 +93,21 @@ const ListAccordion = ({ process, activeId, tasks }: ListAccordionProps) => {
                   </Draggable>
                 </Droppable>
               </button>
-            ))}
+              <SettingTasksTile tasksId={item.tasksId} />
+            </div>
+          ))}
 
-          {indexProcess <= -1 ? (
-            <Droppable active={activeId} dropId={process.processId}>
-              <div className="my-4"></div>
-            </Droppable>
-          ) : null}
+        {indexProcess <= -1 ? (
+          <Droppable active={activeId} dropId={process.processId}>
+            <div className="my-4"></div>
+          </Droppable>
+        ) : null}
 
-          {/* TO-DO */}
-          <CreateTasksItem
-            projectId={projectId as string}
-            processId={process.processId}
-          />
-        </div>
+        {/* TO-DO */}
+        <CreateTasksItem
+          projectId={projectId as string}
+          processId={process.processId}
+        />
       </div>
     </div>
   );
