@@ -28,7 +28,7 @@ const SettingTasksTile = ({ tasksId }: SettingTasksTileProps) => {
   const handleClose = () => {
     setOpen(false);
     setAnchorElUser(null);
-    mutation.error = null;
+    mutation.reset();
   };
 
   const mutation = useMutation({
