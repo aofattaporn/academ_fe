@@ -57,7 +57,13 @@ axiosInstance.interceptors.response.use(
       return Promise.reject(customErr);
     }
 
-    const errData = errResponse.data as ResponseCustom<null>;
+    const errData = errResponse.data
+      ? (errResponse.data as ResponseCustom<null>)
+      : ({
+          status: 500,
+          message: RESPONSE_INTERNAL_SERVER_ERROR,
+          description: RESPONSE_TRY_AGAIN_LATHER,
+        } as ResponseCustom<null>);
 
     const customErr: ResponseCustom<null> = {
       status: errData.status,
