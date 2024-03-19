@@ -1,10 +1,11 @@
 import { CircularProgress } from "@mui/material";
-import "sweetalert2/src/sweetalert2.scss";
 import { useState, useRef } from "react";
 import { useQueryClient, useMutation } from "react-query";
 import tasksApi from "../../../../libs/tasksApi";
-import { QUERY_KEY } from "../../../../types/GenericType";
+import { ErrorCustom, QUERY_KEY } from "../../../../types/GenericType";
 import { CreateTasks, Tasks } from "../../../../types/MyTasksType";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type CreateTasksProps = {
   projectId: string;
@@ -37,7 +38,9 @@ const CreateTasksItem = ({ projectId, processId }: CreateTasksProps) => {
         inputRef.current.focus();
       }
     },
-    onError: () => {},
+    onError: (error: ErrorCustom) => {
+      toast.error(error.description, {});
+    },
   });
 
   const handleSubmit = () =>

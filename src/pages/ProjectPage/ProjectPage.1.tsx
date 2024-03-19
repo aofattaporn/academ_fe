@@ -1,19 +1,12 @@
-import { Outlet, useOutletContext } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import useProject from "../../hooks/projectHook/useProject";
 import ProjectInfo from "./ProjectInfo/ProjectInfo";
 import ProjectInfoLoading from "./ProjectInfo/ProjectInfoLoading";
-import { Process, TaskPermission } from "../../types/ProjectType";
 import { useSelector } from "react-redux";
 import { RootState } from "../../stores/store";
 import TasksDetails from "./TasksDetails/TasksDetails";
-import { ToastContainer } from "react-toastify";
 
-type ContextType = {
-  taskPermission: TaskPermission | undefined;
-  process: Process[] | undefined;
-};
-
-const ProjectPage = () => {
+export const ProjectPage = () => {
   const { projectIsLoading, projectIsSuccess, projectData } = useProject();
   const tasksDetails = useSelector((state: RootState) => state.tasksDetails);
 
@@ -43,9 +36,3 @@ const ProjectPage = () => {
     </div>
   );
 };
-
-export function useProjectPermission() {
-  return useOutletContext<ContextType>();
-}
-
-export default ProjectPage;

@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from "react-query";
 import tasksApi from "../../../../libs/tasksApi";
 import { ErrorCustom, QUERY_KEY } from "../../../../types/GenericType";
 import { Tasks } from "../../../../types/MyTasksType";
+import { toast } from "react-toastify";
 
 type SettingTasksTileProps = {
   tasksId: string;
@@ -38,6 +39,11 @@ const SettingTasksTile = ({ tasksId }: SettingTasksTileProps) => {
       setOpen(false);
       setAnchorElUser(null);
     },
+    onError: (error: ErrorCustom) => {
+      toast.error(error.description);
+      setOpen(false);
+      setAnchorElUser(null);
+    },
   });
 
   return (
@@ -63,7 +69,6 @@ const SettingTasksTile = ({ tasksId }: SettingTasksTileProps) => {
           isDeleting={mutation.isLoading}
           handleClose={handleClose}
           handleDelete={mutation.mutate}
-          error={mutation.error as ErrorCustom | null}
         />
       ) : null}
     </>

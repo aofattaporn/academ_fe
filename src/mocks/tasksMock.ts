@@ -120,7 +120,7 @@ const createTasksFaildInvalidFeild = http.post("api/v1/tasks", () => {
   const mockRes: ResponseCustom<null> = {
     status: STATUS_CODE_1899,
     message: RESPONSE_BUSSINESS_ERROR,
-    description: "CANT TO GET PROJECT ID",
+    description: "Can't to get your project id",
   };
 
   return HttpResponse.json(mockRes, { status: 200 });
@@ -196,12 +196,7 @@ const deleteTasksFailedNotFoundId = http.delete("api/v1/tasks/:tasksId", () => {
 
 const changeProcess = http.put(
   "api/v1/tasks/:tasksId/process/:processId",
-  ({ params }) => {
-    const { tasksId, processId } = params;
-
-    console.log(tasksId);
-    console.log(processId);
-
+  () => {
     const mockRes: ResponseCustom<Tasks[]> = {
       status: 200,
       message: RESPONSE_OK,

@@ -9,10 +9,10 @@ import PublicRoute from "./layouts/PublicRoute";
 import VerifyEmailPage from "./pages/AuthPage/VerifyEmailPage";
 import ForgotPasswordPage from "./pages/AuthPage/ForgotPasswordPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import ProjectPage from "./pages/ProjectPage/ProjectPage";
 import AllMyProjectPage from "./pages/AllMyProjectPage/AllMyProjectPage";
 import List from "./pages/ProjectPage/List/List";
 import DragDropPlayGround from "./pages/ProjectPage/DragDropPlayGround/DragDropPlayGround";
+import ProjectPage from "./pages/ProjectPage/ProjectPage";
 
 function App() {
   return (
