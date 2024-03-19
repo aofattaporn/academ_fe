@@ -5,8 +5,8 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ConfirmDelete from "../../../Modal/ConfirmDelete";
 import { useMutation, useQueryClient } from "react-query";
 import tasksApi from "../../../../libs/tasksApi";
-import { QUERY_KEY } from "../../../../types/GenericType";
-import { CreateTasks, Tasks } from "../../../../types/MyTasksType";
+import { ErrorCustom, QUERY_KEY } from "../../../../types/GenericType";
+import { Tasks } from "../../../../types/MyTasksType";
 
 type SettingTasksTileProps = {
   tasksId: string;
@@ -28,6 +28,7 @@ const SettingTasksTile = ({ tasksId }: SettingTasksTileProps) => {
   const handleClose = () => {
     setOpen(false);
     setAnchorElUser(null);
+    mutation.error = null;
   };
 
   const mutation = useMutation({
@@ -59,8 +60,10 @@ const SettingTasksTile = ({ tasksId }: SettingTasksTileProps) => {
 
       {open ? (
         <ConfirmDelete
+          isDeleting={mutation.isLoading}
           handleClose={handleClose}
-          handleClick={mutation.mutate}
+          handleDelete={mutation.mutate}
+          error={mutation.error as ErrorCustom | null}
         />
       ) : null}
     </>

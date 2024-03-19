@@ -1,3 +1,4 @@
+import { ErrorCustom } from "../types/GenericType";
 import { CreateTasks, Tasks } from "../types/MyTasksType";
 import axiosInstance from "./axiosInstance";
 import firebaseApi from "./firebaseApi";
@@ -61,8 +62,12 @@ const deleteTasksById = async (tasksId: string): Promise<Tasks[]> => {
     });
     return response.data.data;
   } catch (error) {
-    console.error("Error deleting tasks:", error);
-    throw error;
+    console.log(error);
+    console.log("=====================");
+
+    const errorCustom = error as ErrorCustom;
+    console.error("Error deleting tasks :", errorCustom.description);
+    throw errorCustom;
   }
 };
 

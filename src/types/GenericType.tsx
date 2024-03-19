@@ -16,6 +16,8 @@ export type ErrorCustom = {
 
 export type HttpStatus = 200 | 201 | 400 | 401 | 403 | 404 | 408 | 500;
 
+export type STATUS_CODE = 1000 | 1899 | 1999;
+
 export type HttpResponse =
   | "OK"
   | "Created"
@@ -23,7 +25,9 @@ export type HttpResponse =
   | "Unauthorized"
   | "Forbidden"
   | "Not Found"
-  | "Internal Server Error";
+  | "Internal Server Error"
+  | "BUSSINESS ERROR"
+  | "TECHNICAL ERROR";
 
 export const HTTP_STATUS_OK: HttpStatus = 200;
 export const HTTP_STATUS_CREATED: HttpStatus = 201;
@@ -33,6 +37,13 @@ export const HTTP_STATUS_UNAUTHORIZED: HttpStatus = 401;
 export const HTTP_STATUS_FORBIDDEN: HttpStatus = 403;
 export const HTTP_STATUS_REQUES_TIME_OUT: HttpStatus = 408;
 export const HTTP_STATUS_INTERNAL_SERVER_ERROR: HttpStatus = 500;
+
+export const STATUS_CODE_1000: STATUS_CODE = 1000;
+export const STATUS_CODE_1899: STATUS_CODE = 1899;
+export const STATUS_CODE_1999: STATUS_CODE = 1999;
+
+export const RESPONSE_BUSSINESS_ERROR: HttpResponse = "BUSSINESS ERROR";
+export const RESPONSE_TECHNICAL_ERROR: HttpResponse = "TECHNICAL ERROR";
 
 export const RESPONSE_OK: HttpResponse = "OK";
 export const RESPONSE_CREATED: HttpResponse = "Created";

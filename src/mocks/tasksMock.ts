@@ -1,6 +1,11 @@
 import { HttpResponse, delay, http } from "msw";
 import { Tasks } from "../types/MyTasksType";
-import { RESPONSE_OK, ResponseCustom } from "../types/GenericType";
+import {
+  RESPONSE_OK,
+  RESPONSE_TECHNICAL_ERROR,
+  ResponseCustom,
+  STATUS_CODE_1999,
+} from "../types/GenericType";
 import moment from "moment";
 
 // get-project-api
@@ -137,7 +142,7 @@ const createTasks = http.post("api/v1/tasks", () => {
   return HttpResponse.json(mockRes, { status: 200 });
 });
 
-const deleteTasks = http.delete("api/v1/tasks/:tasksId", () => {
+const deleteTasks = http.delete("api/v1/tasks/:tasksId", async () => {
   const mockRes: ResponseCustom<Tasks[]> = {
     status: 200,
     message: RESPONSE_OK,
@@ -186,8 +191,27 @@ const deleteTasks = http.delete("api/v1/tasks/:tasksId", () => {
     ],
   };
 
+  await delay(3000);
+
   return HttpResponse.json(mockRes, { status: 200 });
 });
+
+const deleteTasksFailedInternalError = http.delete(
+  "api/v1/tasks/:tasksId",
+  () => HttpResponse.error()
+);
+
+const deleteTasksFailedNotFoundId = http.delete(
+  "api/v1/tasks/:tasksId",
+  async () => {
+    const mockRes: ResponseCustom<null> = {
+      status: STATUS_CODE_1999,
+      message: RESPONSE_TECHNICAL_ERROR,
+      description: "NOT FOUND TASK ID",
+    };
+    return HttpResponse.json(mockRes, { status: 200 });
+  }
+);
 
 const changeProcess = http.put(
   "api/v1/tasks/:tasksId/process/:processId",
@@ -253,9 +277,20 @@ const changeProcess = http.put(
 );
 
 export const tasksMock = {
+  // get-all-tasks-api-mocking
   getAllTasksByProjectId,
+
+  // get-tasks-api-mocking
   getTasksByProjectId,
+
+  // create-tasks-api-mocking
   createTasks,
+
+  // change-process-tasks-api-mocking
   changeProcess,
+
+  // delete-tasks-api-mocking
   deleteTasks,
+  deleteTasksFailedInternalError,
+  deleteTasksFailedNotFoundId,
 };

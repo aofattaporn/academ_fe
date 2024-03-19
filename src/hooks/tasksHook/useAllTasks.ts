@@ -20,8 +20,6 @@ const useAllTasks = () => {
     () => tasksApi.getAllTasksByProjectId(projectId as string),
     {
       refetchOnWindowFocus: false,
-      staleTime: Infinity,
-      cacheTime: Infinity,
       onSuccess(data) {
         setTempTasks(data);
       },

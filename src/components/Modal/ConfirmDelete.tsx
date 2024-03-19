@@ -1,10 +1,19 @@
-import { Modal, Button } from "@mui/material";
+import { Modal, Button, Alert } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
+import { ErrorCustom } from "../../types/GenericType";
 
 type ConfirmDeleteProps = {
-  handleClick: () => void;
+  handleDelete: () => void;
   handleClose: () => void;
+  isDeleting: boolean;
+  error: ErrorCustom | null;
 };
-const ConfirmDelete = ({ handleClick, handleClose }: ConfirmDeleteProps) => {
+const ConfirmDelete = ({
+  handleDelete,
+  handleClose,
+  isDeleting,
+  error,
+}: ConfirmDeleteProps) => {
   return (
     <Modal
       open={true}
@@ -13,7 +22,13 @@ const ConfirmDelete = ({ handleClick, handleClose }: ConfirmDeleteProps) => {
       aria-describedby="modal-modal-description"
       className="flex justify-center"
     >
-      <div className="bg-white rounded-md py-8 px-8 h-fit my-12 w-full sm:w-1/2 md:w-1/4">
+      <div className="bg-white rounded-md py-8 px-8 h-fit my-12 w-full sm:w-1/2 md:w-2/6">
+        {error ? (
+          <Alert severity="error" className="my-4">
+            {error.description.toLowerCase()}
+          </Alert>
+        ) : null}
+
         <h2 className=" text-xl my-2 font-bold">Confirm Deletion</h2>
         <p>
           You're about to permanently delete this issue, its comments and
@@ -30,9 +45,16 @@ const ConfirmDelete = ({ handleClick, handleClose }: ConfirmDeleteProps) => {
           }}
         >
           <div className="flex gap-4">
-            <Button variant="contained" onClick={handleClick} color="error">
-              Delete
-            </Button>
+            {isDeleting ? (
+              <Button variant="contained" disabled color="error">
+                <CircularProgress color="inherit" size={16} />
+              </Button>
+            ) : (
+              <Button variant="contained" onClick={handleDelete} color="error">
+                Delete
+              </Button>
+            )}
+
             <Button onClick={handleClose} color="primary">
               Cancel
             </Button>
