@@ -4,4 +4,4 @@ import { tasksMock } from "./tasksMock";
 
 export const worker = setupWorker(...handlers);
 
-worker.use(tasksMock.deleteTasksFailedInternalError);
+worker.use(tasksMock.changeProcess);

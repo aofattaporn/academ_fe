@@ -1,4 +1,10 @@
-import useCreateTasks from "../../../../hooks/tasksHook/useCreateTasks";
+import { CircularProgress } from "@mui/material";
+import "sweetalert2/src/sweetalert2.scss";
+import { useState, useRef } from "react";
+import { useQueryClient, useMutation } from "react-query";
+import tasksApi from "../../../../libs/tasksApi";
+import { QUERY_KEY } from "../../../../types/GenericType";
+import { CreateTasks, Tasks } from "../../../../types/MyTasksType";
 
 type CreateTasksProps = {
   projectId: string;
@@ -6,15 +12,40 @@ type CreateTasksProps = {
 };
 
 const CreateTasksItem = ({ projectId, processId }: CreateTasksProps) => {
-  const {
-    isCreating,
-    inputRef,
-    tasks,
-    setIsCreating,
-    handleButtonClick,
-    handleSetTasks,
-    handleSubmit,
-  } = useCreateTasks({ projectId, processId });
+  const queryClient = useQueryClient();
+  const [isCreating, setIsCreating] = useState<boolean>(false);
+  const [tasks, setTasks] = useState<string>("");
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleButtonClick = () => {
+    setIsCreating(true);
+    setTimeout(() => {
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+    }, 0);
+  };
+
+  const handleSetTasks = (tasksName: string) => setTasks(tasksName);
+
+  const mutation = useMutation({
+    mutationFn: (data: CreateTasks) => tasksApi.createTasks(data),
+    onSuccess: (data: Tasks[]) => {
+      queryClient.setQueryData(QUERY_KEY.ALL_TASKS, data);
+      setTasks("");
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+    },
+    onError: () => {},
+  });
+
+  const handleSubmit = () =>
+    mutation.mutate({
+      projectId: projectId,
+      processId: processId,
+      tasksName: tasks,
+    });
 
   const cancelButton = () => {
     return (
@@ -29,7 +60,7 @@ const CreateTasksItem = ({ projectId, processId }: CreateTasksProps) => {
     );
   };
 
-  const saveButton = () => {
+  const saveButton = (isMuting: boolean) => {
     return (
       <button
         className="items-center flex justify-center text-white bottom-0"
@@ -38,7 +69,13 @@ const CreateTasksItem = ({ projectId, processId }: CreateTasksProps) => {
           handleSubmit();
         }}
       >
-        <p className=" bg-info hover:bg-info-dark p-1 px-4 rounded-md">Save</p>
+        <div className=" bg-info hover:bg-info-dark p-1 px-4 rounded-md flex justify-center">
+          {isMuting ? (
+            <CircularProgress size={24} color="inherit" />
+          ) : (
+            <p>Save</p>
+          )}
+        </div>
       </button>
     );
   };
@@ -57,7 +94,7 @@ const CreateTasksItem = ({ projectId, processId }: CreateTasksProps) => {
             />
 
             <div className="flex gap-4">
-              {cancelButton()} {saveButton()}
+              {cancelButton()} {saveButton(mutation.isLoading)}
             </div>
           </div>
         </div>

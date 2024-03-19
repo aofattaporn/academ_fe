@@ -75,13 +75,18 @@ const changeProcess = async (
   tasks: string,
   processId: string
 ): Promise<void> => {
+  console.log(processId);
   try {
     const token = await firebaseApi.getToken();
-    await axiosInstance.post(`api/v1/tasks/${tasks}/process/${processId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    await axiosInstance.put(
+      `api/v1/tasks/${tasks}/process/${processId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
   } catch (error) {
     console.error("Error fetching projects:", error);
     throw error;

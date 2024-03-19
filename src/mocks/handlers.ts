@@ -21,6 +21,8 @@ export const handlers = [
   projectMock.createProjectSuccess,
   projectMock.getAllProjectSuccess,
   projectMock.getProjectSuccess,
+
+  // tasks-mock-api
   tasksMock.getAllTasksByProjectId,
   tasksMock.getTasksByProjectId,
   tasksMock.createTasks,

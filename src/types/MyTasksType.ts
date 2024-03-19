@@ -1,6 +1,3 @@
-import moment from "moment";
-import { Moment } from "moment";
-
 export const BTN_UPDATE_TASKS: string = "Save Tasks";
 
 export type MytaskType = {
@@ -40,8 +37,8 @@ export interface Tasks {
   tasksName: string;
   processId: string;
   assignee: string;
-  startDate: Moment;
-  dueDate: Moment;
+  startDate: string;
+  dueDate: string;
 }
 
 export interface CreateTasks {
@@ -56,39 +53,39 @@ export const mockedTasks: Tasks[] = [
     tasksName: "Complete Report",
     processId: "1",
     assignee: "John Doe",
-    startDate: moment("2024-03-06"),
-    dueDate: moment("2024-03-10"),
+    startDate: "2024-03-06T00:00:00.000Z",
+    dueDate: "2024-03-06T00:00:00.000Z",
   },
   {
     tasksId: "987654321",
     tasksName: "Review Presentation",
     processId: "1",
     assignee: "Jane Smith",
-    startDate: moment("2024-03-08"),
-    dueDate: moment("2024-03-12"),
+    startDate: "2024-03-06T00:00:00.000Z",
+    dueDate: "2024-03-06T00:00:00.000Z",
   },
   {
     tasksId: "987654321",
     tasksName: "Review Presentation",
     processId: "1",
     assignee: "Jane Smith",
-    startDate: moment("2024-03-08"),
-    dueDate: moment("2024-03-12"),
+    startDate: "2024-03-06T00:00:00.000Z",
+    dueDate: "2024-03-06T00:00:00.000Z",
   },
   {
     tasksId: "987654325",
     tasksName: "Review Testcase",
     processId: "2",
     assignee: "Jane Smith",
-    startDate: moment("2024-03-08"),
-    dueDate: moment("2024-03-12"),
+    startDate: "2024-03-06T00:00:00.000Z",
+    dueDate: "2024-03-06T00:00:00.000Z",
   },
   {
     tasksId: "987654324",
     tasksName: "Testing",
     processId: "2",
     assignee: "Jane Smith",
-    startDate: moment("2024-03-08"),
-    dueDate: moment("2024-03-12"),
+    startDate: "2024-03-06T00:00:00.000Z",
+    dueDate: "2024-03-06T00:00:00.000Z",
   },
 ];

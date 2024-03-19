@@ -8,7 +8,6 @@ import {
   STATUS_CODE_1899,
   STATUS_CODE_1999,
 } from "../types/GenericType";
-import moment from "moment";
 
 // TODO: MOCK DATA ON TASKS API
 
@@ -18,48 +17,40 @@ const MOCK_TASKS: Tasks[] = [
     tasksName: "Complete Report222",
     processId: "1",
     assignee: "John Doe",
-    startDate: moment("2024-03-06"),
-    dueDate: moment("2024-03-10"),
+    startDate: "2024-03-06T00:00:00.000Z",
+    dueDate: "2024-03-06T00:00:00.000Z",
   },
   {
     tasksId: "987654321",
     tasksName: "Review Presentation",
     processId: "1",
     assignee: "Jane Smith",
-    startDate: moment("2024-03-08"),
-    dueDate: moment("2024-03-12"),
+    startDate: "2024-03-06T00:00:00.000Z",
+    dueDate: "2024-03-06T00:00:00.000Z",
   },
   {
     tasksId: "987654325",
     tasksName: "Review Presentation",
     processId: "1",
     assignee: "Jane Smith",
-    startDate: moment("2024-03-08"),
-    dueDate: moment("2024-03-12"),
+    startDate: "2024-03-06T00:00:00.000Z",
+    dueDate: "2024-03-06T00:00:00.000Z",
   },
   {
     tasksId: "987654215",
     tasksName: "Review Testcase",
     processId: "2",
     assignee: "Jane Smith",
-    startDate: moment("2024-03-08"),
-    dueDate: moment("2024-03-12"),
+    startDate: "2024-03-06T00:00:00.000Z",
+    dueDate: "2024-03-06T00:00:00.000Z",
   },
   {
     tasksId: "987654324",
     tasksName: "Testing",
     processId: "2",
     assignee: "Jane Smith",
-    startDate: moment("2024-03-08"),
-    dueDate: moment("2024-03-12"),
-  },
-  {
-    tasksId: "9876543777",
-    tasksName: "New Testing",
-    processId: "1",
-    assignee: "",
-    startDate: moment("2024-03-08"),
-    dueDate: moment("2024-03-12"),
+    startDate: "2024-03-06T00:00:00.000Z",
+    dueDate: "2024-03-06T00:00:00.000Z",
   },
 ];
 
@@ -88,15 +79,17 @@ const getTasksByProjectId = http.get("api/v1/tasks/:tasksId", () => {
       tasksName: "Complete Report222",
       processId: "1",
       assignee: "John Doe",
-      startDate: moment("2024-03-06"),
-      dueDate: moment("2024-03-10"),
+      startDate: "2024-03-06T00:00:00.000Z",
+      dueDate: "2024-03-06T00:00:00.000Z",
     },
   };
 
   return HttpResponse.json(mockRes, { status: 200 });
 });
 
-const createTasks = http.post("api/v1/tasks", () => {
+const createTasks = http.post("api/v1/tasks", async ({ request }) => {
+  const newTasks = (await request.json()) as Tasks;
+
   const mockRes: ResponseCustom<Tasks[]> = {
     status: 200,
     message: RESPONSE_OK,
@@ -104,15 +97,17 @@ const createTasks = http.post("api/v1/tasks", () => {
     data: [
       ...MOCK_TASKS,
       {
-        tasksId: "9876543777",
-        tasksName: "New Testing",
-        processId: "1",
+        tasksId: "xxxxxx",
+        tasksName: newTasks.tasksName,
+        processId: newTasks.processId,
         assignee: "",
-        startDate: moment("2024-03-08"),
-        dueDate: moment("2024-03-12"),
+        startDate: "",
+        dueDate: "",
       },
     ],
   };
+
+  await delay(3000);
 
   return HttpResponse.json(mockRes, { status: 200 });
 });
@@ -127,6 +122,7 @@ const createTasksFaildInvalidFeild = http.post("api/v1/tasks", () => {
     message: RESPONSE_BUSSINESS_ERROR,
     description: "CANT TO GET PROJECT ID",
   };
+
   return HttpResponse.json(mockRes, { status: 200 });
 });
 
@@ -141,40 +137,40 @@ const deleteTasks = http.delete("api/v1/tasks/:tasksId", async () => {
         tasksName: "Complete Report222",
         processId: "1",
         assignee: "John Doe",
-        startDate: moment("2024-03-06"),
-        dueDate: moment("2024-03-10"),
+        startDate: "2024-03-06T00:00:00.000Z",
+        dueDate: "2024-03-06T00:00:00.000Z",
       },
       {
         tasksId: "987654321",
         tasksName: "Review Presentation",
         processId: "1",
         assignee: "Jane Smith",
-        startDate: moment("2024-03-08"),
-        dueDate: moment("2024-03-12"),
+        startDate: "2024-03-06T00:00:00.000Z",
+        dueDate: "2024-03-06T00:00:00.000Z",
       },
       {
         tasksId: "987654325",
         tasksName: "Review Presentation",
         processId: "1",
         assignee: "Jane Smith",
-        startDate: moment("2024-03-08"),
-        dueDate: moment("2024-03-12"),
+        startDate: "2024-03-06T00:00:00.000Z",
+        dueDate: "2024-03-06T00:00:00.000Z",
       },
       {
         tasksId: "987654215",
         tasksName: "Review Testcase",
         processId: "2",
         assignee: "Jane Smith",
-        startDate: moment("2024-03-08"),
-        dueDate: moment("2024-03-12"),
+        startDate: "2024-03-06T00:00:00.000Z",
+        dueDate: "2024-03-06T00:00:00.000Z",
       },
       {
         tasksId: "987654324",
         tasksName: "Testing",
         processId: "2",
         assignee: "Jane Smith",
-        startDate: moment("2024-03-08"),
-        dueDate: moment("2024-03-12"),
+        startDate: "2024-03-06T00:00:00.000Z",
+        dueDate: "2024-03-06T00:00:00.000Z",
       },
     ],
   };
@@ -200,61 +196,17 @@ const deleteTasksFailedNotFoundId = http.delete("api/v1/tasks/:tasksId", () => {
 
 const changeProcess = http.put(
   "api/v1/tasks/:tasksId/process/:processId",
-  () => {
+  ({ params }) => {
+    const { tasksId, processId } = params;
+
+    console.log(tasksId);
+    console.log(processId);
+
     const mockRes: ResponseCustom<Tasks[]> = {
       status: 200,
       message: RESPONSE_OK,
       description: "Success",
-      data: [
-        {
-          tasksId: "123456789",
-          tasksName: "Complete Report222",
-          processId: "1",
-          assignee: "John Doe",
-          startDate: moment("2024-03-06"),
-          dueDate: moment("2024-03-10"),
-        },
-        {
-          tasksId: "987654321",
-          tasksName: "Review Presentation",
-          processId: "1",
-          assignee: "Jane Smith",
-          startDate: moment("2024-03-08"),
-          dueDate: moment("2024-03-12"),
-        },
-        {
-          tasksId: "987654325",
-          tasksName: "Review Presentation",
-          processId: "1",
-          assignee: "Jane Smith",
-          startDate: moment("2024-03-08"),
-          dueDate: moment("2024-03-12"),
-        },
-        {
-          tasksId: "987654215",
-          tasksName: "Review Testcase",
-          processId: "2",
-          assignee: "Jane Smith",
-          startDate: moment("2024-03-08"),
-          dueDate: moment("2024-03-12"),
-        },
-        {
-          tasksId: "987654324",
-          tasksName: "Testing",
-          processId: "2",
-          assignee: "Jane Smith",
-          startDate: moment("2024-03-08"),
-          dueDate: moment("2024-03-12"),
-        },
-        {
-          tasksId: "9876543777",
-          tasksName: "New Testing",
-          processId: "1",
-          assignee: "",
-          startDate: moment("2024-03-08"),
-          dueDate: moment("2024-03-12"),
-        },
-      ],
+      data: MOCK_TASKS,
     };
 
     return HttpResponse.json(mockRes, { status: 200 });

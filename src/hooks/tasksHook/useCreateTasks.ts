@@ -34,6 +34,7 @@ const useCreateTasks = ({ processId, projectId }: useCreateTasksProps) => {
         inputRef.current.focus();
       }
     },
+    onError: () => {},
   });
 
   const handleSubmit = () =>
@@ -50,6 +51,7 @@ const useCreateTasks = ({ processId, projectId }: useCreateTasksProps) => {
     handleButtonClick,
     handleSetTasks,
     handleSubmit,
+    mutation,
   };
 };
 
