@@ -87,8 +87,9 @@ const changeProcess = async (
       }
     );
   } catch (error) {
-    console.error("Error fetching projects:", error);
-    throw error;
+    const errorCustom = error as ErrorCustom;
+    console.error("Error deleting tasks :", errorCustom.description);
+    throw errorCustom;
   }
 };
 

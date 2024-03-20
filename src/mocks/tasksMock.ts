@@ -226,6 +226,23 @@ const changeProcess = http.put(
   }
 );
 
+const changeProcessFailedInternalError = http.put(
+  "api/v1/tasks/:tasksId/process/:processId",
+  () => HttpResponse.error()
+);
+
+const changeProcessFailedNotFoundId = http.put(
+  "api/v1/tasks/:tasksId/process/:processId",
+  () => {
+    const mockRes: ResponseCustom<null> = {
+      status: STATUS_CODE_1999,
+      message: RESPONSE_TECHNICAL_ERROR,
+      description: "NOT FOUND TASK ID",
+    };
+    return HttpResponse.json(mockRes, { status: 200 });
+  }
+);
+
 export const tasksMock = {
   // get-all-tasks-api-mocking
   getAllTasksByProjectId,
@@ -242,6 +259,8 @@ export const tasksMock = {
 
   // change-process-tasks-api-mocking
   changeProcess,
+  changeProcessFailedInternalError,
+  changeProcessFailedNotFoundId,
 
   // delete-tasks-api-mocking
   deleteTasks,

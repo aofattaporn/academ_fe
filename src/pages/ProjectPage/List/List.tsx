@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useMutation } from "react-query";
 import tasksApi from "../../../libs/tasksApi";
 import { Alert, Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const List = () => {
   const { process } = useProjectPermission();
@@ -20,6 +21,7 @@ const List = () => {
     allTaksRefetch,
   } = useAllTasks();
   const [activeId, setActiveId] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const mutation = useMutation({
     mutationFn: ({ tasks, processId }: { tasks: string; processId: string }) =>
@@ -75,13 +77,13 @@ const List = () => {
   return (
     <div className="p-6 text-dark font-roboto">
       <h1 className="text-2xl font-bold">List</h1>
-      {allTaksIsError && allTasksError ? (
+      {(allTaksIsError && allTasksError) || mutation.isError ? (
         <Alert severity="error" className="my-8">
           Something went wrong
           <Button
             size="small"
             className="normal-case"
-            onClick={() => allTaksRefetch()}
+            onClick={() => navigate(0)}
           >
             Try Again
           </Button>
