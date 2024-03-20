@@ -38,6 +38,7 @@ const SettingTasksTile = ({ tasksId }: SettingTasksTileProps) => {
       queryClient.setQueryData(QUERY_KEY.ALL_TASKS, data);
       setOpen(false);
       setAnchorElUser(null);
+      toast.success("Delete tasks success");
     },
     onError: (error: ErrorCustom) => {
       toast.error(error.description);

@@ -37,6 +37,7 @@ const CreateTasksItem = ({ projectId, processId }: CreateTasksProps) => {
       if (inputRef.current) {
         inputRef.current.focus();
       }
+      toast.success("Create Tasks Success");
     },
     onError: (error: ErrorCustom) => {
       toast.error(error.description, {});
