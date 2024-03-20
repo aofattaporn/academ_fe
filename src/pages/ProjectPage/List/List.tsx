@@ -7,10 +7,18 @@ import ListAccordionLoading from "../../../components/ListAccordion/ListAccordio
 import { useState } from "react";
 import { useMutation } from "react-query";
 import tasksApi from "../../../libs/tasksApi";
+import { Alert, Button } from "@mui/material";
 
 const List = () => {
   const { process } = useProjectPermission();
-  const { allTaksIsSuccesss, tempTasks, setTempTasks } = useAllTasks();
+  const {
+    allTaksIsSuccesss,
+    tempTasks,
+    allTaksIsError,
+    allTasksError,
+    setTempTasks,
+    allTaksRefetch,
+  } = useAllTasks();
   const [activeId, setActiveId] = useState<string | null>(null);
 
   const mutation = useMutation({
@@ -67,6 +75,19 @@ const List = () => {
   return (
     <div className="p-6 text-dark font-roboto">
       <h1 className="text-2xl font-bold">List</h1>
+      {allTaksIsError && allTasksError ? (
+        <Alert severity="error" className="my-8">
+          Something went wrong
+          <Button
+            size="small"
+            className="normal-case"
+            onClick={() => allTaksRefetch()}
+          >
+            Try Again
+          </Button>
+        </Alert>
+      ) : null}
+
       <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
         {process && allTaksIsSuccesss && tempTasks
           ? process.map((item, index) => {

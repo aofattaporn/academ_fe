@@ -15,6 +15,7 @@ const useAllTasks = () => {
     isError: allTaksIsError,
     refetch: allTaksRefetch,
     data: allTaksData,
+    error: allTasksError,
   } = useQuery(
     QUERY_KEY.ALL_TASKS,
     () => tasksApi.getAllTasksByProjectId(projectId as string),
@@ -30,6 +31,7 @@ const useAllTasks = () => {
     allTaksIsSuccesss,
     allTaksIsError,
     allTaksData,
+    allTasksError,
     tempTasks,
     setTempTasks,
     allTaksRefetch,

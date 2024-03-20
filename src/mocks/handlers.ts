@@ -18,6 +18,8 @@ export const handlers = [
   authMock.signInGoogleSuccess,
   myTasksMock.myTasksSuccess,
   userMock.getUserSuccess,
+
+  // project-mock-api
   projectMock.createProjectSuccess,
   projectMock.getAllProjectSuccess,
   projectMock.getProjectSuccess,

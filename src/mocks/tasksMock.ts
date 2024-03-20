@@ -69,6 +69,24 @@ const getAllTasksByProjectId = http.get(
   }
 );
 
+const getAllTasksByProjectIdFailedInternalError = http.get(
+  "api/v1/tasks/projects/:projectId",
+  () => HttpResponse.error()
+);
+
+const getAllTasksByProjectIdFailedNotFoundId = http.get(
+  "api/v1/tasks/projects/:projectId",
+  () => {
+    const mockRes: ResponseCustom<null> = {
+      status: STATUS_CODE_1999,
+      message: RESPONSE_TECHNICAL_ERROR,
+      description: "Can't to get your project id",
+    };
+
+    return HttpResponse.json(mockRes, { status: 200 });
+  }
+);
+
 const getTasksByProjectId = http.get("api/v1/tasks/:tasksId", () => {
   const mockRes: ResponseCustom<Tasks> = {
     status: 200,
@@ -211,6 +229,8 @@ const changeProcess = http.put(
 export const tasksMock = {
   // get-all-tasks-api-mocking
   getAllTasksByProjectId,
+  getAllTasksByProjectIdFailedInternalError,
+  getAllTasksByProjectIdFailedNotFoundId,
 
   // get-tasks-api-mocking
   getTasksByProjectId,

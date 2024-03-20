@@ -32,8 +32,9 @@ const getTasksByProjectId = async (tasksId: string): Promise<Tasks> => {
     });
     return response.data.data;
   } catch (error) {
-    console.error("Error fetching projects:", error);
-    throw error;
+    const errorCustom = error as ErrorCustom;
+    console.error("Error get all tasks tasks :", errorCustom.description);
+    throw errorCustom;
   }
 };
 
@@ -47,8 +48,9 @@ const createTasks = async (data: CreateTasks): Promise<Tasks[]> => {
     });
     return response.data.data;
   } catch (error) {
-    console.error("Error fetching projects:", error);
-    throw error;
+    const errorCustom = error as ErrorCustom;
+    console.error("Error Creating tasks :", errorCustom.description);
+    throw errorCustom;
   }
 };
 
@@ -62,9 +64,6 @@ const deleteTasksById = async (tasksId: string): Promise<Tasks[]> => {
     });
     return response.data.data;
   } catch (error) {
-    console.log(error);
-    console.log("=====================");
-
     const errorCustom = error as ErrorCustom;
     console.error("Error deleting tasks :", errorCustom.description);
     throw errorCustom;
