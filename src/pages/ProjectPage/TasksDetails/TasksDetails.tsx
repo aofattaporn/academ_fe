@@ -23,8 +23,12 @@ function TasksDetails({ project }: TasksDetailsProps) {
     isSuccess: TasksIsSuccesss,
     isError: TasksIsError,
     data: TaksData,
-  } = useQuery([QUERY_KEY.Tasks, tasksDetails.tasksSeletedId], () =>
-    tasksApi.getTasksByProjectId(tasksDetails.tasksSeletedId)
+  } = useQuery(
+    [QUERY_KEY.Tasks, tasksDetails.tasksSeletedId],
+    () => tasksApi.getTasksByProjectId(tasksDetails.tasksSeletedId as string),
+    {
+      enabled: !!tasksDetails.tasksSeletedId,
+    }
   );
 
   return (

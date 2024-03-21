@@ -18,7 +18,6 @@ const List = () => {
     allTaksIsError,
     allTasksError,
     setTempTasks,
-    allTaksRefetch,
   } = useAllTasks();
   const [activeId, setActiveId] = useState<string | null>(null);
   const navigate = useNavigate();

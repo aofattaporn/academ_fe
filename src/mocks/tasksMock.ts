@@ -87,7 +87,7 @@ const getAllTasksByProjectIdFailedNotFoundId = http.get(
   }
 );
 
-const getTasksByProjectId = http.get("api/v1/tasks/:tasksId", () => {
+const getTasksByTasksId = http.get("api/v1/tasks/:tasksId", async () => {
   const mockRes: ResponseCustom<Tasks> = {
     status: 200,
     message: RESPONSE_OK,
@@ -101,6 +101,8 @@ const getTasksByProjectId = http.get("api/v1/tasks/:tasksId", () => {
       dueDate: "2024-03-06T00:00:00.000Z",
     },
   };
+
+  await delay(1000);
 
   return HttpResponse.json(mockRes, { status: 200 });
 });
@@ -143,6 +145,30 @@ const createTasksFaildInvalidFeild = http.post("api/v1/tasks", () => {
 
   return HttpResponse.json(mockRes, { status: 200 });
 });
+
+// api/v1/tasks/${tasksId}
+
+const updateTasksByTasksId = http.put(
+  "api/v1/tasks/:tasksId",
+  async ({ request }) => {
+    const updateTasks = (await request.json()) as Tasks;
+
+    // Assuming a delay function is defined elsewhere in your code
+    await delay(1000);
+
+    console.log(updateTasks);
+
+    // Construct the response object
+    const mockRes: ResponseCustom<Tasks> = {
+      status: 200,
+      message: RESPONSE_OK,
+      description: "Success",
+      data: updateTasks,
+    };
+
+    return HttpResponse.json(mockRes, { status: 200 });
+  }
+);
 
 const deleteTasks = http.delete("api/v1/tasks/:tasksId", async () => {
   const mockRes: ResponseCustom<Tasks[]> = {
@@ -250,7 +276,10 @@ export const tasksMock = {
   getAllTasksByProjectIdFailedNotFoundId,
 
   // get-tasks-api-mocking
-  getTasksByProjectId,
+  getTasksByTasksId,
+
+  // update-tasks-api-mocking
+  updateTasksByTasksId,
 
   // create-tasks-api-mocking
   createTasks,

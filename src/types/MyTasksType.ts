@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export const BTN_UPDATE_TASKS: string = "Save Tasks";
 
 export type MytaskType = {
@@ -47,45 +49,11 @@ export interface CreateTasks {
   processId: string;
 }
 
-export const mockedTasks: Tasks[] = [
-  {
-    tasksId: "123456789",
-    tasksName: "Complete Report",
-    processId: "1",
-    assignee: "John Doe",
-    startDate: "2024-03-06T00:00:00.000Z",
-    dueDate: "2024-03-06T00:00:00.000Z",
-  },
-  {
-    tasksId: "987654321",
-    tasksName: "Review Presentation",
-    processId: "1",
-    assignee: "Jane Smith",
-    startDate: "2024-03-06T00:00:00.000Z",
-    dueDate: "2024-03-06T00:00:00.000Z",
-  },
-  {
-    tasksId: "987654321",
-    tasksName: "Review Presentation",
-    processId: "1",
-    assignee: "Jane Smith",
-    startDate: "2024-03-06T00:00:00.000Z",
-    dueDate: "2024-03-06T00:00:00.000Z",
-  },
-  {
-    tasksId: "987654325",
-    tasksName: "Review Testcase",
-    processId: "2",
-    assignee: "Jane Smith",
-    startDate: "2024-03-06T00:00:00.000Z",
-    dueDate: "2024-03-06T00:00:00.000Z",
-  },
-  {
-    tasksId: "987654324",
-    tasksName: "Testing",
-    processId: "2",
-    assignee: "Jane Smith",
-    startDate: "2024-03-06T00:00:00.000Z",
-    dueDate: "2024-03-06T00:00:00.000Z",
-  },
-];
+export const tasksDetailsSchema = z.object({
+  tasksName: z.string(),
+  startDate: z.date(),
+  dueDate: z.string(),
+  assignee: z.string(),
+});
+
+export type TasksDetailsSchema = z.infer<typeof tasksDetailsSchema>;

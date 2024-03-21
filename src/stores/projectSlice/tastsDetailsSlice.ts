@@ -3,12 +3,11 @@ import { SLICE_KEY } from "../../types/GenericType";
 
 export interface TasksState {
   isSideBar: boolean;
-  tasksSeletedId: string;
+  tasksSeletedId?: string;
 }
 
 const initialState: TasksState = {
   isSideBar: false,
-  tasksSeletedId: "",
 };
 
 export const tastsDetailsSlice = createSlice({

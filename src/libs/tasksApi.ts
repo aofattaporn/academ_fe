@@ -54,6 +54,23 @@ const createTasks = async (data: CreateTasks): Promise<Tasks[]> => {
   }
 };
 
+const updateTasks = async (tasksId: string, data: Tasks): Promise<Tasks> => {
+  try {
+    const token = await firebaseApi.getToken();
+    const response = await axiosInstance.put(`api/v1/tasks/${tasksId}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data.data;
+  } catch (error) {
+    const errorCustom = error as ErrorCustom;
+    console.error("Error Creating tasks :", errorCustom.description);
+    throw errorCustom;
+  }
+};
+
 const deleteTasksById = async (tasksId: string): Promise<Tasks[]> => {
   try {
     const token = await firebaseApi.getToken();
@@ -97,6 +114,7 @@ const tasksApi = {
   getAllTasksByProjectId,
   getTasksByProjectId,
   createTasks,
+  updateTasks,
   changeProcess,
   deleteTasksById,
 };

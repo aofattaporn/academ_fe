@@ -1,7 +1,14 @@
 import SaveTasksDetails from "../../../components/Button/SaveTasksDetails";
 import { BTN_UPDATE_TASKS, Tasks } from "../../../types/MyTasksType";
-import moment from "moment";
+import moment, { Moment } from "moment";
 import { Project } from "../../../types/ProjectType";
+import { DatePicker } from "@mui/x-date-pickers";
+import { useState } from "react";
+import TextArea from "../../../components/TextArea/TextArea";
+import { useMutation, useQueryClient } from "react-query";
+import tasksApi from "../../../libs/tasksApi";
+import { QUERY_KEY } from "../../../types/GenericType";
+import { toast } from "react-toastify";
 
 type TasksDetailsSuccessProps = {
   tasksData: Tasks;
@@ -12,6 +19,47 @@ const TasksDetailsSuccess = ({
   tasksData,
   projectData,
 }: TasksDetailsSuccessProps) => {
+  const [tasks, setTasks] = useState<Tasks>(tasksData);
+  const [isDirty, setIsDirty] = useState<boolean>(false);
+
+  const queryClient = useQueryClient();
+
+  const handleStartDate = (startDate: Moment | null) => {
+    setIsDirty(true);
+    setTasks((prev) => ({
+      ...prev,
+      startDate: startDate ? startDate.toString() : "",
+    }));
+  };
+
+  const handleEndDate = (dueDate: Moment | null) => {
+    setIsDirty(true);
+    setTasks((prev) => ({
+      ...prev,
+      dueDate: dueDate ? dueDate.toString() : "",
+    }));
+  };
+
+  const mutation = useMutation({
+    mutationFn: (updateTasks: Tasks) =>
+      tasksApi.updateTasks(tasks.tasksId, updateTasks),
+    onSuccess: (updatedTasks: Tasks) => {
+      setTasks(updatedTasks);
+      setIsDirty(false);
+      toast.success("Update tasks success");
+
+      queryClient.setQueryData(
+        [QUERY_KEY.ALL_TASKS],
+        (oldTasks: Tasks[] | undefined) => {
+          if (!oldTasks) return [];
+          return oldTasks.map((task: Tasks) => {
+            return task.tasksId === updatedTasks.tasksId ? updatedTasks : task;
+          });
+        }
+      );
+    },
+  });
+
   return (
     <div className="pt-1 overflow-hidden whitespace-nowrap overflow-ellipsis w-full">
       <h2 className="text-3xl min-h-2 font-bold overflow-hidden whitespace-nowrap overflow-ellipsis">
@@ -27,36 +75,53 @@ const TasksDetailsSuccess = ({
             {projectData?.projectInfo.projectProfile.projectName}
           </p>
         </div>
-        <div className="flex gap-8 items-center">
-          <p className="bg-main py-2 w-32 flex justify-center rounded-md">
-            Start date
+        <div className=" grid grid-cols-3 gap-4 items-center">
+          <p className="bg-main py-2 flex justify-center rounded-md">
+            start date
           </p>
-          <button className="py-2 w-80 flex justify-center rounded-md border-2">
-            {moment(tasksData.startDate).format("l")}
-          </button>
+          <div className="col-span-2">
+            <DatePicker
+              onChange={handleStartDate}
+              defaultValue={moment(tasks.startDate)}
+              slotProps={{
+                field: {
+                  clearable: true,
+                },
+                textField: { size: "small" },
+              }}
+            />
+          </div>
         </div>
-        <div className="flex gap-8 items-center">
-          <p className="bg-main py-2 w-32 flex justify-center rounded-md">
-            Due date
+
+        <div className=" grid grid-cols-3 gap-4 items-center">
+          <p className="bg-main py-2 flex justify-center rounded-md">
+            due date
           </p>
-          <button className="py-2 w-80 flex justify-center rounded-md border-2">
-            {moment(tasksData.dueDate).format("l")}
-          </button>
+          <div className="col-span-2">
+            <DatePicker
+              onChange={handleEndDate}
+              defaultValue={moment(tasks.dueDate)}
+              slotProps={{
+                field: {
+                  clearable: true,
+                },
+                textField: { size: "small" },
+              }}
+            />
+          </div>
         </div>
       </div>
 
       <div className="my-8 w-full grid grid-cols-1 gap-4">
         <p>Description</p>
-        <div className="w-full border-2 border-primary-light h-40 rounded-md p-4">
-          <p className=" text-gray-300">What is task is about</p>
-        </div>
+        <TextArea />
       </div>
 
       <SaveTasksDetails
         title={BTN_UPDATE_TASKS}
-        disable={true}
-        isSaving={false}
-        handleChange={() => console.log("test")}
+        disable={!isDirty}
+        isSaving={mutation.isLoading}
+        handleChange={() => mutation.mutate(tasks)}
       />
     </div>
   );
