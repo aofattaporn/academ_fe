@@ -11,7 +11,7 @@ import { Alert, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const List = () => {
-  const { process } = useProjectPermission();
+  const { process, taskPermission } = useProjectPermission();
   const {
     allTaksIsSuccesss,
     tempTasks,
@@ -90,13 +90,14 @@ const List = () => {
       ) : null}
 
       <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-        {process && allTaksIsSuccesss && tempTasks
+        {process && allTaksIsSuccesss && tempTasks && taskPermission
           ? process.map((item, index) => {
               return (
                 <ListAccordion
                   activeId={activeId}
                   process={item}
                   tasks={tempTasks}
+                  taskPermission={taskPermission}
                   key={index}
                 />
               );

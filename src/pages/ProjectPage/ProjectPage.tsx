@@ -21,7 +21,9 @@ const ProjectPage = () => {
     <div className="flex text-dark font-roboto">
       <div
         className={`${
-          tasksDetails.isSideBar ? "w-4/6" : "w-full"
+          tasksDetails.isSideBar && projectData?.taskPermission.edit
+            ? "w-4/6"
+            : "w-full"
         } duration-700`}
       >
         <div className="bg-white w-full shadow-sm flex px-8 gap-8 items-end">
@@ -38,7 +40,13 @@ const ProjectPage = () => {
         />
       </div>
 
-      <TasksDetails project={projectData} />
+      {projectData && projectData.taskPermission ? (
+        <TasksDetails
+          project={projectData}
+          isEdit={projectData?.taskPermission.edit}
+        />
+      ) : null}
+
       <ToastContainer />
     </div>
   );

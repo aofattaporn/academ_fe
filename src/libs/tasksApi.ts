@@ -14,7 +14,6 @@ const getAllTasksByProjectId = async (projectId: string): Promise<Tasks[]> => {
         },
       }
     );
-    console.log(response.data.data);
     return response.data.data;
   } catch (error) {
     console.error("Error fetching projects:", error);
@@ -91,7 +90,6 @@ const changeProcess = async (
   tasks: string,
   processId: string
 ): Promise<void> => {
-  console.log(processId);
   try {
     const token = await firebaseApi.getToken();
     await axiosInstance.put(

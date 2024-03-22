@@ -136,10 +136,10 @@ const TasksDetailsSuccess = ({
         </div>
       </div>
 
-      <div className="my-8 w-full grid grid-cols-1 gap-4">
+      {/* <div className="my-8 w-full grid grid-cols-1 gap-4">
         <p>Description</p>
         <TextArea />
-      </div>
+      </div> */}
 
       <SaveTasksDetails
         title={BTN_UPDATE_TASKS}

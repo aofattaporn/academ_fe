@@ -13,16 +13,22 @@ import Draggable from "../../../hoc/Draggable";
 import ProcessTitle from "./ProcessTitle/ProcessTitle";
 import CreateTasksItem from "./CreateTasksItem/CreateTasksItem";
 import SettingTasksTile from "./SettingTasksTile/SettingTasksTile";
-import { Process } from "../../../types/ProjectType";
+import { Process, TaskPermission } from "../../../types/ProjectType";
 import { Tasks } from "../../../types/MyTasksType";
 
 type ListAccordionProps = {
+  taskPermission: TaskPermission;
   activeId: string | null;
   process: Process;
   tasks: Tasks[];
 };
 
-const ListAccordion = ({ process, activeId, tasks }: ListAccordionProps) => {
+const ListAccordion = ({
+  process,
+  activeId,
+  tasks,
+  taskPermission,
+}: ListAccordionProps) => {
   const [isToggle, setIsToggle] = useState<boolean>(true);
   const tasksDetails = useSelector((state: RootState) => state.tasksDetails);
   const { projectId } = useParams();
@@ -84,14 +90,18 @@ const ListAccordion = ({ process, activeId, tasks }: ListAccordionProps) => {
                 >
                   <Draggable
                     dragId={`${task.processId}-${task.tasksId}`}
-                    isClick={tasksDetails.isSideBar}
+                    isClick={
+                      tasksDetails.isSideBar || !taskPermission.manageProcess
+                    }
                     handleClick={() => dispatch(openDetails(true))}
                   >
                     <TasksTile task={task} />
                   </Draggable>
                 </Droppable>
               </button>
-              <SettingTasksTile tasksId={task.tasksId} />
+              {taskPermission.delete ? (
+                <SettingTasksTile tasksId={task.tasksId} />
+              ) : null}
             </div>
           ))}
         {!tasks.some((task) => task.processId === process.processId) && (
@@ -99,10 +109,13 @@ const ListAccordion = ({ process, activeId, tasks }: ListAccordionProps) => {
             <div className="my-4"></div>
           </Droppable>
         )}
-        <CreateTasksItem
-          projectId={projectId as string}
-          processId={process.processId}
-        />
+
+        {taskPermission.addNew ? (
+          <CreateTasksItem
+            projectId={projectId as string}
+            processId={process.processId}
+          />
+        ) : null}
       </div>
     </div>
   );
