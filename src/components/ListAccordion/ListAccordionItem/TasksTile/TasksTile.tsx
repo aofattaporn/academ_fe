@@ -17,7 +17,7 @@ const TasksTile = ({ task }: TasksTileProps) => {
     >
       <div className="w-4 h-4 p-4 rounded-md"></div>
       <div className="w-full grid grid-cols-4">
-        <p className="text-center">{task.tasksName}</p>
+        <p className="text-center overflow-x-scroll">{task.tasksName}</p>
         <p className="text-center">{task.assignee}</p>
         <p className="text-center">
           {task.startDate ? moment(task.startDate).format("l") : ""}

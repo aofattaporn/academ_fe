@@ -9,6 +9,7 @@ import { useMutation, useQueryClient } from "react-query";
 import tasksApi from "../../../libs/tasksApi";
 import { ErrorCustom, QUERY_KEY } from "../../../types/GenericType";
 import { toast } from "react-toastify";
+import { TextareaAutosize } from "@mui/base/TextareaAutosize";
 
 type TasksDetailsSuccessProps = {
   tasksData: Tasks;
@@ -40,6 +41,19 @@ const TasksDetailsSuccess = ({
     }));
   };
 
+  const handleTasksName = (tasksName: string) => {
+    if (tasksName === tasksData.tasksName) {
+      setIsDirty(false);
+      return;
+    }
+
+    setIsDirty(true);
+    setTasks((prev) => ({
+      ...prev,
+      tasksName: tasksName,
+    }));
+  };
+
   const mutation = useMutation({
     mutationFn: (updateTasks: Tasks) =>
       tasksApi.updateTasks(tasks.tasksId, updateTasks),
@@ -57,6 +71,11 @@ const TasksDetailsSuccess = ({
           });
         }
       );
+
+      queryClient.setQueryData(
+        [QUERY_KEY.Tasks, tasksData.tasksId],
+        updatedTasks
+      );
     },
     onError: (error: ErrorCustom) => {
       toast.error(error.description);
@@ -65,9 +84,11 @@ const TasksDetailsSuccess = ({
 
   return (
     <div className="pt-1 overflow-hidden whitespace-nowrap overflow-ellipsis w-full">
-      <h2 className="text-3xl min-h-2 font-bold overflow-hidden whitespace-nowrap overflow-ellipsis">
-        {tasksData.tasksName}
-      </h2>
+      <TextareaAutosize
+        defaultValue={tasks.tasksName}
+        onChange={(e) => handleTasksName(e.target.value)}
+        className="w-full text-3xl font-bold overflow-hidden border-none focus:outline-none"
+      />
 
       <div className="my-8 grid grid-cols-1 gap-4">
         <div className="flex gap-8 items-center">
