@@ -146,24 +146,34 @@ const createTasksFaildInvalidFeild = http.post("api/v1/tasks", () => {
   return HttpResponse.json(mockRes, { status: 200 });
 });
 
-// api/v1/tasks/${tasksId}
-
 const updateTasksByTasksId = http.put(
   "api/v1/tasks/:tasksId",
   async ({ request }) => {
     const updateTasks = (await request.json()) as Tasks;
-
-    // Assuming a delay function is defined elsewhere in your code
-    await delay(1000);
-
-    console.log(updateTasks);
-
-    // Construct the response object
     const mockRes: ResponseCustom<Tasks> = {
       status: 200,
       message: RESPONSE_OK,
       description: "Success",
       data: updateTasks,
+    };
+    await delay(1000);
+
+    return HttpResponse.json(mockRes, { status: 200 });
+  }
+);
+
+const updateTasksByTasksIdFailedInternalError = http.put(
+  "api/v1/tasks/:tasksId",
+  () => HttpResponse.error()
+);
+
+const updateTasksByTasksIdFailedNotFoudId = http.put(
+  "api/v1/tasks/:tasksId",
+  async () => {
+    const mockRes: ResponseCustom<null> = {
+      status: STATUS_CODE_1999,
+      message: RESPONSE_TECHNICAL_ERROR,
+      description: "Can't to get your tasks id",
     };
 
     return HttpResponse.json(mockRes, { status: 200 });
@@ -280,6 +290,8 @@ export const tasksMock = {
 
   // update-tasks-api-mocking
   updateTasksByTasksId,
+  updateTasksByTasksIdFailedInternalError,
+  updateTasksByTasksIdFailedNotFoudId,
 
   // create-tasks-api-mocking
   createTasks,

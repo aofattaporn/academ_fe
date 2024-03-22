@@ -44,7 +44,7 @@ function TasksDetails({ project }: TasksDetailsProps) {
 
           {TasksIsLoading || !project ? <TasksDetailsLoading /> : null}
           {TasksIsError ? <TasksDetailsLoading /> : null}
-          {TasksIsSuccesss && TaksData && project ? (
+          {TasksIsSuccesss && project ? (
             <TasksDetailsSuccess tasksData={TaksData} projectData={project} />
           ) : null}
         </div>

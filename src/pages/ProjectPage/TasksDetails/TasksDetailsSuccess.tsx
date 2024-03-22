@@ -7,7 +7,7 @@ import { useState } from "react";
 import TextArea from "../../../components/TextArea/TextArea";
 import { useMutation, useQueryClient } from "react-query";
 import tasksApi from "../../../libs/tasksApi";
-import { QUERY_KEY } from "../../../types/GenericType";
+import { ErrorCustom, QUERY_KEY } from "../../../types/GenericType";
 import { toast } from "react-toastify";
 
 type TasksDetailsSuccessProps = {
@@ -57,6 +57,9 @@ const TasksDetailsSuccess = ({
           });
         }
       );
+    },
+    onError: (error: ErrorCustom) => {
+      toast.error(error.description);
     },
   });
 
