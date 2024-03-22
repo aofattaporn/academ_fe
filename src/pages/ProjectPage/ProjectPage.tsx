@@ -40,11 +40,8 @@ const ProjectPage = () => {
         />
       </div>
 
-      {projectData && projectData.taskPermission ? (
-        <TasksDetails
-          project={projectData}
-          isEdit={projectData?.taskPermission.edit}
-        />
+      {projectData && projectData.taskPermission.edit ? (
+        <TasksDetails project={projectData} />
       ) : null}
 
       <ToastContainer />

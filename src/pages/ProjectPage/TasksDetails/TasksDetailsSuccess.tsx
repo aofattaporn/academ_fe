@@ -1,15 +1,16 @@
-import SaveTasksDetails from "../../../components/Button/SaveTasksDetails";
-import { BTN_UPDATE_TASKS, Tasks } from "../../../types/MyTasksType";
-import moment, { Moment } from "moment";
-import { Project } from "../../../types/ProjectType";
-import { DatePicker } from "@mui/x-date-pickers";
 import { useState } from "react";
-import TextArea from "../../../components/TextArea/TextArea";
 import { useMutation, useQueryClient } from "react-query";
+import { Moment } from "moment";
+import { DatePicker } from "@mui/x-date-pickers";
+import { TextareaAutosize } from "@mui/base/TextareaAutosize";
+import { toast } from "react-toastify";
+
+import SaveTasksDetails from "../../../components/Button/SaveTasksDetails";
 import tasksApi from "../../../libs/tasksApi";
 import { ErrorCustom, QUERY_KEY } from "../../../types/GenericType";
-import { toast } from "react-toastify";
-import { TextareaAutosize } from "@mui/base/TextareaAutosize";
+import { BTN_UPDATE_TASKS, Tasks } from "../../../types/MyTasksType";
+import { Project } from "../../../types/ProjectType";
+import moment from "moment";
 
 type TasksDetailsSuccessProps = {
   tasksData: Tasks;
@@ -22,7 +23,6 @@ const TasksDetailsSuccess = ({
 }: TasksDetailsSuccessProps) => {
   const [tasks, setTasks] = useState<Tasks>(tasksData);
   const [isDirty, setIsDirty] = useState<boolean>(false);
-
   const queryClient = useQueryClient();
 
   const handleStartDate = (startDate: Moment | null) => {
@@ -42,15 +42,10 @@ const TasksDetailsSuccess = ({
   };
 
   const handleTasksName = (tasksName: string) => {
-    if (tasksName === tasksData.tasksName) {
-      setIsDirty(false);
-      return;
-    }
-
-    setIsDirty(true);
+    setIsDirty(tasksName !== tasksData.tasksName);
     setTasks((prev) => ({
       ...prev,
-      tasksName: tasksName,
+      tasksName,
     }));
   };
 
@@ -64,12 +59,10 @@ const TasksDetailsSuccess = ({
 
       queryClient.setQueryData(
         [QUERY_KEY.ALL_TASKS],
-        (oldTasks: Tasks[] | undefined) => {
-          if (!oldTasks) return [];
-          return oldTasks.map((task: Tasks) => {
-            return task.tasksId === updatedTasks.tasksId ? updatedTasks : task;
-          });
-        }
+        (oldTasks: Tasks[] | undefined) =>
+          oldTasks?.map((task: Tasks) =>
+            task.tasksId === updatedTasks.tasksId ? updatedTasks : task
+          ) ?? []
       );
 
       queryClient.setQueryData(
@@ -106,11 +99,9 @@ const TasksDetailsSuccess = ({
           <div className="col-span-2">
             <DatePicker
               onChange={handleStartDate}
-              defaultValue={moment(tasks.startDate)}
+              defaultValue={tasks.startDate ? moment(tasks.startDate) : null}
               slotProps={{
-                field: {
-                  clearable: true,
-                },
+                field: { clearable: true },
                 textField: { size: "small" },
               }}
             />
@@ -124,22 +115,15 @@ const TasksDetailsSuccess = ({
           <div className="col-span-2">
             <DatePicker
               onChange={handleEndDate}
-              defaultValue={moment(tasks.dueDate)}
+              defaultValue={tasks.dueDate ? moment(tasks.dueDate) : null}
               slotProps={{
-                field: {
-                  clearable: true,
-                },
+                field: { clearable: true },
                 textField: { size: "small" },
               }}
             />
           </div>
         </div>
       </div>
-
-      {/* <div className="my-8 w-full grid grid-cols-1 gap-4">
-        <p>Description</p>
-        <TextArea />
-      </div> */}
 
       <SaveTasksDetails
         title={BTN_UPDATE_TASKS}

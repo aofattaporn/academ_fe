@@ -12,10 +12,9 @@ import { Project } from "../../../types/ProjectType";
 
 type TasksDetailsProps = {
   project?: Project;
-  isEdit: boolean;
 };
 
-function TasksDetails({ project, isEdit }: TasksDetailsProps) {
+function TasksDetails({ project }: TasksDetailsProps) {
   const dispatch = useDispatch();
   const tasksDetails = useSelector((state: RootState) => state.tasksDetails);
 
@@ -28,14 +27,14 @@ function TasksDetails({ project, isEdit }: TasksDetailsProps) {
     [QUERY_KEY.Tasks, tasksDetails.tasksSeletedId],
     () => tasksApi.getTasksByProjectId(tasksDetails.tasksSeletedId as string),
     {
-      enabled: !!tasksDetails.tasksSeletedId && isEdit,
+      enabled: !!tasksDetails.tasksSeletedId,
     }
   );
 
   return (
     <div
       className={`duration-700 overflow-x-hidden bg-white max-h-full shadow-3xl h-screen font-roboto text-dark
-      ${tasksDetails.isSideBar && isEdit ? "md:w-4/6 lg:w-2/6 w-full" : "w-0"}`}
+      ${tasksDetails.isSideBar ? "md:w-4/6 lg:w-2/6 w-full" : "w-0"}`}
     >
       <div className="py-8 pl-4 pr-12">
         <div className="flex gap-4 items-start">
