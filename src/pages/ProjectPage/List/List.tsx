@@ -88,16 +88,15 @@ const List = () => {
           </Button>
         </Alert>
       ) : null}
-
       <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
         {process && allTaksIsSuccesss && tempTasks && taskPermission
           ? process.map((item, index) => {
               return (
                 <ListAccordion
                   activeId={activeId}
+                  taskPermission={taskPermission}
                   process={item}
                   tasks={tempTasks}
-                  taskPermission={taskPermission}
                   key={index}
                 />
               );

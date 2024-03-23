@@ -1,6 +1,5 @@
 import { Modal, Button } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
-import { ErrorCustom } from "../../types/GenericType";
 
 type ConfirmDeleteProps = {
   handleDelete: () => void;

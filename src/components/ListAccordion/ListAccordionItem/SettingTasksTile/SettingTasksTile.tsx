@@ -34,8 +34,16 @@ const SettingTasksTile = ({ tasksId }: SettingTasksTileProps) => {
 
   const mutation = useMutation({
     mutationFn: async () => await tasksApi.deleteTasksById(tasksId),
-    onSuccess: (data: Tasks[]) => {
-      queryClient.setQueryData(QUERY_KEY.ALL_TASKS, data);
+    onSuccess: () => {
+      queryClient.setQueryData(
+        QUERY_KEY.ALL_TASKS,
+        (oldData: Tasks[] | undefined) => {
+          const newData = oldData
+            ? oldData.filter((task) => task.tasksId !== tasksId)
+            : [];
+          return newData;
+        }
+      );
       setOpen(false);
       setAnchorElUser(null);
       toast.success("Delete tasks success");

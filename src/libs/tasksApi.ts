@@ -16,8 +16,9 @@ const getAllTasksByProjectId = async (projectId: string): Promise<Tasks[]> => {
     );
     return response.data.data;
   } catch (error) {
-    console.error("Error fetching projects:", error);
-    throw error;
+    const errorCustom = error as ErrorCustom;
+    console.error("Error Get All Tasks :", errorCustom.description);
+    throw errorCustom;
   }
 };
 
