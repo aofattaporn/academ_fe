@@ -11,15 +11,20 @@ const HomeLayout = () => {
 
   const { data: userData, isSuccess } = useQuery(
     "userData",
-    userApi.getUserApi
+    userApi.getUserApi,
+    {
+      refetchOnWindowFocus: false,
+      staleTime: Infinity,
+      cacheTime: Infinity,
+    }
   );
 
   if (isSuccess) dispatch(saveUser(userData));
 
   return (
-    <div className="flex">
+    <div className="flex h-screen">
       <SideBar />
-      <div className="h-screen flex-1 min-w-96 overflow-x-scroll">
+      <div className="h-screen flex-1 min-w-[1000px] overflow-x-scroll">
         <AcademNaveBar />
         <Outlet />
       </div>

@@ -4,7 +4,7 @@ import { QUERY_KEY } from "../../types/GenericType";
 import { useParams } from "react-router-dom";
 
 const useProject = () => {
-  let { projectId } = useParams();
+  const { projectId } = useParams<string>();
 
   const {
     isLoading: projectIsLoading,
@@ -17,6 +17,8 @@ const useProject = () => {
     () => projectApi.getProject(projectId as string),
     {
       refetchOnWindowFocus: false,
+      staleTime: Infinity,
+      cacheTime: Infinity,
     }
   );
   return {

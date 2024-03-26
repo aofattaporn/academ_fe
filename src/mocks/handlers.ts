@@ -3,6 +3,7 @@ import { projectMock } from "./projectMock";
 import userMock from "./userMock";
 import homeMock from "./homeMock";
 import myTasksMock from "./mytasksMock";
+import { tasksMock } from "./tasksMock";
 
 // ingeneral case handler
 export const handlers = [
@@ -17,7 +18,17 @@ export const handlers = [
   authMock.signInGoogleSuccess,
   myTasksMock.myTasksSuccess,
   userMock.getUserSuccess,
+
+  // project-mock-api
   projectMock.createProjectSuccess,
   projectMock.getAllProjectSuccess,
   projectMock.getProjectSuccess,
+
+  // tasks-mock-api
+  tasksMock.getAllTasksByProjectId,
+  tasksMock.getTasksByTasksId,
+  tasksMock.createTasks,
+  tasksMock.updateTasksByTasksId,
+  tasksMock.changeProcess,
+  tasksMock.deleteTasks,
 ];

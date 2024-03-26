@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import AvatarProject from "../../../components/AvatarProject/AvatarProject";
 import { Project, Size } from "../../../types/ProjectType";
 
@@ -8,15 +8,21 @@ type ProjectInfoProps = {
 
 const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
   const { projectProfile, views } = projectData.projectInfo;
+  const location = useLocation();
 
   const renderViews = () => {
     return views.map((view, index) => (
       <Link
         to={view}
         key={index}
-        className={`w-24 bg-primary-subtle flex justify-center cursor-pointer
+        className={`w-24 flex justify-center cursor-pointer
           ${index === 0 ? "rounded-tl-md" : "rounded-none"}
           ${index === views.length - 1 ? "rounded-tr-md" : "rounded-none"}
+          ${
+            location.pathname.includes(view)
+              ? "bg-primary text-white"
+              : "bg-primary-subtle"
+          }
         `}
       >
         {view}

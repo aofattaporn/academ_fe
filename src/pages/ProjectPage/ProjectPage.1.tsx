@@ -1,19 +1,12 @@
-import { Outlet, useOutletContext } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import useProject from "../../hooks/projectHook/useProject";
 import ProjectInfo from "./ProjectInfo/ProjectInfo";
 import ProjectInfoLoading from "./ProjectInfo/ProjectInfoLoading";
-import { Process, TaskPermission } from "../../types/ProjectType";
 import { useSelector } from "react-redux";
 import { RootState } from "../../stores/store";
 import TasksDetails from "./TasksDetails/TasksDetails";
-import { ToastContainer } from "react-toastify";
 
-type ContextType = {
-  taskPermission: TaskPermission | undefined;
-  process: Process[] | undefined;
-};
-
-const ProjectPage = () => {
+export const ProjectPage = () => {
   const { projectIsLoading, projectIsSuccess, projectData } = useProject();
   const tasksDetails = useSelector((state: RootState) => state.tasksDetails);
 
@@ -21,9 +14,7 @@ const ProjectPage = () => {
     <div className="flex text-dark font-roboto">
       <div
         className={`${
-          tasksDetails.isSideBar && projectData?.taskPermission.edit
-            ? "w-4/6"
-            : "w-full"
+          tasksDetails.isSideBar ? "w-4/6" : "w-full"
         } duration-700`}
       >
         <div className="bg-white w-full shadow-sm flex px-8 gap-8 items-end">
@@ -40,17 +31,8 @@ const ProjectPage = () => {
         />
       </div>
 
-      {projectData && projectData.taskPermission.edit ? (
-        <TasksDetails project={projectData} />
-      ) : null}
-
+      <TasksDetails project={projectData} />
       <ToastContainer />
     </div>
   );
 };
-
-export function useProjectPermission() {
-  return useOutletContext<ContextType>();
-}
-
-export default ProjectPage;

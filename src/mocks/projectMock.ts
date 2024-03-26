@@ -90,14 +90,19 @@ const getProjectSuccess = http.get("/api/v1/projects/:projectId", async () => {
         views: [Views.LIST, Views.BOARD, Views.TIMELINE, Views.CALENDAR],
         process: [
           {
-            processId: "process1",
-            processName: "Process 1",
-            processColor: "#ff0000",
+            processId: "1",
+            processName: "To Do",
+            processColor: "#C2C2C2",
           },
           {
-            processId: "process2",
-            processName: "Process 2",
-            processColor: "#00ff00",
+            processId: "2",
+            processName: "Inprogress",
+            processColor: "#F9E116",
+          },
+          {
+            processId: "3",
+            processName: "Done",
+            processColor: "#72C554",
           },
         ],
         members: [
@@ -114,14 +119,12 @@ const getProjectSuccess = http.get("/api/v1/projects/:projectId", async () => {
       },
       taskPermission: {
         addNew: true,
-        delete: false,
+        delete: true,
         edit: true,
         manageProcess: true,
       },
     },
   };
-
-  await delay(3000);
 
   return HttpResponse.json(mockRes, { status: 200 });
 });

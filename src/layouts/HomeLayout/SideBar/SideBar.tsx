@@ -30,7 +30,7 @@ const SideBar = () => {
     <div
       className={` ${
         isOpen ? "w-56" : "w-[84px]"
-      } bg-dark-purple p-4  pt-8 relative duration-300 shadow-lg bg-white`}
+      } bg-dark-purple p-4  pt-8 relative duration-300 shadow-lg bg-white h-full`}
     >
       <div
         className={`absolute cursor-pointer -right-3 top-3 w-8 h-8 border-dark-purple 

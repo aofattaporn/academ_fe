@@ -6,7 +6,6 @@ const mytasksApi = async (): Promise<MytaskType> => {
   return response.data.data;
 };
 
-
 const myTasksApi = { mytasksApi };
 
 export default myTasksApi;
