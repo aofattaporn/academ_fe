@@ -3,8 +3,13 @@ import { CreateTasks, Tasks } from "../types/MyTasksType";
 import axiosInstance from "./axiosInstance";
 import firebaseApi from "./firebaseApi";
 
-const getAllTasksByProjectId = async (projectId: string): Promise<Tasks[]> => {
+const getAllTasksByProjectId = async (
+  tasksData: Tasks[] | undefined,
+  projectId: string
+): Promise<Tasks[]> => {
   try {
+    if (tasksData) return tasksData;
+
     const token = await firebaseApi.getToken();
     const response = await axiosInstance.get(
       `api/v1/tasks/projects/${projectId}`,
@@ -14,6 +19,7 @@ const getAllTasksByProjectId = async (projectId: string): Promise<Tasks[]> => {
         },
       }
     );
+
     return response.data.data;
   } catch (error) {
     const errorCustom = error as ErrorCustom;

@@ -9,7 +9,6 @@ type BoardTileProps = {
 };
 
 const BoardTile = ({ tasks, process }: BoardTileProps) => {
-  console.log(process.processColor);
   return (
     <div className="h-screen min-h-fit w-80 font-roboto text-dark">
       <div className="my-4 shadow-3xl rounded-md bg-main flex items-center gap-4">

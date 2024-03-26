@@ -4,31 +4,36 @@ import tasksApi from "../../libs/tasksApi";
 import { useNavigate, useParams } from "react-router-dom";
 import { Tasks } from "../../types/MyTasksType";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../stores/store";
+import { saveAllTasks } from "../../stores/tasksSlice/allTasksSlice";
 
 const useAllTasks = () => {
   let { projectId } = useParams();
   const [tempTasks, setTempTasks] = useState<Tasks[]>([]);
+  const [activeId, setActiveId] = useState<string | null>(null);
+  const allTasks = useSelector((state: RootState) => state.allTasks.allTasks);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const {
     isLoading: allTaksIsLoading,
     isSuccess: allTaksIsSuccesss,
     isError: allTaksIsError,
-    refetch: allTaksRefetch,
     data: allTaksData,
     error: allTasksError,
+    refetch: allTaksRefetch,
   } = useQuery(
     QUERY_KEY.ALL_TASKS,
-    () => tasksApi.getAllTasksByProjectId(projectId as string),
+    () => tasksApi.getAllTasksByProjectId(allTasks, projectId as string),
     {
       refetchOnWindowFocus: false,
-      onSuccess(data) {
+      onSuccess(data: Tasks[]) {
+        dispatch(saveAllTasks(data));
         setTempTasks(data);
       },
     }
   );
-
-  const [activeId, setActiveId] = useState<string | null>(null);
-  const navigate = useNavigate();
 
   const mutation = useMutation({
     mutationFn: ({ tasks, processId }: { tasks: string; processId: string }) =>
