@@ -15,6 +15,7 @@ const Board = () => {
     allTasksError,
     allTaksData,
     tempTasks,
+    activeId,
     mutation,
     handleDragStart,
     handleDragEnd,
@@ -46,6 +47,7 @@ const Board = () => {
                     process={item}
                     tasks={allTaksData}
                     taskPermission={taskPermission}
+                    activeId={activeId}
                   />
                 );
               })
