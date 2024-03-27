@@ -1,6 +1,7 @@
 import moment from "moment";
 import { Tasks } from "../../../../types/MyTasksType";
 import { Avatar } from "@mui/material";
+import Tooltip from "@mui/material/Tooltip";
 
 type BoardItem = {
   tasks: Tasks;
@@ -13,7 +14,11 @@ const BoardItem = ({ tasks }: BoardItem) => {
 
       <div className="flex justify-between items-center mt-4">
         <p className=" text-gray-300">{moment(tasks.dueDate).format("l")}</p>
-        <Avatar alt={tasks.assignee} sx={{ width: 24, height: 24 }} />
+        <Tooltip title={tasks.assignee}>
+          <Avatar alt={tasks.assignee} sx={{ width: 24, height: 24 }}>
+            {tasks.assignee.at(0)}
+          </Avatar>
+        </Tooltip>
       </div>
     </div>
   );
