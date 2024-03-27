@@ -8,19 +8,25 @@ const getAllTasksByProjectId = async (
   projectId: string
 ): Promise<Tasks[]> => {
   try {
-    if (tasksData) return tasksData;
+    if (tasksData) {
+      console.log("caching");
+      return tasksData;
+    }
+    {
+      console.log("no caching");
 
-    const token = await firebaseApi.getToken();
-    const response = await axiosInstance.get(
-      `api/v1/tasks/projects/${projectId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+      const token = await firebaseApi.getToken();
+      const response = await axiosInstance.get(
+        `api/v1/tasks/projects/${projectId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-    return response.data.data;
+      return response.data.data;
+    }
   } catch (error) {
     const errorCustom = error as ErrorCustom;
     console.error("Error Get All Tasks :", errorCustom.description);

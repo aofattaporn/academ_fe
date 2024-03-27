@@ -27,7 +27,7 @@ function TasksDetails({ project }: TasksDetailsProps) {
     [QUERY_KEY.Tasks, tasksDetails.tasksSeletedId],
     () => tasksApi.getTasksByProjectId(tasksDetails.tasksSeletedId as string),
     {
-      enabled: !!tasksDetails.tasksSeletedId,
+      enabled: !!tasksDetails.tasksSeletedId && tasksDetails.isSideBar,
     }
   );
 

@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { QUERY_KEY } from "../../types/GenericType";
 import tasksApi from "../../libs/tasksApi";
 import { useNavigate, useParams } from "react-router-dom";
@@ -15,6 +15,7 @@ const useAllTasks = () => {
   const allTasks = useSelector((state: RootState) => state.allTasks.allTasks);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const {
     isLoading: allTaksIsLoading,
@@ -64,7 +65,7 @@ const useAllTasks = () => {
 
       if (processActive !== processOver) {
         mutation.mutate({ tasks: tasksActive, processId: processOver });
-        setTempTasks(() => {
+        queryClient.setQueryData(QUERY_KEY.ALL_TASKS, () => {
           return newTasks.map((task) => {
             if (task.tasksId === tasksActive) {
               return { ...task, processId: processOver };
@@ -74,7 +75,7 @@ const useAllTasks = () => {
           });
         });
       } else {
-        setTempTasks(newTasks);
+        queryClient.setQueryData(QUERY_KEY.ALL_TASKS, newTasks);
       }
     }
   };

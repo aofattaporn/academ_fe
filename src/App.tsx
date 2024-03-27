@@ -29,7 +29,7 @@ function App() {
         <Route path="/mytask" element={<MytaskPage />} />
         <Route path="/notification" element={<NotificationPage />} />
         <Route path="/projects" element={<AllMyProjectPage />} />
-        <Route path="/projects/:projectId" element={<ProjectPage />}>
+        <Route path="/projects/:projectId/" element={<ProjectPage />}>
           <Route path="list" element={<List />} />
           <Route path="board" element={<Board />} />
           <Route path="timeline" element={<List />} />
