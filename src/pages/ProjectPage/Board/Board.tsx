@@ -5,6 +5,7 @@ import useAllTasks from "../../../hooks/tasksHook/useAllTasks";
 import { COUNT_ITEMS_SKELETON } from "../../../types/ProjectType";
 import { useProjectPermission } from "../ProjectPage";
 import BoardTile from "./BoardTile/BoardTile";
+import { Tasks } from "../../../types/MyTasksType";
 
 const Board = () => {
   const { process, taskPermission } = useProjectPermission();
@@ -20,6 +21,7 @@ const Board = () => {
     handleDragStart,
     handleDragEnd,
     navigate,
+    findMaxTasks,
   } = useAllTasks();
 
   return (
@@ -48,6 +50,7 @@ const Board = () => {
                     tasks={allTaksData}
                     taskPermission={taskPermission}
                     activeId={activeId}
+                    maxTasks={findMaxTasks(allTaksData as Tasks[])}
                   />
                 );
               })

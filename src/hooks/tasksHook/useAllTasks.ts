@@ -87,6 +87,16 @@ const useAllTasks = () => {
     return newArray;
   }
 
+  const findMaxTasks = (allTasks: Tasks[]): number => {
+    const taskCounts: { [processId: string]: number } = {};
+    allTasks.forEach((task) => {
+      taskCounts[task.processId] = (taskCounts[task.processId] || 0) + 1;
+    });
+    const maxTasks = Math.max(...Object.values(taskCounts));
+
+    return maxTasks;
+  };
+
   return {
     allTaksIsLoading,
     allTaksIsSuccesss,
@@ -101,6 +111,7 @@ const useAllTasks = () => {
     allTaksRefetch,
     handleDragStart,
     handleDragEnd,
+    findMaxTasks,
   };
 };
 

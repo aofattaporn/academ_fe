@@ -16,6 +16,7 @@ type BoardTileProps = {
   tasks: Tasks[] | undefined;
   activeId: string | null;
   taskPermission: TaskPermission;
+  maxTasks: number;
 };
 
 const BoardTile = ({
@@ -23,6 +24,7 @@ const BoardTile = ({
   activeId,
   process,
   taskPermission,
+  maxTasks,
 }: BoardTileProps) => {
   const tasksDetails = useSelector((state: RootState) => state.tasksDetails);
   const dispatch = useDispatch();
@@ -49,18 +51,19 @@ const BoardTile = ({
   };
 
   return (
-    <div className="h-screen min-h-fit w-80 font-roboto text-dark">
+    <div className=" w-80 font-roboto text-dark">
       <div className="my-4 shadow-3xl rounded-md bg-main flex items-center gap-4">
         <div
           style={{ background: process.processColor }}
-          className={`w-4 h-12`}
+          className="w-4 h-12"
         ></div>
         <p>{process.processName}</p>
       </div>
 
-      {/* <BoardItem tasks={task} /> */}
-
-      <div className="h-svh p-4 my-4 shadow-md rounded-md bg-main">
+      <div
+        style={{ height: maxTasks * 150 }}
+        className="p-4 my-4 shadow-md rounded-md bg-main"
+      >
         {tasks
           ? tasks
               .filter((task) => task.processId === process.processId)
