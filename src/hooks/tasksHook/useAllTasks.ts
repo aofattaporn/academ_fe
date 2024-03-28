@@ -94,7 +94,7 @@ const useAllTasks = () => {
     });
     const maxTasks = Math.max(...Object.values(taskCounts));
 
-    return maxTasks;
+    return maxTasks + 1;
   };
 
   return {

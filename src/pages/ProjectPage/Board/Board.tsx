@@ -41,7 +41,11 @@ const Board = () => {
       ) : null}
       <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
         <div className="flex gap-12">
-          {process && allTaksIsSuccesss && tempTasks && taskPermission
+          {process &&
+          allTaksIsSuccesss &&
+          tempTasks &&
+          taskPermission &&
+          allTaksData
             ? process.map((item, index) => {
                 return (
                   <BoardTile

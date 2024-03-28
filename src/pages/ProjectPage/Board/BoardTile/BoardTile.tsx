@@ -10,10 +10,11 @@ import { Tasks } from "../../../../types/MyTasksType";
 import { Process, TaskPermission } from "../../../../types/ProjectType";
 import BoardItem from "../BoardItem/BoardItem";
 import { useRef } from "react";
+import CreateBoardItem from "../CreateBoardItem/CreateBoardItem";
 
 type BoardTileProps = {
   process: Process;
-  tasks: Tasks[] | undefined;
+  tasks: Tasks[];
   activeId: string | null;
   taskPermission: TaskPermission;
   maxTasks: number;
@@ -51,7 +52,7 @@ const BoardTile = ({
   };
 
   return (
-    <div className=" w-80 font-roboto text-dark">
+    <div className="w-80 font-roboto text-dark group/create">
       <div className="my-4 shadow-3xl rounded-md bg-main flex items-center gap-4">
         <div
           style={{ background: process.processColor }}
@@ -91,6 +92,19 @@ const BoardTile = ({
                 </button>
               ))
           : null}
+
+        {!tasks.some((task) => task.processId === process.processId) && (
+          <Droppable active={activeId} dropId={process.processId}>
+            <div className="my-4"></div>
+          </Droppable>
+        )}
+
+        {/* <CreateTasksItem
+          projectId={projectId as string}
+          processId={process.processId}
+        /> */}
+
+        {taskPermission.addNew ? <CreateBoardItem /> : null}
       </div>
     </div>
   );
