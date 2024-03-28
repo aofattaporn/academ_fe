@@ -1,16 +1,11 @@
-import { useSelector, useDispatch } from "react-redux";
 import Draggable from "../../../../hoc/Draggable";
 import Droppable from "../../../../hoc/Droppable";
-import {
-  openDetails,
-  seletedId,
-} from "../../../../stores/projectSlice/tastsDetailsSlice";
-import { RootState } from "../../../../stores/store";
+import { openDetails } from "../../../../stores/projectSlice/tastsDetailsSlice";
 import { Tasks } from "../../../../types/MyTasksType";
 import { Process, TaskPermission } from "../../../../types/ProjectType";
 import BoardItem from "../BoardItem/BoardItem";
-import { useRef } from "react";
 import CreateBoardItem from "../CreateBoardItem/CreateBoardItem";
+import useTasksHandle from "../../../../hooks/tasksHook/useTasksHandler";
 
 type BoardTileProps = {
   process: Process;
@@ -27,29 +22,8 @@ const BoardTile = ({
   taskPermission,
   maxTasks,
 }: BoardTileProps) => {
-  const tasksDetails = useSelector((state: RootState) => state.tasksDetails);
-  const dispatch = useDispatch();
-  const mouseDownPosition = useRef({ x: 0, y: 0 });
-
-  const handleMouseDown = (
-    event: React.MouseEvent<HTMLButtonElement>,
-    task: Tasks
-  ) => {
-    mouseDownPosition.current = { x: event.clientX, y: event.clientY };
-    dispatch(seletedId(task.tasksId));
-  };
-
-  const handleMouseUp = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const mouseUpPosition = { x: event.clientX, y: event.clientY };
-    if (
-      mouseUpPosition.x === mouseDownPosition.current.x &&
-      mouseUpPosition.y === mouseDownPosition.current.y
-    ) {
-      dispatch(openDetails(true));
-    } else {
-      if (!tasksDetails.isSideBar) dispatch(openDetails(false));
-    }
-  };
+  const { tasksDetails, dispatch, handleMouseDown, handleMouseUp } =
+    useTasksHandle();
 
   return (
     <div className="w-80 font-roboto text-dark group/create">
@@ -98,11 +72,6 @@ const BoardTile = ({
             <div className="my-4"></div>
           </Droppable>
         )}
-
-        {/* <CreateTasksItem
-          projectId={projectId as string}
-          processId={process.processId}
-        /> */}
 
         {taskPermission.addNew ? <CreateBoardItem /> : null}
       </div>

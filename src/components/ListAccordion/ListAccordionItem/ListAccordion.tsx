@@ -1,11 +1,4 @@
-import React, { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import {
-  openDetails,
-  seletedId,
-} from "../../../stores/projectSlice/tastsDetailsSlice";
-import { RootState } from "../../../stores/store";
+import { openDetails } from "../../../stores/projectSlice/tastsDetailsSlice";
 import TasksTile from "./TasksTile/TasksTile";
 import TaksTitle from "./TaksTitle/TaksTitle";
 import Droppable from "../../../hoc/Droppable";
@@ -15,6 +8,7 @@ import CreateTasksItem from "./CreateTasksItem/CreateTasksItem";
 import SettingTasksTile from "./SettingTasksTile/SettingTasksTile";
 import { Process, TaskPermission } from "../../../types/ProjectType";
 import { Tasks } from "../../../types/MyTasksType";
+import useTasksHandle from "../../../hooks/tasksHook/useTasksHandler";
 
 type ListAccordionProps = {
   taskPermission: TaskPermission;
@@ -29,35 +23,15 @@ const ListAccordion = ({
   tasks,
   taskPermission,
 }: ListAccordionProps) => {
-  const [isToggle, setIsToggle] = useState<boolean>(true);
-  const tasksDetails = useSelector((state: RootState) => state.tasksDetails);
-  const { projectId } = useParams();
-  const dispatch = useDispatch();
-  const mouseDownPosition = useRef({ x: 0, y: 0 });
-
-  const handleToggle = () => {
-    setIsToggle(!isToggle);
-  };
-
-  const handleMouseDown = (
-    event: React.MouseEvent<HTMLButtonElement>,
-    task: Tasks
-  ) => {
-    mouseDownPosition.current = { x: event.clientX, y: event.clientY };
-    dispatch(seletedId(task.tasksId));
-  };
-
-  const handleMouseUp = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const mouseUpPosition = { x: event.clientX, y: event.clientY };
-    if (
-      mouseUpPosition.x === mouseDownPosition.current.x &&
-      mouseUpPosition.y === mouseDownPosition.current.y
-    ) {
-      dispatch(openDetails(true));
-    } else {
-      if (!tasksDetails.isSideBar) dispatch(openDetails(false));
-    }
-  };
+  const {
+    projectId,
+    tasksDetails,
+    isToggle,
+    dispatch,
+    handleToggle,
+    handleMouseDown,
+    handleMouseUp,
+  } = useTasksHandle();
 
   return (
     <div className="w-full p-4 rounded-md shadow-3xl my-4">
