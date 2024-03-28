@@ -1,6 +1,6 @@
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { MouseEvent, useState } from "react";
+import { useState } from "react";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ConfirmDelete from "../../../Modal/ConfirmDelete";
 import { useMutation, useQueryClient } from "react-query";
@@ -15,10 +15,6 @@ type SettingTasksTileProps = {
 const SettingTasksTile = ({ tasksId }: SettingTasksTileProps) => {
   const queryClient = useQueryClient();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-
-  const handleOpenUserMenu = (event: MouseEvent<HTMLButtonElement>): void => {
-    setAnchorElUser(event.currentTarget);
-  };
 
   const handleCloseUserMenu = (): void => {
     setAnchorElUser(null);
@@ -58,7 +54,8 @@ const SettingTasksTile = ({ tasksId }: SettingTasksTileProps) => {
   return (
     <>
       <div className="invisible group-hover:visible text-dark font-roboto">
-        <IconButton
+        <div
+          className=" hover:bg-main rounded-md shadow-sm"
           onMouseDown={(e) => {
             e.stopPropagation();
             const target = e.currentTarget as HTMLElement;
@@ -66,7 +63,7 @@ const SettingTasksTile = ({ tasksId }: SettingTasksTileProps) => {
           }}
         >
           <MoreVertIcon />
-        </IconButton>
+        </div>
 
         <Menu
           anchorEl={anchorElUser}

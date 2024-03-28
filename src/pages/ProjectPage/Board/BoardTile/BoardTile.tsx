@@ -22,7 +22,7 @@ const BoardTile = ({
   taskPermission,
   maxTasks,
 }: BoardTileProps) => {
-  const { tasksDetails, dispatch, handleMouseDown, handleMouseUp } =
+  const { tasksDetails, dispatch, handleMouseDown, handleMouseUp, projectId } =
     useTasksHandle();
 
   return (
@@ -73,7 +73,12 @@ const BoardTile = ({
           </Droppable>
         )}
 
-        {taskPermission.addNew ? <CreateBoardItem /> : null}
+        {taskPermission.addNew ? (
+          <CreateBoardItem
+            projectId={projectId as string}
+            processId={process.processId}
+          />
+        ) : null}
       </div>
     </div>
   );

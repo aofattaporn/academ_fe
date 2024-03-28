@@ -1,10 +1,5 @@
 import { CircularProgress } from "@mui/material";
-import { useState, useRef } from "react";
-import { useQueryClient, useMutation } from "react-query";
-import tasksApi from "../../../../libs/tasksApi";
-import { ErrorCustom, QUERY_KEY } from "../../../../types/GenericType";
-import { CreateTasks, Tasks } from "../../../../types/MyTasksType";
-import { toast } from "react-toastify";
+import useCreateTasks from "../../../../hooks/tasksHook/useCreateTasks";
 import "react-toastify/dist/ReactToastify.css";
 
 type CreateTasksProps = {
@@ -13,43 +8,16 @@ type CreateTasksProps = {
 };
 
 const CreateTasksItem = ({ projectId, processId }: CreateTasksProps) => {
-  const queryClient = useQueryClient();
-  const [isCreating, setIsCreating] = useState<boolean>(false);
-  const [tasks, setTasks] = useState<string>("");
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const handleButtonClick = () => {
-    setIsCreating(true);
-    setTimeout(() => {
-      if (inputRef.current) {
-        inputRef.current.focus();
-      }
-    }, 0);
-  };
-
-  const handleSetTasks = (tasksName: string) => setTasks(tasksName);
-
-  const mutation = useMutation({
-    mutationFn: (data: CreateTasks) => tasksApi.createTasks(data),
-    onSuccess: (data: Tasks[]) => {
-      queryClient.setQueryData(QUERY_KEY.ALL_TASKS, data);
-      setTasks("");
-      if (inputRef.current) {
-        inputRef.current.focus();
-      }
-      toast.success("Create Tasks Success");
-    },
-    onError: (error: ErrorCustom) => {
-      toast.error(error.description, {});
-    },
-  });
-
-  const handleSubmit = () =>
-    mutation.mutate({
-      projectId: projectId,
-      processId: processId,
-      tasksName: tasks,
-    });
+  const {
+    isCreating,
+    inputRef,
+    mutation,
+    tasks,
+    setIsCreating,
+    handleButtonClick,
+    handleSetTasks,
+    handleSubmit,
+  } = useCreateTasks({ projectId, processId });
 
   const cancelButton = () => {
     return (
