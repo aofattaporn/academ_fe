@@ -58,15 +58,28 @@ const SettingTasksTile = ({ tasksId }: SettingTasksTileProps) => {
   return (
     <>
       <div className="invisible group-hover:visible text-dark font-roboto">
-        <IconButton onClick={handleOpenUserMenu}>
+        <IconButton
+          onMouseDown={(e) => {
+            e.stopPropagation();
+            const target = e.currentTarget as HTMLElement;
+            setAnchorElUser(target);
+          }}
+        >
           <MoreVertIcon />
         </IconButton>
+
         <Menu
           anchorEl={anchorElUser}
           open={Boolean(anchorElUser)}
           onClose={handleCloseUserMenu}
         >
-          <MenuItem className="flex gap-4" onClick={handleOpen}>
+          <MenuItem
+            className="flex gap-4"
+            onMouseDown={(e) => {
+              e.stopPropagation();
+              handleOpen();
+            }}
+          >
             <DeleteForeverIcon />
             <p>Delete</p>
           </MenuItem>
