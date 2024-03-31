@@ -32,7 +32,6 @@ const getClass = async (classId: string): Promise<Class> => {
     }
   };
 
-
 const classApi = {getAllClass,getClass};
 
 export default classApi;

@@ -30,6 +30,9 @@ const getAllClassSuccess = http.get("/api/v1/class/users/id", async () =>{
     return HttpResponse.json(mockRes, { status:200 });
 });
 
+const gettAllClassError = http.get("/api/v1/class/users/id", () =>
+  HttpResponse.error()
+);
 
 const getClassSuccess = http.get("/api/v1/class/:classId", async () =>{
     const mockRes: ResponseCustom<Class> = {
@@ -78,8 +81,13 @@ const getClassSuccess = http.get("/api/v1/class/:classId", async () =>{
     return HttpResponse.json(mockRes, { status: 200 });
 });
 
+const gettClassError = http.get("/api/v1/class/users/id", () =>
+  HttpResponse.error()
+);
 
 export const classMock = {
     getAllClassSuccess,
-    getClassSuccess
+    getClassSuccess,
+    gettAllClassError,
+    gettClassError
 }

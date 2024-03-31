@@ -13,6 +13,7 @@ import NavigateItem from "./NavigateItem/NavigateItem";
 import AcademTitle from "./AcademTitle/AcademTitle";
 import ToggleItem from "./ToggleItem/ToggleItem";
 import useAllMyProjects from "../../../hooks/projectHook/useAllMyProjects";
+import useAllClass from "../../../hooks/classHook/useAllClass";
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -25,6 +26,13 @@ const SideBar = () => {
   } = useAllMyProjects();
 
   // TODO : Get All Class
+  const {
+    classIsLoading,
+    classIsSuccess,
+    classIsError,
+    classData,
+    classRefetch,
+  } = useAllClass();
 
   return (
     <div
@@ -64,10 +72,11 @@ const SideBar = () => {
           title={PAGE_ITEM_CLASS}
           navigate={NAVIGATOR.CLASS}
           isOpen={isOpen}
-          isLoading={false}
-          isSuccess={false}
-          isError={true}
-          refetch={() => {}}
+          isLoading={classIsLoading}
+          isSuccess={classIsSuccess}
+          isError={classIsError}
+          refetch={() => classRefetch()}
+          data={classData}
         />
         <Divider />
       </ul>
