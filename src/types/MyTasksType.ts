@@ -39,8 +39,8 @@ export interface Tasks {
   tasksName: string;
   processId: string;
   assignee: string;
-  startDate: string;
-  dueDate: string;
+  startDate: string | Date | null;
+  dueDate: string | Date | null;
 }
 
 export interface CreateTasks {

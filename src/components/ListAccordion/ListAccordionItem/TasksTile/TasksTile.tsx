@@ -1,5 +1,3 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../stores/store";
 import { Tasks } from "../../../../types/MyTasksType";
 import moment from "moment";
 
@@ -8,6 +6,7 @@ type TasksTileProps = {
 };
 
 const TasksTile = ({ task }: TasksTileProps) => {
+  console.log(task);
   // const tasksDetails = useSelector((state: RootState) => state.tasksDetails);
   return (
     <div className={`flex gap-4 items-center p-1 group-hover:bg-gray-100`}>
