@@ -26,11 +26,15 @@ const useAllTasks = () => {
     refetch: allTaksRefetch,
   } = useQuery(
     QUERY_KEY.ALL_TASKS,
-    () => tasksApi.getAllTasksByProjectId(allTasks, projectId as string),
+    () =>
+      tasksApi.getAllTasksByProjectId(
+        allTasks[projectId as string],
+        projectId as string
+      ),
     {
       refetchOnWindowFocus: false,
       onSuccess(data: Tasks[]) {
-        dispatch(saveAllTasks(data));
+        dispatch(saveAllTasks({ tasks: data, projectId: projectId as string }));
         setTempTasks(data);
       },
     }
