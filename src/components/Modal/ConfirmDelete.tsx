@@ -41,12 +41,25 @@ const ConfirmDelete = ({
                 <CircularProgress color="inherit" size={16} />
               </Button>
             ) : (
-              <Button variant="contained" onClick={handleDelete} color="error">
+              <Button
+                variant="contained"
+                onMouseDown={(e) => {
+                  e.stopPropagation();
+                  handleDelete();
+                }}
+                color="error"
+              >
                 Delete
               </Button>
             )}
 
-            <Button onClick={handleClose} color="primary">
+            <Button
+              onMouseDown={(e) => {
+                e.stopPropagation();
+                handleClose();
+              }}
+              color="primary"
+            >
               Cancel
             </Button>
           </div>

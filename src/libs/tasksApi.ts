@@ -1,10 +1,15 @@
+import moment from "moment";
 import { ErrorCustom } from "../types/GenericType";
 import { CreateTasks, Tasks } from "../types/MyTasksType";
 import axiosInstance from "./axiosInstance";
 import firebaseApi from "./firebaseApi";
 
-const getAllTasksByProjectId = async (projectId: string): Promise<Tasks[]> => {
+const getAllTasksByProjectId = async (
+  tasksData: Tasks[] | undefined,
+  projectId: string
+): Promise<Tasks[]> => {
   try {
+    if (tasksData) return tasksData;
     const token = await firebaseApi.getToken();
     const response = await axiosInstance.get(
       `api/v1/tasks/projects/${projectId}`,
@@ -14,6 +19,7 @@ const getAllTasksByProjectId = async (projectId: string): Promise<Tasks[]> => {
         },
       }
     );
+
     return response.data.data;
   } catch (error) {
     const errorCustom = error as ErrorCustom;
@@ -55,6 +61,9 @@ const createTasks = async (data: CreateTasks): Promise<Tasks[]> => {
 };
 
 const updateTasks = async (tasksId: string, data: Tasks): Promise<Tasks> => {
+  data.dueDate = data.dueDate ? moment(data.dueDate).toDate() : null;
+  data.startDate = data.startDate ? moment(data.startDate).toDate() : null;
+
   try {
     const token = await firebaseApi.getToken();
     const response = await axiosInstance.put(`api/v1/tasks/${tasksId}`, data, {
@@ -62,6 +71,8 @@ const updateTasks = async (tasksId: string, data: Tasks): Promise<Tasks> => {
         Authorization: `Bearer ${token}`,
       },
     });
+
+    console.log(response.data.data);
 
     return response.data.data;
   } catch (error) {

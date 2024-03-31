@@ -46,12 +46,12 @@ const useCreateTasks = ({ processId, projectId }: useCreateTasksProps) => {
   return {
     isCreating,
     inputRef,
+    mutation,
     tasks,
     setIsCreating,
     handleButtonClick,
     handleSetTasks,
     handleSubmit,
-    mutation,
   };
 };
 

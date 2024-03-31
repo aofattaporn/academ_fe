@@ -101,4 +101,5 @@ export const SLICE_KEY = {
   USER: "user",
   ALL_PROJECT: "allProjectData",
   TASKS_DETAILS: "tasksDetails",
+  ALL_TASKS: "allTasks",
 };
