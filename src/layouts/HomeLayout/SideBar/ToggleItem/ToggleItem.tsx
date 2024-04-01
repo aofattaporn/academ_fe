@@ -14,7 +14,7 @@ type ToggleItemProps = {
   isLoading: boolean;
   isSuccess: boolean;
   isError: boolean;
-  data?: ListProject[];
+  data?: ListProject[] | ListClass[];
   refetch: () => void;
 };
 
