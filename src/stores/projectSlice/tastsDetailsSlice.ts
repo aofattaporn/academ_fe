@@ -23,9 +23,17 @@ export const tastsDetailsSlice = createSlice({
     seletedId: (state, action: PayloadAction<string>) => {
       state.tasksSeletedId = action.payload;
     },
+    openAndSeletedId: (
+      state,
+      action: PayloadAction<{ id: string; isOpen: boolean }>
+    ) => {
+      state.tasksSeletedId = action.payload.id;
+      state.isSideBar = action.payload.isOpen;
+    },
   },
 });
 
-export const { openDetails, seletedId } = tastsDetailsSlice.actions;
+export const { openDetails, seletedId, openAndSeletedId } =
+  tastsDetailsSlice.actions;
 
 export default tastsDetailsSlice.reducer;

@@ -2,11 +2,18 @@ import { Alert, Button } from "@mui/material";
 import useAllTasks from "../../../hooks/tasksHook/useAllTasks";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
-import { EventSourceInput } from "@fullcalendar/core/index.js";
+import { EventClickArg, EventSourceInput } from "@fullcalendar/core/index.js";
 import { Tasks } from "../../../types/MyTasksType";
 import moment from "moment";
 import { useProjectPermission } from "../ProjectPage";
 import DateItem from "./DateItem/DateItem";
+import { useDispatch } from "react-redux";
+import {
+  openAndSeletedId,
+  openDetails,
+} from "../../../stores/projectSlice/tastsDetailsSlice";
+import useTasksHandle from "../../../hooks/tasksHook/useTasksHandler";
+import { useEffect } from "react";
 
 const Calendar = () => {
   const { process } = useProjectPermission();
@@ -20,19 +27,28 @@ const Calendar = () => {
     navigate,
   } = useAllTasks();
 
+  const { dispatch, tasksDetails } = useTasksHandle();
+
   const convertToEventDate = (allTasks: Tasks[]): EventSourceInput => {
     const taskEvents: EventSourceInput = allTasks.map((task) => ({
       id: task.tasksId,
       backgroundColor:
         process?.find((item) => item.processId === task.processId)
-          ?.processColor || "defaultColor", // Use a default color if process is undefined or not found
+          ?.processColor || "defaultColor",
       title: task.tasksName,
       start: moment(task.startDate).format("YYYY-MM-DD"),
       end: moment(task.dueDate).format("YYYY-MM-DD"),
+      mutate: () => dispatch(openDetails(true)),
     }));
 
     return taskEvents;
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      window.dispatchEvent(new Event("resize"));
+    }, 600);
+  }, [tasksDetails.isSideBar]);
 
   return (
     <div className="p-6 text-dark font-roboto">
@@ -50,12 +66,19 @@ const Calendar = () => {
         </Alert>
       ) : null}
       {allTaksData && allTaksIsSuccesss ? (
-        <FullCalendar
-          plugins={[dayGridPlugin]}
-          initialView="dayGridMonth"
-          eventContent={DateItem}
-          events={convertToEventDate(allTaksData)}
-        />
+        <div>
+          <FullCalendar
+            plugins={[dayGridPlugin]}
+            initialView="dayGridMonth"
+            eventContent={DateItem}
+            events={convertToEventDate(allTaksData)}
+            eventClick={(arg: EventClickArg) => {
+              dispatch(openAndSeletedId({ id: arg.event.id, isOpen: true }));
+              const calendar = arg.view.calendar;
+              calendar.updateSize();
+            }}
+          />
+        </div>
       ) : null}
     </div>
   );
