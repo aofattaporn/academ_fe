@@ -29,3 +29,12 @@ body {
     rgba(147, 121, 224, 1) 100%
   );
 }
+
+.fc-h-event {
+  border: 0;
+  background-color: transparent;
+}
+
+.fc td {
+  height: 20%;
+}

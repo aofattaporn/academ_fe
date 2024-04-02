@@ -1,27 +1,38 @@
-import { DndContext } from "@dnd-kit/core";
 import { Alert, Button } from "@mui/material";
 import useAllTasks from "../../../hooks/tasksHook/useAllTasks";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
+import { EventSourceInput } from "@fullcalendar/core/index.js";
+import { Tasks } from "../../../types/MyTasksType";
+import moment from "moment";
+import { useProjectPermission } from "../ProjectPage";
+import DateItem from "./DateItem/DateItem";
 
 const Calendar = () => {
+  const { process } = useProjectPermission();
+
   const {
+    allTaksData,
     allTaksIsError,
+    allTaksIsSuccesss,
     allTasksError,
     mutation,
-    handleDragStart,
-    handleDragEnd,
     navigate,
   } = useAllTasks();
 
-  const events = [
-    {
-      title: "Meeting",
-      start: "2024-04-03",
-      end: "2024-04-03",
-    },
-    { title: "Event 2", start: "2024-04-01", end: "2024-04-03" },
-  ];
+  const convertToEventDate = (allTasks: Tasks[]): EventSourceInput => {
+    const taskEvents: EventSourceInput = allTasks.map((task) => ({
+      id: task.tasksId,
+      backgroundColor:
+        process?.find((item) => item.processId === task.processId)
+          ?.processColor || "defaultColor", // Use a default color if process is undefined or not found
+      title: task.tasksName,
+      start: moment(task.startDate).format("YYYY-MM-DD"),
+      end: moment(task.dueDate).format("YYYY-MM-DD"),
+    }));
+
+    return taskEvents;
+  };
 
   return (
     <div className="p-6 text-dark font-roboto">
@@ -38,25 +49,16 @@ const Calendar = () => {
           </Button>
         </Alert>
       ) : null}
-      <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+      {allTaksData && allTaksIsSuccesss ? (
         <FullCalendar
           plugins={[dayGridPlugin]}
           initialView="dayGridMonth"
-          eventContent={renderEventContent}
-          events={events}
+          eventContent={DateItem}
+          events={convertToEventDate(allTaksData)}
         />
-      </DndContext>
+      ) : null}
     </div>
   );
 };
-
-function renderEventContent(eventInfo: any) {
-  return (
-    <div className="bg-red h-9 font-bold p-1">
-      <b>{eventInfo.timeText}</b>
-      <i>{eventInfo.event.title}</i>
-    </div>
-  );
-}
 
 export default Calendar;
