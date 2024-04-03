@@ -60,3 +60,5 @@ export type TasksDetailsSchema = z.infer<typeof tasksDetailsSchema>;
 
 export const BTN_TASKS_SAVE = "Save";
 export const BTN_TASKS_CANCEL = "Cancel";
+export const LABEL_TASKS_START_DATE = "Start Date";
+export const LABEL_TASKS_DUE_DATE = "End Date";
