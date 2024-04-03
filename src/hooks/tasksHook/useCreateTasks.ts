@@ -33,12 +33,20 @@ const useCreateTasks = () => {
     onError: () => {},
   });
 
-  const handleSubmit = (projectId: string, processId: string) =>
+  const handleSubmit = (
+    projectId: string,
+    processId: string,
+    startDate?: string,
+    dueDate?: string
+  ) =>
     mutation.mutate({
       projectId: projectId,
       processId: processId,
       tasksName: tasks,
+      startDate: startDate,
+      dueDate: dueDate,
     });
+
   return {
     isCreating,
     inputRef,

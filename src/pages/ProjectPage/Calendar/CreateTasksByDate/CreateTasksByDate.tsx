@@ -1,6 +1,6 @@
 import { Backdrop, IconButton, TextareaAutosize } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import moment from "moment";
+import moment, { Moment } from "moment";
 import { useProjectPermission } from "../../ProjectPage";
 import { useState } from "react";
 import { Process } from "../../../../types/ProjectType";
@@ -22,12 +22,15 @@ type CreateTasksByDateProps = {
 const CreateTasksByDate = ({ handleClose }: CreateTasksByDateProps) => {
   const { process } = useProjectPermission();
   const { projectId } = useParams<string>();
+
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const [startDate, setStartDate] = useState<Moment | null>(moment());
+  const [dueDate, setDueDate] = useState<Moment | null>(moment());
   const [myProcess, setMyProcess] = useState<Process | undefined>(
     process?.at(0)
   );
 
-  const { mutation, handleSubmit } = useCreateTasks();
+  const { mutation, tasks, handleSetTasks, handleSubmit } = useCreateTasks();
 
   const handleSelectProcess = (selectProcess: Process) => {
     setMyProcess(selectProcess);
@@ -36,6 +39,9 @@ const CreateTasksByDate = ({ handleClose }: CreateTasksByDateProps) => {
 
   const handleSetAnchorElUser = (element: null | HTMLElement) =>
     setAnchorElUser(element);
+
+  const handleSetStartDate = (date: Moment | null) => setStartDate(date);
+  const handleSetDueDate = (date: Moment | null) => setDueDate(date);
 
   return (
     <Backdrop
@@ -50,8 +56,8 @@ const CreateTasksByDate = ({ handleClose }: CreateTasksByDateProps) => {
         </div>
         <main className=" py-2">
           <TextareaAutosize
-            defaultValue={""}
-            onChange={(e) => console.log(e.target.value)}
+            defaultValue={tasks}
+            onChange={(e) => handleSetTasks(e.target.value)}
             className="w-full text-3xl font-bold overflow-hidden border-none focus:outline-none px-8"
             autoFocus
           />
@@ -63,8 +69,16 @@ const CreateTasksByDate = ({ handleClose }: CreateTasksByDateProps) => {
               handleSetAnchorElUser={handleSetAnchorElUser}
               handleSelectProcess={handleSelectProcess}
             />
-            <DatePickerRow title={LABEL_TASKS_START_DATE} date={moment()} />
-            <DatePickerRow title={LABEL_TASKS_DUE_DATE} date={moment()} />
+            <DatePickerRow
+              title={LABEL_TASKS_START_DATE}
+              date={startDate}
+              handleSetDate={handleSetStartDate}
+            />
+            <DatePickerRow
+              title={LABEL_TASKS_DUE_DATE}
+              date={dueDate}
+              handleSetDate={handleSetDueDate}
+            />
           </div>
         </main>
         <footer className="flex justify-end  rounded-b-md">
@@ -72,7 +86,12 @@ const CreateTasksByDate = ({ handleClose }: CreateTasksByDateProps) => {
             title={BTN_TASKS_SAVE}
             isSaving={mutation.isLoading}
             handleSave={() =>
-              handleSubmit(projectId as string, myProcess?.processId as string)
+              handleSubmit(
+                projectId as string,
+                myProcess?.processId as string,
+                startDate?.toString() as string,
+                dueDate?.toString() as string
+              )
             }
           />
         </footer>

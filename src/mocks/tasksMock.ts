@@ -121,8 +121,8 @@ const createTasks = http.post("api/v1/tasks", async ({ request }) => {
         tasksName: newTasks.tasksName,
         processId: newTasks.processId,
         assignee: "",
-        startDate: "",
-        dueDate: "",
+        startDate: newTasks.startDate,
+        dueDate: newTasks.dueDate,
       },
     ],
   };

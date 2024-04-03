@@ -47,6 +47,8 @@ export interface CreateTasks {
   tasksName: string;
   projectId: string;
   processId: string;
+  startDate?: string | Date | null;
+  dueDate?: string | Date | null;
 }
 
 export const tasksDetailsSchema = z.object({
