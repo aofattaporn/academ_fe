@@ -57,3 +57,6 @@ export const tasksDetailsSchema = z.object({
 });
 
 export type TasksDetailsSchema = z.infer<typeof tasksDetailsSchema>;
+
+export const BTN_TASKS_SAVE = "Save";
+export const BTN_TASKS_CANCEL = "Cancel";

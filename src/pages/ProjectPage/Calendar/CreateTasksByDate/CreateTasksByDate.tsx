@@ -1,6 +1,5 @@
 import {
   Backdrop,
-  CircularProgress,
   IconButton,
   Menu,
   MenuItem,
@@ -14,6 +13,8 @@ import { useState } from "react";
 import { Process } from "../../../../types/ProjectType";
 import useCreateTasks from "../../../../hooks/tasksHook/useCreateTasks";
 import { useParams } from "react-router-dom";
+import TasksButton from "../../../../components/Button/TasksButton";
+import { BTN_TASKS_SAVE } from "../../../../types/MyTasksType";
 
 type CreateTasksByDateProps = {
   handleClose: () => void;
@@ -32,26 +33,6 @@ const CreateTasksByDate = ({ handleClose }: CreateTasksByDateProps) => {
   };
 
   const { mutation, handleSubmit } = useCreateTasks();
-
-  const saveButton = (isMuting: boolean) => {
-    return (
-      <button
-        className="items-center flex justify-center text-white bottom-0"
-        onClick={(e) => {
-          e.preventDefault();
-          handleSubmit(projectId as string, myProcess?.processId as string);
-        }}
-      >
-        <div className=" bg-info hover:bg-info-dark p-1 px-4 rounded-md flex justify-center">
-          {isMuting ? (
-            <CircularProgress size={24} color="inherit" />
-          ) : (
-            <p>Save</p>
-          )}
-        </div>
-      </button>
-    );
-  };
 
   return (
     <Backdrop
@@ -146,8 +127,14 @@ const CreateTasksByDate = ({ handleClose }: CreateTasksByDateProps) => {
             </div>
           </div>
         </main>
-        <footer className=" flex justify-end  rounded-b-md">
-          {saveButton(mutation.isLoading)}
+        <footer className="flex justify-end  rounded-b-md">
+          <TasksButton
+            title={BTN_TASKS_SAVE}
+            isSaving={mutation.isLoading}
+            handleSave={() =>
+              handleSubmit(projectId as string, myProcess?.processId as string)
+            }
+          />
         </footer>
       </div>
     </Backdrop>
