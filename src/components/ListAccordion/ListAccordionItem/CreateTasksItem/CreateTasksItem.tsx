@@ -17,7 +17,7 @@ const CreateTasksItem = ({ projectId, processId }: CreateTasksProps) => {
     handleButtonClick,
     handleSetTasks,
     handleSubmit,
-  } = useCreateTasks({ projectId, processId });
+  } = useCreateTasks();
 
   const cancelButton = () => {
     return (
@@ -38,7 +38,7 @@ const CreateTasksItem = ({ projectId, processId }: CreateTasksProps) => {
         className="items-center flex justify-center text-white bottom-0"
         onClick={(e) => {
           e.preventDefault();
-          handleSubmit();
+          handleSubmit(projectId, processId);
         }}
       >
         <div className=" bg-info hover:bg-info-dark p-1 px-4 rounded-md flex justify-center">

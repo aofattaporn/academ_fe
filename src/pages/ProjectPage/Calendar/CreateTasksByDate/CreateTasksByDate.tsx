@@ -1,6 +1,6 @@
 import {
   Backdrop,
-  Button,
+  CircularProgress,
   IconButton,
   Menu,
   MenuItem,
@@ -10,8 +10,10 @@ import CloseIcon from "@mui/icons-material/Close";
 import { DatePicker } from "@mui/x-date-pickers";
 import moment from "moment";
 import { useProjectPermission } from "../../ProjectPage";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Process } from "../../../../types/ProjectType";
+import useCreateTasks from "../../../../hooks/tasksHook/useCreateTasks";
+import { useParams } from "react-router-dom";
 
 type CreateTasksByDateProps = {
   handleClose: () => void;
@@ -19,14 +21,36 @@ type CreateTasksByDateProps = {
 
 const CreateTasksByDate = ({ handleClose }: CreateTasksByDateProps) => {
   const { process } = useProjectPermission();
+  const { projectId } = useParams<string>();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
   const [myProcess, mySetProcess] = useState<Process | undefined>(
     process?.at(0)
   );
 
   const handleCloseUserMenu = (): void => {
     setAnchorElUser(null);
+  };
+
+  const { mutation, handleSubmit } = useCreateTasks();
+
+  const saveButton = (isMuting: boolean) => {
+    return (
+      <button
+        className="items-center flex justify-center text-white bottom-0"
+        onClick={(e) => {
+          e.preventDefault();
+          handleSubmit(projectId as string, myProcess?.processId as string);
+        }}
+      >
+        <div className=" bg-info hover:bg-info-dark p-1 px-4 rounded-md flex justify-center">
+          {isMuting ? (
+            <CircularProgress size={24} color="inherit" />
+          ) : (
+            <p>Save</p>
+          )}
+        </div>
+      </button>
+    );
   };
 
   return (
@@ -123,7 +147,7 @@ const CreateTasksByDate = ({ handleClose }: CreateTasksByDateProps) => {
           </div>
         </main>
         <footer className=" flex justify-end  rounded-b-md">
-          <Button variant="contained">Save</Button>
+          {saveButton(mutation.isLoading)}
         </footer>
       </div>
     </Backdrop>
