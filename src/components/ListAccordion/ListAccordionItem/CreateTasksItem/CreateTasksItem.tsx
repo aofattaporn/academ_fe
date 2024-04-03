@@ -1,6 +1,11 @@
 import { CircularProgress } from "@mui/material";
 import useCreateTasks from "../../../../hooks/tasksHook/useCreateTasks";
 import "react-toastify/dist/ReactToastify.css";
+import TasksButton from "../../../Button/TasksButton";
+import {
+  BTN_TASKS_CANCEL,
+  BTN_TASKS_SAVE,
+} from "../../../../types/MyTasksType";
 
 type CreateTasksProps = {
   projectId: string;
@@ -17,40 +22,7 @@ const CreateTasksItem = ({ projectId, processId }: CreateTasksProps) => {
     handleButtonClick,
     handleSetTasks,
     handleSubmit,
-  } = useCreateTasks({ projectId, processId });
-
-  const cancelButton = () => {
-    return (
-      <button className="items-center flex justify-center text-white bottom-0">
-        <p
-          className="bg-gray-300 hover:bg-gray-400 p-1 px-4 rounded-md"
-          onClick={() => setIsCreating(false)}
-        >
-          Cancel
-        </p>
-      </button>
-    );
-  };
-
-  const saveButton = (isMuting: boolean) => {
-    return (
-      <button
-        className="items-center flex justify-center text-white bottom-0"
-        onClick={(e) => {
-          e.preventDefault();
-          handleSubmit();
-        }}
-      >
-        <div className=" bg-info hover:bg-info-dark p-1 px-4 rounded-md flex justify-center">
-          {isMuting ? (
-            <CircularProgress size={24} color="inherit" />
-          ) : (
-            <p>Save</p>
-          )}
-        </div>
-      </button>
-    );
-  };
+  } = useCreateTasks();
 
   if (isCreating) {
     return (
@@ -66,7 +38,16 @@ const CreateTasksItem = ({ projectId, processId }: CreateTasksProps) => {
             />
 
             <div className="flex gap-4">
-              {cancelButton()} {saveButton(mutation.isLoading)}
+              <TasksButton
+                title={BTN_TASKS_CANCEL}
+                isSaving={false}
+                handleSave={() => setIsCreating(false)}
+              />
+              <TasksButton
+                title={BTN_TASKS_SAVE}
+                isSaving={mutation.isLoading}
+                handleSave={() => handleSubmit(projectId, processId)}
+              />
             </div>
           </div>
         </div>

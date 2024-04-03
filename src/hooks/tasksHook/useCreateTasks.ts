@@ -4,11 +4,7 @@ import tasksApi from "../../libs/tasksApi";
 import { QUERY_KEY } from "../../types/GenericType";
 import { CreateTasks, Tasks } from "../../types/MyTasksType";
 
-type useCreateTasksProps = {
-  projectId: string;
-  processId: string;
-};
-const useCreateTasks = ({ processId, projectId }: useCreateTasksProps) => {
+const useCreateTasks = () => {
   const queryClient = useQueryClient();
   const [isCreating, setIsCreating] = useState<boolean>(false);
   const [tasks, setTasks] = useState<string>("");
@@ -37,12 +33,20 @@ const useCreateTasks = ({ processId, projectId }: useCreateTasksProps) => {
     onError: () => {},
   });
 
-  const handleSubmit = () =>
+  const handleSubmit = (
+    projectId: string,
+    processId: string,
+    startDate?: string,
+    dueDate?: string
+  ) =>
     mutation.mutate({
       projectId: projectId,
       processId: processId,
       tasksName: tasks,
+      startDate: startDate,
+      dueDate: dueDate,
     });
+
   return {
     isCreating,
     inputRef,

@@ -11,9 +11,9 @@ import ForgotPasswordPage from "./pages/AuthPage/ForgotPasswordPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import AllMyProjectPage from "./pages/AllMyProjectPage/AllMyProjectPage";
 import List from "./pages/ProjectPage/List/List";
-import DragDropPlayGround from "./pages/ProjectPage/DragDropPlayGround/DragDropPlayGround";
 import ProjectPage from "./pages/ProjectPage/ProjectPage";
 import Board from "./pages/ProjectPage/Board/Board";
+import Calendar from "./pages/ProjectPage/Calendar/Calendar";
 
 function App() {
   return (
@@ -33,7 +33,7 @@ function App() {
           <Route path="list" element={<List />} />
           <Route path="board" element={<Board />} />
           <Route path="timeline" element={<List />} />
-          <Route path="calendar" element={<DragDropPlayGround />} />
+          <Route path="calendar" element={<Calendar />} />
         </Route>
       </Route>
       <Route path="*" element={<NotFoundPage />} />
