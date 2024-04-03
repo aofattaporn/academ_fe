@@ -7,16 +7,17 @@ import { Tasks } from "../../../types/MyTasksType";
 import moment from "moment";
 import { useProjectPermission } from "../ProjectPage";
 import DateItem from "./DateItem/DateItem";
-import { useDispatch } from "react-redux";
 import {
   openAndSeletedId,
   openDetails,
 } from "../../../stores/projectSlice/tastsDetailsSlice";
 import useTasksHandle from "../../../hooks/tasksHook/useTasksHandler";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import CreateTasksByDate from "./CreateTasksByDate/CreateTasksByDate";
 
 const Calendar = () => {
   const { process } = useProjectPermission();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const {
     allTaksData,
@@ -77,7 +78,20 @@ const Calendar = () => {
               const calendar = arg.view.calendar;
               calendar.updateSize();
             }}
+            customButtons={{
+              myCustomButton: {
+                text: "Add Item",
+                click: () => setIsOpen(true),
+              },
+            }}
+            headerToolbar={{
+              left: "title",
+              end: "myCustomButton today prev,next",
+            }}
           />
+          {isOpen ? (
+            <CreateTasksByDate handleClose={() => setIsOpen(false)} />
+          ) : null}
         </div>
       ) : null}
     </div>
