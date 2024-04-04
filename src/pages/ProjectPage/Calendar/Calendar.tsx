@@ -87,7 +87,7 @@ const Calendar = () => {
             headerToolbar={{
               left: "today prev,next",
               center: "title",
-              right: `${taskPermission?.addNew ? "addTasksButton " : ""}`,
+              right: taskPermission?.addNew ? "addTasksButton" : "",
             }}
           />
           {isOpen ? (

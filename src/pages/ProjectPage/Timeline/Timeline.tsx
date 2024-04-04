@@ -144,7 +144,7 @@ const DateItemX = (eventInfo: EventContentArg) => {
         xxx
       </div>
       <div className="h-9 font-bold  text-dark shadow-md border-none w-full flex items-center my-1 bg-white hover:cursor-pointer">
-        <i className="px-4 ">{eventInfo.event.title}</i>
+        <i className="px-2">{eventInfo.event.title}</i>
       </div>
     </div>
   );

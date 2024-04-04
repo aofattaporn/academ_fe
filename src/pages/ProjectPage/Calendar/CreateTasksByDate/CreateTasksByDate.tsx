@@ -43,6 +43,10 @@ const CreateTasksByDate = ({ handleClose }: CreateTasksByDateProps) => {
   const handleSetStartDate = (date: Moment | null) => setStartDate(date);
   const handleSetDueDate = (date: Moment | null) => setDueDate(date);
 
+  if (mutation.isSuccess) {
+    handleClose();
+  }
+
   return (
     <Backdrop
       sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
