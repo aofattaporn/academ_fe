@@ -5,6 +5,7 @@ import ToggleTitle from "./ToggleTitle/ToggleTitle";
 import SeemoreButton from "./SeemoreButton/SeemoreButton";
 import { ListProject } from "../../../../types/ProjectType";
 import ToggleTile from "./ToggleTile/ToggleTile";
+import { ListClass } from "../../../../types/ClassType";
 
 type ToggleItemProps = {
   title: string;
@@ -14,7 +15,8 @@ type ToggleItemProps = {
   isLoading: boolean;
   isSuccess: boolean;
   isError: boolean;
-  data?: ListProject[] | ListClass[];
+  dataProject?: ListProject[];
+  dataClass?: ListClass[];
   refetch: () => void;
 };
 
@@ -26,10 +28,12 @@ const ToggleItem = ({
   isLoading,
   isSuccess,
   isError,
-  data,
+  dataProject,
+  dataClass,
   refetch,
 }: ToggleItemProps) => {
   const { projectId } = useParams();
+  const { classId } = useParams();
   const [isCollapse, setIsCollapse] = useState<boolean>(false);
 
   useEffect(() => {
@@ -62,7 +66,37 @@ const ToggleItem = ({
           ></div>
         ) : null}
 
-        {isSuccess
+        {isSuccess ? (
+          <>
+            {dataProject && dataProject.length > 0
+              ? dataProject.map((project, index) => (
+                  <ToggleTile
+                    key={index}
+                    title={title}
+                    ItemId={project.projectId}
+                    ItemName={project.projectProfile.projectName}
+                    isSelected={project.projectId === projectId}
+                    avatarColor={project.projectProfile.avatarColor}
+                  />
+                ))
+              : null}
+
+            {dataClass && dataClass.length > 0
+              ? dataClass.map((classItem, index) => (
+                  <ToggleTile
+                    key={index}
+                    title={title}
+                    ItemId={classItem.classId}
+                    ItemName={classItem.classProfile.className}
+                    isSelected={classItem.classId === classId}
+                    avatarColor={classItem.classProfile.avatarColor}
+                  />
+                ))
+              : null}
+          </>
+        ) : null}
+
+        {/* {isSuccess
           ? data?.map((project, index) => (
               <ToggleTile
                 key={index}
@@ -73,7 +107,7 @@ const ToggleItem = ({
                 avatarColor={project.projectProfile.avatarColor}
               />
             ))
-          : null}
+          : null} */}
 
         {isError ? (
           <div

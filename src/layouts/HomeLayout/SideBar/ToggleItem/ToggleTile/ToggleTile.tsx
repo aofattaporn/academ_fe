@@ -42,8 +42,11 @@ const ToggleTile = ({
           ) : null}
 
           {title === PAGE_ITEM_CLASS ? (
-            <div className="bg-main flex px-2 items-center justify-center rounded-md shadow-sm overflow-hidden">
-              <p className="font-bold text-dark">{"CSS112"}</p>
+            <div
+              style={{ backgroundColor: avatarColor }}
+              className="h-6 w-6 flex px-2 items-center justify-center rounded-md shadow-sm overflow-hidden"
+            >
+              <p className="font-bold text-dark">{ItemName.charAt(7)}</p>
             </div>
           ) : null}
 

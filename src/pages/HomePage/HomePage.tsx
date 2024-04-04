@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import MytaskBox from "./component/MyTasksBox";
 import { GreetingType } from "../../types/HomeType";
 import ProjectBox from "./component/projectbox";
-import ClassBox from "./component/classbox";
+import ClassBox from "./component/ClassBox";
 
 const HomePage = () => {
   const currentHour = new Date().getHours();

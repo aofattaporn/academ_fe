@@ -64,7 +64,7 @@ const SideBar = () => {
           isSuccess={projectIsSuccess}
           isError={projectIsError}
           refetch={() => projectRefetch()}
-          data={projectData}
+          dataProject={projectData}
         />
         <Divider />
         <ToggleItem
@@ -76,7 +76,7 @@ const SideBar = () => {
           isSuccess={classIsSuccess}
           isError={classIsError}
           refetch={() => classRefetch()}
-          data={classData}
+          dataClass={classData}
         />
         <Divider />
       </ul>

@@ -3,6 +3,7 @@ import { projectMock } from "./projectMock";
 import userMock from "./userMock";
 import homeMock from "./homeMock";
 import myTasksMock from "./mytasksMock";
+import { classMock } from "./classMock";
 
 // ingeneral case handler
 export const handlers = [
@@ -20,4 +21,6 @@ export const handlers = [
   projectMock.createProjectSuccess,
   projectMock.getAllProjectSuccess,
   projectMock.getProjectSuccess,
+  classMock.getAllClassSuccess,
+  classMock.getClassSuccess,
 ];
