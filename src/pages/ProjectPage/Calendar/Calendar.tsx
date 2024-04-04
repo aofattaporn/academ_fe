@@ -79,14 +79,15 @@ const Calendar = () => {
               calendar.updateSize();
             }}
             customButtons={{
-              myCustomButton: {
-                text: "Add Item",
+              addTasksButton: {
+                text: "Add Task",
                 click: () => setIsOpen(true),
               },
             }}
             headerToolbar={{
-              left: "title",
-              end: "myCustomButton today prev,next",
+              left: "today prev,next",
+              center: "title",
+              right: "addTasksButton",
             }}
           />
           {isOpen ? (

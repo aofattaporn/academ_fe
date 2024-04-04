@@ -4,15 +4,21 @@ import moment from "moment";
 import { useState, useEffect } from "react";
 import useAllTasks from "../../../hooks/tasksHook/useAllTasks";
 import useTasksHandle from "../../../hooks/tasksHook/useTasksHandler";
-import { openDetails } from "../../../stores/projectSlice/tastsDetailsSlice";
+import {
+  openAndSeletedId,
+  openDetails,
+} from "../../../stores/projectSlice/tastsDetailsSlice";
 import { Tasks } from "../../../types/MyTasksType";
 import CreateTasksByDate from "../Calendar/CreateTasksByDate/CreateTasksByDate";
-import DateItem from "../Calendar/DateItem/DateItem";
 import { useProjectPermission } from "../ProjectPage";
 import resourceTimelinePlugin from "@fullcalendar/resource-timeline";
 import { ResourceInput } from "@fullcalendar/resource/index.js";
 import { Process } from "../../../types/ProjectType";
-import { EventContentArg, EventSourceInput } from "@fullcalendar/core";
+import {
+  EventClickArg,
+  EventContentArg,
+  EventSourceInput,
+} from "@fullcalendar/core";
 
 const Timeline = () => {
   const { process } = useProjectPermission();
@@ -64,7 +70,7 @@ const Timeline = () => {
 
   return (
     <div className="p-6 text-dark font-roboto">
-      <h1 className="text-2xl font-bold">Time</h1>
+      <h1 className="text-2xl font-bold">Timeline</h1>
       {(allTaksIsError && allTasksError) || mutation.isError ? (
         <Alert severity="error" className="my-8">
           Something went wrong
@@ -84,8 +90,8 @@ const Timeline = () => {
             initialView="resourceTimelineMonth"
             eventContent={DateItemX}
             customButtons={{
-              myCustomButton: {
-                text: "Add Item",
+              addTasksButton: {
+                text: "Add Task",
                 click: () => setIsOpen(true),
               },
             }}
@@ -93,7 +99,7 @@ const Timeline = () => {
               left: "today prev,next",
               center: "title",
               right:
-                "resourceTimelineTenDay,resourceTimelineMonth,resourceTimelineYear",
+                "addTasksButton resourceTimelineTenDay,resourceTimelineMonth,resourceTimelineYear",
             }}
             views={{
               resourceTimelineTenDay: {
@@ -107,6 +113,11 @@ const Timeline = () => {
             resourceGroupField="process"
             resources={convertProcesResouce(process)}
             events={convertToEventDate(allTaksData)}
+            eventClick={(arg: EventClickArg) => {
+              dispatch(openAndSeletedId({ id: arg.event.id, isOpen: true }));
+              const calendar = arg.view.calendar;
+              calendar.updateSize();
+            }}
           />
 
           {isOpen ? (
