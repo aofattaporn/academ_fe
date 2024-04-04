@@ -92,14 +92,7 @@ const getTasksByTasksId = http.get("api/v1/tasks/:tasksId", async () => {
     status: 200,
     message: RESPONSE_OK,
     description: "Success",
-    data: {
-      tasksId: "123456789",
-      tasksName: "Complete Report222",
-      processId: "1",
-      assignee: "John Doe",
-      startDate: "2024-03-06T00:00:00.000Z",
-      dueDate: "2024-03-06T00:00:00.000Z",
-    },
+    data: MOCK_TASKS.at(0),
   };
 
   await delay(1000);

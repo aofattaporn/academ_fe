@@ -1,16 +1,23 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { Moment } from "moment";
-import { DatePicker } from "@mui/x-date-pickers";
 import { TextareaAutosize } from "@mui/base/TextareaAutosize";
 import { toast } from "react-toastify";
 
 import SaveTasksDetails from "../../../components/Button/SaveTasksDetails";
 import tasksApi from "../../../libs/tasksApi";
 import { ErrorCustom, QUERY_KEY } from "../../../types/GenericType";
-import { BTN_UPDATE_TASKS, Tasks } from "../../../types/MyTasksType";
-import { Project } from "../../../types/ProjectType";
+import {
+  BTN_UPDATE_TASKS,
+  LABEL_TASKS_DUE_DATE,
+  LABEL_TASKS_START_DATE,
+  Tasks,
+} from "../../../types/MyTasksType";
+import { Member, Process, Project } from "../../../types/ProjectType";
 import moment from "moment";
+import DatePickerRow from "../../../components/DatePicker/DatePickerRow";
+import ProcessDropdown from "../../../components/Dropdown/ProcessDropdown";
+import MemberDropdown from "../../../components/Dropdown/MemberDropdown";
 
 type TasksDetailsSuccessProps = {
   tasksData: Tasks;
@@ -51,7 +58,16 @@ const TasksDetailsSuccess = ({
 
   const mutation = useMutation({
     mutationFn: (updateTasks: Tasks) =>
-      tasksApi.updateTasks(tasks.tasksId, updateTasks),
+      tasksApi.updateTasks(tasks.tasksId, {
+        tasksId: tasks.tasksId,
+        tasksName: updateTasks.tasksName,
+        processId: myProcess?.processId
+          ? myProcess?.processId
+          : updateTasks.processId,
+        assignee: assignee ? assignee.userName : "",
+        startDate: updateTasks.startDate,
+        dueDate: updateTasks.dueDate,
+      }),
     onSuccess: (updatedTasks: Tasks) => {
       setTasks(updatedTasks);
       setIsDirty(false);
@@ -75,6 +91,28 @@ const TasksDetailsSuccess = ({
     },
   });
 
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const handleSetAnchorElUser = (element: null | HTMLElement) =>
+    setAnchorElUser(element);
+
+  const [myProcess, setMyProcess] = useState<Process | undefined>(
+    projectData.projectInfo.process.at(0)
+  );
+
+  const [assignee, setAssignee] = useState<Member | undefined>();
+
+  const handleSelectProcess = (selectProcess: Process) => {
+    setMyProcess(selectProcess);
+    setIsDirty(true);
+    setAnchorElUser(null);
+  };
+
+  const handleSelectMember = (assignee: Member | undefined) => {
+    setAssignee(assignee);
+    setIsDirty(true);
+    setAnchorElUser(null);
+  };
+
   return (
     <div className="pt-1 overflow-hidden whitespace-nowrap overflow-ellipsis w-full">
       <TextareaAutosize
@@ -92,37 +130,36 @@ const TasksDetailsSuccess = ({
             {projectData?.projectInfo.projectProfile.projectName}
           </p>
         </div>
-        <div className=" grid grid-cols-3 gap-4 items-center">
-          <p className="bg-main py-2 flex justify-center rounded-md">
-            start date
-          </p>
-          <div className="col-span-2">
-            <DatePicker
-              onChange={handleStartDate}
-              defaultValue={tasks.startDate ? moment(tasks.startDate) : null}
-              slotProps={{
-                field: { clearable: true },
-                textField: { size: "small" },
-              }}
-            />
-          </div>
-        </div>
 
-        <div className=" grid grid-cols-3 gap-4 items-center">
-          <p className="bg-main py-2 flex justify-center rounded-md">
-            due date
-          </p>
-          <div className="col-span-2">
-            <DatePicker
-              onChange={handleEndDate}
-              defaultValue={tasks.dueDate ? moment(tasks.dueDate) : null}
-              slotProps={{
-                field: { clearable: true },
-                textField: { size: "small" },
-              }}
-            />
-          </div>
-        </div>
+        <MemberDropdown
+          member={assignee}
+          allMembers={projectData.projectInfo.members}
+          anchorElUser={anchorElUser}
+          handleSetAnchorElUser={handleSetAnchorElUser}
+          handleSelectMember={handleSelectMember}
+        />
+
+        <ProcessDropdown
+          process={myProcess as Process}
+          allProcess={projectData.projectInfo.process}
+          anchorElUser={anchorElUser}
+          handleSetAnchorElUser={handleSetAnchorElUser}
+          handleSelectProcess={handleSelectProcess}
+        />
+
+        <DatePickerRow
+          title={LABEL_TASKS_START_DATE}
+          date={tasks.startDate ? moment(tasks.startDate) : null}
+          handleSetDate={handleStartDate}
+          isClearabler={true}
+        />
+
+        <DatePickerRow
+          title={LABEL_TASKS_DUE_DATE}
+          date={tasks.dueDate ? moment(tasks.dueDate) : null}
+          handleSetDate={handleEndDate}
+          isClearabler={true}
+        />
       </div>
 
       <SaveTasksDetails

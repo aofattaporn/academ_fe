@@ -67,6 +67,7 @@ const CreateTasksByDate = ({ handleClose }: CreateTasksByDateProps) => {
           />
           <div className="grid grid-cols-1 gap-2 my-2">
             <ProcessDropdown
+              key="Process"
               process={myProcess as Process}
               allProcess={process as Process[]}
               anchorElUser={anchorElUser}
@@ -77,11 +78,13 @@ const CreateTasksByDate = ({ handleClose }: CreateTasksByDateProps) => {
               title={LABEL_TASKS_START_DATE}
               date={startDate}
               handleSetDate={handleSetStartDate}
+              isClearabler={false}
             />
             <DatePickerRow
               title={LABEL_TASKS_DUE_DATE}
               date={dueDate}
               handleSetDate={handleSetDueDate}
+              isClearabler={false}
             />
           </div>
         </main>
