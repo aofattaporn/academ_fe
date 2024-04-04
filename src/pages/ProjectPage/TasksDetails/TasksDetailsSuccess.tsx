@@ -18,6 +18,9 @@ import moment from "moment";
 import DatePickerRow from "../../../components/DatePicker/DatePickerRow";
 import ProcessDropdown from "../../../components/Dropdown/ProcessDropdown";
 import MemberDropdown from "../../../components/Dropdown/MemberDropdown";
+import SettingTasksTile from "../../../components/ListAccordion/ListAccordionItem/SettingTasksTile/SettingTasksTile";
+import { useDispatch } from "react-redux";
+import { openDetails } from "../../../stores/projectSlice/tastsDetailsSlice";
 
 type TasksDetailsSuccessProps = {
   tasksData: Tasks;
@@ -115,11 +118,14 @@ const TasksDetailsSuccess = ({
 
   return (
     <div className="pt-1 overflow-hidden whitespace-nowrap overflow-ellipsis w-full">
-      <TextareaAutosize
-        defaultValue={tasks.tasksName}
-        onChange={(e) => handleTasksName(e.target.value)}
-        className="w-full text-3xl font-bold overflow-hidden border-none focus:outline-none"
-      />
+      <div className="flex">
+        <TextareaAutosize
+          defaultValue={tasks.tasksName}
+          onChange={(e) => handleTasksName(e.target.value)}
+          className="w-full text-3xl font-bold overflow-hidden border-none focus:outline-none"
+        />
+        <SettingTasksTile tasksId={tasks.tasksId} isVisible={true} />
+      </div>
 
       <div className="my-8 grid grid-cols-1 gap-4">
         <div className="flex gap-8 items-center">
