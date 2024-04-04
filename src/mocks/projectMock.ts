@@ -118,10 +118,10 @@ const getProjectSuccess = http.get("/api/v1/projects/:projectId", async () => {
         ],
       },
       taskPermission: {
-        addNew: true,
-        delete: true,
-        edit: true,
-        manageProcess: true,
+        addNew: false,
+        delete: false,
+        edit: false,
+        manageProcess: false,
       },
     },
   };

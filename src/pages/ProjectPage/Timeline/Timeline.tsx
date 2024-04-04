@@ -10,6 +10,9 @@ import CreateTasksByDate from "../Calendar/CreateTasksByDate/CreateTasksByDate";
 import DateItem from "../Calendar/DateItem/DateItem";
 import { useProjectPermission } from "../ProjectPage";
 import resourceTimelinePlugin from "@fullcalendar/resource-timeline";
+import { ResourceInput } from "@fullcalendar/resource/index.js";
+import { Process } from "../../../types/ProjectType";
+import { EventContentArg, EventSourceInput } from "@fullcalendar/core";
 
 const Timeline = () => {
   const { process } = useProjectPermission();
@@ -26,9 +29,21 @@ const Timeline = () => {
 
   const { dispatch, tasksDetails } = useTasksHandle();
 
-  const convertToEventDate = (allTasks: Tasks[]): ResourceSourceInput => {
-    const taskEvents: ResourceSourceInput = allTasks.map((task) => ({
+  const convertProcesResouce = (processes: Process[]): ResourceInput[] => {
+    const processEvents: ResourceInput[] = processes.map((process) => ({
+      id: process.processId,
+      process: process.processName,
+      resourceId: process.processName,
+      title: " ",
+    }));
+
+    return processEvents;
+  };
+
+  const convertToEventDate = (allTasks: Tasks[]): EventSourceInput => {
+    const taskEvents: EventSourceInput = allTasks.map((task) => ({
       id: task.tasksId,
+      resourceId: task.processId,
       backgroundColor:
         process?.find((item) => item.processId === task.processId)
           ?.processColor || "defaultColor",
@@ -62,14 +77,12 @@ const Timeline = () => {
           </Button>
         </Alert>
       ) : null}
-      {allTaksData && allTaksIsSuccesss ? (
+      {allTaksData && allTaksIsSuccesss && process ? (
         <div>
           <FullCalendar
             plugins={[resourceTimelinePlugin]}
             initialView="resourceTimelineMonth"
-            eventContent={DateItem}
-            resources={[]}
-            events={convertToEventDate(allTaksData)}
+            eventContent={DateItemX}
             customButtons={{
               myCustomButton: {
                 text: "Add Item",
@@ -77,20 +90,50 @@ const Timeline = () => {
               },
             }}
             headerToolbar={{
-              left: "title",
-              end: "myCustomButton today prev,next",
+              left: "today prev,next",
+              center: "title",
+              right:
+                "resourceTimelineTenDay,resourceTimelineMonth,resourceTimelineYear",
             }}
-            // eventClick={(arg: EventClickArg) => {
-            //   dispatch(openAndSeletedId({ id: arg.event.id, isOpen: true }));
-            //   const calendar = arg.view.calendar;
-            //   calendar.updateSize();
-            // }}
+            views={{
+              resourceTimelineTenDay: {
+                type: "resourceTimeline",
+                duration: { days: 10 },
+                buttonText: "10 days",
+              },
+            }}
+            aspectRatio={1.2}
+            editable={true}
+            resourceGroupField="process"
+            resources={convertProcesResouce(process)}
+            events={convertToEventDate(allTaksData)}
           />
+
           {isOpen ? (
             <CreateTasksByDate handleClose={() => setIsOpen(false)} />
           ) : null}
         </div>
       ) : null}
+    </div>
+  );
+};
+
+const DateItemX = (eventInfo: EventContentArg) => {
+  return (
+    <div className="flex h-9 items-center">
+      <div
+        style={{
+          backgroundColor: eventInfo.backgroundColor,
+          color: eventInfo.backgroundColor,
+          width: "1rem",
+        }}
+        className="bg-black h-full rounded-s "
+      >
+        xxx
+      </div>
+      <div className="h-9 font-bold  text-dark shadow-md border-none w-full flex items-center my-1 bg-white hover:cursor-pointer">
+        <i className="px-4 ">{eventInfo.event.title}</i>
+      </div>
     </div>
   );
 };
