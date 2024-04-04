@@ -16,7 +16,12 @@ type TasksDetailsProps = {
 
 function TasksDetails({ project }: TasksDetailsProps) {
   const dispatch = useDispatch();
-  const tasksDetails = useSelector((state: RootState) => state.tasksDetails);
+  const tasksSeletedId = useSelector(
+    (state: RootState) => state.tasksDetails.tasksSeletedId
+  );
+  const isSideBar = useSelector(
+    (state: RootState) => state.tasksDetails.isSideBar
+  );
 
   const {
     isLoading: TasksIsLoading,
@@ -24,17 +29,17 @@ function TasksDetails({ project }: TasksDetailsProps) {
     isError: TasksIsError,
     data: TaksData,
   } = useQuery(
-    [QUERY_KEY.Tasks, tasksDetails.tasksSeletedId],
-    () => tasksApi.getTasksByProjectId(tasksDetails.tasksSeletedId as string),
+    [QUERY_KEY.Tasks, tasksSeletedId],
+    () => tasksApi.getTasksByProjectId(tasksSeletedId as string),
     {
-      enabled: !!tasksDetails.tasksSeletedId && tasksDetails.isSideBar,
+      enabled: !!tasksSeletedId && isSideBar,
     }
   );
 
   return (
     <div
       className={`duration-700 overflow-x-hidden bg-white max-h-full shadow-3xl h-screen font-roboto text-dark
-      ${tasksDetails.isSideBar ? "md:w-4/6 lg:w-2/6 w-full" : "w-0"}`}
+      ${isSideBar ? "md:w-4/6 lg:w-2/6 w-full" : "w-0"}`}
     >
       <div className="py-8 pl-4 pr-12">
         <div className="flex gap-4 items-start">
