@@ -21,7 +21,7 @@ import {
 } from "@fullcalendar/core";
 
 const Timeline = () => {
-  const { process } = useProjectPermission();
+  const { process, taskPermission } = useProjectPermission();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const {
@@ -98,8 +98,9 @@ const Timeline = () => {
             headerToolbar={{
               left: "today prev,next",
               center: "title",
-              right:
-                "addTasksButton resourceTimelineTenDay,resourceTimelineMonth,resourceTimelineYear",
+              right: `${
+                taskPermission?.addNew ? "addTasksButton " : ""
+              }resourceTimelineTenDay,resourceTimelineMonth,resourceTimelineYear`,
             }}
             views={{
               resourceTimelineTenDay: {

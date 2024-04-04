@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 import CreateTasksByDate from "./CreateTasksByDate/CreateTasksByDate";
 
 const Calendar = () => {
-  const { process } = useProjectPermission();
+  const { process, taskPermission } = useProjectPermission();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const {
@@ -87,7 +87,7 @@ const Calendar = () => {
             headerToolbar={{
               left: "today prev,next",
               center: "title",
-              right: "addTasksButton",
+              right: `${taskPermission?.addNew ? "addTasksButton " : ""}`,
             }}
           />
           {isOpen ? (
