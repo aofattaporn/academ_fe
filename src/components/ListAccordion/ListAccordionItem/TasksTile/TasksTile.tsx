@@ -9,7 +9,7 @@ type TasksTileProps = {
 const TasksTile = ({ task }: TasksTileProps) => {
   return (
     <tr
-      className={`grid grid-cols-4 p-1 group-hover:bg-gray-100 w-full items-center p-2`}
+      className={`grid grid-cols-4 p-2 group-hover:bg-gray-100 w-full items-center`}
     >
       <td className="text-center overflow-x-scroll">
         <div>{task.tasksName}</div>

@@ -7,124 +7,119 @@ const myTasksSuccess = http.get("/api/v1/projects/tasks/users", () => {
     status: 200,
     message: "Success",
     description: "Get Project My Tasks Success",
-    data: 
-      {
-        project : [
-          {
-            project_id:"1234",
-            projectName:"Jit:D",
-            projectStartDate:"12/4/2024",
-            projectEndDate:"12/7/2024",
-            createdAt:"12/7/2024",
-            updatedAt:"12/8/2024",
-            process:[
-              {
-                process_id:"1",
-                processsName:"To Do"
-              },
-              {
-                process_id:"2",
-                processsName:"In Progress"
-              },
-              {
-                process_id:"3",
-                processsName:"Done"
-              },
-            ]
+    data: {
+      project: [
+        {
+          projectProfile: {
+            avatarColor: "#6985FF",
+            projectName: "Jit:D",
           },
-          {
-            project_id:"12",
-            projectName:"Tung Tee",
-            projectStartDate:"12/4/2024",
-            projectEndDate:"12/7/2024",
-            createdAt:"12/7/2024",
-            updatedAt:"12/8/2024",
-            process:[
-              {
-                process_id:"1",
-                processsName:"To Do"
-              },
-              {
-                process_id:"2",
-                processsName:"In Progress"
-              },
-              {
-                process_id:"3",
-                processsName:"Review"
-              },
-              {
-                process_id:"4",
-                processsName:"Done"
-              },
-            ]
-          }
-        ],
-        tasks: [
-          {
-            tasks_id:"2",
-            project_id:"1234",
-            taskName:"Do something please. 1",
-            assignee_id:"userID",
-            dueDate:"14/7/2024",
-            startDate:"12/7/2024",
-            createdAt:"12/7/2024",
-            updatedAt:"12/7/2024",
-            process_id:"1",
+          projectId: "2",
+          projectStartDate: "12/4/2024",
+          projectEndDate: "12/7/2024",
+          createdAt: "12/7/2024",
+          updatedAt: "12/8/2024",
+          process: [
+            {
+              processId: "1",
+              processName: "To Do",
+              processColor: "#C2C2C2",
+            },
+            {
+              processId: "2",
+              processName: "Inprogress",
+              processColor: "#F9E116",
+            },
+            {
+              processId: "3",
+              processName: "Done",
+              processColor: "#72C554",
+            },
+          ],
+        },
+        {
+          projectProfile: {
+            avatarColor: "#FFA8A7",
+            projectName: "Tung Tee",
           },
-          {
-            tasks_id:"3",
-            project_id:"1234",
-            taskName:"Do something please. 2",
-            assignee_id:"userID",
-            dueDate:"14/7/2024",
-            startDate:"12/7/2024",
-            createdAt:"12/7/2024",
-            updatedAt:"12/7/2024",
-            process_id:"3",
-          },
-          {
-            tasks_id:"4",
-            project_id:"1234",
-            taskName:"Do something please. 3",
-            assignee_id:"userID",
-            dueDate:"14/7/2024",
-            startDate:"12/7/2024",
-            createdAt:"12/7/2024",
-            updatedAt:"12/7/2024",
-            process_id:"2",
-          },
-          {
-            tasks_id:"5",
-            project_id:"12",
-            taskName:"Do something please. 4",
-            assignee_id:"userID",
-            dueDate:"14/7/2024",
-            startDate:"12/7/2024",
-            createdAt:"12/7/2024",
-            updatedAt:"12/7/2024",
-            process_id:"2",
-          },
-          {
-            tasks_id:"4",
-            project_id:"1234",
-            taskName:"Do something please. 5",
-            assignee_id:"userID",
-            dueDate:"15/7/2024",
-            startDate:"12/7/2024",
-            createdAt:"12/7/2024",
-            updatedAt:"12/7/2024",
-            process_id:"2",
-          },
-        ]
-      },
-    
+          projectId: "1",
+          projectStartDate: "12/4/2024",
+          projectEndDate: "12/7/2024",
+          createdAt: "12/7/2024",
+          updatedAt: "12/8/2024",
+          process: [
+            {
+              processId: "1",
+              processName: "To Do",
+              processColor: "#C2C2C2",
+            },
+            {
+              processId: "2",
+              processName: "Inprogress",
+              processColor: "#F9E116",
+            },
+            {
+              processId: "3",
+              processName: "Done",
+              processColor: "#72C554",
+            },
+          ],
+        },
+      ],
+      tasks: [
+        {
+          tasksId: "2",
+          processId: "1",
+          tasksName: "Do something please. 1",
+          assignee: "userID",
+          dueDate: "14/7/2024",
+          startDate: "12/7/2024",
+          projectId: "1",
+        },
+        {
+          tasksId: "3",
+          projectId: "2",
+          processId: "2",
+          tasksName: "Do something please. 2",
+          assignee: "userID",
+          dueDate: "14/7/2024",
+          startDate: "12/7/2024",
+        },
+        {
+          tasksId: "4",
+          projectId: "2",
+          processId: "1",
+          tasksName: "Do something please. 3",
+          assignee: "userID",
+          dueDate: "14/7/2024",
+          startDate: "12/7/2024",
+        },
+        {
+          tasksId: "5",
+          projectId: "2",
+          processId: "1",
+          tasksName: "Do something please. 4",
+          assignee: "userID",
+          dueDate: "14/7/2024",
+          startDate: "12/7/2024",
+        },
+        {
+          tasksId: "4",
+          projectId: "3",
+          processId: "1234",
+          tasksName: "Do something please. 5",
+          assignee: "userID",
+          dueDate: "15/7/2024",
+          startDate: "12/7/2024",
+        },
+      ],
+    },
   };
   return HttpResponse.json(mockRes, { status: 200 });
 });
 
-
 export const myTasksMock = {
-    myTasksSuccess,
+  myTasksSuccess,
 };
 
 export default myTasksMock;

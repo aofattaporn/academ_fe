@@ -41,11 +41,11 @@ const List = () => {
           ? process.map((item, index) => {
               return (
                 <ListAccordion
+                  tasks={tempTasks}
+                  process={item}
+                  key={index}
                   activeId={activeId}
                   taskPermission={taskPermission}
-                  process={item}
-                  tasks={tempTasks}
-                  key={index}
                 />
               );
             })
