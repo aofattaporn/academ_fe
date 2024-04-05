@@ -9,6 +9,8 @@ import SettingTasksTile from "./SettingTasksTile/SettingTasksTile";
 import { Process, TaskPermission } from "../../../types/ProjectType";
 import { Tasks } from "../../../types/MyTasksType";
 import useTasksHandle from "../../../hooks/tasksHook/useTasksHandler";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { IconButton } from "@mui/material";
 
 type ListAccordionProps = {
   taskPermission: TaskPermission;
@@ -52,7 +54,10 @@ const ListAccordion = ({
         {tasks
           .filter((task) => task.processId === process.processId)
           .map((task, index) => (
-            <div className="flex justify-between group" key={index}>
+            <div
+              className="flex justify-between group items-center"
+              key={index}
+            >
               <button
                 className="w-full flex"
                 onMouseUp={handleMouseUp}
@@ -74,7 +79,7 @@ const ListAccordion = ({
                 </Droppable>
               </button>
               {taskPermission.delete ? (
-                <SettingTasksTile tasksId={task.tasksId} />
+                <SettingTasksTile tasksId={task.tasksId} isVisible={false} />
               ) : null}
             </div>
           ))}

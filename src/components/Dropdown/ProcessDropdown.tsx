@@ -22,13 +22,15 @@ const ProcessDropdown = ({
       <p
         style={{ backgroundColor: process.processColor }}
         className="col-span-2 flex justify-center h-full items-center text-white rounded-md hover:cursor-pointer"
+        id={"Process"}
         onClick={(e) => handleSetAnchorElUser(e.currentTarget)}
       >
         {process.processName}
       </p>
       <Menu
+        id="Process"
         anchorEl={anchorElUser}
-        open={Boolean(anchorElUser)}
+        open={Boolean(anchorElUser) && anchorElUser?.id === "Process"}
         onClose={() => handleSetAnchorElUser(null)}
       >
         {allProcess
