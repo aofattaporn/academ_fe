@@ -22,15 +22,15 @@ const MOCK_TASKS: Tasks[] = [
   },
   {
     tasksId: "987654321",
-    tasksName: "Review Presentation",
+    tasksName: "Review Presentation A ",
     processId: "1",
     assignee: "Jane Smith",
-    startDate: "2024-04-1T00:00:00.000Z",
+    startDate: "",
     dueDate: "2024-03-28T00:00:00.000Z",
   },
   {
     tasksId: "987654325",
-    tasksName: "Review Presentation",
+    tasksName: "Review Presentation B",
     processId: "1",
     assignee: "Jane Smith",
     startDate: "2024-04-01T00:00:00.000Z",
@@ -41,7 +41,7 @@ const MOCK_TASKS: Tasks[] = [
     tasksName: "Review Testcase",
     processId: "2",
     assignee: "Jane Smith",
-    startDate: "2024-04-02T00:00:00.000Z",
+    startDate: "2024-04-01T00:00:00.000Z",
     dueDate: "2024-04-10T00:00:00.000Z",
   },
   {
@@ -92,14 +92,7 @@ const getTasksByTasksId = http.get("api/v1/tasks/:tasksId", async () => {
     status: 200,
     message: RESPONSE_OK,
     description: "Success",
-    data: {
-      tasksId: "123456789",
-      tasksName: "Complete Report222",
-      processId: "1",
-      assignee: "John Doe",
-      startDate: "2024-03-06T00:00:00.000Z",
-      dueDate: "2024-03-06T00:00:00.000Z",
-    },
+    data: MOCK_TASKS.at(0),
   };
 
   await delay(1000);

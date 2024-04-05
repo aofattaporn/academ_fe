@@ -1,4 +1,4 @@
-import { IconButton, Menu, MenuItem } from "@mui/material";
+import { Menu, MenuItem } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useState } from "react";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
@@ -8,12 +8,17 @@ import tasksApi from "../../../../libs/tasksApi";
 import { ErrorCustom, QUERY_KEY } from "../../../../types/GenericType";
 import { Tasks } from "../../../../types/MyTasksType";
 import { toast } from "react-toastify";
+import { openDetails } from "../../../../stores/projectSlice/tastsDetailsSlice";
+import { useDispatch } from "react-redux";
 
 type SettingTasksTileProps = {
   tasksId: string;
+  isVisible: boolean;
+  handleClose?: () => void;
 };
-const SettingTasksTile = ({ tasksId }: SettingTasksTileProps) => {
+const SettingTasksTile = ({ tasksId, isVisible }: SettingTasksTileProps) => {
   const queryClient = useQueryClient();
+  const dispatch = useDispatch();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const handleCloseUserMenu = (): void => {
@@ -42,6 +47,7 @@ const SettingTasksTile = ({ tasksId }: SettingTasksTileProps) => {
       );
       setOpen(false);
       setAnchorElUser(null);
+      dispatch(openDetails(false));
       toast.success("Delete tasks success");
     },
     onError: (error: ErrorCustom) => {
@@ -53,7 +59,10 @@ const SettingTasksTile = ({ tasksId }: SettingTasksTileProps) => {
 
   return (
     <>
-      <div className="invisible group-hover:visible text-dark font-roboto">
+      <div
+        className={`${isVisible ? "visible" : "invisible group-hover:visible"}
+         text-dark font-roboto`}
+      >
         <div
           className=" hover:bg-main rounded-md shadow-sm"
           onMouseDown={(e) => {

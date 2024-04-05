@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 import CreateTasksByDate from "./CreateTasksByDate/CreateTasksByDate";
 
 const Calendar = () => {
-  const { process } = useProjectPermission();
+  const { process, taskPermission } = useProjectPermission();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const {
@@ -79,14 +79,15 @@ const Calendar = () => {
               calendar.updateSize();
             }}
             customButtons={{
-              myCustomButton: {
-                text: "Add Item",
+              addTasksButton: {
+                text: "Add Task",
                 click: () => setIsOpen(true),
               },
             }}
             headerToolbar={{
-              left: "title",
-              end: "myCustomButton today prev,next",
+              left: "today prev,next",
+              center: "title",
+              right: taskPermission?.addNew ? "addTasksButton" : "",
             }}
           />
           {isOpen ? (

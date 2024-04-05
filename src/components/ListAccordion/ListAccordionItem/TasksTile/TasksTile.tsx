@@ -1,3 +1,4 @@
+import { Avatar } from "@mui/material";
 import { Tasks } from "../../../../types/MyTasksType";
 import moment from "moment";
 
@@ -6,22 +7,26 @@ type TasksTileProps = {
 };
 
 const TasksTile = ({ task }: TasksTileProps) => {
-  console.log(task);
-  // const tasksDetails = useSelector((state: RootState) => state.tasksDetails);
   return (
-    <div className={`flex gap-4 items-center p-1 group-hover:bg-gray-100`}>
-      <div className="w-4 h-4 p-4 rounded-md"></div>
-      <div className="w-full grid grid-cols-4">
-        <p className="text-center overflow-x-scroll">{task.tasksName}</p>
-        <p className="text-center">{task.assignee}</p>
-        <p className="text-center">
-          {task.startDate ? moment(task.startDate).format("l") : ""}
-        </p>
-        <p className="text-center">
-          {task.dueDate ? moment(task.dueDate).format("l") : ""}
-        </p>
-      </div>
-    </div>
+    <tr
+      className={`grid grid-cols-4 p-1 group-hover:bg-gray-100 w-full items-center p-2`}
+    >
+      <td className="text-center overflow-x-scroll">
+        <div>{task.tasksName}</div>
+      </td>
+      <td className="text-center flex justify-center gap-4">
+        <Avatar alt={task.assignee} sx={{ width: 20, height: 20 }}>
+          {task.assignee.at(0)}
+        </Avatar>
+        {task.assignee}
+      </td>
+      <td className="text-center">
+        {task.startDate ? moment(task.startDate).format("l") : ""}
+      </td>
+      <td className="text-center">
+        {task.dueDate ? moment(task.dueDate).format("l") : ""}
+      </td>
+    </tr>
   );
 };
 

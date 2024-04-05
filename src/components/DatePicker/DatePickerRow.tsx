@@ -1,13 +1,19 @@
 import { DatePicker } from "@mui/x-date-pickers";
-import moment, { Moment } from "moment";
+import { Moment } from "moment";
 
 type DatePickerRowProps = {
   title: string;
   date: Moment | null;
   handleSetDate: (date: Moment | null) => void;
+  isClearabler: boolean;
 };
 
-const DatePickerRow = ({ title, date, handleSetDate }: DatePickerRowProps) => {
+const DatePickerRow = ({
+  title,
+  date,
+  isClearabler,
+  handleSetDate,
+}: DatePickerRowProps) => {
   return (
     <div className="grid grid-cols-3 gap-4 items-center">
       <p className=" col-span-1 bg-main py-2 flex justify-center rounded-md">
@@ -15,9 +21,10 @@ const DatePickerRow = ({ title, date, handleSetDate }: DatePickerRowProps) => {
       </p>
       <div className="col-span-2 w-full">
         <DatePicker
-          defaultValue={moment(date)}
+          defaultValue={date}
           onChange={handleSetDate}
           slotProps={{
+            field: { clearable: isClearabler },
             textField: {
               size: "small",
               style: {
