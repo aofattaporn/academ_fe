@@ -1,11 +1,17 @@
 import { useQuery } from "react-query";
 import ListAccordionProjects from "../../components/ListAccordion/ListAccordionProjects/ListAccordionProjects";
 import myTasksApi from "../../libs/mytaskApi";
-import TaskProject from "./component/TasksProject";
 import { QUERY_KEY } from "../../types/GenericType";
+import { Button } from "@mui/base";
+import { Alert } from "@mui/material";
+import { useNavigate } from "react-router";
+import ListAccordionLoading from "../../components/ListAccordion/ListAccordionLoading/ListAccordionLoading";
+import ListAccordionProjectsLoading from "../../components/ListAccordion/ListAccordionProjects/ListAccordionProjectsLoading";
+import { COUNT_ITEMS_SKELETON } from "../../types/ProjectType";
 
 const MytaskPage = () => {
-  const { isLoading, isError, isSuccess, data, error } = useQuery(
+  const navigate = useNavigate();
+  const { isLoading, isError, isSuccess, data } = useQuery(
     QUERY_KEY.MY_TASKS,
     () => myTasksApi.mytasksApi(),
     {
@@ -22,8 +28,19 @@ const MytaskPage = () => {
         </div>
       </div>
       <div className="p-8">
-        {isLoading ? <div> isLoading</div> : null}
-        {isError ? <div> isLoading</div> : null}
+        {isLoading
+          ? Array.from({ length: COUNT_ITEMS_SKELETON }).map((_, index) => {
+              return <ListAccordionProjectsLoading key={index} />;
+            })
+          : null}
+        {isError ? (
+          <Alert severity="error" className="my-8">
+            Something went wrong
+            <Button className="normal-case" onClick={() => navigate(0)}>
+              Try Again
+            </Button>
+          </Alert>
+        ) : null}
         {isSuccess && data
           ? data.project.map((project, index) => (
               <ListAccordionProjects
