@@ -9,8 +9,6 @@ import SettingTasksTile from "./SettingTasksTile/SettingTasksTile";
 import { Process, TaskPermission } from "../../../types/ProjectType";
 import { Tasks } from "../../../types/MyTasksType";
 import useTasksHandle from "../../../hooks/tasksHook/useTasksHandler";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { IconButton } from "@mui/material";
 
 type ListAccordionProps = {
   taskPermission: TaskPermission;
@@ -50,7 +48,7 @@ const ListAccordion = ({
           isToggle ? "h-fit mt-4" : "h-0 overflow-hidden"
         }`}
       >
-        <TaksTitle />
+        <TaksTitle isEdit={taskPermission.edit} />
         {tasks
           .filter((task) => task.processId === process.processId)
           .map((task, index) => (
