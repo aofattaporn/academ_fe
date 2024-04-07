@@ -127,7 +127,7 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
                   </ListItemIcon>
                   <ListItemText>Archive</ListItemText>
                 </MenuItem>
-                <MenuItem>
+                <MenuItem color="error">
                   <ListItemIcon>
                     <DeleteOutlineIcon fontSize="small" />
                   </ListItemIcon>

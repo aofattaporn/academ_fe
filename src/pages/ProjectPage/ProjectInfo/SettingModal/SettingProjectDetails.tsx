@@ -1,10 +1,5 @@
 import TextFeildInputComp from "../../../../components/Field/TextFeildInputComp";
-import {
-  ProjectDetails,
-  ProjectInfo,
-  ProjectProfile,
-  Size,
-} from "../../../../types/ProjectType";
+import { ProjectDetails, Size } from "../../../../types/ProjectType";
 import DatePickerRow from "../../../../components/DatePicker/DatePickerRow";
 import CreateProjectButtonComp from "../../../../components/Button/CreateProjectButtonComp";
 import projectApi from "../../../../libs/projectApi";
@@ -12,11 +7,11 @@ import { useQuery } from "react-query";
 import { QUERY_KEY } from "../../../../types/GenericType";
 import { useState } from "react";
 import { CircularProgress } from "@mui/material";
-import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../stores/store";
 import AvatarProject from "../../../../components/AvatarProject/AvatarProject";
 import moment from "moment";
+import ColorSelection from "../../../../components/Field/ColorSelection";
 
 const SettingProjectDetails = () => {
   const [projectDetails, setProjectDetails] = useState<ProjectDetails>({
@@ -66,7 +61,7 @@ const SettingProjectDetails = () => {
 
   return (
     <>
-      <div className="flex justify-between gap-4 items-end">
+      <div className="flex justify-between gap-4 items-start">
         <AvatarProject
           projectName={projectDetails?.projectProfile.projectName}
           color={projectDetails?.projectProfile.avatarColor}
@@ -81,21 +76,8 @@ const SettingProjectDetails = () => {
             value={projectDetails?.projectProfile.projectName as string}
             handleProjectName={handleProjectName}
           />
+          <ColorSelection />
         </div>
-      </div>
-
-      <div className="bg-main flex gap-2 p-2 rounded-md">
-        <div
-          style={{ backgroundColor: "#FFFFFF" }}
-          className=" rounded-full w-4 h-4"
-        ></div>
-        <div className=" rounded-full w-4 h-4 bg-gray-200"></div>
-        <div className=" rounded-full w-4 h-4 bg-gray-200"></div>
-        <div className=" rounded-full w-4 h-4 bg-gray-200"></div>
-        <div className=" rounded-full w-4 h-4 bg-gray-200"></div>
-        <div className=" rounded-full w-4 h-4 bg-gray-200"></div>
-        <div className=" rounded-full w-4 h-4 bg-gray-200"></div>
-        <div className=" rounded-full w-4 h-4 bg-gray-200"></div>
       </div>
 
       <DatePickerRow
