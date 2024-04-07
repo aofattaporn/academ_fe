@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import AvatarProject from "../../../components/AvatarProject/AvatarProject";
-import { Project, Size } from "../../../types/ProjectType";
+import { PROJECT_SETTING, Project, Size } from "../../../types/ProjectType";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
 import TuneIcon from "@mui/icons-material/Tune";
@@ -18,6 +18,10 @@ import {
   MenuItem,
 } from "@mui/material";
 import { useState, MouseEvent } from "react";
+import { useDispatch } from "react-redux";
+import { openModal } from "../../../stores/modalSlice/modalSlice";
+import SettingProjectDetails from "./SettingModal/SettingProjectDetails";
+import ManageProjectPermissions from "./SettingModal/ManageProjectPermissions";
 
 type ProjectInfoProps = {
   projectData: Project;
@@ -26,6 +30,7 @@ type ProjectInfoProps = {
 const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
   const { projectProfile, views } = projectData.projectInfo;
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -57,6 +62,26 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
     ));
   };
 
+  const handleOpenTasksDetails = () => {
+    setAnchorElUser(null);
+    dispatch(
+      openModal({
+        title: PROJECT_SETTING.PROJECR_DETAILS,
+        children: <SettingProjectDetails />,
+      })
+    );
+  };
+
+  const handleOpenProjectPermissions = () => {
+    setAnchorElUser(null);
+    dispatch(
+      openModal({
+        title: PROJECT_SETTING.MANAGE_PROJECT_PERMISSIONS,
+        children: <ManageProjectPermissions />,
+      })
+    );
+  };
+
   return (
     <div className="w-full flex justify-between items-center">
       <div className="flex gap-4 pt-2">
@@ -80,13 +105,13 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                <MenuItem>
+                <MenuItem onClick={handleOpenTasksDetails}>
                   <ListItemIcon>
                     <ModeEditOutlineIcon fontSize="small" />
                   </ListItemIcon>
                   <ListItemText>Edit project Details</ListItemText>
                 </MenuItem>
-                <MenuItem>
+                <MenuItem onClick={handleOpenProjectPermissions}>
                   <ListItemIcon>
                     <TuneIcon fontSize="small" />
                   </ListItemIcon>
@@ -115,16 +140,17 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
       <div>
         <Button
           startIcon={<PeopleIcon />}
+          size="medium"
           sx={{
             textTransform: "none",
             borderColor: "#AF8AE2",
-            backgroundColor: "#AF8AE2",
+            color: "#AF8AE2",
             "&:hover": {
+              color: "#FFFFF",
               borderColor: "#AF8AE2",
-              backgroundColor: "#AF8AE2",
             },
           }}
-          variant="contained"
+          variant="outlined"
         >
           Share
         </Button>

@@ -3,9 +3,11 @@ import userSlice from "./userSlice/userSlice";
 import projectSlice from "./projectSlice/projectSlice";
 import tastsDetailsSlice from "./projectSlice/tastsDetailsSlice";
 import allTasksSlice from "./tasksSlice/allTasksSlice";
+import modalSlice from "./modalSlice/modalSlice";
 
 export const store = configureStore({
   reducer: {
+    modal: modalSlice,
     projects: projectSlice,
     user: userSlice,
     tasksDetails: tastsDetailsSlice,

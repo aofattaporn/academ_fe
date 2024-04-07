@@ -100,6 +100,7 @@ export const QUERY_KEY = {
 
 export const SLICE_KEY = {
   USER: "user",
+  MODAL: "MODAL",
   ALL_PROJECT: "allProjectData",
   TASKS_DETAILS: "tasksDetails",
   ALL_TASKS: "allTasks",

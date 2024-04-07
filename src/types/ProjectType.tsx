@@ -7,6 +7,11 @@ export const COUNT_ITEMS_SKELETON: number = 3;
 export const BTN_CREATE_PROJECT: string = "Create Project";
 export const PLACHOLDER_INPUT_PROJECT: string = "Enter your project name";
 
+export const PROJECT_SETTING = {
+  PROJECR_DETAILS: "Project Details",
+  MANAGE_PROJECT_PERMISSIONS: "Manage project permissions",
+};
+
 export enum Views {
   LIST = "List",
   BOARD = "Board",
