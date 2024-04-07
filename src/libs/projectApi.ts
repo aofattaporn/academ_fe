@@ -1,4 +1,10 @@
-import { CreateProject, ListProject, Project } from "../types/ProjectType";
+import {
+  CreateProject,
+  ListProject,
+  Project,
+  ProjectDetails,
+  ProjectInfo,
+} from "../types/ProjectType";
 import axiosInstance from "./axiosInstance";
 import firebaseApi from "./firebaseApi";
 
@@ -33,6 +39,26 @@ const getAllProject = async (): Promise<ListProject[]> => {
   }
 };
 
+const getProjectDetails = async (
+  projectId: string
+): Promise<ProjectDetails> => {
+  try {
+    const token = await firebaseApi.getToken();
+    const response = await axiosInstance.get(
+      `/api/v1/projects/${projectId}/details`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data.data;
+  } catch (error) {
+    console.error("Error fetching projects details:", error);
+    throw error;
+  }
+};
+
 const getProject = async (projectId: string): Promise<Project> => {
   try {
     const token = await firebaseApi.getToken();
@@ -48,6 +74,11 @@ const getProject = async (projectId: string): Promise<Project> => {
   }
 };
 
-const projectApi = { createProject, getAllProject, getProject };
+const projectApi = {
+  createProject,
+  getAllProject,
+  getProject,
+  getProjectDetails,
+};
 
 export default projectApi;

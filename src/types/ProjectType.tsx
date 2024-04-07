@@ -68,6 +68,15 @@ export interface ProjectInfo {
   members: Member[];
 }
 
+export interface ProjectDetails {
+  projectId: string; // Ensure projectId is always a string
+  projectProfile: ProjectProfile;
+  views: string[];
+  process: Process[];
+  startDate?: string | Moment | null; // Make startDate optional if it's sometimes undefined
+  dueDate?: string | Moment | null; // Make dueDate optional if it's sometimes undefined
+}
+
 export interface TaskPermission {
   addNew: boolean;
   delete: boolean;

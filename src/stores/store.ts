@@ -6,6 +6,10 @@ import allTasksSlice from "./tasksSlice/allTasksSlice";
 import modalSlice from "./modalSlice/modalSlice";
 
 export const store = configureStore({
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
   reducer: {
     modal: modalSlice,
     projects: projectSlice,

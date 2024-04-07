@@ -6,6 +6,7 @@ export interface ModalState {
   isOpen: boolean;
   children?: ReactNode;
   title?: string;
+  projectId?: string;
 }
 
 const initialState: ModalState = {
@@ -18,11 +19,16 @@ export const modalSlice = createSlice({
   reducers: {
     openModal: (
       state,
-      action: PayloadAction<{ children: ReactNode; title: string }>
+      action: PayloadAction<{
+        children: ReactNode;
+        title: string;
+        projectId: string;
+      }>
     ) => {
       state.isOpen = true;
       state.children = action.payload.children;
       state.title = action.payload.title;
+      state.projectId = action.payload.projectId;
     },
     closeModal: (state) => {
       state.isOpen = false;

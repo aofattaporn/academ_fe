@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import AvatarProject from "../../../components/AvatarProject/AvatarProject";
 import { PROJECT_SETTING, Project, Size } from "../../../types/ProjectType";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -28,6 +28,7 @@ type ProjectInfoProps = {
 };
 
 const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
+  const { projectId } = useParams();
   const { projectProfile, views } = projectData.projectInfo;
   const location = useLocation();
   const dispatch = useDispatch();
@@ -68,6 +69,7 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
       openModal({
         title: PROJECT_SETTING.PROJECR_DETAILS,
         children: <SettingProjectDetails />,
+        projectId: projectId as string,
       })
     );
   };
@@ -78,6 +80,7 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
       openModal({
         title: PROJECT_SETTING.MANAGE_PROJECT_PERMISSIONS,
         children: <ManageProjectPermissions />,
+        projectId: projectId as string,
       })
     );
   };

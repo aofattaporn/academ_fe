@@ -92,6 +92,7 @@ export const NAVIGATOR = {
 
 export const QUERY_KEY = {
   ALL_PROJECT: "allProjectData",
+  PROJECTINFO_SETTING: "projectInfoSetting",
   PROJECR: "project",
   MY_TASKS: "myTasks",
   ALL_TASKS: "allTasks",
