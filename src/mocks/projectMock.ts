@@ -4,9 +4,19 @@ import {
   ListProject,
   Project,
   ProjectDetails,
-  ProjectInfo,
   Views,
 } from "../types/ProjectType";
+
+const PROJECT_DETAILS: ProjectDetails = {
+  projectId: "123",
+  projectProfile: {
+    projectName: "Sample Project",
+    avatarColor: "#AF8AE2",
+  },
+  views: [Views.LIST, Views.BOARD, Views.TIMELINE, Views.CALENDAR],
+  startDate: "2024-03-01T00:00:00.000Z",
+  dueDate: "2024-04-01T00:00:00.000Z",
+};
 
 // create-project-api
 const createProjectSuccess = http.post(
@@ -142,33 +152,7 @@ const getProjectDetailsSuccess = http.get(
       status: 200,
       message: RESPONSE_OK,
       description: "Success",
-      data: {
-        projectId: "123",
-        projectProfile: {
-          projectName: "Sample Project",
-          avatarColor: "#AF8AE2",
-        },
-        views: [Views.LIST, Views.BOARD, Views.TIMELINE, Views.CALENDAR],
-        process: [
-          {
-            processId: "1",
-            processName: "To Do",
-            processColor: "#C2C2C2",
-          },
-          {
-            processId: "2",
-            processName: "Inprogress",
-            processColor: "#F9E116",
-          },
-          {
-            processId: "3",
-            processName: "Done",
-            processColor: "#72C554",
-          },
-        ],
-        startDate: "2024-04-01T00:00:00.000Z",
-        dueDate: "2024-04-01T00:00:00.000Z",
-      },
+      data: PROJECT_DETAILS,
     };
 
     return HttpResponse.json(mockRes, { status: 200 });

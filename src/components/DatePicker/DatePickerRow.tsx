@@ -22,6 +22,7 @@ const DatePickerRow = ({
       <div className="col-span-2 w-full">
         <DatePicker
           defaultValue={date}
+          value={date}
           onChange={handleSetDate}
           slotProps={{
             field: { clearable: isClearabler },
