@@ -1,5 +1,6 @@
 import { useState } from "react";
 import RoleView from "./RoleView/RoleView";
+import PermissionsView from "./PermissionsView/PermissionsView";
 
 enum MANAGE_VIEW {
   ROLE = "ROLE",
@@ -42,11 +43,7 @@ const ManageProjectPermissions = () => {
 
       {view === MANAGE_VIEW.ROLE ? <RoleView /> : null}
 
-      {view === MANAGE_VIEW.PERMMISSION ? (
-        <div className=" w-full h-64 rounded-md border-opacity-5 border-2 p-4">
-          Permission
-        </div>
-      ) : null}
+      {view === MANAGE_VIEW.PERMMISSION ? <PermissionsView /> : null}
     </div>
   );
 };
