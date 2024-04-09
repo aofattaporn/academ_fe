@@ -1,5 +1,10 @@
 import { HttpResponse, delay, http } from "msw";
-import { RESPONSE_OK, ResponseCustom } from "../types/GenericType";
+import {
+  RESPONSE_OK,
+  RESPONSE_TECHNICAL_ERROR,
+  ResponseCustom,
+  STATUS_CODE_1999,
+} from "../types/GenericType";
 import {
   ListProject,
   Project,
@@ -145,6 +150,10 @@ const getProjectSuccess = http.get("/api/v1/projects/:projectId", async () => {
   return HttpResponse.json(mockRes, { status: 200 });
 });
 
+const getProjectError = http.get("/api/v1/projects/:projectId", () =>
+  HttpResponse.error()
+);
+
 const getProjectDetailsSuccess = http.get(
   "/api/v1/projects/:projectId/details",
   async () => {
@@ -159,16 +168,39 @@ const getProjectDetailsSuccess = http.get(
   }
 );
 
-const getProjectError = http.get("/api/v1/projects/:projectId", () =>
-  HttpResponse.error()
+const getProjectDetailsFailedInternalError = http.get(
+  "/api/v1/projects/:projectId/details",
+  () => HttpResponse.error()
+);
+
+const getProjectDetailsFailedNotFoundProjectId = http.get(
+  "/api/v1/projects/:projectId/details",
+  async () => {
+    const mockRes: ResponseCustom<null> = {
+      status: STATUS_CODE_1999,
+      message: RESPONSE_TECHNICAL_ERROR,
+      description: "Can't to get your Project id",
+    };
+
+    return HttpResponse.json(mockRes, { status: 200 });
+  }
 );
 
 export const projectMock = {
+  // create-project-api-mocking
   createProjectSuccess,
-  getAllProjectSuccess,
-  getProjectDetailsSuccess,
-  getAllProjectError,
   createProjectError,
+
+  // get-all-project-api-mocking
+  getAllProjectSuccess,
+  getAllProjectError,
+
+  // get-project-api-mocking
   getProjectSuccess,
   getProjectError,
+
+  // get-project-details-api-mocking
+  getProjectDetailsSuccess,
+  getProjectDetailsFailedInternalError,
+  getProjectDetailsFailedNotFoundProjectId,
 };
