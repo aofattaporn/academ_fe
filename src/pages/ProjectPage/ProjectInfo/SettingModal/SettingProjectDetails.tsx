@@ -7,6 +7,7 @@ import AvatarProject from "../../../../components/AvatarProject/AvatarProject";
 import moment from "moment";
 import ColorSelection from "../../../../components/Field/ColorSelection";
 import {
+  BTN_TASKS_SAVE,
   LABEL_TASKS_DUE_DATE,
   LABEL_TASKS_START_DATE,
 } from "../../../../types/MyTasksType";
@@ -14,6 +15,7 @@ import useSettingProjectDetails from "../../../../hooks/projectHook/useSettingPr
 
 const SettingProjectDetails = () => {
   const {
+    mutation,
     projectIsLoading,
     projectIsSuccess,
     projectIsError,
@@ -87,10 +89,10 @@ const SettingProjectDetails = () => {
 
           <div className="my-4">
             <CreateProjectButtonComp
-              title={"Save"}
+              title={BTN_TASKS_SAVE}
               disable={handleCheckIsdirty()}
-              isCreating={false}
-              handleChange={() => {}}
+              isCreating={mutation.isLoading}
+              handleChange={mutation.mutate}
             />
           </div>
         </>

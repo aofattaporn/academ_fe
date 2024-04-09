@@ -186,6 +186,39 @@ const getProjectDetailsFailedNotFoundProjectId = http.get(
   }
 );
 
+const updateProjectDetailsSuccess = http.put(
+  "/api/v1/projects/:projectId/details",
+  async () => {
+    const mockRes: ResponseCustom<ProjectDetails> = {
+      status: 200,
+      message: RESPONSE_OK,
+      description: "Success",
+    };
+
+    await delay(1000);
+
+    return HttpResponse.json(mockRes, { status: 200 });
+  }
+);
+
+const updateProjectDetailsFailedInternalError = http.put(
+  "/api/v1/projects/:projectId/details",
+  () => HttpResponse.error()
+);
+
+const updateProjectDetailsFailedNotFoundProjectId = http.put(
+  "/api/v1/projects/:projectId/details",
+  async () => {
+    const mockRes: ResponseCustom<null> = {
+      status: STATUS_CODE_1999,
+      message: RESPONSE_TECHNICAL_ERROR,
+      description: "Can't to get your Project id",
+    };
+
+    return HttpResponse.json(mockRes, { status: 200 });
+  }
+);
+
 export const projectMock = {
   // create-project-api-mocking
   createProjectSuccess,
@@ -203,4 +236,9 @@ export const projectMock = {
   getProjectDetailsSuccess,
   getProjectDetailsFailedInternalError,
   getProjectDetailsFailedNotFoundProjectId,
+
+  // update-project-details-api-mocking
+  updateProjectDetailsSuccess,
+  updateProjectDetailsFailedInternalError,
+  updateProjectDetailsFailedNotFoundProjectId,
 };

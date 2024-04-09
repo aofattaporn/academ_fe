@@ -1,9 +1,9 @@
+import { ErrorCustom } from "../types/GenericType";
 import {
   CreateProject,
   ListProject,
   Project,
   ProjectDetails,
-  ProjectInfo,
 } from "../types/ProjectType";
 import axiosInstance from "./axiosInstance";
 import firebaseApi from "./firebaseApi";
@@ -39,26 +39,6 @@ const getAllProject = async (): Promise<ListProject[]> => {
   }
 };
 
-const getProjectDetails = async (
-  projectId: string
-): Promise<ProjectDetails> => {
-  try {
-    const token = await firebaseApi.getToken();
-    const response = await axiosInstance.get(
-      `/api/v1/projects/${projectId}/details`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return response.data.data;
-  } catch (error) {
-    console.error("Error fetching projects details:", error);
-    throw error;
-  }
-};
-
 const getProject = async (projectId: string): Promise<Project> => {
   try {
     const token = await firebaseApi.getToken();
@@ -74,11 +54,56 @@ const getProject = async (projectId: string): Promise<Project> => {
   }
 };
 
+const getProjectDetails = async (
+  projectId: string
+): Promise<ProjectDetails> => {
+  try {
+    const token = await firebaseApi.getToken();
+    const response = await axiosInstance.get(
+      `/api/v1/projects/${projectId}/details`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data.data;
+  } catch (error) {
+    const errorCustom = error as ErrorCustom;
+    console.error("Error get all tasks tasks :", errorCustom.description);
+    throw errorCustom;
+  }
+};
+
+const updateProjectDetails = async (
+  projectId: string,
+  projectDetails: ProjectDetails
+) => {
+  try {
+    const token = await firebaseApi.getToken();
+    const response = await axiosInstance.put(
+      `/api/v1/projects/${projectId}/details`,
+      projectDetails,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data.data;
+  } catch (error) {
+    const errorCustom = error as ErrorCustom;
+    console.error("Error get all tasks tasks :", errorCustom.description);
+    throw errorCustom;
+  }
+};
+
 const projectApi = {
   createProject,
   getAllProject,
   getProject,
   getProjectDetails,
+  updateProjectDetails,
 };
 
 export default projectApi;
