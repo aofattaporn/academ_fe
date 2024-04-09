@@ -25,8 +25,8 @@ const GenericModal = ({ children }: GenericModalProps) => {
           open={isOpen}
         >
           <div className="w-full md:w-2/6 bg-white rounded-md p-8 text-dark font-roboto grid grid-cols-1 gap-4">
-            <div className="flex justify-between">
-              <h2 className=" text-2xl font-bold pb-4">{title}</h2>
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-bold">{title}</h2>
               <IconButton onClick={() => dispatch(closeModal())}>
                 <CloseIcon />
               </IconButton>
