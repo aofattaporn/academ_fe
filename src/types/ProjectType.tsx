@@ -1,4 +1,5 @@
 import { Moment } from "moment";
+import { TaskPermission } from "./Permission";
 
 // ------------- composition-type  -----------------------
 // -------------------------------------------------------
@@ -74,13 +75,6 @@ export interface ProjectDetails {
   views: string[];
   startDate?: string | Moment | null; // Make startDate optional if it's sometimes undefined
   dueDate?: string | Moment | null; // Make dueDate optional if it's sometimes undefined
-}
-
-export interface TaskPermission {
-  addNew: boolean;
-  delete: boolean;
-  edit: boolean;
-  manageProcess: boolean;
 }
 
 export interface ProjectProfile {
