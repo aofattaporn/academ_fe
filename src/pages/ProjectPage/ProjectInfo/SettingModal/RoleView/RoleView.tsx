@@ -1,8 +1,7 @@
 import { IconButton } from "@mui/material";
 import CreateProjectButtonComp from "../../../../../components/Button/CreateProjectButtonComp";
 import TextFeildInputComp from "../../../../../components/Field/TextFeildInputComp";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+
 import { Role } from "../../../../../types/Permission";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
@@ -11,6 +10,7 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { QUERY_KEY } from "../../../../../types/GenericType";
 import { RootState } from "../../../../../stores/store";
+import RoleItem from "./RoleItem/RoleItem";
 
 type RoleViewProps = {
   roles: Role[];
@@ -19,7 +19,6 @@ const RoleView = ({ roles }: RoleViewProps) => {
   const [roleName, setRoleName] = useState<string>("");
   const queryClient = useQueryClient();
   const projectId = useSelector((state: RootState) => state.modal.projectId);
-
   const handleSetRoleName = (newRole: string) => setRoleName(newRole);
 
   const mutation = useMutation({
@@ -66,24 +65,11 @@ const RoleView = ({ roles }: RoleViewProps) => {
         <div className=" w-full ">
           {roles.map((role, index) => {
             return (
-              <div
+              <RoleItem
                 key={index}
-                className="flex items-center justify-between w-full"
-              >
-                <td className="grow">
-                  {role.roleName} <span className="text-error">*</span>
-                </td>
-                <td>
-                  <IconButton disabled>
-                    <EditIcon />
-                  </IconButton>
-                </td>
-                <td>
-                  <IconButton disabled>
-                    <DeleteForeverIcon />
-                  </IconButton>
-                </td>
-              </div>
+                roleName={role.roleName}
+                enable={role.roleName !== "Owner" && role.roleName !== "Member"}
+              />
             );
           })}
         </div>

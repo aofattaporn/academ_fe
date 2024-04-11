@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Divider, Menu, MenuItem, Switch } from "@mui/material";
-import { MOCK_ROLE, Role } from "../../../../../types/Permission";
+import { Role } from "../../../../../types/Permission";
 import CreateProjectButtonComp from "../../../../../components/Button/CreateProjectButtonComp";
 
 type PermissionsViewProps = {
