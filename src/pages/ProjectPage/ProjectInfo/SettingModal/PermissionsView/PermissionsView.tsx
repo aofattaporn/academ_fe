@@ -46,8 +46,9 @@ const PermissionsView = ({ roles }: PermissionsViewProps) => {
       </div>
 
       <div className="w-full rounded-md border-opacity-5 border-2 p-4">
-        {MOCK_ROLE.map((role) => {
-          if (role.roleId !== selectedRole.roleId) return null;
+        {roles.map((role) => {
+          if (role && role.roleId && role.roleId !== selectedRole.roleId)
+            return null;
           return (
             <div key={role.roleId} className=" grid grid-cols-1 gap-4">
               <h1 className="text-xl font-bold">{role.roleName}</h1>

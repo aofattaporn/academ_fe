@@ -50,6 +50,7 @@ const SettingProjectDetails = () => {
           </Button>
         </Alert>
       ) : null}
+
       {projectIsSuccess ? (
         <>
           <div className="flex justify-between gap-4 items-start">

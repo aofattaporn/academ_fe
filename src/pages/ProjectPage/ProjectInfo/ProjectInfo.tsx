@@ -118,7 +118,7 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
                   <ListItemIcon>
                     <TuneIcon fontSize="small" />
                   </ListItemIcon>
-                  <ListItemText>Manage Project Permissions</ListItemText>
+                  <ListItemText>Manage Role & Permissions</ListItemText>
                 </MenuItem>
                 <Divider />
                 <MenuItem>

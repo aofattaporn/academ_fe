@@ -55,6 +55,7 @@ const getProject = async (projectId: string): Promise<Project> => {
   }
 };
 
+// TODO:
 const getProjectDetails = async (
   projectId: string
 ): Promise<ProjectDetails> => {
@@ -76,6 +77,7 @@ const getProjectDetails = async (
   }
 };
 
+// TODO:
 const updateProjectDetails = async (
   projectId: string,
   projectDetails: ProjectDetails
@@ -99,6 +101,7 @@ const updateProjectDetails = async (
   }
 };
 
+// TODO:
 const getProjectRoleAndPermission = async (
   projectId: string
 ): Promise<Role[]> => {
@@ -120,6 +123,30 @@ const getProjectRoleAndPermission = async (
   }
 };
 
+// TODO:
+const createNewRoleAndPermission = async (
+  projectId: string,
+  newRole: { newRole: string }
+): Promise<Role[]> => {
+  try {
+    const token = await firebaseApi.getToken();
+    const response = await axiosInstance.post(
+      `/api/v1/projects/${projectId}/roleAndPermission`,
+      newRole,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data.data;
+  } catch (error) {
+    const errorCustom = error as ErrorCustom;
+    console.error("Error get all tasks tasks :", errorCustom.description);
+    throw errorCustom;
+  }
+};
+
 const projectApi = {
   createProject,
   getAllProject,
@@ -127,6 +154,7 @@ const projectApi = {
   getProjectDetails,
   updateProjectDetails,
   getProjectRoleAndPermission,
+  createNewRoleAndPermission,
 };
 
 export default projectApi;

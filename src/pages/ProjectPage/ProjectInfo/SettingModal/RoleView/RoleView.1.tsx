@@ -3,34 +3,31 @@ import CreateProjectButtonComp from "../../../../../components/Button/CreateProj
 import TextFeildInputComp from "../../../../../components/Field/TextFeildInputComp";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { Role } from "../../../../../types/Permission";
 import { useState } from "react";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation } from "react-query";
 import projectApi from "../../../../../libs/projectApi";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
-import { QUERY_KEY } from "../../../../../types/GenericType";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../../stores/store";
+import { RoleViewProps } from "./RoleView";
 
-type RoleViewProps = {
-  roles: Role[];
-};
-const RoleView = ({ roles }: RoleViewProps) => {
+export const RoleView = ({ roles }: RoleViewProps) => {
   const [roleName, setRoleName] = useState<string>("");
-  const queryClient = useQueryClient();
   const projectId = useSelector((state: RootState) => state.modal.projectId);
+  const dispatch = useDispatch();
 
   const handleSetRoleName = (newRole: string) => setRoleName(newRole);
 
   const mutation = useMutation({
     mutationFn: () =>
-      projectApi.createNewRoleAndPermission(projectId as string, {
-        newRole: roleName,
-      }),
-    onSuccess(data: Role[]) {
-      console.log(data);
-      queryClient.setQueryData(QUERY_KEY.PERMISSION_SETTING, data);
-      setRoleName("");
+      projectApi.createNewRoleAndPermission(projectId as string),
+    onSuccess() {
+      queryClient.setQueryData(
+        [QUERY_KEY.ALL_PROJECT],
+        (oldData: ListProject[] | undefined) => {
+          return oldData ? [...oldData, data] : [];
+        }
+      );
       toast.success("Create New Role success");
     },
     onError() {
@@ -92,5 +89,3 @@ const RoleView = ({ roles }: RoleViewProps) => {
     // </div>
   );
 };
-
-export default RoleView;
