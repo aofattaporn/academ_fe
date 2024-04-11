@@ -1,6 +1,12 @@
 import { useState } from "react";
 import RoleView from "./RoleView/RoleView";
 import PermissionsView from "./PermissionsView/PermissionsView";
+import { QUERY_KEY } from "../../../../types/GenericType";
+import { useQuery } from "react-query";
+import projectApi from "../../../../libs/projectApi";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../stores/store";
+import { Role } from "../../../../types/Permission";
 
 enum MANAGE_VIEW {
   ROLE = "ROLE",
@@ -15,9 +21,22 @@ const SETTING_VIEWS: VIEWS[] = [
 ];
 
 const ManageProjectPermissions = () => {
+  const projectId = useSelector((state: RootState) => state.modal.projectId);
   const [view, setView] = useState<MANAGE_VIEW>(MANAGE_VIEW.ROLE);
-
   const handleSwitchView = (selectedView: MANAGE_VIEW) => setView(selectedView);
+
+  const [role, setRole] = useState<Role[]>([]);
+
+  const {} = useQuery(
+    QUERY_KEY.PERMISSION_SETTING,
+    () => projectApi.getProjectRoleAndPermission(projectId as string),
+    {
+      refetchOnWindowFocus: false,
+      onSuccess(data) {
+        setRole(data);
+      },
+    }
+  );
 
   return (
     <div className="grid grid-cols-1 gap-2">
@@ -41,9 +60,11 @@ const ManageProjectPermissions = () => {
         <div className="border-b-2 col-span-3"></div>
       </div>
 
-      {view === MANAGE_VIEW.ROLE ? <RoleView /> : null}
+      {view === MANAGE_VIEW.ROLE ? <RoleView roles={role} /> : null}
 
-      {view === MANAGE_VIEW.PERMMISSION ? <PermissionsView /> : null}
+      {view === MANAGE_VIEW.PERMMISSION ? (
+        <PermissionsView roles={role} />
+      ) : null}
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import { ErrorCustom } from "../types/GenericType";
+import { Role } from "../types/Permission";
 import {
   CreateProject,
   ListProject,
@@ -98,12 +99,34 @@ const updateProjectDetails = async (
   }
 };
 
+const getProjectRoleAndPermission = async (
+  projectId: string
+): Promise<Role[]> => {
+  try {
+    const token = await firebaseApi.getToken();
+    const response = await axiosInstance.get(
+      `/api/v1/projects/${projectId}/roleAndPermission`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data.data;
+  } catch (error) {
+    const errorCustom = error as ErrorCustom;
+    console.error("Error get all tasks tasks :", errorCustom.description);
+    throw errorCustom;
+  }
+};
+
 const projectApi = {
   createProject,
   getAllProject,
   getProject,
   getProjectDetails,
   updateProjectDetails,
+  getProjectRoleAndPermission,
 };
 
 export default projectApi;

@@ -3,9 +3,13 @@ import { Divider, Menu, MenuItem, Switch } from "@mui/material";
 import { MOCK_ROLE, Role } from "../../../../../types/Permission";
 import CreateProjectButtonComp from "../../../../../components/Button/CreateProjectButtonComp";
 
-const PermissionsView = () => {
+type PermissionsViewProps = {
+  roles: Role[];
+};
+
+const PermissionsView = ({ roles }: PermissionsViewProps) => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-  const [selectedRole, setSelectedRole] = useState(MOCK_ROLE[0]);
+  const [selectedRole, setSelectedRole] = useState<Role>(roles[0]);
 
   const handleSelectRole = (role: Role) => {
     setAnchorElUser(null);
@@ -58,7 +62,13 @@ const PermissionsView = () => {
                         className="flex items-center justify-between"
                       >
                         <p>{permission}</p>
-                        <Switch checked={value} />
+                        <Switch
+                          disabled={
+                            role.roleName === "Owner" ||
+                            role.roleName === "Member"
+                          }
+                          defaultChecked={value}
+                        />
                       </div>
                     )
                   )}
@@ -75,7 +85,13 @@ const PermissionsView = () => {
                         className="flex items-center justify-between"
                       >
                         <p>{permission}</p>
-                        <Switch checked={value} />
+                        <Switch
+                          disabled={
+                            role.roleName === "Owner" ||
+                            role.roleName === "Member"
+                          }
+                          defaultChecked={value}
+                        />
                       </div>
                     )
                   )}
@@ -92,7 +108,13 @@ const PermissionsView = () => {
                         className="flex items-center justify-between"
                       >
                         <p>{permission}</p>
-                        <Switch checked={value} />
+                        <Switch
+                          disabled={
+                            role.roleName === "Owner" ||
+                            role.roleName === "Member"
+                          }
+                          defaultChecked={value}
+                        />
                       </div>
                     )
                   )}
@@ -109,7 +131,13 @@ const PermissionsView = () => {
                         className="flex items-center justify-between"
                       >
                         <p>{permission}</p>
-                        <Switch checked={value} />
+                        <Switch
+                          disabled={
+                            role.roleName === "Owner" ||
+                            role.roleName === "Member"
+                          }
+                          defaultChecked={value}
+                        />
                       </div>
                     )
                   )}

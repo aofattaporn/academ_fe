@@ -11,6 +11,7 @@ import {
   ProjectDetails,
   Views,
 } from "../types/ProjectType";
+import { MOCK_ROLE, Role } from "../types/Permission";
 
 const PROJECT_DETAILS: ProjectDetails = {
   projectId: "123",
@@ -219,6 +220,22 @@ const updateProjectDetailsFailedNotFoundProjectId = http.put(
   }
 );
 
+const getProjectRoleAndPermissionSuccess = http.get(
+  "/api/v1/projects/:projectId/roleAndPermission",
+  async () => {
+    const mockRes: ResponseCustom<Role[]> = {
+      status: 200,
+      message: RESPONSE_OK,
+      description: "Success",
+      data: MOCK_ROLE,
+    };
+
+    await delay(1000);
+
+    return HttpResponse.json(mockRes, { status: 200 });
+  }
+);
+
 export const projectMock = {
   // create-project-api-mocking
   createProjectSuccess,
@@ -241,4 +258,7 @@ export const projectMock = {
   updateProjectDetailsSuccess,
   updateProjectDetailsFailedInternalError,
   updateProjectDetailsFailedNotFoundProjectId,
+
+  // get-role-and-permission-sucess
+  getProjectRoleAndPermissionSuccess,
 };

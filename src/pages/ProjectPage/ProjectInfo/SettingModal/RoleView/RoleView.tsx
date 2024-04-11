@@ -3,7 +3,12 @@ import CreateProjectButtonComp from "../../../../../components/Button/CreateProj
 import TextFeildInputComp from "../../../../../components/Field/TextFeildInputComp";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-const RoleView = () => {
+import { Role } from "../../../../../types/Permission";
+
+type RoleViewProps = {
+  roles: Role[];
+};
+const RoleView = ({ roles }: RoleViewProps) => {
   return (
     <>
       <div className="my-4">
@@ -29,38 +34,30 @@ const RoleView = () => {
 
       <div className="my-2">
         <p className="text-gray-200">All Role within this project</p>
-        <table className=" w-full ">
-          <tr className="flex items-center justify-between w-full">
-            <td className=" grow">
-              Owner <span className="text-error">*</span>
-            </td>
-            <td>
-              <IconButton disabled>
-                <EditIcon />
-              </IconButton>
-            </td>
-            <td>
-              <IconButton disabled>
-                <DeleteForeverIcon />
-              </IconButton>
-            </td>
-          </tr>{" "}
-          <tr className="flex items-center justify-between w-full">
-            <td className="grow">
-              Member <span className="text-error">*</span>
-            </td>
-            <td>
-              <IconButton disabled>
-                <EditIcon />
-              </IconButton>
-            </td>
-            <td>
-              <IconButton disabled>
-                <DeleteForeverIcon />
-              </IconButton>
-            </td>
-          </tr>
-        </table>
+        <div className=" w-full ">
+          {roles.map((role, index) => {
+            return (
+              <div
+                key={index}
+                className="flex items-center justify-between w-full"
+              >
+                <td className="grow">
+                  {role.roleName} <span className="text-error">*</span>
+                </td>
+                <td>
+                  <IconButton disabled>
+                    <EditIcon />
+                  </IconButton>
+                </td>
+                <td>
+                  <IconButton disabled>
+                    <DeleteForeverIcon />
+                  </IconButton>
+                </td>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </>
     // </div>
