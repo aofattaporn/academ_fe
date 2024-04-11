@@ -66,7 +66,7 @@ const memberRole: Role = {
 
 const ownerRole: Role = {
   roleId: "2",
-  roleName: "Owner2",
+  roleName: "Owner",
   permission: {
     id: "2",
     member: {

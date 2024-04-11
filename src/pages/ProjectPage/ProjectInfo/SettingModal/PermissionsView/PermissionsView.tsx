@@ -32,7 +32,7 @@ const PermissionsView = ({ roles }: PermissionsViewProps) => {
             open={Boolean(anchorElUser)}
             onClose={() => setAnchorElUser(null)}
           >
-            {MOCK_ROLE.map((role) => (
+            {roles.map((role) => (
               <MenuItem
                 key={role.roleId}
                 onClick={() => handleSelectRole(role)}

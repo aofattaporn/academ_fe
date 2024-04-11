@@ -7,6 +7,7 @@ import projectApi from "../../../../libs/projectApi";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../stores/store";
 import { Role } from "../../../../types/Permission";
+import { Alert, Button, CircularProgress } from "@mui/material";
 
 enum MANAGE_VIEW {
   ROLE = "ROLE",
@@ -27,7 +28,11 @@ const ManageProjectPermissions = () => {
 
   const [role, setRole] = useState<Role[]>([]);
 
-  const {} = useQuery(
+  const {
+    isLoading: rolePermissionIsLoading,
+    isError: rolePermissionIsError,
+    refetch: rolePermissionRefetch,
+  } = useQuery(
     QUERY_KEY.PERMISSION_SETTING,
     () => projectApi.getProjectRoleAndPermission(projectId as string),
     {
@@ -37,6 +42,29 @@ const ManageProjectPermissions = () => {
       },
     }
   );
+
+  if (rolePermissionIsLoading) {
+    return (
+      <div className="flex justify-center">
+        <CircularProgress />;
+      </div>
+    );
+  }
+
+  if (rolePermissionIsError) {
+    return (
+      <Alert severity="error">
+        Something went wrong
+        <Button
+          size="small"
+          className="normal-case"
+          onClick={() => rolePermissionRefetch()}
+        >
+          Try Again
+        </Button>
+      </Alert>
+    );
+  }
 
   return (
     <div className="grid grid-cols-1 gap-2">

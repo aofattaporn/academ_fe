@@ -236,6 +236,24 @@ const getProjectRoleAndPermissionSuccess = http.get(
   }
 );
 
+const getProjectRoleAndPermissionFailedInternalError = http.get(
+  "/api/v1/projects/:projectId/roleAndPermission",
+  () => HttpResponse.error()
+);
+
+const getProjectRoleAndPermissionFailedNotFoundProjectId = http.get(
+  "/api/v1/projects/:projectId/roleAndPermission",
+  async () => {
+    const mockRes: ResponseCustom<null> = {
+      status: STATUS_CODE_1999,
+      message: RESPONSE_TECHNICAL_ERROR,
+      description: "Can't to get your Project id",
+    };
+
+    return HttpResponse.json(mockRes, { status: 200 });
+  }
+);
+
 export const projectMock = {
   // create-project-api-mocking
   createProjectSuccess,
@@ -261,4 +279,6 @@ export const projectMock = {
 
   // get-role-and-permission-sucess
   getProjectRoleAndPermissionSuccess,
+  getProjectRoleAndPermissionFailedInternalError,
+  getProjectRoleAndPermissionFailedNotFoundProjectId,
 };
