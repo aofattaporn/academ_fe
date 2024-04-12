@@ -1,21 +1,15 @@
 import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { useState } from "react";
 import TextFeildInputComp from "../../../../../../components/Field/TextFeildInputComp";
 import TasksButton from "../../../../../../components/Button/TasksButton";
-import { useMutation, useQueryClient } from "react-query";
-import { useSelector } from "react-redux";
-import projectApi from "../../../../../../libs/projectApi";
-import { RootState } from "../../../../../../stores/store";
 import { Role } from "../../../../../../types/Permission";
-import { ErrorCustom, QUERY_KEY } from "../../../../../../types/GenericType";
-import { toast } from "react-toastify";
 import {
   BTN_TASKS_CANCEL,
   BTN_TASKS_SAVE,
 } from "../../../../../../types/MyTasksType";
 import ConfirmDelete from "../../../../../../components/Modal/ConfirmDelete";
+import useHandleRole from "../../../../../../hooks/projectHook/useHandleRole";
 
 type RoleItemProps = {
   role: Role;
@@ -23,51 +17,17 @@ type RoleItemProps = {
 };
 
 const RoleItem = ({ role, enable }: RoleItemProps) => {
-  const queryClient = useQueryClient();
-  const [isEdit, setIsEdit] = useState<boolean>(false);
-  const [open, setOpen] = useState<boolean>(false);
-  const [editRole, setEditRole] = useState<string>("");
-  const projectId = useSelector((state: RootState) => state.modal.projectId);
-
-  const handleEdit = (editRole: string) => {
-    setIsEdit(true);
-    setEditRole(editRole);
-  };
-
-  const handleEditRoleName = (editRole: string) => setEditRole(editRole);
-
-  const handleCancelEdit = () => {
-    setIsEdit(false);
-    setEditRole("");
-  };
-
-  const updateRoleNameMutation = useMutation({
-    mutationFn: (roleName: string) =>
-      projectApi.updateRoleName(projectId as string, roleName, {
-        newRole: roleName,
-      }),
-    onSuccess(data: Role[]) {
-      queryClient.setQueryData(QUERY_KEY.PERMISSION_SETTING, data);
-      setIsEdit(false);
-      toast.success("Update Role success");
-    },
-    onError(error: ErrorCustom) {
-      toast.error(error.description);
-    },
-  });
-
-  const deleteRoleMutation = useMutation({
-    mutationFn: (roleName: string) =>
-      projectApi.deleteRole(projectId as string, roleName),
-    onSuccess(data: Role[]) {
-      queryClient.setQueryData(QUERY_KEY.PERMISSION_SETTING, data);
-      setOpen(false);
-      toast.success("Delete Role success");
-    },
-    onError(error: ErrorCustom) {
-      toast.error(error.description);
-    },
-  });
+  const {
+    isEdit,
+    open,
+    editRole,
+    updateRoleNameMutation,
+    deleteRoleMutation,
+    handleSetIsOpen,
+    handleEdit,
+    handleEditRoleName,
+    handleCancelEdit,
+  } = useHandleRole();
 
   return (
     <div className="flex items-center justify-between w-full">
@@ -103,7 +63,10 @@ const RoleItem = ({ role, enable }: RoleItemProps) => {
             </IconButton>
           </div>
           <div>
-            <IconButton onClick={() => setOpen(true)} disabled={!enable}>
+            <IconButton
+              onClick={() => handleSetIsOpen(true)}
+              disabled={!enable}
+            >
               <DeleteForeverIcon />
             </IconButton>
           </div>
@@ -111,7 +74,7 @@ const RoleItem = ({ role, enable }: RoleItemProps) => {
           {open ? (
             <ConfirmDelete
               isDeleting={deleteRoleMutation.isLoading}
-              handleClose={() => setOpen(false)}
+              handleClose={() => handleSetIsOpen(false)}
               handleDelete={() => deleteRoleMutation.mutate(role.roleId)}
             />
           ) : null}
