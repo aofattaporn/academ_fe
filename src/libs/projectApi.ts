@@ -172,6 +172,28 @@ const updateRoleName = async (
   }
 };
 
+const deleteRole = async (
+  projectId: string,
+  roleId: string
+): Promise<Role[]> => {
+  try {
+    const token = await firebaseApi.getToken();
+    const response = await axiosInstance.delete(
+      `/api/v1/projects/${projectId}/roles/${roleId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data.data;
+  } catch (error) {
+    const errorCustom = error as ErrorCustom;
+    console.error("Error cant to delete role :", errorCustom.description);
+    throw errorCustom;
+  }
+};
+
 const projectApi = {
   createProject,
   getAllProject,
@@ -181,6 +203,7 @@ const projectApi = {
   getProjectRoleAndPermission,
   createNewRoleAndPermission,
   updateRoleName,
+  deleteRole,
 };
 
 export default projectApi;

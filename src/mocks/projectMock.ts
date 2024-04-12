@@ -309,6 +309,22 @@ const updateRoleNameFailedNotFoundProjectId = http.put(
   }
 );
 
+const deleteRoleSuccess = http.delete(
+  "/api/v1/projects/:projectId/roles/:roleId",
+  async () => {
+    const mockRes: ResponseCustom<Role[]> = {
+      status: 200,
+      message: RESPONSE_OK,
+      description: "Success",
+      data: MOCK_ROLE,
+    };
+
+    await delay(1000);
+
+    return HttpResponse.json(mockRes, { status: 200 });
+  }
+);
+
 export const projectMock = {
   // create-project-api-mocking
   createProjectSuccess,
@@ -344,4 +360,7 @@ export const projectMock = {
   updateRoleNameSuccess,
   updateRoleNameFailedInternalError,
   updateRoleNameFailedNotFoundProjectId,
+
+  // delete-role-name-api-mocking
+  deleteRoleSuccess,
 };

@@ -15,6 +15,7 @@ import {
   BTN_TASKS_CANCEL,
   BTN_TASKS_SAVE,
 } from "../../../../../../types/MyTasksType";
+import ConfirmDelete from "../../../../../../components/Modal/ConfirmDelete";
 
 type RoleItemProps = {
   role: Role;
@@ -24,6 +25,7 @@ type RoleItemProps = {
 const RoleItem = ({ role, enable }: RoleItemProps) => {
   const queryClient = useQueryClient();
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
   const [editRole, setEditRole] = useState<string>("");
   const projectId = useSelector((state: RootState) => state.modal.projectId);
 
@@ -39,7 +41,7 @@ const RoleItem = ({ role, enable }: RoleItemProps) => {
     setEditRole("");
   };
 
-  const mutation = useMutation({
+  const updateRoleNameMutation = useMutation({
     mutationFn: (roleName: string) =>
       projectApi.updateRoleName(projectId as string, roleName, {
         newRole: roleName,
@@ -48,6 +50,19 @@ const RoleItem = ({ role, enable }: RoleItemProps) => {
       queryClient.setQueryData(QUERY_KEY.PERMISSION_SETTING, data);
       setIsEdit(false);
       toast.success("Update Role success");
+    },
+    onError(error: ErrorCustom) {
+      toast.error(error.description);
+    },
+  });
+
+  const deleteRoleMutation = useMutation({
+    mutationFn: (roleName: string) =>
+      projectApi.deleteRole(projectId as string, roleName),
+    onSuccess(data: Role[]) {
+      queryClient.setQueryData(QUERY_KEY.PERMISSION_SETTING, data);
+      setOpen(false);
+      toast.success("Delete Role success");
     },
     onError(error: ErrorCustom) {
       toast.error(error.description);
@@ -70,8 +85,8 @@ const RoleItem = ({ role, enable }: RoleItemProps) => {
           />
           <TasksButton
             title={BTN_TASKS_SAVE}
-            isSaving={mutation.isLoading}
-            handleSave={() => mutation.mutate(role.roleId)}
+            isSaving={updateRoleNameMutation.isLoading}
+            handleSave={() => updateRoleNameMutation.mutate(role.roleId)}
           />
         </div>
       ) : (
@@ -88,10 +103,18 @@ const RoleItem = ({ role, enable }: RoleItemProps) => {
             </IconButton>
           </div>
           <div>
-            <IconButton disabled={!enable}>
+            <IconButton onClick={() => setOpen(true)} disabled={!enable}>
               <DeleteForeverIcon />
             </IconButton>
           </div>
+
+          {open ? (
+            <ConfirmDelete
+              isDeleting={deleteRoleMutation.isLoading}
+              handleClose={() => setOpen(false)}
+              handleDelete={() => deleteRoleMutation.mutate(role.roleId)}
+            />
+          ) : null}
         </>
       )}
     </div>
