@@ -172,6 +172,7 @@ const updateRoleName = async (
   }
 };
 
+// TODO:
 const deleteRole = async (
   projectId: string,
   roleId: string

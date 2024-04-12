@@ -1,8 +1,10 @@
 import { HttpResponse, delay, http } from "msw";
 import {
+  RESPONSE_BUSSINESS_ERROR,
   RESPONSE_OK,
   RESPONSE_TECHNICAL_ERROR,
   ResponseCustom,
+  STATUS_CODE_1899,
   STATUS_CODE_1999,
 } from "../types/GenericType";
 import {
@@ -311,6 +313,11 @@ const updateRoleNameFailedNotFoundProjectId = http.put(
 
 const deleteRoleSuccess = http.delete(
   "/api/v1/projects/:projectId/roles/:roleId",
+  () => HttpResponse.error()
+);
+
+const deleteRoleFailedInternalError = http.delete(
+  "/api/v1/projects/:projectId/roles/:roleId",
   async () => {
     const mockRes: ResponseCustom<Role[]> = {
       status: 200,
@@ -320,6 +327,19 @@ const deleteRoleSuccess = http.delete(
     };
 
     await delay(1000);
+
+    return HttpResponse.json(mockRes, { status: 200 });
+  }
+);
+
+const deleteRoleFailedHaveSomeOnewithinRole = http.delete(
+  "/api/v1/projects/:projectId/roles/:roleId",
+  async () => {
+    const mockRes: ResponseCustom<null> = {
+      status: STATUS_CODE_1899,
+      message: RESPONSE_BUSSINESS_ERROR,
+      description: "Have someone within this Role",
+    };
 
     return HttpResponse.json(mockRes, { status: 200 });
   }
@@ -363,4 +383,6 @@ export const projectMock = {
 
   // delete-role-name-api-mocking
   deleteRoleSuccess,
+  deleteRoleFailedInternalError,
+  deleteRoleFailedHaveSomeOnewithinRole,
 };
