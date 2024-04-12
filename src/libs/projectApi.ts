@@ -147,6 +147,31 @@ const createNewRoleAndPermission = async (
   }
 };
 
+// TODO:
+const updateRoleName = async (
+  projectId: string,
+  roleId: string,
+  newRole: { newRole: string }
+): Promise<Role[]> => {
+  try {
+    const token = await firebaseApi.getToken();
+    const response = await axiosInstance.put(
+      `/api/v1/projects/${projectId}/roles/${roleId}`,
+      newRole,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data.data;
+  } catch (error) {
+    const errorCustom = error as ErrorCustom;
+    console.error("Error cant to update role name :", errorCustom.description);
+    throw errorCustom;
+  }
+};
+
 const projectApi = {
   createProject,
   getAllProject,
@@ -155,6 +180,7 @@ const projectApi = {
   updateProjectDetails,
   getProjectRoleAndPermission,
   createNewRoleAndPermission,
+  updateRoleName,
 };
 
 export default projectApi;

@@ -1,4 +1,3 @@
-import { IconButton } from "@mui/material";
 import CreateProjectButtonComp from "../../../../../components/Button/CreateProjectButtonComp";
 import TextFeildInputComp from "../../../../../components/Field/TextFeildInputComp";
 
@@ -67,7 +66,7 @@ const RoleView = ({ roles }: RoleViewProps) => {
             return (
               <RoleItem
                 key={index}
-                roleName={role.roleName}
+                role={role}
                 enable={role.roleName !== "Owner" && role.roleName !== "Member"}
               />
             );
