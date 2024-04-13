@@ -176,3 +176,6 @@ export const UPDATE_ROLE_PERMISSION: Role = {
   },
 };
 export const MOCK_ROLE: Role[] = [memberRole, ownerRole];
+
+export const ROLE_OWNER: string = "Owner";
+export const ROLE_MEMBER: string = "Member";

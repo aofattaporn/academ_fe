@@ -3,6 +3,8 @@ import {
   MembersPermission,
   Permission,
   ProjectPermission,
+  ROLE_MEMBER,
+  ROLE_OWNER,
   Role,
   RolePermission,
   TaskPermission,
@@ -135,6 +137,10 @@ const PermissionsView = ({ roles }: PermissionsViewProps) => {
                     >
                       <p>{permission}</p>
                       <Switch
+                        disabled={
+                          selectedRole.roleName === ROLE_OWNER ||
+                          selectedRole.roleName === ROLE_MEMBER
+                        }
                         checked={value}
                         onChange={(e) => {
                           handleSetPermission(

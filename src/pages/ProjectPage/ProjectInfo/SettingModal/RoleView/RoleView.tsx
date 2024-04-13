@@ -1,7 +1,7 @@
 import CreateProjectButtonComp from "../../../../../components/Button/CreateProjectButtonComp";
 import TextFeildInputComp from "../../../../../components/Field/TextFeildInputComp";
 
-import { Role } from "../../../../../types/Permission";
+import { ROLE_MEMBER, ROLE_OWNER, Role } from "../../../../../types/Permission";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import projectApi from "../../../../../libs/projectApi";
@@ -66,7 +66,9 @@ const RoleView = ({ roles }: RoleViewProps) => {
               <RoleItem
                 key={index}
                 role={role}
-                enable={role.roleName !== "Owner" && role.roleName !== "Member"}
+                enable={
+                  role.roleName !== ROLE_OWNER && role.roleName !== ROLE_MEMBER
+                }
               />
             );
           })}

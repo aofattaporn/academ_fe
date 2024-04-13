@@ -362,6 +362,24 @@ const updatePermissionSuccess = http.put(
   }
 );
 
+const updatePermissionFailedInternalError = http.put(
+  "/api/v1/projects/:projectId/roles/:roleId/permissions",
+  () => HttpResponse.error()
+);
+
+const updatePermissionFailedNotFoundProjectId = http.put(
+  "/api/v1/projects/:projectId/roles/:roleId/permissions",
+  async () => {
+    const mockRes: ResponseCustom<null> = {
+      status: STATUS_CODE_1999,
+      message: RESPONSE_TECHNICAL_ERROR,
+      description: "Can't to get your Project id",
+    };
+
+    return HttpResponse.json(mockRes, { status: 200 });
+  }
+);
+
 export const projectMock = {
   // create-project-api-mocking
   createProjectSuccess,
@@ -405,4 +423,6 @@ export const projectMock = {
 
   // update-permisssion-api-mocking
   updatePermissionSuccess,
+  updatePermissionFailedInternalError,
+  updatePermissionFailedNotFoundProjectId,
 };
