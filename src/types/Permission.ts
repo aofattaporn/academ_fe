@@ -98,8 +98,8 @@ export const NEW_ROLE: Role = {
   permission: {
     id: "3",
     member: {
-      addRole: false,
-      inviteMember: false,
+      addRole: true,
+      inviteMember: true,
       removeMember: true,
     },
     project: {
@@ -126,8 +126,8 @@ export const UPDATE_ROLE_NAME: Role = {
   permission: {
     id: "3",
     member: {
-      addRole: false,
-      inviteMember: false,
+      addRole: true,
+      inviteMember: true,
       removeMember: true,
     },
     project: {
