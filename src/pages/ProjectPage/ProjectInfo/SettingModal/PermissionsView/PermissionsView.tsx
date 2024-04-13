@@ -80,6 +80,7 @@ const PermissionsView = ({ roles }: PermissionsViewProps) => {
         toast.error("Somthing went wrong");
       } else {
         setSelectedRole(data[findIndex]);
+        setPermission(data[findIndex].permission);
         toast.success("Update Permission success");
       }
     },
