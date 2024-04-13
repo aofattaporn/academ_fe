@@ -18,6 +18,7 @@ import {
   NEW_ROLE,
   Role,
   UPDATE_ROLE_NAME,
+  UPDATE_ROLE_PERMISSION,
 } from "../types/Permission";
 
 const PROJECT_DETAILS: ProjectDetails = {
@@ -311,12 +312,12 @@ const updateRoleNameFailedNotFoundProjectId = http.put(
   }
 );
 
-const deleteRoleSuccess = http.delete(
+const deleteRoleFailedInternalError = http.delete(
   "/api/v1/projects/:projectId/roles/:roleId",
   () => HttpResponse.error()
 );
 
-const deleteRoleFailedInternalError = http.delete(
+const deleteRoleSuccess = http.delete(
   "/api/v1/projects/:projectId/roles/:roleId",
   async () => {
     const mockRes: ResponseCustom<Role[]> = {
@@ -340,6 +341,22 @@ const deleteRoleFailedHaveSomeOnewithinRole = http.delete(
       message: RESPONSE_BUSSINESS_ERROR,
       description: "Have someone within this Role",
     };
+
+    return HttpResponse.json(mockRes, { status: 200 });
+  }
+);
+
+const updatePermissionSuccess = http.put(
+  "/api/v1/projects/:projectId/roles/:roleId/permissions",
+  async () => {
+    const mockRes: ResponseCustom<Role[]> = {
+      status: 200,
+      message: RESPONSE_OK,
+      description: "Success",
+      data: [...MOCK_ROLE, UPDATE_ROLE_PERMISSION],
+    };
+
+    await delay(1000);
 
     return HttpResponse.json(mockRes, { status: 200 });
   }
@@ -385,4 +402,7 @@ export const projectMock = {
   deleteRoleSuccess,
   deleteRoleFailedInternalError,
   deleteRoleFailedHaveSomeOnewithinRole,
+
+  // update-permisssion-api-mocking
+  updatePermissionSuccess,
 };

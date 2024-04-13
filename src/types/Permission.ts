@@ -148,4 +148,31 @@ export const UPDATE_ROLE_NAME: Role = {
   },
 };
 
+export const UPDATE_ROLE_PERMISSION: Role = {
+  roleId: "3",
+  roleName: "Watcher",
+  permission: {
+    id: "3",
+    member: {
+      addRole: false,
+      inviteMember: false,
+      removeMember: false,
+    },
+    project: {
+      editProfile: true,
+      manageView: true,
+    },
+    tasks: {
+      addNew: true,
+      delete: true,
+      edit: true,
+      manageProcess: true,
+    },
+    role: {
+      addNew: true,
+      edit: true,
+      delete: true,
+    },
+  },
+};
 export const MOCK_ROLE: Role[] = [memberRole, ownerRole];

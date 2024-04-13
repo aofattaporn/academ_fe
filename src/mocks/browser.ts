@@ -5,4 +5,4 @@ import { projectMock } from "./projectMock";
 
 export const worker = setupWorker(...handlers);
 
-worker.use(projectMock.deleteRoleSuccess);
+worker.use(projectMock.updatePermissionSuccess);

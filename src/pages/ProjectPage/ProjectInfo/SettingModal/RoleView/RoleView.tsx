@@ -26,7 +26,6 @@ const RoleView = ({ roles }: RoleViewProps) => {
         newRole: roleName,
       }),
     onSuccess(data: Role[]) {
-      console.log(data);
       queryClient.setQueryData(QUERY_KEY.PERMISSION_SETTING, data);
       setRoleName("");
       toast.success("Create New Role success");
@@ -74,7 +73,6 @@ const RoleView = ({ roles }: RoleViewProps) => {
         </div>
       </div>
     </>
-    // </div>
   );
 };
 

@@ -12,12 +12,20 @@ import SelectRole from "./SelectRole";
 import { BTN_TASKS_SAVE } from "../../../../../types/MyTasksType";
 import { Button, Divider, Switch } from "@mui/material";
 import RestoreIcon from "@mui/icons-material/Restore";
+import { useMutation, useQueryClient } from "react-query";
+import { toast } from "react-toastify";
+import projectApi from "../../../../../libs/projectApi";
+import { QUERY_KEY } from "../../../../../types/GenericType";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../../stores/store";
 
 type PermissionsViewProps = {
   roles: Role[];
 };
 
 const PermissionsView = ({ roles }: PermissionsViewProps) => {
+  const queryClient = useQueryClient();
+  const projectId = useSelector((state: RootState) => state.modal.projectId);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const [selectedRole, setSelectedRole] = useState<Role>(roles[0]);
   const [permission, setPermission] = useState<Permission>(roles[0].permission);
@@ -52,6 +60,31 @@ const PermissionsView = ({ roles }: PermissionsViewProps) => {
   const handleRetorePermission = () => {
     setPermission(selectedRole.permission);
   };
+
+  const mutation = useMutation({
+    mutationFn: () =>
+      projectApi.settingPermission(
+        projectId as string,
+        selectedRole.roleId,
+        selectedRole
+      ),
+    onSuccess(data: Role[]) {
+      queryClient.setQueryData(QUERY_KEY.PERMISSION_SETTING, data);
+
+      const findIndex = data.findIndex(
+        (element) => element.roleId === selectedRole.roleId
+      );
+      if (findIndex === -1) {
+        toast.error("Somthing went wrong");
+      } else {
+        setSelectedRole(data[findIndex]);
+        toast.success("Update Permission success");
+      }
+    },
+    onError() {
+      toast.error("Failed to update permission");
+    },
+  });
 
   return (
     <>
@@ -130,8 +163,8 @@ const PermissionsView = ({ roles }: PermissionsViewProps) => {
                 JSON.stringify(selectedRole.permission) ===
                 JSON.stringify(permission)
               }
-              isCreating={false}
-              handleChange={() => {}}
+              isCreating={mutation.isLoading}
+              handleChange={mutation.mutate}
             />
           </div>
         </div>

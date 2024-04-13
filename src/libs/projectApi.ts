@@ -195,6 +195,30 @@ const deleteRole = async (
   }
 };
 
+// TODO:
+const settingPermission = async (
+  projectId: string,
+  roleId: string,
+  role: Role
+): Promise<Role[]> => {
+  try {
+    const token = await firebaseApi.getToken();
+    const response = await axiosInstance.put(
+      `/api/v1/projects/${projectId}/roles/${roleId}/permissions`,
+      role,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data.data;
+  } catch (error) {
+    const errorCustom = error as ErrorCustom;
+    console.error("Error cant to update permission :", errorCustom.description);
+    throw errorCustom;
+  }
+};
 const projectApi = {
   createProject,
   getAllProject,
@@ -205,6 +229,7 @@ const projectApi = {
   createNewRoleAndPermission,
   updateRoleName,
   deleteRole,
+  settingPermission,
 };
 
 export default projectApi;
