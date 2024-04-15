@@ -99,7 +99,12 @@ export interface FullMember {
   roleId: string;
 }
 
-export interface Role {
+export interface RoleProject {
   roleId: string;
   roleName: string;
+}
+
+export interface MemberSetting {
+  members: FullMember[];
+  roles: RoleProject[];
 }

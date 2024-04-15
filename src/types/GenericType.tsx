@@ -94,6 +94,7 @@ export const QUERY_KEY = {
   ALL_PROJECT: "allProjectData",
   PROJECTINFO_SETTING: "projectInfoSetting",
   PERMISSION_SETTING: "permissionfoSetting",
+  MEMBERS_SETTING: "membersSetting",
   PROJECR: "project",
   MY_TASKS: "myTasks",
   ALL_TASKS: "allTasks",

@@ -3,6 +3,7 @@ import { Role } from "../types/Permission";
 import {
   CreateProject,
   ListProject,
+  MemberSetting,
   Project,
   ProjectDetails,
 } from "../types/ProjectType";
@@ -219,6 +220,26 @@ const settingPermission = async (
     throw errorCustom;
   }
 };
+
+// TODO:
+const getAllMembers = async (projectId: string): Promise<MemberSetting> => {
+  try {
+    const token = await firebaseApi.getToken();
+    const response = await axiosInstance.get(
+      `/api/v1/projects/${projectId}/members`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data.data;
+  } catch (error) {
+    const errorCustom = error as ErrorCustom;
+    console.error("Error cant to update permission :", errorCustom.description);
+    throw errorCustom;
+  }
+};
 const projectApi = {
   createProject,
   getAllProject,
@@ -230,6 +251,7 @@ const projectApi = {
   updateRoleName,
   deleteRole,
   settingPermission,
+  getAllMembers,
 };
 
 export default projectApi;

@@ -8,9 +8,12 @@ import {
   STATUS_CODE_1999,
 } from "../types/GenericType";
 import {
+  FullMember,
   ListProject,
+  MemberSetting,
   Project,
   ProjectDetails,
+  RoleProject,
   Views,
 } from "../types/ProjectType";
 import {
@@ -31,6 +34,23 @@ const PROJECT_DETAILS: ProjectDetails = {
   startDate: "2024-03-01T00:00:00.000Z",
   dueDate: "2024-04-01T00:00:00.000Z",
 };
+
+const mockedMembers: FullMember[] = [
+  { userName: "John Doe", email: "john@example.com", roleId: "1" },
+  { userName: "Jane Smith", email: "jane@example.com", roleId: "2" },
+];
+
+const mockedRoles: RoleProject[] = [
+  { roleId: "1", roleName: "Admin" },
+  { roleId: "2", roleName: "Editor" },
+];
+
+const mockedMemberSetting: MemberSetting = {
+  members: mockedMembers,
+  roles: mockedRoles,
+};
+
+export default mockedMemberSetting;
 
 // create-project-api
 const createProjectSuccess = http.post(
@@ -380,6 +400,22 @@ const updatePermissionFailedNotFoundProjectId = http.put(
   }
 );
 
+const getProjectMembers = http.get(
+  "/api/v1/projects/:projectId/members",
+  async () => {
+    const mockRes: ResponseCustom<MemberSetting> = {
+      status: 200,
+      message: RESPONSE_OK,
+      description: "Success",
+      data: mockedMemberSetting,
+    };
+
+    await delay(1000);
+
+    return HttpResponse.json(mockRes, { status: 200 });
+  }
+);
+
 export const projectMock = {
   // create-project-api-mocking
   createProjectSuccess,
@@ -425,4 +461,7 @@ export const projectMock = {
   updatePermissionSuccess,
   updatePermissionFailedInternalError,
   updatePermissionFailedNotFoundProjectId,
+
+  // get-project-members-api-mocking
+  getProjectMembers,
 };

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Avatar, IconButton, Menu, MenuItem } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { FullMember, Role } from "../../../../../types/ProjectType";
+import { FullMember, RoleProject } from "../../../../../types/ProjectType";
 
 type MemberItemProps = {
   member: FullMember;
-  roles: Role[];
+  roles: RoleProject[];
 };
 
 const MemberItem = ({ member, roles }: MemberItemProps) => {
