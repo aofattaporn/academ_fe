@@ -2,11 +2,7 @@ import { useState } from "react";
 import CreateProjectButtonComp from "../../../../components/Button/CreateProjectButtonComp";
 import TextFeildInputComp from "../../../../components/Field/TextFeildInputComp";
 import MemberItem from "./MemberItem/MemberItem";
-import {
-  FullMember,
-  MemberSetting,
-  RoleProject,
-} from "../../../../types/ProjectType";
+import { MemberSetting } from "../../../../types/ProjectType";
 import { QUERY_KEY } from "../../../../types/GenericType";
 import { useQuery } from "react-query";
 import projectApi from "../../../../libs/projectApi";

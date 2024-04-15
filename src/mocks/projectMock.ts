@@ -36,8 +36,13 @@ const PROJECT_DETAILS: ProjectDetails = {
 };
 
 const mockedMembers: FullMember[] = [
-  { userName: "John Doe", email: "john@example.com", roleId: "1" },
-  { userName: "Jane Smith", email: "jane@example.com", roleId: "2" },
+  { userName: "John Doe", email: "john@example.com", roleId: "1", userId: "1" },
+  {
+    userName: "Jane Smith",
+    email: "jane@example.com",
+    roleId: "2",
+    userId: "2",
+  },
 ];
 
 const mockedRoles: RoleProject[] = [
@@ -416,6 +421,24 @@ const getProjectMembers = http.get(
   }
 );
 
+const changeRoleMember = http.put(
+  "/api/v1/projects/:projectId/members/:userId/roles/:roleId",
+  async ({ params }) => {
+    const mockRes: ResponseCustom<{ roleId: string }> = {
+      status: 200,
+      message: RESPONSE_OK,
+      description: "Success",
+      data: {
+        roleId: params.roleId as string,
+      },
+    };
+
+    await delay(1000);
+
+    return HttpResponse.json(mockRes, { status: 200 });
+  }
+);
+
 export const projectMock = {
   // create-project-api-mocking
   createProjectSuccess,
@@ -464,4 +487,7 @@ export const projectMock = {
 
   // get-project-members-api-mocking
   getProjectMembers,
+
+  // change-roles-members-api-mocking
+  changeRoleMember,
 };

@@ -94,6 +94,7 @@ export interface Member {
 }
 
 export interface FullMember {
+  userId: string;
   userName: string;
   email: string;
   roleId: string;

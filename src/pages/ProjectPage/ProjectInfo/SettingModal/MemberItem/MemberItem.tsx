@@ -1,7 +1,18 @@
 import { useState } from "react";
-import { Avatar, IconButton, Menu, MenuItem } from "@mui/material";
+import {
+  Avatar,
+  CircularProgress,
+  IconButton,
+  Menu,
+  MenuItem,
+} from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { FullMember, RoleProject } from "../../../../../types/ProjectType";
+import { useMutation } from "react-query";
+import projectApi from "../../../../../libs/projectApi";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../../stores/store";
+import { toast } from "react-toastify";
 
 type MemberItemProps = {
   member: FullMember;
@@ -9,6 +20,7 @@ type MemberItemProps = {
 };
 
 const MemberItem = ({ member, roles }: MemberItemProps) => {
+  const projectId = useSelector((state: RootState) => state.modal.projectId);
   const [selectedRole, setSelectedRole] = useState<string>(member.roleId);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -16,9 +28,19 @@ const MemberItem = ({ member, roles }: MemberItemProps) => {
     setAnchorEl(element);
   };
 
-  const handleClick = (roleId: string) => {
-    setSelectedRole(roleId);
+  const mutation = useMutation({
+    mutationFn: ({ memberId, roleId }: { memberId: string; roleId: string }) =>
+      projectApi.changeRoleMember(projectId as string, memberId, roleId),
+    onSuccess(data: { roleId: string }) {
+      console.log(data.roleId);
+      setSelectedRole(data.roleId);
+      toast.success("Change role success");
+    },
+  });
+
+  const handleClick = (roleId: string, memberId: string) => {
     handleOpenAnchorEl(null);
+    mutation.mutate({ roleId, memberId });
   };
 
   const selectedRoleName = roles.find((role) => role.roleId === selectedRole)
@@ -41,7 +63,11 @@ const MemberItem = ({ member, roles }: MemberItemProps) => {
           className="flex justify-center items-center rounded-md bg-white p-2 border-2 "
           onClick={(e) => handleOpenAnchorEl(e.currentTarget)}
         >
-          {selectedRoleName}
+          {mutation.isLoading ? (
+            <CircularProgress size={20} />
+          ) : (
+            <p>{selectedRoleName}</p>
+          )}
         </button>
         <Menu
           anchorEl={anchorEl}
@@ -51,7 +77,7 @@ const MemberItem = ({ member, roles }: MemberItemProps) => {
           {roles.map((role, index) => (
             <MenuItem
               key={index}
-              onClick={() => handleClick(role.roleId)}
+              onClick={() => handleClick(member.userId, role.roleId)}
               className="flex w-full bg-black"
             >
               {role.roleName}

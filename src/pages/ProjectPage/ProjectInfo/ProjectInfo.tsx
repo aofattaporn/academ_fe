@@ -163,7 +163,7 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
         >
           {members.map((member, index) => {
             return (
-              <Tooltip title={member.userName}>
+              <Tooltip key={index} title={member.userName}>
                 <Avatar key={index} alt={member.userName}>
                   {member.userName.at(0)}
                 </Avatar>

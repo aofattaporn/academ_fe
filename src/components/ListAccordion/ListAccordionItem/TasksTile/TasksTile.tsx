@@ -8,25 +8,25 @@ type TasksTileProps = {
 
 const TasksTile = ({ task }: TasksTileProps) => {
   return (
-    <tr
+    <div
       className={`grid grid-cols-4 p-2 group-hover:bg-gray-100 w-full items-center`}
     >
-      <td className="text-center overflow-x-scroll">
+      <div className="text-center overflow-x-scroll">
         <div>{task.tasksName}</div>
-      </td>
-      <td className="text-center flex justify-center gap-4">
+      </div>
+      <div className="text-center flex justify-center gap-4">
         <Avatar alt={task.assignee} sx={{ width: 20, height: 20 }}>
           {task.assignee.at(0)}
         </Avatar>
         {task.assignee}
-      </td>
-      <td className="text-center">
+      </div>
+      <div className="text-center">
         {task.startDate ? moment(task.startDate).format("l") : ""}
-      </td>
-      <td className="text-center">
+      </div>
+      <div className="text-center">
         {task.dueDate ? moment(task.dueDate).format("l") : ""}
-      </td>
-    </tr>
+      </div>
+    </div>
   );
 };
 

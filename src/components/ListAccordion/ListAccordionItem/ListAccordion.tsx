@@ -6,9 +6,10 @@ import Draggable from "../../../hoc/Draggable";
 import ProcessTitle from "./ProcessTitle/ProcessTitle";
 import CreateTasksItem from "./CreateTasksItem/CreateTasksItem";
 import SettingTasksTile from "./SettingTasksTile/SettingTasksTile";
-import { Process, TaskPermission } from "../../../types/ProjectType";
+import { Process } from "../../../types/ProjectType";
 import { Tasks } from "../../../types/MyTasksType";
 import useTasksHandle from "../../../hooks/tasksHook/useTasksHandler";
+import { TaskPermission } from "../../../types/Permission";
 
 type ListAccordionProps = {
   taskPermission: TaskPermission;

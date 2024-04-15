@@ -38,6 +38,7 @@ export const handlers = [
   projectMock.deleteRoleSuccess,
   projectMock.updatePermissionSuccess,
   projectMock.getProjectMembers,
+  projectMock.changeRoleMember,
 
   // tasks-mock-api
   tasksMock.getAllTasksByProjectId,
