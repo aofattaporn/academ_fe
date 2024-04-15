@@ -11,6 +11,7 @@ export const PLACHOLDER_INPUT_PROJECT: string = "Enter your project name";
 export const PROJECT_SETTING = {
   PROJECR_DETAILS: "Project Details",
   MANAGE_PROJECT_PERMISSIONS: "Manage project permissions",
+  MEMBERS: "Members",
 };
 
 export enum Views {
@@ -70,11 +71,11 @@ export interface ProjectInfo {
 }
 
 export interface ProjectDetails {
-  projectId: string; // Ensure projectId is always a string
+  projectId: string;
   projectProfile: ProjectProfile;
   views: string[];
-  startDate?: string | Moment | null; // Make startDate optional if it's sometimes undefined
-  dueDate?: string | Moment | null; // Make dueDate optional if it's sometimes undefined
+  startDate?: string | Moment | null;
+  dueDate?: string | Moment | null;
 }
 
 export interface ProjectProfile {
@@ -90,4 +91,15 @@ export interface Process {
 
 export interface Member {
   userName: string;
+}
+
+export interface FullMember {
+  userName: string;
+  email: string;
+  roleId: string;
+}
+
+export interface Role {
+  roleId: string;
+  roleName: string;
 }

@@ -7,7 +7,10 @@ import TuneIcon from "@mui/icons-material/Tune";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ArchiveIcon from "@mui/icons-material/Archive";
 import PeopleIcon from "@mui/icons-material/People";
+
 import {
+  Avatar,
+  AvatarGroup,
   Box,
   Button,
   Divider,
@@ -16,12 +19,14 @@ import {
   ListItemText,
   Menu,
   MenuItem,
+  Tooltip,
 } from "@mui/material";
 import { useState, MouseEvent } from "react";
 import { useDispatch } from "react-redux";
 import { openModal } from "../../../stores/modalSlice/modalSlice";
 import SettingProjectDetails from "./SettingModal/SettingProjectDetails";
 import ManageProjectPermissions from "./SettingModal/ManageProjectPermissions";
+import Members from "./SettingModal/Members";
 
 type ProjectInfoProps = {
   projectData: Project;
@@ -29,7 +34,7 @@ type ProjectInfoProps = {
 
 const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
   const { projectId } = useParams();
-  const { projectProfile, views } = projectData.projectInfo;
+  const { projectProfile, views, members } = projectData.projectInfo;
   const location = useLocation();
   const dispatch = useDispatch();
 
@@ -85,6 +90,16 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
     );
   };
 
+  const handleOpenMembers = () => {
+    dispatch(
+      openModal({
+        title: PROJECT_SETTING.MEMBERS,
+        children: <Members />,
+        projectId: projectId as string,
+      })
+    );
+  };
+
   return (
     <div className="w-full flex justify-between items-center">
       <div className="flex gap-4 pt-2">
@@ -121,7 +136,7 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
                   <ListItemText>Manage Role & Permissions</ListItemText>
                 </MenuItem>
                 <Divider />
-                <MenuItem>
+                <MenuItem disabled>
                   <ListItemIcon>
                     <ArchiveIcon fontSize="small" />
                   </ListItemIcon>
@@ -140,8 +155,24 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
         </div>
       </div>
 
-      <div>
+      <div className="flex gap-4 items-center">
+        <AvatarGroup
+          className=" cursor-pointer"
+          onClick={handleOpenMembers}
+          sx={{ flexDirection: "row-reverse" }}
+        >
+          {members.map((member, index) => {
+            return (
+              <Tooltip title={member.userName}>
+                <Avatar key={index} alt={member.userName}>
+                  {member.userName.at(0)}
+                </Avatar>
+              </Tooltip>
+            );
+          })}
+        </AvatarGroup>
         <Button
+          onClick={handleOpenMembers}
           startIcon={<PeopleIcon />}
           size="medium"
           sx={{
