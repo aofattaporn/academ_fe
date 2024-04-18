@@ -9,6 +9,7 @@ import {
 } from "../types/GenericType";
 import {
   FullMember,
+  Invite,
   ListProject,
   MemberSetting,
   Project,
@@ -45,12 +46,26 @@ const mockedMembers: FullMember[] = [
   },
 ];
 
+const mockInvite: Invite[] = [
+  {
+    inviteId: "1",
+    inviteMail: "invite@email.com",
+    inviteDate: "2024-04-01T00:00:00.000Z",
+  },
+  {
+    inviteId: "2",
+    inviteMail: "invite@email2.com",
+    inviteDate: "2024-04-02T00:00:00.000Z",
+  },
+];
+
 const mockedRoles: RoleProject[] = [
   { roleId: "1", roleName: "Admin" },
   { roleId: "2", roleName: "Editor" },
 ];
 
 const mockedMemberSetting: MemberSetting = {
+  invites: mockInvite,
   members: mockedMembers,
   roles: mockedRoles,
 };

@@ -9,6 +9,7 @@ import projectApi from "../../../../libs/projectApi";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../stores/store";
 import { Alert, Button, CircularProgress } from "@mui/material";
+import InviteItem from "./InviteItem";
 
 const Members = () => {
   const projectId = useSelector((state: RootState) => state.modal.projectId);
@@ -78,8 +79,20 @@ const Members = () => {
           </div>
 
           <div className="my-2">
-            <p className="text-gray-200">All Role within this project</p>
+            <p className="text-gray-200">All Email invite within project</p>
             <div className=" w-full ">
+              {memeberSetting &&
+                memeberSetting?.invites &&
+                membersIsSuccess &&
+                memeberSetting.invites.map((invite, index) => {
+                  return <InviteItem key={index} invite={invite} />;
+                })}
+            </div>
+          </div>
+
+          <div className="my-2">
+            <p className="text-gray-200">All Role within this project</p>
+            <div className="w-full ">
               {memeberSetting &&
                 memeberSetting?.roles &&
                 membersIsSuccess &&

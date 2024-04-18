@@ -106,6 +106,13 @@ export interface RoleProject {
 }
 
 export interface MemberSetting {
+  invites: Invite[];
   members: FullMember[];
   roles: RoleProject[];
+}
+
+export interface Invite {
+  inviteId: string;
+  inviteMail: string;
+  inviteDate: string | Moment | null;
 }
