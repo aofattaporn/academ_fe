@@ -26,8 +26,12 @@ const MemberDropdown = ({
         onClick={(e) => handleSetAnchorElUser(e.currentTarget)}
       >
         {member ? (
-          <div className="flex gap-4 grow-0  items-center">
-            <Avatar alt={member.userName} sx={{ width: 24, height: 24 }}>
+          <div className="flex gap-4 grow-0 items-center overflow-clip">
+            <Avatar
+              style={{ backgroundColor: member.avatarColor }}
+              alt={member.userName}
+              sx={{ width: 24, height: 24 }}
+            >
               {member.userName.at(0)}
             </Avatar>
             {member?.userName}
@@ -58,7 +62,11 @@ const MemberDropdown = ({
               >
                 <div className="flex items-center gap-4">
                   <div className=" w-4 h-4  rounded-full"></div>
-                  <Avatar alt={member.userName} sx={{ width: 24, height: 24 }}>
+                  <Avatar
+                    style={{ backgroundColor: member.avatarColor }}
+                    alt={member.userName}
+                    sx={{ width: 24, height: 24 }}
+                  >
                     {member.userName.at(0)}
                   </Avatar>
                   <p>{member.userName}</p>
