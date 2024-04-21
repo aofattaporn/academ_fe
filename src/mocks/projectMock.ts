@@ -37,12 +37,19 @@ const PROJECT_DETAILS: ProjectDetails = {
 };
 
 const mockedMembers: FullMember[] = [
-  { userName: "John Doe", email: "john@example.com", roleId: "1", userId: "1" },
+  {
+    userName: "John Doe",
+    email: "john@example.com",
+    roleId: "1",
+    userId: "1",
+    avatarColor: "#FFFFFF",
+  },
   {
     userName: "Jane Smith",
     email: "jane@example.com",
     roleId: "2",
     userId: "2",
+    avatarColor: "#FFFFFF",
   },
 ];
 
@@ -178,12 +185,15 @@ const getProjectSuccess = http.get("/api/v1/projects/:projectId", async () => {
         members: [
           {
             userName: "User One",
+            avatarColor: "#FFFFFF",
           },
           {
             userName: "User Two",
+            avatarColor: "#FFFFFF",
           },
           {
             userName: "User Three",
+            avatarColor: "#FFFFFF",
           },
         ],
       },

@@ -99,6 +99,7 @@ export interface FullMember {
   userName: string;
   email: string;
   roleId: string;
+  avatarColor: string;
 }
 
 export interface RoleProject {

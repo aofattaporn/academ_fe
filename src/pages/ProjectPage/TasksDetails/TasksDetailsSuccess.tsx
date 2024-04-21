@@ -19,8 +19,6 @@ import DatePickerRow from "../../../components/DatePicker/DatePickerRow";
 import ProcessDropdown from "../../../components/Dropdown/ProcessDropdown";
 import MemberDropdown from "../../../components/Dropdown/MemberDropdown";
 import SettingTasksTile from "../../../components/ListAccordion/ListAccordionItem/SettingTasksTile/SettingTasksTile";
-import { useDispatch } from "react-redux";
-import { openDetails } from "../../../stores/projectSlice/tastsDetailsSlice";
 
 type TasksDetailsSuccessProps = {
   tasksData: Tasks;

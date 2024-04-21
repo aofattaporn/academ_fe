@@ -7,24 +7,15 @@ import {
   MenuItem,
 } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import {
-  FullMember,
-  MemberSetting,
-  RoleProject,
-} from "../../../../../types/ProjectType";
+import { MemberSetting } from "../../../../../types/ProjectType";
 import { useMutation, useQueryClient } from "react-query";
 import projectApi from "../../../../../libs/projectApi";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../stores/store";
 import { toast } from "react-toastify";
-import { QUERY_KEY } from "../../../../../types/GenericType";
+import { MemberItemProps } from "./MemberItem";
 
-type MemberItemProps = {
-  member: FullMember;
-  roles: RoleProject[];
-};
-
-const MemberItem = ({ member, roles }: MemberItemProps) => {
+export const MemberItem = ({ member, roles }: MemberItemProps) => {
   const queryClient = useQueryClient();
   const projectId = useSelector((state: RootState) => state.modal.projectId);
   const [selectedRole, setSelectedRole] = useState<string>(member.roleId);
@@ -44,11 +35,10 @@ const MemberItem = ({ member, roles }: MemberItemProps) => {
     }) =>
       await projectApi.changeRoleMember(projectId as string, memberId, roleId),
     onSuccess(data: MemberSetting) {
-      const newRole = data.members.find(
-        (member2) => member2.userId === member.userId
+      queryClient.setQueryData(
+        [QUERY_KEY.Tasks, tasksData.tasksId],
+        updatedTasks
       );
-      setSelectedRole(newRole?.roleId as string);
-      queryClient.setQueryData([QUERY_KEY.MEMBERS_SETTING, projectId], data);
       toast.success("Change role success");
     },
   });
@@ -110,5 +100,3 @@ const MemberItem = ({ member, roles }: MemberItemProps) => {
     </div>
   );
 };
-
-export default MemberItem;

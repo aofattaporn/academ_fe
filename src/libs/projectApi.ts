@@ -244,13 +244,13 @@ const getAllMembers = async (projectId: string): Promise<MemberSetting> => {
 // TODO:
 const changeRoleMember = async (
   projectId: string,
-  userId: string,
+  memberId: string,
   roleId: string
-): Promise<{ roleId: string }> => {
+): Promise<MemberSetting> => {
   try {
     const token = await firebaseApi.getToken();
-    const response = await axiosInstance.put(
-      `/api/v1/projects/${projectId}/members/${userId}/roles/${roleId}`,
+    const response = await axiosInstance.get(
+      `/api/v1/projects/${projectId}/members/${memberId}/roles/${roleId}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

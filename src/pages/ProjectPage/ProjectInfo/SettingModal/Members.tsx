@@ -1,7 +1,6 @@
 import { useState } from "react";
 import CreateProjectButtonComp from "../../../../components/Button/CreateProjectButtonComp";
 import TextFeildInputComp from "../../../../components/Field/TextFeildInputComp";
-import MemberItem from "./MemberItem/MemberItem";
 import { MemberSetting } from "../../../../types/ProjectType";
 import { QUERY_KEY } from "../../../../types/GenericType";
 import { useQuery } from "react-query";
@@ -10,6 +9,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../stores/store";
 import { Alert, Button, CircularProgress } from "@mui/material";
 import InviteItem from "./InviteItem";
+import MemberItem from "./MemberItem/MemberItem";
 
 const Members = () => {
   const projectId = useSelector((state: RootState) => state.modal.projectId);
@@ -27,7 +27,6 @@ const Members = () => {
     {
       refetchOnWindowFocus: false,
       onSuccess(data) {
-        console.log();
         setMemberSetting(data);
       },
     }
