@@ -79,18 +79,6 @@ const Members = () => {
           </div>
 
           <div className="my-2">
-            <p className="text-gray-200">All Email invite within project</p>
-            <div className=" w-full ">
-              {memeberSetting &&
-                memeberSetting?.invites &&
-                membersIsSuccess &&
-                memeberSetting.invites.map((invite, index) => {
-                  return <InviteItem key={index} invite={invite} />;
-                })}
-            </div>
-          </div>
-
-          <div className="my-2">
             <p className="text-gray-200">All Role within this project</p>
             <div className="w-full ">
               {memeberSetting &&
@@ -104,6 +92,13 @@ const Members = () => {
                       roles={memeberSetting.roles}
                     />
                   );
+                })}
+
+              {memeberSetting &&
+                memeberSetting?.invites &&
+                membersIsSuccess &&
+                memeberSetting.invites.map((invite, index) => {
+                  return <InviteItem key={index} invite={invite} />;
                 })}
             </div>
           </div>

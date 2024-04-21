@@ -67,8 +67,8 @@ const PermissionsView = ({ roles }: PermissionsViewProps) => {
     mutationFn: () =>
       projectApi.settingPermission(
         projectId as string,
-        selectedRole.roleId,
-        selectedRole
+        selectedRole.permission.id,
+        permission
       ),
     onSuccess(data: Role[]) {
       queryClient.setQueryData(QUERY_KEY.PERMISSION_SETTING, data);
@@ -120,6 +120,7 @@ const PermissionsView = ({ roles }: PermissionsViewProps) => {
           </div>
 
           {Object.entries(permission).map(([roleType, value]) => {
+            console.log(permission);
             if (roleType === "id") return null;
             return (
               <div>

@@ -29,9 +29,9 @@ const useHandleRole = () => {
   };
 
   const updateRoleNameMutation = useMutation({
-    mutationFn: (roleName: string) =>
-      projectApi.updateRoleName(projectId as string, roleName, {
-        newRole: roleName,
+    mutationFn: (roleId: string) =>
+      projectApi.updateRoleName(projectId as string, roleId, {
+        newRole: editRole,
       }),
     onSuccess(data: Role[]) {
       queryClient.setQueryData(QUERY_KEY.PERMISSION_SETTING, data);

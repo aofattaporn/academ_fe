@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 
 const useProject = () => {
   const { projectId } = useParams<string>();
-  console.log(projectId);
 
   const {
     isLoading: projectIsLoading,

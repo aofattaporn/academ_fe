@@ -2,11 +2,12 @@ import { Outlet, useOutletContext } from "react-router-dom";
 import useProject from "../../hooks/projectHook/useProject";
 import ProjectInfo from "./ProjectInfo/ProjectInfo";
 import ProjectInfoLoading from "./ProjectInfo/ProjectInfoLoading";
-import { Process, TaskPermission } from "../../types/ProjectType";
+import { Process } from "../../types/ProjectType";
 import { useSelector } from "react-redux";
 import { RootState } from "../../stores/store";
 import TasksDetails from "./TasksDetails/TasksDetails";
 import { ToastContainer } from "react-toastify";
+import { TaskPermission } from "../../types/Permission";
 
 type ContextType = {
   taskPermission: TaskPermission | undefined;

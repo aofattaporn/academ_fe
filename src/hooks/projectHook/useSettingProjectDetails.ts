@@ -1,11 +1,11 @@
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import projectApi from "../../libs/projectApi";
 import { QUERY_KEY } from "../../types/GenericType";
 import { Moment } from "moment";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../stores/store";
-import { ProjectDetails } from "../../types/ProjectType";
+import { Project, ProjectDetails } from "../../types/ProjectType";
 import { closeModal } from "../../stores/modalSlice/modalSlice";
 import { toast } from "react-toastify";
 
@@ -20,6 +20,7 @@ const useSettingProjectDetails = () => {
   });
   const projectId = useSelector((state: RootState) => state.modal.projectId);
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
 
   const {
     isLoading: projectIsLoading,
@@ -41,7 +42,8 @@ const useSettingProjectDetails = () => {
   const mutation = useMutation({
     mutationFn: () =>
       projectApi.updateProjectDetails(projectId as string, projectDetails),
-    onSuccess() {
+    onSuccess(data: Project) {
+      queryClient.setQueryData([QUERY_KEY.PROJECR, projectId], data);
       dispatch(closeModal());
       toast.success("Update tasks details success");
     },

@@ -1,5 +1,5 @@
 import { ErrorCustom } from "../types/GenericType";
-import { Role } from "../types/Permission";
+import { Permission, Role } from "../types/Permission";
 import {
   CreateProject,
   ListProject,
@@ -82,7 +82,7 @@ const getProjectDetails = async (
 const updateProjectDetails = async (
   projectId: string,
   projectDetails: ProjectDetails
-) => {
+): Promise<Project> => {
   try {
     const token = await firebaseApi.getToken();
     const response = await axiosInstance.put(
@@ -199,14 +199,14 @@ const deleteRole = async (
 // TODO:
 const settingPermission = async (
   projectId: string,
-  roleId: string,
-  role: Role
+  permissionId: string,
+  permission: Permission
 ): Promise<Role[]> => {
   try {
     const token = await firebaseApi.getToken();
     const response = await axiosInstance.put(
-      `/api/v1/projects/${projectId}/roles/${roleId}/permissions`,
-      role,
+      `/api/v1/projects/${projectId}/permissions/${permissionId}`,
+      permission,
       {
         headers: {
           Authorization: `Bearer ${token}`,
