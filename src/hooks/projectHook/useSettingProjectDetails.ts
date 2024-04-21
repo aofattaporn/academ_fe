@@ -41,7 +41,11 @@ const useSettingProjectDetails = () => {
 
   const mutation = useMutation({
     mutationFn: () =>
-      projectApi.updateProjectDetails(projectId as string, projectDetails),
+      projectApi.updateProjectDetails(projectId as string, {
+        ...projectDetails,
+        startDate: projectDetails.startDate,
+        dueDate: projectDetails.dueDate,
+      }),
     onSuccess(data: Project) {
       queryClient.setQueryData([QUERY_KEY.PROJECR, projectId], data);
       dispatch(closeModal());
@@ -76,7 +80,7 @@ const useSettingProjectDetails = () => {
     if (!startDate) return;
     setProjectDetails((prev) => ({
       ...prev,
-      startDate: startDate.toString(),
+      startDate: startDate.toISOString(),
     }));
   };
 
@@ -84,7 +88,7 @@ const useSettingProjectDetails = () => {
     if (!dueDate) return;
     setProjectDetails((prev) => ({
       ...prev,
-      dueDate: dueDate.toString(),
+      dueDate: dueDate.toISOString(),
     }));
   };
 

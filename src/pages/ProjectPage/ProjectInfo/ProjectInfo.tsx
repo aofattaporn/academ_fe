@@ -157,14 +157,19 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
 
       <div className="flex gap-4 items-center">
         <AvatarGroup
-          className=" cursor-pointer"
+          className="cursor-pointer"
           onClick={handleOpenMembers}
           sx={{ flexDirection: "row-reverse" }}
         >
           {members.map((member, index) => {
+            console.log(member.avatarColor);
             return (
               <Tooltip key={index} title={member.userName}>
-                <Avatar key={index} alt={member.userName}>
+                <Avatar
+                  style={{ backgroundColor: member.avatarColor }}
+                  key={index}
+                  alt={member.userName}
+                >
                   {member.userName.at(0)}
                 </Avatar>
               </Tooltip>

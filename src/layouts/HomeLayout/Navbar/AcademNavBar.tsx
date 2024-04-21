@@ -33,11 +33,7 @@ function AcademNaveBar(): ReactElement {
       <div className="flex justify-end items-center">
         <Box>
           <IconButton onClick={handleOpenUserMenu}>
-            <Avatar
-              src="/path-to-avatar-image.jpg"
-              alt={"Attaporn"}
-              sx={{ width: 32, height: 32 }}
-            />
+            <Avatar alt={"Attaporn"} sx={{ width: 32, height: 32 }} />
           </IconButton>
           <Menu
             anchorEl={anchorElUser}

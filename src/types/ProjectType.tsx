@@ -91,6 +91,7 @@ export interface Process {
 
 export interface Member {
   userName: string;
+  avatarColor: string;
 }
 
 export interface FullMember {

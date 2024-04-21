@@ -22,11 +22,12 @@ const Members = () => {
     refetch: membersRefetch,
     isSuccess: membersIsSuccess,
   } = useQuery(
-    QUERY_KEY.MEMBERS_SETTING,
+    [QUERY_KEY.MEMBERS_SETTING, projectId],
     () => projectApi.getAllMembers(projectId as string),
     {
       refetchOnWindowFocus: false,
       onSuccess(data) {
+        console.log();
         setMemberSetting(data);
       },
     }
