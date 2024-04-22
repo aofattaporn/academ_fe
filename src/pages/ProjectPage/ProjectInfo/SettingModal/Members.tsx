@@ -67,7 +67,7 @@ const Members = () => {
 
           <div className="my-2">
             <p className="text-gray-200">All Role within this project</p>
-            <div className="w-full ">
+            <div className="w-full max-h-72 overflow-y-scroll ">
               {memeberSetting &&
                 memeberSetting?.roles &&
                 membersIsSuccess &&

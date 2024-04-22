@@ -83,6 +83,7 @@ const InviteInput = ({ roles }: InviteInputProps) => {
           isCreating={mutation.isLoading}
           handleChange={() =>
             mutation.mutate({
+              inviteId: "",
               inviteRoleId: selectedRole.roleId,
               inviteDate: moment().toISOString(),
               inviteEmail: memberEmail,

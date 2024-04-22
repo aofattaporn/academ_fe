@@ -258,13 +258,32 @@ const changeRoleMember = async (
   }
 };
 
-// TODO: accept member
 const inviteMember = async (projectId: string, invite: Invite) => {
   try {
     const token = await firebaseApi.getToken();
     const response = await axiosInstance.post(
       `/api/v1/projects/${projectId}/invites`,
       invite,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data.data;
+  } catch (error) {
+    const errorCustom = error as ErrorCustom;
+    console.error("Error cant to update permission :", errorCustom.description);
+    throw errorCustom;
+  }
+};
+
+const deleteInviteMember = async (projectId: string, inviteId: string) => {
+  try {
+    const token = await firebaseApi.getToken();
+    const response = await axiosInstance.delete(
+      `/api/v1/projects/${projectId}/invites/${inviteId}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -297,6 +316,7 @@ const projectApi = {
   getAllMembers,
   changeRoleMember,
   inviteMember,
+  deleteInviteMember,
 };
 
 export default projectApi;
