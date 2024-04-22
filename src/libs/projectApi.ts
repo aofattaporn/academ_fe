@@ -2,6 +2,7 @@ import { ErrorCustom } from "../types/GenericType";
 import { Permission, Role } from "../types/Permission";
 import {
   CreateProject,
+  Invite,
   ListProject,
   MemberSetting,
   Project,
@@ -56,7 +57,6 @@ const getProject = async (projectId: string): Promise<Project> => {
   }
 };
 
-// TODO:
 const getProjectDetails = async (
   projectId: string
 ): Promise<ProjectDetails> => {
@@ -78,7 +78,6 @@ const getProjectDetails = async (
   }
 };
 
-// TODO:
 const updateProjectDetails = async (
   projectId: string,
   projectDetails: ProjectDetails
@@ -102,7 +101,6 @@ const updateProjectDetails = async (
   }
 };
 
-// TODO:
 const getProjectRoleAndPermission = async (
   projectId: string
 ): Promise<Role[]> => {
@@ -124,7 +122,6 @@ const getProjectRoleAndPermission = async (
   }
 };
 
-// TODO:
 const createNewRoleAndPermission = async (
   projectId: string,
   newRole: { newRole: string }
@@ -148,7 +145,6 @@ const createNewRoleAndPermission = async (
   }
 };
 
-// TODO:
 const updateRoleName = async (
   projectId: string,
   roleId: string,
@@ -173,7 +169,6 @@ const updateRoleName = async (
   }
 };
 
-// TODO:
 const deleteRole = async (
   projectId: string,
   roleId: string
@@ -196,7 +191,6 @@ const deleteRole = async (
   }
 };
 
-// TODO:
 const settingPermission = async (
   projectId: string,
   permissionId: string,
@@ -221,7 +215,6 @@ const settingPermission = async (
   }
 };
 
-// TODO:
 const getAllMembers = async (projectId: string): Promise<MemberSetting> => {
   try {
     const token = await firebaseApi.getToken();
@@ -241,7 +234,6 @@ const getAllMembers = async (projectId: string): Promise<MemberSetting> => {
   }
 };
 
-// TODO:
 const changeRoleMember = async (
   projectId: string,
   memberId: string,
@@ -266,6 +258,31 @@ const changeRoleMember = async (
   }
 };
 
+// TODO: accept member
+const inviteMember = async (projectId: string, invite: Invite) => {
+  try {
+    const token = await firebaseApi.getToken();
+    const response = await axiosInstance.post(
+      `/api/v1/projects/${projectId}/invites`,
+      invite,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data.data;
+  } catch (error) {
+    const errorCustom = error as ErrorCustom;
+    console.error("Error cant to update permission :", errorCustom.description);
+    throw errorCustom;
+  }
+};
+
+// TODO: accept member
+const acceptInvite = async () => {};
+
 const projectApi = {
   createProject,
   getAllProject,
@@ -279,6 +296,7 @@ const projectApi = {
   settingPermission,
   getAllMembers,
   changeRoleMember,
+  inviteMember,
 };
 
 export default projectApi;

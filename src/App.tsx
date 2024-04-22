@@ -15,6 +15,7 @@ import ProjectPage from "./pages/ProjectPage/ProjectPage";
 import Board from "./pages/ProjectPage/Board/Board";
 import Calendar from "./pages/ProjectPage/Calendar/Calendar";
 import Timeline from "./pages/ProjectPage/Timeline/Timeline";
+import InvitePage from "./pages/InvitePage/InvitePage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/sign-up" element={<SignUpPage />} />
         <Route path="/verify-email" element={<VerifyEmailPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/join-project" element={<InvitePage />} />
       </Route>
       <Route element={<PrivateRoute />}>
         <Route path="/" element={<HomePage />} />

@@ -114,7 +114,7 @@ export interface MemberSetting {
 }
 
 export interface Invite {
-  inviteId: string;
-  inviteMail: string;
+  inviteRoleId: string;
+  inviteEmail: string;
   inviteDate: string | Moment | null;
 }

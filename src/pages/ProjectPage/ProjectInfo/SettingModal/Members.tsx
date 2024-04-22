@@ -1,6 +1,4 @@
 import { useState } from "react";
-import CreateProjectButtonComp from "../../../../components/Button/CreateProjectButtonComp";
-import TextFeildInputComp from "../../../../components/Field/TextFeildInputComp";
 import { MemberSetting } from "../../../../types/ProjectType";
 import { QUERY_KEY } from "../../../../types/GenericType";
 import { useQuery } from "react-query";
@@ -10,10 +8,10 @@ import { RootState } from "../../../../stores/store";
 import { Alert, Button, CircularProgress } from "@mui/material";
 import InviteItem from "./InviteItem";
 import MemberItem from "./MemberItem/MemberItem";
+import InviteInput from "./InviteInput";
 
 const Members = () => {
   const projectId = useSelector((state: RootState) => state.modal.projectId);
-  const [memberEmail, setMemberEmail] = useState<string>("");
   const [memeberSetting, setMemberSetting] = useState<MemberSetting>();
 
   const {
@@ -58,24 +56,13 @@ const Members = () => {
       {membersIsSuccess ? (
         <>
           <div className="my-4">
-            <p className=" text-gray-200">Manage Role within this project</p>
-            <div className=" grid grid-cols-4 gap-4 w-full">
-              <div className=" col-span-3 ">
-                <TextFeildInputComp
-                  placeholder={"Email Invite"}
-                  value={memberEmail}
-                  handleProjectName={(email: string) => setMemberEmail(email)}
-                />
-              </div>
-              <div className=" col-span-1">
-                <CreateProjectButtonComp
-                  title={"Invite"}
-                  disable={false}
-                  isCreating={false}
-                  handleChange={() => {}}
-                />
-              </div>
-            </div>
+            <p className="text-gray-200">Manage Role within this project</p>
+            {memeberSetting &&
+              memeberSetting?.roles &&
+              membersIsSuccess &&
+              memeberSetting.members.map((_, index) => {
+                return <InviteInput key={index} roles={memeberSetting.roles} />;
+              })}
           </div>
 
           <div className="my-2">
@@ -98,7 +85,13 @@ const Members = () => {
                 memeberSetting?.invites &&
                 membersIsSuccess &&
                 memeberSetting.invites.map((invite, index) => {
-                  return <InviteItem key={index} invite={invite} />;
+                  return (
+                    <InviteItem
+                      key={index}
+                      invite={invite}
+                      roles={memeberSetting.roles}
+                    />
+                  );
                 })}
             </div>
           </div>

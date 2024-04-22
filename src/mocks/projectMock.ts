@@ -55,13 +55,13 @@ const mockedMembers: FullMember[] = [
 
 const mockInvite: Invite[] = [
   {
-    inviteId: "1",
-    inviteMail: "invite@email.com",
+    inviteRoleId: "1",
+    inviteEmail: "invite@email.com",
     inviteDate: "2024-04-01T00:00:00.000Z",
   },
   {
-    inviteId: "2",
-    inviteMail: "invite@email2.com",
+    inviteRoleId: "2",
+    inviteEmail: "invite@email2.com",
     inviteDate: "2024-04-02T00:00:00.000Z",
   },
 ];
