@@ -91,6 +91,7 @@ export const NAVIGATOR = {
 };
 
 export const QUERY_KEY = {
+  USER: "user",
   ALL_PROJECT: "allProjectData",
   PROJECTINFO_SETTING: "projectInfoSetting",
   PERMISSION_SETTING: "permissionfoSetting",
