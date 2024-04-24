@@ -70,7 +70,15 @@ const TasksDetailsSuccess = ({
         processId: myProcess?.processId
           ? myProcess?.processId
           : updateTasks.processId,
-        assignee: assignee as FullMember,
+        assignee: assignee
+          ? assignee
+          : ({
+              userId: "",
+              userName: "",
+              email: "",
+              roleId: "",
+              avatarColor: "",
+            } as FullMember),
         startDate: updateTasks.startDate,
         dueDate: updateTasks.dueDate,
       }),
@@ -102,10 +110,14 @@ const TasksDetailsSuccess = ({
     setAnchorElUser(element);
 
   const [myProcess, setMyProcess] = useState<Process | undefined>(
-    projectData.projectInfo.process.at(0)
+    projectData.projectInfo.process.find(
+      (process) => process.processId === tasks.processId
+    )
   );
 
-  const [assignee, setAssignee] = useState<FullMember | undefined>();
+  const [assignee, setAssignee] = useState<FullMember | undefined>(
+    tasks.assignee
+  );
 
   const handleSelectProcess = (selectProcess: Process) => {
     setMyProcess(selectProcess);
