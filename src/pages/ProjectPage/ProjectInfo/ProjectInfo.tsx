@@ -1,4 +1,4 @@
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import AvatarProject from "../../../components/AvatarProject/AvatarProject";
 import { PROJECT_SETTING, Project, Size } from "../../../types/ProjectType";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -27,6 +27,10 @@ import { openModal } from "../../../stores/modalSlice/modalSlice";
 import SettingProjectDetails from "./SettingModal/SettingProjectDetails";
 import ManageProjectPermissions from "./SettingModal/ManageProjectPermissions";
 import Members from "./SettingModal/Members";
+import { useMutation } from "react-query";
+import { toast } from "react-toastify";
+import projectApi from "../../../libs/projectApi";
+import ConfirmDelete from "../../../components/Modal/ConfirmDelete";
 
 type ProjectInfoProps = {
   projectData: Project;
@@ -37,6 +41,8 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
   const { projectProfile, views, members } = projectData.projectInfo;
   const location = useLocation();
   const dispatch = useDispatch();
+  const [open, setOpen] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -100,6 +106,18 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
     );
   };
 
+  const mutation = useMutation({
+    mutationFn: () => projectApi.deleteProjectById(projectId as string),
+    onSuccess() {
+      setOpen(false);
+      toast.success("Delete Project success");
+      navigate("/projects");
+    },
+    onError() {
+      toast.error("Somthing went wrong");
+    },
+  });
+
   return (
     <div className="w-full flex justify-between items-center">
       <div className="flex gap-4 pt-2">
@@ -142,7 +160,7 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
                   </ListItemIcon>
                   <ListItemText>Archive</ListItemText>
                 </MenuItem>
-                <MenuItem color="error">
+                <MenuItem onClick={() => setOpen(true)} color="error">
                   <ListItemIcon>
                     <DeleteOutlineIcon fontSize="small" />
                   </ListItemIcon>
@@ -194,6 +212,14 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
           Share
         </Button>
       </div>
+
+      {open ? (
+        <ConfirmDelete
+          isDeleting={false}
+          handleClose={() => setOpen(false)}
+          handleDelete={mutation.mutate}
+        />
+      ) : null}
     </div>
   );
 };
