@@ -1,10 +1,11 @@
 import { useQuery } from "react-query";
 import projectApi from "../../libs/projectApi";
 import { QUERY_KEY } from "../../types/GenericType";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const useProject = () => {
   const { projectId } = useParams<string>();
+  const navigate = useNavigate();
 
   const {
     isLoading: projectIsLoading,
@@ -19,6 +20,9 @@ const useProject = () => {
       refetchOnWindowFocus: false,
       staleTime: Infinity,
       cacheTime: Infinity,
+      onSettled(data) {
+        if (data) navigate(data?.projectInfo.views[0]);
+      },
     }
   );
   return {
