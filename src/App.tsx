@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import NotificationPage from "./pages/NotificationPage";
+import NotificationPage from "./pages/NotificationPage/NotificationPage";
 import MytaskPage from "./pages/MyTaskPage/MytaskPage";
 import HomePage from "./pages/HomePage/HomePage";
 import SignUpPage from "./pages/AuthPage/SignUpPage";
