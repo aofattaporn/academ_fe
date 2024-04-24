@@ -28,6 +28,22 @@ const getAllTasksByProjectId = async (
   }
 };
 
+const getAllTasksHomePage = async (): Promise<Tasks[]> => {
+  try {
+    const token = await firebaseApi.getToken();
+    const response = await axiosInstance.get("/api/v1/tasks/homepage", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(token);
+    return response.data.data;
+  } catch (error) {
+    console.error("Error fetching projects:", error);
+    throw error;
+  }
+};
+
 const getTasksByProjectId = async (tasksId: string): Promise<Tasks> => {
   try {
     const token = await firebaseApi.getToken();
@@ -125,6 +141,7 @@ const tasksApi = {
   updateTasks,
   changeProcess,
   deleteTasksById,
+  getAllTasksHomePage,
 };
 
 export default tasksApi;

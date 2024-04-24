@@ -1,17 +1,16 @@
 import { useQuery } from "react-query";
-import homeApi from "../../../libs/homeApi";
 import { BoxNulldata } from "../../../components/BoxHomepage/BoxNulldata";
 import BoxLoading from "../../../components/BoxHomepage/BoxLoading";
 import BoxError from "../../../components/BoxHomepage/BoxError";
+import tasksApi from "../../../libs/tasksApi";
+import { QUERY_KEY } from "../../../types/GenericType";
+import moment from "moment";
+import { Divider } from "@mui/material";
 
 const MytaskBox = () => {
   const { isLoading, isError, data, error } = useQuery(
-    "taskApiKey",
-    () => homeApi.mytaskApi("user_id"),
-    {
-      staleTime: Infinity,
-      cacheTime: Infinity,
-    }
+    QUERY_KEY.HOME_TASKS,
+    () => tasksApi.getAllTasksHomePage()
   );
 
   if (isLoading) {
@@ -26,29 +25,28 @@ const MytaskBox = () => {
   }
 
   return (
-    <div className="p-4 bg-background-white shadow-xl rounded-xl">
-      <div className="p-2">
-        <h2 className="text-black font-bold text-xl">Tasks</h2>
-      </div>
-      <div className="bg-main rounded-xl grid grid-cols-1 gap-4 place-content-start place-items-center p-4">
-        {data.map((item, index) => (
-          <div
-            key={index}
-            className="w-11/12 bg-background-white shadow-sm rounded-lg flex flex-row justify-between items-center p-2"
-          >
-            <div className="grid content-center ml-6">
-              <p className="font-semibold my-1">{item.taskName}</p>
+    <div className="p-4 bg-background-white shadow-3xl rounded-xl font-roboto h-full">
+      <div className="h-full rounded-md">
+        <h2 className="text-black font-bold text-xl p-2 pt-4">My Tasks</h2>
+        <Divider />
+        <div className="rounded-xl grid grid-cols-1 lg:grid-cols-1 gap-4 mt-8">
+          {data.map((item, index) => (
+            <div>
+              <div
+                key={index}
+                className="grid grid-cols-3 align-middle items-center gap-4 p-2 cursor-pointer bg-white shadow-3xl rounded-md"
+              >
+                <p className="my-1">{item.tasksName}</p>
+                <p className="my-1 text-center">
+                  {moment(item.startDate).format("l")}
+                </p>
+                <p className="my-1 text-center">
+                  {moment(item.dueDate).format("l")}
+                </p>
+              </div>
             </div>
-            <div className="bg-primary opacity-50 w-24 h-6 rounded-md flex justify-center items-center text-center shadow-md">
-              <p className="font-semibold text-black text-center">
-                {item.taskFromproject}
-              </p>
-            </div>
-            <div className="grid content-center mr-6">
-              <p className="font-semibold my-1">{item.taskDuedate}</p>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

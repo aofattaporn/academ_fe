@@ -1,18 +1,20 @@
 import { useQuery } from "react-query";
-import homeApi from "../../../libs/homeApi";
 import { BoxNulldata } from "../../../components/BoxHomepage/BoxNulldata";
 import BoxLoading from "../../../components/BoxHomepage/BoxLoading";
 import BoxError from "../../../components/BoxHomepage/BoxError";
+import projectApi from "../../../libs/projectApi";
+import { QUERY_KEY } from "../../../types/GenericType";
+import moment from "moment";
+import AvatarProject from "../../../components/AvatarProject/AvatarProject";
+import { Size } from "../../../types/ProjectType";
+import { Divider } from "@mui/material";
 
 const ProjectBox = () => {
   const { isLoading, isError, data, error } = useQuery(
-    "projectApiKey",
-    () => homeApi.projectApi("user_id"),
-    {
-      staleTime: Infinity,
-      cacheTime: Infinity,
-    }
+    QUERY_KEY.HOME_PROJECTS,
+    () => projectApi.getAllProjectHomePage()
   );
+
   if (isLoading) {
     return <BoxLoading />;
   }
@@ -25,24 +27,30 @@ const ProjectBox = () => {
   }
 
   return (
-    <div className="p-4 bg-background-white shadow-xl rounded-xl">
-      <div className="p-2">
-        <h2 className="text-black font-bold text-xl my-2">Project</h2>
-        <div className="rounded-xl grid grid-cols-1 lg:grid-cols-2 gap-4 place-content-start bg-main p-4">
+    <div className="p-4 bg-background-white shadow-3xl rounded-xl font-roboto h-full">
+      <div className="h-full rounded-md">
+        <h2 className="text-black font-bold text-xl p-2 pt-4">Project</h2>
+        <Divider />
+        <div className="rounded-xl grid grid-cols-1 lg:grid-cols-2 gap-4 mt-8">
           {data.map((item, index) => (
             <div
               key={index}
               className="flex align-middle items-center gap-4 p-2 cursor-pointer"
             >
-              <div className="bg-primary w-16 h-16 rounded-md flex justify-center items-center text-center shadow-md">
-                <p className="text-white text-center font-bold text-2xl">
-                  {item.projectName.charAt(0)}
-                </p>
-              </div>
+              <AvatarProject
+                isLoading={false}
+                size={Size.medium}
+                color={item.projectProfile.avatarColor}
+                projectName={item.projectProfile.projectName}
+              />
 
               <div>
-                <h4 className="font-semibold my-1">{item.projectName}</h4>
-                <p className="text-gray-300">{item.projectId}</p>
+                <h4 className="font-semibold my-1">
+                  {item.projectProfile.projectName}
+                </h4>
+                <p className="text-gray-300">
+                  {moment(item.projectEndDate).format("l")}
+                </p>
               </div>
             </div>
           ))}

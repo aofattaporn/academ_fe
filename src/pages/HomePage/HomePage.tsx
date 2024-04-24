@@ -2,8 +2,7 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import MytaskBox from "./component/MyTasksBox";
 import { GreetingType } from "../../types/HomeType";
-import ClassBox from "./component/classbox";
-import ProjectBox from "./component/projectbox";
+import ProjectBox from "./component/ProjectBox";
 
 const HomePage = () => {
   const currentHour = new Date().getHours();
@@ -34,9 +33,8 @@ const HomePage = () => {
         </div>
       </div>
 
-      <div className="p-8 grid md:grid-cols-2  grid-cols-1 gap-4 gap-y-10 gap-x-8">
+      <div className="px-8 grid md:grid-cols-2 grid-cols-1 gap-4 gap-y-10 gap-x-8">
         <ProjectBox />
-        <ClassBox />
         <MytaskBox />
       </div>
     </div>
