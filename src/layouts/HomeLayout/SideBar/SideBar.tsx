@@ -24,8 +24,6 @@ const SideBar = () => {
     projectRefetch,
   } = useAllMyProjects();
 
-  // TODO : Get All Class
-
   return (
     <div
       className={` ${

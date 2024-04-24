@@ -57,12 +57,9 @@ const Members = () => {
         <>
           <div className="my-4">
             <p className="text-gray-200">Manage Role within this project</p>
-            {memeberSetting &&
-              memeberSetting?.roles &&
-              membersIsSuccess &&
-              memeberSetting.members.map((_, index) => {
-                return <InviteInput key={index} roles={memeberSetting.roles} />;
-              })}
+            {memeberSetting && memeberSetting?.roles && membersIsSuccess ? (
+              <InviteInput roles={memeberSetting.roles} />
+            ) : null}
           </div>
 
           <div className="my-2">

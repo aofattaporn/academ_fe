@@ -9,11 +9,7 @@ const useAllMyProjects = () => {
     isError: projectIsError,
     refetch: projectRefetch,
     data: projectData,
-  } = useQuery(QUERY_KEY.ALL_PROJECT, () => projectApi.getAllProject(), {
-    refetchOnWindowFocus: false,
-    staleTime: Infinity,
-    cacheTime: Infinity,
-  });
+  } = useQuery(QUERY_KEY.ALL_PROJECT, () => projectApi.getAllProject(), {});
   return {
     projectIsLoading,
     projectIsSuccess,

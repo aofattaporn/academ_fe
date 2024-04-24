@@ -18,6 +18,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../../stores/store";
 import { toast } from "react-toastify";
 import { QUERY_KEY } from "../../../../../types/GenericType";
+import ConfirmDelete from "../../../../../components/Modal/ConfirmDelete";
 
 type MemberItemProps = {
   member: FullMember;
@@ -29,6 +30,7 @@ const MemberItem = ({ member, roles }: MemberItemProps) => {
   const projectId = useSelector((state: RootState) => state.modal.projectId);
   const [selectedRole, setSelectedRole] = useState<string>(member.roleId);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [open, setOpen] = useState<boolean>(false);
 
   const handleOpenAnchorEl = (element: null | HTMLElement) => {
     setAnchorEl(element);
@@ -50,6 +52,16 @@ const MemberItem = ({ member, roles }: MemberItemProps) => {
       setSelectedRole(newRole?.roleId as string);
       queryClient.setQueryData([QUERY_KEY.MEMBERS_SETTING, projectId], data);
       toast.success("Change role success");
+    },
+  });
+
+  const removeMemberMutation = useMutation({
+    mutationFn: async ({ memberId }: { memberId: string }) =>
+      await projectApi.removeMember(projectId as string, memberId),
+    onSuccess(data: MemberSetting) {
+      setOpen(false);
+      queryClient.setQueryData([QUERY_KEY.MEMBERS_SETTING, projectId], data);
+      toast.success("Remove member success");
     },
   });
 
@@ -103,10 +115,20 @@ const MemberItem = ({ member, roles }: MemberItemProps) => {
         </Menu>
       </div>
       <div>
-        <IconButton onClick={() => {}} disabled={!true}>
+        <IconButton onClick={() => setOpen(true)} disabled={!true}>
           <DeleteForeverIcon />
         </IconButton>
       </div>
+
+      {open ? (
+        <ConfirmDelete
+          isDeleting={false}
+          handleClose={() => setOpen(false)}
+          handleDelete={() =>
+            removeMemberMutation.mutate({ memberId: member.userId })
+          }
+        />
+      ) : null}
     </div>
   );
 };

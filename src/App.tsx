@@ -25,9 +25,9 @@ function App() {
         <Route path="/sign-up" element={<SignUpPage />} />
         <Route path="/verify-email" element={<VerifyEmailPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-        <Route path="/join-project" element={<InvitePage />} />
       </Route>
       <Route element={<PrivateRoute />}>
+        <Route path="/join-project" element={<InvitePage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/mytask" element={<MytaskPage />} />
         <Route path="/notification" element={<NotificationPage />} />
