@@ -13,7 +13,12 @@ import {
   LABEL_TASKS_START_DATE,
   Tasks,
 } from "../../../types/MyTasksType";
-import { Member, Process, Project } from "../../../types/ProjectType";
+import {
+  FullMember,
+  Member,
+  Process,
+  Project,
+} from "../../../types/ProjectType";
 import moment from "moment";
 import DatePickerRow from "../../../components/DatePicker/DatePickerRow";
 import ProcessDropdown from "../../../components/Dropdown/ProcessDropdown";
@@ -65,7 +70,7 @@ const TasksDetailsSuccess = ({
         processId: myProcess?.processId
           ? myProcess?.processId
           : updateTasks.processId,
-        assignee: assignee ? assignee.userName : "",
+        assignee: assignee as FullMember,
         startDate: updateTasks.startDate,
         dueDate: updateTasks.dueDate,
       }),
@@ -100,7 +105,7 @@ const TasksDetailsSuccess = ({
     projectData.projectInfo.process.at(0)
   );
 
-  const [assignee, setAssignee] = useState<Member | undefined>();
+  const [assignee, setAssignee] = useState<FullMember | undefined>();
 
   const handleSelectProcess = (selectProcess: Process) => {
     setMyProcess(selectProcess);
@@ -108,7 +113,7 @@ const TasksDetailsSuccess = ({
     setAnchorElUser(null);
   };
 
-  const handleSelectMember = (assignee: Member | undefined) => {
+  const handleSelectMember = (assignee: FullMember | undefined) => {
     setAssignee(assignee);
     setIsDirty(true);
     setAnchorElUser(null);
@@ -136,7 +141,7 @@ const TasksDetailsSuccess = ({
         </div>
 
         <MemberDropdown
-          member={assignee}
+          member={assignee as FullMember}
           allMembers={projectData.projectInfo.members}
           anchorElUser={anchorElUser}
           handleSetAnchorElUser={handleSetAnchorElUser}

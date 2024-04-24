@@ -18,9 +18,16 @@ const BoardItem = ({ tasks }: BoardItem) => {
 
       <div className="flex justify-between items-center mt-4">
         <p className=" text-gray-300">{moment(tasks.dueDate).format("l")}</p>
-        <Tooltip title={tasks.assignee}>
-          <Avatar alt={tasks.assignee} sx={{ width: 24, height: 24 }}>
-            {tasks.assignee.at(0)}
+        <Tooltip title={tasks.assignee.userName}>
+          <Avatar
+            alt={tasks.assignee.userName}
+            sx={{
+              width: 24,
+              height: 24,
+              backgroundColor: tasks.assignee.avatarColor,
+            }}
+          >
+            {tasks.assignee.userName.at(0)}
           </Avatar>
         </Tooltip>
       </div>

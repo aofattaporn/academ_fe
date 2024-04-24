@@ -72,8 +72,6 @@ const updateTasks = async (tasksId: string, data: Tasks): Promise<Tasks> => {
       },
     });
 
-    console.log(response.data.data);
-
     return response.data.data;
   } catch (error) {
     const errorCustom = error as ErrorCustom;

@@ -8,7 +8,7 @@ const myTasksSuccess = http.get("/api/v1/projects/tasks/users", () => {
     message: "Success",
     description: "Get Project My Tasks Success",
     data: {
-      project: [
+      projects: [
         {
           projectProfile: {
             avatarColor: "#6985FF",
@@ -71,7 +71,13 @@ const myTasksSuccess = http.get("/api/v1/projects/tasks/users", () => {
           tasksId: "2",
           processId: "1",
           tasksName: "Do something please. 1",
-          assignee: "userID",
+          assignee: {
+            userName: "John Doe",
+            email: "john@example.com",
+            roleId: "1",
+            userId: "1",
+            avatarColor: "#FFFFFF",
+          },
           dueDate: "14/7/2024",
           startDate: "12/7/2024",
           projectId: "1",
@@ -81,7 +87,13 @@ const myTasksSuccess = http.get("/api/v1/projects/tasks/users", () => {
           projectId: "2",
           processId: "2",
           tasksName: "Do something please. 2",
-          assignee: "userID",
+          assignee: {
+            userName: "John Doe",
+            email: "john@example.com",
+            roleId: "1",
+            userId: "1",
+            avatarColor: "#FFFFFF",
+          },
           dueDate: "14/7/2024",
           startDate: "12/7/2024",
         },
@@ -90,7 +102,13 @@ const myTasksSuccess = http.get("/api/v1/projects/tasks/users", () => {
           projectId: "2",
           processId: "1",
           tasksName: "Do something please. 3",
-          assignee: "userID",
+          assignee: {
+            userName: "John Doe",
+            email: "john@example.com",
+            roleId: "1",
+            userId: "1",
+            avatarColor: "#FFFFFF",
+          },
           dueDate: "14/7/2024",
           startDate: "12/7/2024",
         },
@@ -99,7 +117,13 @@ const myTasksSuccess = http.get("/api/v1/projects/tasks/users", () => {
           projectId: "2",
           processId: "1",
           tasksName: "Do something please. 4",
-          assignee: "userID",
+          assignee: {
+            userName: "John Doe",
+            email: "john@example.com",
+            roleId: "1",
+            userId: "1",
+            avatarColor: "#FFFFFF",
+          },
           dueDate: "14/7/2024",
           startDate: "12/7/2024",
         },
@@ -108,7 +132,13 @@ const myTasksSuccess = http.get("/api/v1/projects/tasks/users", () => {
           projectId: "3",
           processId: "1234",
           tasksName: "Do something please. 5",
-          assignee: "userID",
+          assignee: {
+            userName: "John Doe",
+            email: "john@example.com",
+            roleId: "1",
+            userId: "1",
+            avatarColor: "#FFFFFF",
+          },
           dueDate: "15/7/2024",
           startDate: "12/7/2024",
         },

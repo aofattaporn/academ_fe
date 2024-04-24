@@ -12,11 +12,7 @@ const MytaskPage = () => {
   const navigate = useNavigate();
   const { isLoading, isError, isSuccess, data } = useQuery(
     QUERY_KEY.MY_TASKS,
-    () => myTasksApi.mytasksApi(),
-    {
-      staleTime: Infinity,
-      cacheTime: Infinity,
-    }
+    () => myTasksApi.mytasksApi()
   );
 
   return (
@@ -40,7 +36,7 @@ const MytaskPage = () => {
             </Button>
           </Alert>
         ) : null}
-        {isSuccess && data
+        {isSuccess && data && data.projects
           ? data.projects.map((project, index) => (
               <ListAccordionProjects
                 key={index}

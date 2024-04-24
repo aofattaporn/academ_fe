@@ -1,13 +1,13 @@
 import CloseIcon from "@mui/icons-material/Close";
-import { Member } from "../../types/ProjectType";
+import { FullMember } from "../../types/ProjectType";
 import { Avatar, IconButton, Menu, MenuItem } from "@mui/material";
 
 type MemberDropdownProps = {
-  member?: Member;
-  allMembers: Member[];
+  member?: FullMember;
+  allMembers: FullMember[];
   anchorElUser: HTMLElement | null;
   handleSetAnchorElUser: (element: null | HTMLElement) => void;
-  handleSelectMember: (selectProcess: Member | undefined) => void;
+  handleSelectMember: (selectProcess: FullMember | undefined) => void;
 };
 
 const MemberDropdown = ({
@@ -20,7 +20,7 @@ const MemberDropdown = ({
   return (
     <div className=" grid grid-cols-3 gap-4 items-center">
       <p className="bg-main py-2 flex justify-center rounded-md">Asignee</p>
-      <p
+      <div
         className="col-span-2 flex justify-center h-full items-center  rounded-md hover:cursor-pointer"
         id={"Member"}
         onClick={(e) => handleSetAnchorElUser(e.currentTarget)}
@@ -34,7 +34,7 @@ const MemberDropdown = ({
             >
               {member.userName.at(0)}
             </Avatar>
-            {member?.userName}
+            {member.userName}
 
             <IconButton
               className=" grow"
@@ -47,7 +47,7 @@ const MemberDropdown = ({
             </IconButton>
           </div>
         ) : null}
-      </p>
+      </div>
       <Menu
         anchorEl={anchorElUser}
         open={Boolean(anchorElUser) && anchorElUser?.id === "Member"}

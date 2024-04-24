@@ -15,7 +15,6 @@ const ListAccordionProjects = ({
   const [isToggle, setIsToggle] = useState<boolean>(false);
 
   const handleToggle = () => {
-    console.log("test");
     setIsToggle(!isToggle);
   };
 
@@ -46,25 +45,22 @@ const ListAccordionProjects = ({
       >
         <div className="px-8 pb-8">
           {projectInfo.process.map((process, index) => {
+            console.log(process.processId);
+            console.log(projectInfo.projectId);
+
             return (
-              <div>
-                <ListAccordion
-                  key={index}
-                  taskPermission={{
-                    addNew: false,
-                    delete: false,
-                    edit: false,
-                    manageProcess: false,
-                  }}
-                  activeId={null}
-                  process={process}
-                  tasks={myTasksData.filter(
-                    (item) =>
-                      item.processId === process.processId &&
-                      item.projectId === projectInfo.projectId
-                  )}
-                />
-              </div>
+              <ListAccordion
+                key={index}
+                taskPermission={{
+                  addNew: false,
+                  delete: false,
+                  edit: false,
+                  manageProcess: false,
+                }}
+                activeId={null}
+                process={process}
+                tasks={myTasksData}
+              />
             );
           })}
         </div>

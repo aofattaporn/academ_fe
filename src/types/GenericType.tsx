@@ -74,7 +74,7 @@ export const PAGE_ITEM: PAGE[] = [
     navigate: "/",
   },
   {
-    title: "My_Task",
+    title: "My Task",
     Icon: <TaskIcon style={{ width: "36px" }} />,
     navigate: "/mytask",
   },
