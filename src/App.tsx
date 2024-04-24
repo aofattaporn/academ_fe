@@ -15,6 +15,7 @@ import ProjectPage from "./pages/ProjectPage/ProjectPage";
 import Board from "./pages/ProjectPage/Board/Board";
 import Calendar from "./pages/ProjectPage/Calendar/Calendar";
 import Timeline from "./pages/ProjectPage/Timeline/Timeline";
+import InvitePage from "./pages/InvitePage/InvitePage";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       </Route>
       <Route element={<PrivateRoute />}>
+        <Route path="/join-project" element={<InvitePage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/mytask" element={<MytaskPage />} />
         <Route path="/notification" element={<NotificationPage />} />

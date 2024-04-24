@@ -5,7 +5,6 @@ import { QUERY_KEY } from "../../types/GenericType";
 import { Button } from "@mui/base";
 import { Alert } from "@mui/material";
 import { useNavigate } from "react-router";
-import ListAccordionLoading from "../../components/ListAccordion/ListAccordionLoading/ListAccordionLoading";
 import ListAccordionProjectsLoading from "../../components/ListAccordion/ListAccordionProjects/ListAccordionProjectsLoading";
 import { COUNT_ITEMS_SKELETON } from "../../types/ProjectType";
 
@@ -42,7 +41,7 @@ const MytaskPage = () => {
           </Alert>
         ) : null}
         {isSuccess && data
-          ? data.project.map((project, index) => (
+          ? data.projects.map((project, index) => (
               <ListAccordionProjects
                 key={index}
                 projectInfo={project}

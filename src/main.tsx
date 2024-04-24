@@ -9,6 +9,7 @@ import { store } from "./stores/store.ts";
 import { Provider } from "react-redux";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import GenericModal from "./hoc/GenericModal.tsx";
 
 async function enableMocking() {
   console.log(import.meta.env.MODE);
@@ -31,7 +32,9 @@ enableMocking().then(() => {
           <QueryClientProvider client={queryClient}>
             <BrowserRouter>
               <LocalizationProvider dateAdapter={AdapterMoment}>
-                <App />
+                <GenericModal>
+                  <App />
+                </GenericModal>
               </LocalizationProvider>
             </BrowserRouter>
           </QueryClientProvider>

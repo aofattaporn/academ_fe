@@ -18,6 +18,7 @@ const AvatarProject = ({
       className={`rounded-md flex justify-center items-center
           ${size === Size.small ? "w-10 h-10" : null} 
           ${size === Size.medium ? "w-16 h-16" : null} 
+          ${size === Size.large ? "w-20 h-20" : null} 
           ${isLoading ? "animate-pulse" : null}
 
       `}
@@ -27,6 +28,7 @@ const AvatarProject = ({
         className={`font-bold text-white 
         ${size === Size.small ? "text-2xl" : null} 
         ${size === Size.medium ? "text-3xl" : null} 
+        ${size === Size.large ? "text-3xl" : null} 
         `}
       >
         {projectName ? projectName.toUpperCase().at(0) : "-"}

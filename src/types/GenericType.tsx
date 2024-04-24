@@ -91,7 +91,12 @@ export const NAVIGATOR = {
 };
 
 export const QUERY_KEY = {
+  USER: "user",
+  ACCEPT_INVITE: "",
   ALL_PROJECT: "allProjectData",
+  PROJECTINFO_SETTING: "projectInfoSetting",
+  PERMISSION_SETTING: "permissionfoSetting",
+  MEMBERS_SETTING: "membersSetting",
   PROJECR: "project",
   MY_TASKS: "myTasks",
   ALL_TASKS: "allTasks",
@@ -100,6 +105,7 @@ export const QUERY_KEY = {
 
 export const SLICE_KEY = {
   USER: "user",
+  MODAL: "MODAL",
   ALL_PROJECT: "allProjectData",
   TASKS_DETAILS: "tasksDetails",
   ALL_TASKS: "allTasks",

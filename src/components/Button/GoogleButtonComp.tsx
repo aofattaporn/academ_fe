@@ -40,6 +40,7 @@ const GoogleButtonComp = () => {
       const newUser: UserType = {
         fullName: credential.user.email as string,
         email: credential.user.email as string,
+        avatarColor: "#FFFFFF",
       };
 
       const token = await credential.user.getIdToken();

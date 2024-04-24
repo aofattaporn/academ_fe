@@ -60,17 +60,6 @@ const AllViewToggle = ({
       >
         <CalendarTodayIcon />
       </button>
-      <button
-        onClick={() => handleSelected(Views.NOTE)}
-        className={`${
-          viewsSelected.some((item) => item === Views.NOTE)
-            ? "bg-primary text-white"
-            : "bg-white text-gray-500"
-        }
-      w-12 h-12 rounded-md border border-solid flex justify-center items-center`}
-      >
-        <NoteAddIcon />
-      </button>
     </div>
   );
 };

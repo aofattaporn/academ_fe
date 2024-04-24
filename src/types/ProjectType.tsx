@@ -1,4 +1,5 @@
 import { Moment } from "moment";
+import { TaskPermission } from "./Permission";
 
 // ------------- composition-type  -----------------------
 // -------------------------------------------------------
@@ -6,6 +7,12 @@ import { Moment } from "moment";
 export const COUNT_ITEMS_SKELETON: number = 3;
 export const BTN_CREATE_PROJECT: string = "Create Project";
 export const PLACHOLDER_INPUT_PROJECT: string = "Enter your project name";
+
+export const PROJECT_SETTING = {
+  PROJECR_DETAILS: "Project Details",
+  MANAGE_PROJECT_PERMISSIONS: "Manage project permissions",
+  MEMBERS: "Members",
+};
 
 export enum Views {
   LIST = "List",
@@ -63,11 +70,12 @@ export interface ProjectInfo {
   members: Member[];
 }
 
-export interface TaskPermission {
-  addNew: boolean;
-  delete: boolean;
-  edit: boolean;
-  manageProcess: boolean;
+export interface ProjectDetails {
+  projectId: string;
+  projectProfile: ProjectProfile;
+  views: string[];
+  startDate?: string | Moment | null;
+  dueDate?: string | Moment | null;
 }
 
 export interface ProjectProfile {
@@ -83,4 +91,31 @@ export interface Process {
 
 export interface Member {
   userName: string;
+  avatarColor: string;
+}
+
+export interface FullMember {
+  userId: string;
+  userName: string;
+  email: string;
+  roleId: string;
+  avatarColor: string;
+}
+
+export interface RoleProject {
+  roleId: string;
+  roleName: string;
+}
+
+export interface MemberSetting {
+  invites: Invite[];
+  members: FullMember[];
+  roles: RoleProject[];
+}
+
+export interface Invite {
+  inviteId: string;
+  inviteRoleId: string;
+  inviteEmail: string;
+  inviteDate: string | Moment | null;
 }

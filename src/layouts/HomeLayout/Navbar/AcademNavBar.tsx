@@ -2,13 +2,28 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Box, IconButton, Avatar, Menu, MenuItem } from "@mui/material";
 import { getAuth, signOut } from "firebase/auth";
 import { MouseEvent, ReactElement, useState } from "react";
+import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
+import { QUERY_KEY } from "../../../types/GenericType";
+import userApi from "../../../libs/userApi";
 
 const settings: string[] = ["Profile", "Account", "Logout"];
 
 function AcademNaveBar(): ReactElement {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const navigate = useNavigate();
+
+  const {
+    isLoading: userIsLoading,
+    isSuccess: userIsSuccess,
+    isError: userIsError,
+    refetch: userRefetch,
+    data: userData,
+  } = useQuery(QUERY_KEY.USER, () => userApi.getUserApi(), {
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
+    cacheTime: Infinity,
+  });
 
   const handleOpenUserMenu = (event: MouseEvent<HTMLButtonElement>): void => {
     setAnchorElUser(event.currentTarget);
@@ -34,10 +49,15 @@ function AcademNaveBar(): ReactElement {
         <Box>
           <IconButton onClick={handleOpenUserMenu}>
             <Avatar
-              src="/path-to-avatar-image.jpg"
-              alt={"Attaporn"}
-              sx={{ width: 32, height: 32 }}
-            />
+              alt={userData?.fullName}
+              sx={{
+                width: 32,
+                height: 32,
+                backgroundColor: userData?.avatarColor,
+              }}
+            >
+              {userData?.fullName.slice(0, 1)}
+            </Avatar>
           </IconButton>
           <Menu
             anchorEl={anchorElUser}

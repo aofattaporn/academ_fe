@@ -4,7 +4,7 @@ import { Process, ProjectProfile } from "./ProjectType";
 export const BTN_UPDATE_TASKS: string = "Save Tasks";
 
 export type MytaskType = {
-  project: Project[];
+  projects: Project[];
   tasks: MyTasks[];
 };
 
