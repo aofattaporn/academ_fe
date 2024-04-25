@@ -12,21 +12,18 @@ const MytaskPage = () => {
   const navigate = useNavigate();
   const { isLoading, isError, isSuccess, data } = useQuery(
     QUERY_KEY.MY_TASKS,
-    () => myTasksApi.mytasksApi(),
-    {
-      staleTime: Infinity,
-      cacheTime: Infinity,
-    }
+    () => myTasksApi.mytasksApi()
   );
 
   return (
     <div className="w-full h-full bg-main">
-      <div className="w-full h-20 bg-primary-light grid content-center">
-        <div className="ml-4">
-          <p className="text-black font-bold text-2xl">My Task</p>
+      <div className="w-full h-12 bg-primary-light"></div>
+      <div className="flex justify-start px-8 py-8">
+        <div className="flex flex-col items-center">
+          <h1 className="font-bold text-4xl text-dark">My Tasks List</h1>
         </div>
       </div>
-      <div className="p-8">
+      <div className="px-8">
         {isLoading
           ? Array.from({ length: COUNT_ITEMS_SKELETON }).map((_, index) => {
               return <ListAccordionProjectsLoading key={index} />;
@@ -40,7 +37,7 @@ const MytaskPage = () => {
             </Button>
           </Alert>
         ) : null}
-        {isSuccess && data
+        {isSuccess && data && data.projects
           ? data.projects.map((project, index) => (
               <ListAccordionProjects
                 key={index}

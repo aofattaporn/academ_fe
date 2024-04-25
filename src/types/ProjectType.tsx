@@ -67,7 +67,7 @@ export interface ProjectInfo {
   projectProfile: ProjectProfile;
   views: string[];
   process: Process[];
-  members: Member[];
+  members: FullMember[];
 }
 
 export interface ProjectDetails {

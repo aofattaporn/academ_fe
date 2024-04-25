@@ -5,6 +5,7 @@ import ProjectInfoLoading from "./ProjectInfo/ProjectInfoLoading";
 import { useSelector } from "react-redux";
 import { RootState } from "../../stores/store";
 import TasksDetails from "./TasksDetails/TasksDetails";
+import { ToastContainer } from "react-toastify";
 
 export const ProjectPage = () => {
   const { projectIsLoading, projectIsSuccess, projectData } = useProject();

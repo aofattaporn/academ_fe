@@ -26,6 +26,22 @@ const createProject = async (data: CreateProject): Promise<ListProject> => {
   }
 };
 
+const getAllProjectHomePage = async (): Promise<ListProject[]> => {
+  try {
+    const token = await firebaseApi.getToken();
+    const response = await axiosInstance.get("/api/v1/projects/homepage", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(token);
+    return response.data.data;
+  } catch (error) {
+    console.error("Error fetching projects:", error);
+    throw error;
+  }
+};
+
 const getAllProject = async (): Promise<ListProject[]> => {
   try {
     const token = await firebaseApi.getToken();
@@ -377,6 +393,7 @@ const projectApi = {
   acceptInvite,
   removeMember,
   deleteProjectById,
+  getAllProjectHomePage,
 };
 
 export default projectApi;

@@ -13,17 +13,15 @@ function AcademNaveBar(): ReactElement {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const navigate = useNavigate();
 
-  const {
-    isLoading: userIsLoading,
-    isSuccess: userIsSuccess,
-    isError: userIsError,
-    refetch: userRefetch,
-    data: userData,
-  } = useQuery(QUERY_KEY.USER, () => userApi.getUserApi(), {
-    refetchOnWindowFocus: false,
-    staleTime: Infinity,
-    cacheTime: Infinity,
-  });
+  const { data: userData } = useQuery(
+    QUERY_KEY.USER,
+    () => userApi.getUserApi(),
+    {
+      refetchOnWindowFocus: false,
+      staleTime: Infinity,
+      cacheTime: Infinity,
+    }
+  );
 
   const handleOpenUserMenu = (event: MouseEvent<HTMLButtonElement>): void => {
     setAnchorElUser(event.currentTarget);

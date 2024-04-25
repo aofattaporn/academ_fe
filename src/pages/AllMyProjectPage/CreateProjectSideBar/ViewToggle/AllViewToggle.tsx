@@ -1,4 +1,3 @@
-import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import ListIcon from "@mui/icons-material/List";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ViewTimelineIcon from "@mui/icons-material/ViewTimeline";

@@ -55,11 +55,13 @@ const mockedMembers: FullMember[] = [
 
 const mockInvite: Invite[] = [
   {
+    inviteId: "",
     inviteRoleId: "1",
     inviteEmail: "invite@email.com",
     inviteDate: "2024-04-01T00:00:00.000Z",
   },
   {
+    inviteId: "",
     inviteRoleId: "2",
     inviteEmail: "invite@email2.com",
     inviteDate: "2024-04-02T00:00:00.000Z",
@@ -184,15 +186,24 @@ const getProjectSuccess = http.get("/api/v1/projects/:projectId", async () => {
         ],
         members: [
           {
-            userName: "User One",
+            userName: "John Doe",
+            email: "john@example.com",
+            roleId: "1",
+            userId: "1",
             avatarColor: "#FFFFFF",
           },
           {
-            userName: "User Two",
+            userName: "John Doe",
+            email: "john@example.com",
+            roleId: "1",
+            userId: "2",
             avatarColor: "#FFFFFF",
           },
           {
-            userName: "User Three",
+            userName: "John Doe",
+            email: "john@example.com",
+            roleId: "1",
+            userId: "3",
             avatarColor: "#FFFFFF",
           },
         ],

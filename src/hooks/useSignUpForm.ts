@@ -26,6 +26,7 @@ const useSignUpForm = () => {
       const form: UserType = {
         fullName: data.fullName,
         email: data.email,
+        avatarColor: "#FFFFFF",
       };
 
       await authApi.signUpApi(form, tokenID);

@@ -8,7 +8,7 @@ import {
   PLACHOLDER_INPUT_PROJECT,
 } from "../../../types/ProjectType";
 import useCreateProject from "../../../hooks/projectHook/useCreateProject";
-import moment from "moment";
+
 type CreateProjectSideBarProps = {
   isOpen: boolean;
   handleClose: () => void;
@@ -66,7 +66,6 @@ const CreateProjectSideBar = ({
               <div className="flex justify-between gap-2">
                 <DatePicker
                   sx={{ width: "100%" }}
-                  minDate={moment()}
                   defaultValue={endDate}
                   onChange={(newValue) => handleSetEndDate(newValue)}
                   slotProps={{

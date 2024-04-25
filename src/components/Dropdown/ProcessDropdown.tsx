@@ -27,6 +27,7 @@ const ProcessDropdown = ({
       >
         {process.processName}
       </p>
+
       <Menu
         id="Process"
         anchorEl={anchorElUser}

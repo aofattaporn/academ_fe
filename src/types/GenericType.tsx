@@ -74,7 +74,7 @@ export const PAGE_ITEM: PAGE[] = [
     navigate: "/",
   },
   {
-    title: "My_Task",
+    title: "My Task",
     Icon: <TaskIcon style={{ width: "36px" }} />,
     navigate: "/mytask",
   },
@@ -91,8 +91,10 @@ export const NAVIGATOR = {
 };
 
 export const QUERY_KEY = {
+  HOME_PROJECTS: "honeProject",
+  HOME_TASKS: "homeTasks",
   USER: "user",
-  ACCEPT_INVITE: "",
+  ACCEPT_INVITE: "acceptInvite",
   ALL_PROJECT: "allProjectData",
   PROJECTINFO_SETTING: "projectInfoSetting",
   PERMISSION_SETTING: "permissionfoSetting",

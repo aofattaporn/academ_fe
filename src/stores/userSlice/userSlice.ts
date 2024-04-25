@@ -10,6 +10,7 @@ const initialState: UserState = {
   user: {
     email: "",
     fullName: "",
+    avatarColor: "",
   },
 };
 

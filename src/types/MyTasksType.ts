@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Process, ProjectProfile } from "./ProjectType";
+import { FullMember, Process, ProjectProfile } from "./ProjectType";
 
 export const BTN_UPDATE_TASKS: string = "Save Tasks";
 
@@ -23,7 +23,7 @@ export type MyTasks = {
   tasksName: string;
   projectId: string;
   processId: string;
-  assignee: string;
+  assignee: FullMember;
   startDate: string | Date | null;
   dueDate: string | Date | null;
 };
@@ -32,7 +32,7 @@ export interface Tasks {
   tasksId: string;
   tasksName: string;
   processId: string;
-  assignee: string;
+  assignee: FullMember;
   startDate: string | Date | null;
   dueDate: string | Date | null;
 }

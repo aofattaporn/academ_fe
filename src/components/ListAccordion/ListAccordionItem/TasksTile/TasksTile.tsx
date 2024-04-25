@@ -15,10 +15,17 @@ const TasksTile = ({ task }: TasksTileProps) => {
         <div>{task.tasksName}</div>
       </div>
       <div className="text-center flex justify-center gap-4">
-        <Avatar alt={task.assignee} sx={{ width: 20, height: 20 }}>
-          {task.assignee.at(0)}
+        <Avatar
+          alt={task.assignee.userName}
+          sx={{
+            width: 20,
+            height: 20,
+            backgroundColor: task.assignee.avatarColor,
+          }}
+        >
+          {task.assignee.userName.at(0)}
         </Avatar>
-        {task.assignee}
+        {task.assignee.userName}
       </div>
       <div className="text-center">
         {task.startDate ? moment(task.startDate).format("l") : ""}
