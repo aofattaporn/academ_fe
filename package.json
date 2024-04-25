@@ -6,7 +6,8 @@
   "scripts": {
     "dev:local": "vite --mode development",
     "dev:mock": "vite --mode test",
-    "build": "tsc && vite build",
+    "build": "npm run generate-html && vite build",
+    "generate-html": "mkdir -p dist && cp index.html dist/",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test": "vitest",
