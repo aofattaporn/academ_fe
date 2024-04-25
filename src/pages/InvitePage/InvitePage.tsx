@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { Link, Navigate, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, Navigate, useSearchParams } from "react-router-dom";
 import { QUERY_KEY } from "../../types/GenericType";
 import projectApi from "../../libs/projectApi";
 import { Backdrop, Button, CircularProgress } from "@mui/material";
@@ -7,7 +7,6 @@ import { Backdrop, Button, CircularProgress } from "@mui/material";
 const InvitePage = () => {
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
-  const navigate = useNavigate();
 
   const {
     isLoading: inviteLoading,

@@ -13,7 +13,7 @@ import { RootState } from "../../../../stores/store";
 import CreateProjectButtonComp from "../../../../components/Button/CreateProjectButtonComp";
 import moment from "moment";
 import { toast } from "react-toastify";
-import { ErrorCustom, QUERY_KEY } from "../../../../types/GenericType";
+import { QUERY_KEY } from "../../../../types/GenericType";
 
 type InviteInputProps = {
   roles: RoleProject[];

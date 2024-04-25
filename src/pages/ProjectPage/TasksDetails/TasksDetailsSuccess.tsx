@@ -13,12 +13,7 @@ import {
   LABEL_TASKS_START_DATE,
   Tasks,
 } from "../../../types/MyTasksType";
-import {
-  FullMember,
-  Member,
-  Process,
-  Project,
-} from "../../../types/ProjectType";
+import { FullMember, Process, Project } from "../../../types/ProjectType";
 import moment from "moment";
 import DatePickerRow from "../../../components/DatePicker/DatePickerRow";
 import ProcessDropdown from "../../../components/Dropdown/ProcessDropdown";

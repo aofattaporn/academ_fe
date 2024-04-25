@@ -11,6 +11,7 @@ const getUserSuccess = http.get("/api/v1/users", async () => {
     data: {
       email: "exampl123e@hotmail.com",
       fullName: "Example Mocking",
+      avatarColor: "#FFFFFF",
     },
   };
   await delay(5000);

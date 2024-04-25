@@ -2,10 +2,11 @@ import Draggable from "../../../../hoc/Draggable";
 import Droppable from "../../../../hoc/Droppable";
 import { openDetails } from "../../../../stores/projectSlice/tastsDetailsSlice";
 import { Tasks } from "../../../../types/MyTasksType";
-import { Process, TaskPermission } from "../../../../types/ProjectType";
+import { Process } from "../../../../types/ProjectType";
 import BoardItem from "../BoardItem/BoardItem";
 import CreateBoardItem from "../CreateBoardItem/CreateBoardItem";
 import useTasksHandle from "../../../../hooks/tasksHook/useTasksHandler";
+import { TaskPermission } from "../../../../types/Permission";
 
 type BoardTileProps = {
   process: Process;
