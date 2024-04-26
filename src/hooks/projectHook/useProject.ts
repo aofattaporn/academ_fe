@@ -18,9 +18,7 @@ const useProject = () => {
     () => projectApi.getProject(projectId as string),
     {
       refetchOnWindowFocus: false,
-      staleTime: Infinity,
-      cacheTime: Infinity,
-      onSettled(data) {
+      onSuccess(data) {
         if (data) navigate(data?.projectInfo.views[0]);
       },
     }

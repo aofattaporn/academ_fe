@@ -56,18 +56,6 @@ const SideBar = () => {
           refetch={() => projectRefetch()}
           data={projectData}
         />
-        <Divider />
-        <ToggleItem
-          icons={<SchoolIcon style={{ width: "36px" }} />}
-          title={PAGE_ITEM_CLASS}
-          navigate={NAVIGATOR.CLASS}
-          isOpen={isOpen}
-          isLoading={false}
-          isSuccess={false}
-          isError={true}
-          refetch={() => {}}
-        />
-        <Divider />
       </ul>
     </div>
   );

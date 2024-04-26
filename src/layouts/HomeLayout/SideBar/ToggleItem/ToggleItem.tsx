@@ -34,7 +34,7 @@ const ToggleItem = ({
 
   useEffect(() => {
     if (!isOpen) {
-      setIsCollapse(false);
+      setIsCollapse(true);
     }
   }, [isOpen, isCollapse]);
 
