@@ -24,7 +24,7 @@ const MytaskPage = () => {
           <h3 className="text-grey">Show your my tasks asignee</h3>
         </div>
       </div>
-      <div className="px-8">
+      <div className="px-8 pb-10">
         {isLoading
           ? Array.from({ length: COUNT_ITEMS_SKELETON }).map((_, index) => {
               return <ListAccordionProjectsLoading key={index} />;

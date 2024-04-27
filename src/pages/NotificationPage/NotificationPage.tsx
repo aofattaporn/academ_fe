@@ -75,12 +75,16 @@ const NotificationPage = () => {
             <div className="col-span-8 flex justify-center border-b-4"></div>
           </div>
 
-          {currentTab === NOTIFICATION_TAB.PROJECT_NOTI &&
-          notiSuccess &&
-          notiData ? (
-            <ProjectNotiTab notiData={notiData as Notification[]} />
-          ) : null}
-          {currentTab === NOTIFICATION_TAB.CLEAR_NOTI ? <ClearNotiTab /> : null}
+          <div className="max-h-96 overflow-y-scroll">
+            {currentTab === NOTIFICATION_TAB.PROJECT_NOTI &&
+            notiSuccess &&
+            notiData ? (
+              <ProjectNotiTab notiData={notiData as Notification[]} />
+            ) : null}
+            {currentTab === NOTIFICATION_TAB.CLEAR_NOTI ? (
+              <ClearNotiTab />
+            ) : null}
+          </div>
         </div>
       </div>
     </div>
