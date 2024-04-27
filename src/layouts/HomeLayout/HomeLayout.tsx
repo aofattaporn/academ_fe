@@ -7,15 +7,10 @@ import userApi from "../../libs/userApi";
 import { saveUser } from "../../stores/userSlice/userSlice";
 import { ToastContainer, toast } from "react-toastify";
 import { onMessage, MessagePayload } from "firebase/messaging";
-import { useState, useEffect } from "react";
-import {
-  requestNotificationPermission,
-  onMessageListener,
-  messaging,
-} from "../../Firebase";
+import { messaging } from "../../Firebase";
 import AvatarProject from "../../components/AvatarProject/AvatarProject";
 import { Size } from "../../types/ProjectType";
-import { Divider, styled } from "@mui/material";
+import { NotificationAlert } from "../../types/NotificationType";
 
 const HomeLayout = () => {
   const dispatch = useDispatch();
@@ -32,25 +27,30 @@ const HomeLayout = () => {
 
   if (isSuccess) dispatch(saveUser(userData));
 
-  // const [show, setShow] = useState(false);
-  // const [notification, setNotification] = useState({ title: "", body: "" });
-
   onMessage(messaging, (payload: MessagePayload) => {
-    console.log("Message received. Payload:", payload as MessagePayload);
-    const body = payload.notification?.body;
+    const notificationAlert: NotificationAlert = {
+      ProjectName: payload.data?.ProjectName || "",
+      AvatarColor: payload.data?.AvatarColor || "",
+      Title: payload.data?.Title || "",
+      Body: payload.data?.Body || "",
+      Date: payload.data?.Date || "",
+    };
 
     toast(
-      <div style={{ width: "200px", height: "100px" }}>
-        <div className="mb-2 flex items-center gap-4">
+      <div style={{ width: "200px" }}>
+        <div className="mb-2 flex items-center gap-4 ">
           <AvatarProject
             isLoading={false}
             size={Size.small}
-            projectName="Echo Echo"
-            color="#AF8AE2"
+            projectName={notificationAlert.ProjectName}
+            color={notificationAlert.AvatarColor}
           ></AvatarProject>
-          <p className="font-bold">Echo Echo</p>
+          <p className="font-bold">{notificationAlert.ProjectName}</p>
         </div>{" "}
-        <p className="text-dark my-4">{body}</p>
+        <div className="my-5 text-dark font-roboto">
+          <p className="font-bold">{notificationAlert.Title}</p>
+          <p>{notificationAlert.Body}</p>
+        </div>
       </div>,
       {
         progressClassName: "progress",
