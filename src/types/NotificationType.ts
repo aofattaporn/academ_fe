@@ -17,10 +17,11 @@ export interface NotificationAlert {
 }
 
 export interface Notification {
+  id: string;
   projectProfile: ProjectProfile;
   userId: string;
   title: string;
-  Body: string;
+  body: string;
   date: string;
   isClear: boolean;
 }

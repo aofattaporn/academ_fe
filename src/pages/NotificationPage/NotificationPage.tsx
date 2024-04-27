@@ -28,7 +28,6 @@ const NotificationPage = () => {
     () => notificationApi.getAllNotification(),
     {
       onSuccess(data: Notification[]) {
-        console.log(data);
         setAllNoti(data);
       },
     }
@@ -79,10 +78,16 @@ const NotificationPage = () => {
             {currentTab === NOTIFICATION_TAB.PROJECT_NOTI &&
             notiSuccess &&
             notiData ? (
-              <ProjectNotiTab notiData={notiData as Notification[]} />
+              <ProjectNotiTab
+                notiData={allNoti.filter((item) => item.isClear === false)}
+              />
             ) : null}
-            {currentTab === NOTIFICATION_TAB.CLEAR_NOTI ? (
-              <ClearNotiTab />
+            {currentTab === NOTIFICATION_TAB.CLEAR_NOTI &&
+            notiSuccess &&
+            notiData ? (
+              <ProjectNotiTab
+                notiData={allNoti.filter((item) => item.isClear === true)}
+              />
             ) : null}
           </div>
         </div>
