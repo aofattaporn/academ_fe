@@ -1,15 +1,16 @@
+import { Notification } from "../../../types/NotificationType";
 import NotificationItem from "../NotificationItem/NotificationItem";
 
-const ProjectNotiTab = () => {
+type ProjectNotiTabProps = {
+  notiData: Notification[];
+};
+
+const ProjectNotiTab = ({ notiData }: ProjectNotiTabProps) => {
   return (
     <div className="my-8 grid grid-cols-1 gap-4">
-      <NotificationItem />
-      <NotificationItem />
-      <NotificationItem />
-
-      <NotificationItem />
-      <NotificationItem />
-      <NotificationItem />
+      {notiData.map((noti, index) => {
+        return <NotificationItem key={index} notiData={noti} />;
+      })}
     </div>
   );
 };

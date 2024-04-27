@@ -103,6 +103,7 @@ export const QUERY_KEY = {
   MY_TASKS: "myTasks",
   ALL_TASKS: "allTasks",
   Tasks: "tasks",
+  NOTIFICATIONS: "notifications",
 };
 
 export const SLICE_KEY = {

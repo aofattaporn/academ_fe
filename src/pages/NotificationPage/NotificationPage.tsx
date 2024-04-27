@@ -1,6 +1,10 @@
 import { useState } from "react";
 import ProjectNotiTab from "./NotificationTab/ProjectNotiTab";
 import ClearNotiTab from "./NotificationTab/ClearNotiTab";
+import { QUERY_KEY } from "../../types/GenericType";
+import notificationApi from "../../libs/notificationApi";
+import { useQuery } from "react-query";
+import { Notification } from "../../types/NotificationType";
 
 enum NOTIFICATION_TAB {
   PROJECT_NOTI = "PROJECT_NOTI",
@@ -11,6 +15,28 @@ const NotificationPage = () => {
   const [currentTab, setCurrentTab] = useState<NOTIFICATION_TAB>(
     NOTIFICATION_TAB.PROJECT_NOTI
   );
+  const [allNoti, setAllNoti] = useState<Notification[]>([]);
+
+  const {
+    isLoading: notiLoading,
+    isSuccess: notiSuccess,
+    isError: notiror,
+    refetch: notitch,
+    data: notiData,
+  } = useQuery(
+    QUERY_KEY.NOTIFICATIONS,
+    () => notificationApi.getAllNotification(),
+    {
+      onSuccess(data: Notification[]) {
+        console.log(data);
+        setAllNoti(data);
+      },
+    }
+  );
+
+  {
+    notiLoading ? <></> : null;
+  }
 
   return (
     <div className="w-full h-full bg-main">
@@ -49,8 +75,10 @@ const NotificationPage = () => {
             <div className="col-span-8 flex justify-center border-b-4"></div>
           </div>
 
-          {currentTab === NOTIFICATION_TAB.PROJECT_NOTI ? (
-            <ProjectNotiTab />
+          {currentTab === NOTIFICATION_TAB.PROJECT_NOTI &&
+          notiSuccess &&
+          notiData ? (
+            <ProjectNotiTab notiData={notiData as Notification[]} />
           ) : null}
           {currentTab === NOTIFICATION_TAB.CLEAR_NOTI ? <ClearNotiTab /> : null}
         </div>
