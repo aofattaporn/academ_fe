@@ -13,6 +13,9 @@ import {
   onMessageListener,
   messaging,
 } from "../../Firebase";
+import AvatarProject from "../../components/AvatarProject/AvatarProject";
+import { Size } from "../../types/ProjectType";
+import { Divider, styled } from "@mui/material";
 
 const HomeLayout = () => {
   const dispatch = useDispatch();
@@ -29,32 +32,32 @@ const HomeLayout = () => {
 
   if (isSuccess) dispatch(saveUser(userData));
 
-  const [show, setShow] = useState(false);
-  const [notification, setNotification] = useState({ title: "", body: "" });
-
-  useEffect(() => {
-    requestNotificationPermission();
-    onMessageListener()
-      .then((payload) => {
-        console.log(payload);
-        console.log("==========");
-        setShow(true);
-        setNotification({
-          title: "notification?.title as string",
-          body: "notification?.body as string",
-        });
-        console.log("Payload:", payload);
-      })
-      .catch((err) => console.log("failed: ", err));
-  }, []);
-
-  if (show) {
-    toast.success("Show!!!");
-  }
+  // const [show, setShow] = useState(false);
+  // const [notification, setNotification] = useState({ title: "", body: "" });
 
   onMessage(messaging, (payload: MessagePayload) => {
     console.log("Message received. Payload:", payload as MessagePayload);
-    toast.success("Show!!!");
+    const body = payload.notification?.body;
+
+    toast(
+      <div style={{ width: "200px", height: "100px" }}>
+        <div className="mb-2 flex items-center gap-4">
+          <AvatarProject
+            isLoading={false}
+            size={Size.small}
+            projectName="Echo Echo"
+            color="#AF8AE2"
+          ></AvatarProject>
+          <p className="font-bold">Echo Echo</p>
+        </div>{" "}
+        <p className="text-dark my-4">{body}</p>
+      </div>,
+      {
+        progressClassName: "progress",
+        progressStyle: { backgroundColor: "red" },
+        hideProgressBar: true,
+      }
+    );
   });
 
   return (
