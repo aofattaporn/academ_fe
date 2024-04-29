@@ -7,6 +7,7 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import notificationApi from "../../../libs/notificationApi";
 import { useMutation, useQueryClient } from "react-query";
 import { QUERY_KEY } from "../../../types/GenericType";
+import NotificationSetting from "./NotiSetting/NotificationSetting";
 
 type NotificationItemProps = {
   notiData: Notification;
@@ -14,9 +15,10 @@ type NotificationItemProps = {
 
 const NotificationItem = ({ notiData }: NotificationItemProps) => {
   const queryClient = useQueryClient();
+
   const mutation = useMutation({
     mutationFn: (notiId: string) =>
-      notificationApi.updateClearNotification(notiId),
+      notificationApi.updateClearNotification(notiId, true),
     onSuccess: () => {
       queryClient.setQueryData(
         QUERY_KEY.NOTIFICATIONS,
@@ -34,7 +36,7 @@ const NotificationItem = ({ notiData }: NotificationItemProps) => {
 
   return (
     <div
-      className="px-12 bg-primary-subtle py-4  gap-16 items-start 
+      className="pl-12 bg-primary-subtle py-4  gap-16 items-start 
       hover:cursor-pointer group grid grid-cols-12"
       onClick={() => mutation.mutate(notiData.id)}
     >
@@ -61,10 +63,11 @@ const NotificationItem = ({ notiData }: NotificationItemProps) => {
       </div>
 
       <div className="col-span-2 text-gray-300 group-hover:text-primary font-bold">
-        <div className="flex gap-2  justify-center rounded-md p-2  ">
+        <div className="flex gap-2 justify-center rounded-md p-2">
           <p>Clear</p>
           <CheckBoxIcon />
           <p className="w-2 h-2 bg-error rounded-full"></p>
+          <NotificationSetting fromItem="NOTI_CLEAR" notiData={notiData} />
         </div>
       </div>
     </div>
