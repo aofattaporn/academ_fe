@@ -20,8 +20,6 @@ const NotificationPage = () => {
   const {
     isLoading: notiLoading,
     isSuccess: notiSuccess,
-    isError: notiror,
-    refetch: notitch,
     data: notiData,
   } = useQuery(
     QUERY_KEY.NOTIFICATIONS,
@@ -85,7 +83,7 @@ const NotificationPage = () => {
             {currentTab === NOTIFICATION_TAB.CLEAR_NOTI &&
             notiSuccess &&
             notiData ? (
-              <ProjectNotiTab
+              <ClearNotiTab
                 notiData={allNoti.filter((item) => item.isClear === true)}
               />
             ) : null}
