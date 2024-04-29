@@ -31,7 +31,7 @@ const MytaskBox = () => {
         <Divider />
         <div className="rounded-xl grid grid-cols-1 lg:grid-cols-1 gap-4 mt-8">
           {data.map((item, index) => (
-            <div>
+            <div key={index}>
               <div
                 key={index}
                 className="grid grid-cols-3 align-middle items-center gap-4 p-2 cursor-pointer bg-white shadow-3xl rounded-md"

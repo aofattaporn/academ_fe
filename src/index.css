@@ -55,10 +55,18 @@ body {
   box-shadow: 2px;
 }
 
-.fc-timeline-event-harness a {
+/* .fc-timeline-event-harness a {
   background-color: transparent !important;
 }
 
-.fc-timeline-slot-frame {
-  /* width: 200px !important; */
+.Toastify__progress-bar-theme--light {
+  background-color: #af8ae2 !important;
 }
+
+.Toastify__progress-bar-theme--light {
+  background-color: #af8ae2 !important;
+}
+
+.progress {
+  background-color: red !important;
+} */

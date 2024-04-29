@@ -45,9 +45,6 @@ const ListAccordionProjects = ({
       >
         <div className="px-8 pb-8">
           {projectInfo.process.map((process, index) => {
-            console.log(process.processId);
-            console.log(projectInfo.projectId);
-
             return (
               <ListAccordion
                 key={index}
