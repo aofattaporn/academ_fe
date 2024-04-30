@@ -19,6 +19,7 @@ import { MOCK_TASKS } from "../../../mocks/tasksMock";
 import SaveTasksDetails from "../../../components/Button/SaveTasksDetails";
 import { toast } from "react-toastify";
 import MemberDropdown from "../../../components/Dropdown/MemberDropdown";
+import { useParams } from "react-router-dom";
 
 type TasksDetailsProps = {
   project?: Project;
@@ -27,12 +28,17 @@ type TasksDetailsProps = {
 function TasksDetails({ project }: TasksDetailsProps) {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
+  const { projectId } = useParams();
 
   const tasksDetails = useSelector((state: RootState) => state.tasksDetails);
   const [tasksDetail, setTasksDetail] = useState<Tasks>(MOCK_TASKS[0]);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
-  const { isLoading: TasksIsLoading, isError: TasksIsError } = useQuery(
+  const {
+    isLoading: TasksIsLoading,
+    isError: TasksIsError,
+    isSuccess: TasksIsSuccess,
+  } = useQuery(
     [QUERY_KEY.Tasks, tasksDetails.tasksSeletedId],
     () =>
       tasksApi.getTasksByProjectId(
@@ -59,6 +65,7 @@ function TasksDetails({ project }: TasksDetailsProps) {
       tasksApi.updateTasks(updateTasks.tasksId, {
         tasksId: updateTasks.tasksId,
         tasksName: updateTasks.tasksName,
+        projectId: projectId as string,
         processId: updateTasks.processId,
         assignee: updateTasks.assignee,
         startDate: updateTasks.startDate,
@@ -66,7 +73,7 @@ function TasksDetails({ project }: TasksDetailsProps) {
       }),
     onSuccess(data) {
       setTasksDetail(data);
-      toast.success("Update tasks success");
+      // toast.success("Update tasks success");
 
       // TODO : update all tasks
       queryClient.setQueryData(
@@ -108,7 +115,7 @@ function TasksDetails({ project }: TasksDetailsProps) {
 
           {TasksIsError ? <TasksDetailsLoading /> : null}
 
-          {project && tasksDetail && tasksDetail.tasksId ? (
+          {TasksIsSuccess && project && tasksDetail && tasksDetail.tasksId ? (
             <div className="pt-1 overflow-hidden whitespace-nowrap overflow-ellipsis w-full">
               <p>{tasksDetail.tasksName}</p>
               <p>

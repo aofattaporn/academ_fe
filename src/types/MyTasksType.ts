@@ -30,8 +30,9 @@ export type MyTasks = {
 
 export interface Tasks {
   tasksId: string;
-  tasksName: string;
+  projectId: string;
   processId: string;
+  tasksName: string;
   assignee?: FullMember;
   startDate: string | Date | null;
   dueDate: string | Date | null;

@@ -14,18 +14,24 @@ const TasksTile = ({ task }: TasksTileProps) => {
       <div className="text-center overflow-x-scroll">
         <div>{task.tasksName}</div>
       </div>
+
       <div className="text-center flex justify-center gap-4">
-        <Avatar
-          alt={"task.assignee.userName"}
-          sx={{
-            width: 20,
-            height: 20,
-            backgroundColor: "task.assignee.avatarColor",
-          }}
-        >
-          {"task.assignee.userName.at(0"}
-        </Avatar>
-        {"task.assignee.userName"}
+        {task.assignee ? (
+          <>
+            <Avatar
+              sx={{
+                width: 24,
+                height: 24,
+                backgroundColor: task.assignee.avatarColor,
+              }}
+            >
+              <p className="text-sm"> {task.assignee.userName.at(0)}</p>
+            </Avatar>
+            {task.assignee.userName}
+          </>
+        ) : (
+          ""
+        )}
       </div>
       <div className="text-center">
         {task.startDate ? moment(task.startDate).format("l") : ""}

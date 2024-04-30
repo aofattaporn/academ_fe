@@ -47,9 +47,6 @@ const getAllProjectHomePage = async (): Promise<ListProject[]> => {
 const getAllProject = async (): Promise<ListProject[]> => {
   try {
     const token = await firebaseApi.getToken();
-    console.log(token);
-    console.log("zzzzz");
-
     const response = await axiosInstance.get("/api/v1/projects/users/id", {
       headers: {
         Authorization: `Bearer ${token}`,
