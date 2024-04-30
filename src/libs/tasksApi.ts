@@ -44,8 +44,13 @@ const getAllTasksHomePage = async (): Promise<Tasks[]> => {
   }
 };
 
-const getTasksByProjectId = async (tasksId: string): Promise<Tasks> => {
+const getTasksByProjectId = async (
+  tasksId: string,
+  allTasksDetals: Tasks | undefined
+): Promise<Tasks> => {
   try {
+    if (allTasksDetals) return allTasksDetals;
+
     const token = await firebaseApi.getToken();
     const response = await axiosInstance.get(`api/v1/tasks/${tasksId}`, {
       headers: {

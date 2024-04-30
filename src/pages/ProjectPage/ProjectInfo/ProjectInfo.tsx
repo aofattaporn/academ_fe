@@ -180,7 +180,6 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
           sx={{ flexDirection: "row-reverse" }}
         >
           {members.map((member, index) => {
-            console.log(member.avatarColor);
             return (
               <Tooltip key={index} title={member.userName}>
                 <Avatar

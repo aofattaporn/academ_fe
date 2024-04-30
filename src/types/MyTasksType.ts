@@ -23,7 +23,7 @@ export type MyTasks = {
   tasksName: string;
   projectId: string;
   processId: string;
-  assignee: FullMember;
+  assignee?: FullMember;
   startDate: string | Date | null;
   dueDate: string | Date | null;
 };
@@ -32,7 +32,7 @@ export interface Tasks {
   tasksId: string;
   tasksName: string;
   processId: string;
-  assignee: FullMember;
+  assignee?: FullMember;
   startDate: string | Date | null;
   dueDate: string | Date | null;
 }

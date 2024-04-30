@@ -3,11 +3,11 @@ import { FullMember } from "../../types/ProjectType";
 import { Avatar, IconButton, Menu, MenuItem } from "@mui/material";
 
 type MemberDropdownProps = {
-  member: FullMember;
+  member?: FullMember;
   allMembers: FullMember[];
   anchorElUser: HTMLElement | null;
   handleSetAnchorElUser: (element: null | HTMLElement) => void;
-  handleSelectMember: (selectProcess: FullMember | undefined) => void;
+  handleSelectMember: (selectProcess?: FullMember) => void;
 };
 
 const MemberDropdown = ({
@@ -17,7 +17,6 @@ const MemberDropdown = ({
   handleSetAnchorElUser,
   handleSelectMember,
 }: MemberDropdownProps) => {
-  console.log(member);
   return (
     <div className=" grid grid-cols-3 gap-4 items-center">
       <p className="bg-main py-2 flex justify-center rounded-md">Asignee</p>
@@ -30,7 +29,6 @@ const MemberDropdown = ({
           <div className="flex gap-2 grow-0 items-center overflow-clip">
             <div className=" overflow-x-hidden flex gap-2 w-full">
               <Avatar
-                className=""
                 style={{ backgroundColor: member.avatarColor }}
                 alt={member.userName}
                 sx={{ width: 24, height: 24 }}

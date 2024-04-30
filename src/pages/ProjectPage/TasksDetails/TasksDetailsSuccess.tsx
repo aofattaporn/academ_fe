@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { Moment } from "moment";
 import { TextareaAutosize } from "@mui/base/TextareaAutosize";
 import { toast } from "react-toastify";
@@ -19,43 +19,55 @@ import DatePickerRow from "../../../components/DatePicker/DatePickerRow";
 import ProcessDropdown from "../../../components/Dropdown/ProcessDropdown";
 import MemberDropdown from "../../../components/Dropdown/MemberDropdown";
 import SettingTasksTile from "../../../components/ListAccordion/ListAccordionItem/SettingTasksTile/SettingTasksTile";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../stores/store";
+import { saveTasksDetailsById } from "../../../stores/projectSlice/tastsDetailsSlice";
 
 type TasksDetailsSuccessProps = {
   tasksData: Tasks;
   projectData: Project;
+  tasksId: string;
 };
 
 const TasksDetailsSuccess = ({
   tasksData,
   projectData,
+  tasksId,
 }: TasksDetailsSuccessProps) => {
+  // TODO: task not update ?
   const [tasks, setTasks] = useState<Tasks>(tasksData);
+  const tasksDetails = useSelector((state: RootState) => state.tasksDetails);
+
+  const dispatch = useDispatch();
+
+  const {} = useQuery(
+    [QUERY_KEY.Tasks, tasksDetails.tasksSeletedId],
+    () =>
+      tasksApi.getTasksByProjectId(
+        tasksDetails.tasksSeletedId as string,
+        tasksDetails.allTasksDetals[tasksDetails.tasksSeletedId as string]
+      ),
+    {
+      enabled: !!tasksDetails.tasksSeletedId && tasksDetails.isSideBar,
+      onSuccess(data) {
+        console.log(data);
+        dispatch(
+          saveTasksDetailsById({
+            projectId: tasksDetails.tasksSeletedId as string,
+            tasks: data,
+          })
+        );
+        setTasksDetail(data);
+      },
+    }
+  );
   const [isDirty, setIsDirty] = useState<boolean>(false);
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const handleSetAnchorElUser = (element: null | HTMLElement) =>
+    setAnchorElUser(element);
+
   const queryClient = useQueryClient();
-
-  const handleStartDate = (startDate: Moment | null) => {
-    setIsDirty(true);
-    setTasks((prev) => ({
-      ...prev,
-      startDate: startDate ? startDate.toString() : "",
-    }));
-  };
-
-  const handleEndDate = (dueDate: Moment | null) => {
-    setIsDirty(true);
-    setTasks((prev) => ({
-      ...prev,
-      dueDate: dueDate ? dueDate.toString() : "",
-    }));
-  };
-
-  const handleTasksName = (tasksName: string) => {
-    setIsDirty(tasksName !== tasksData.tasksName);
-    setTasks((prev) => ({
-      ...prev,
-      tasksName,
-    }));
-  };
+  const tasksDetails = useSelector((state: RootState) => state.tasksDetails);
 
   const mutation = useMutation({
     mutationFn: (updateTasks: Tasks) =>
@@ -100,10 +112,6 @@ const TasksDetailsSuccess = ({
     },
   });
 
-  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-  const handleSetAnchorElUser = (element: null | HTMLElement) =>
-    setAnchorElUser(element);
-
   const [myProcess, setMyProcess] = useState<Process | undefined>(
     projectData.projectInfo.process.find(
       (process) => process.processId === tasks.processId
@@ -126,11 +134,41 @@ const TasksDetailsSuccess = ({
     setAnchorElUser(null);
   };
 
+  const handleStartDate = (startDate: Moment | null) => {
+    setIsDirty(true);
+    setTasks((prev) => ({
+      ...prev,
+      startDate: startDate ? startDate.toString() : "",
+    }));
+  };
+
+  const handleEndDate = (dueDate: Moment | null) => {
+    setIsDirty(true);
+    setTasks((prev) => ({
+      ...prev,
+      dueDate: dueDate ? dueDate.toString() : "",
+    }));
+  };
+
+  const handleTasksName = (tasksName: string) => {
+    setIsDirty(tasksName !== tasksData.tasksName);
+    setTasks((prev) => ({
+      ...prev,
+      tasksName,
+    }));
+  };
+
   return (
     <div className="pt-1 overflow-hidden whitespace-nowrap overflow-ellipsis w-full">
+      <h1 className=" text-xl font-bold">{tasks.tasksName}</h1>
+      <h1 className=" text-xl font-bold">
+        {tasksDetails.allTasksDetals[tasksId]?.tasksName}
+      </h1>
+
       <div className="flex">
         <TextareaAutosize
           defaultValue={tasks.tasksName}
+          value={tasks.tasksName}
           onChange={(e) => handleTasksName(e.target.value)}
           className="w-full text-3xl font-bold overflow-hidden border-none focus:outline-none"
         />
