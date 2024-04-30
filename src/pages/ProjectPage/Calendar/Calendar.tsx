@@ -90,8 +90,11 @@ const Calendar = () => {
               right: taskPermission?.addNew ? "addTasksButton" : "",
             }}
           />
-          {isOpen ? (
-            <CreateTasksByDate handleClose={() => setIsOpen(false)} />
+          {isOpen && taskPermission ? (
+            <CreateTasksByDate
+              handleClose={() => setIsOpen(false)}
+              taskPermission={taskPermission}
+            />
           ) : null}
         </div>
       ) : null}
