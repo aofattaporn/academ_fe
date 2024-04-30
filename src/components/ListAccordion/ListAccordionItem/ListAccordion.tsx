@@ -35,7 +35,7 @@ const ListAccordion = ({
   } = useTasksHandle();
 
   return (
-    <div className="w-full p-4 rounded-md shadow-3xl my-4">
+    <div className="w-full p-4 rounded-md shadow-3xl my-4  group/create">
       <h1 className="text-3xl font-bold"></h1>
       <ProcessTitle
         handleToggle={handleToggle}

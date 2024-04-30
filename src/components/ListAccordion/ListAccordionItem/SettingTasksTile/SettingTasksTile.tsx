@@ -64,7 +64,7 @@ const SettingTasksTile = ({ tasksId, isVisible }: SettingTasksTileProps) => {
          text-dark font-roboto`}
       >
         <div
-          className=" hover:bg-main rounded-md shadow-sm"
+          className="rounded-md"
           onMouseDown={(e) => {
             e.stopPropagation();
             const target = e.currentTarget as HTMLElement;
