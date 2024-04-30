@@ -21,19 +21,38 @@ const BoardItem = ({ tasks, taskPermission }: BoardItem) => {
       </div>
 
       <div className="flex justify-between items-center mt-4">
-        <p className=" text-gray-300">{moment(tasks.dueDate).format("l")}</p>
-        <Tooltip title={tasks.assignee.userName}>
-          <Avatar
-            alt={tasks.assignee.userName}
-            sx={{
-              width: 24,
-              height: 24,
-              backgroundColor: tasks.assignee.avatarColor,
-            }}
-          >
-            {tasks.assignee.userName.at(0)}
-          </Avatar>
-        </Tooltip>
+        <div className="text-center text-gray-300">
+          <p>{tasks.startDate ? moment(tasks.dueDate).format("l") : ""}</p>
+        </div>
+        {tasks.assignee ? (
+          <Tooltip title={tasks.assignee.userName}>
+            <div>
+              <Avatar
+                sx={{
+                  width: 24,
+                  height: 24,
+                  backgroundColor: tasks.assignee.avatarColor,
+                }}
+              >
+                <p className="text-sm"> {tasks.assignee.userName.at(0)}</p>
+              </Avatar>
+            </div>
+          </Tooltip>
+        ) : (
+          <Tooltip title={"No assignee"}>
+            <div className=" invisible">
+              <Avatar
+                sx={{
+                  width: 24,
+                  height: 24,
+                  color: "grey",
+                  backgroundColor: "transparent",
+                  border: "2px dotted grey", // pogadot border color
+                }}
+              ></Avatar>
+            </div>
+          </Tooltip>
+        )}
       </div>
     </div>
   );

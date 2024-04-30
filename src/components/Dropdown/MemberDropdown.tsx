@@ -31,7 +31,7 @@ const MemberDropdown = ({
       >
         {member ? (
           <div
-            className={`flex gap-2 grow-0 items-center overflow-clip rounded-md p-2
+            className={`flex gap-2 grow-0 items-center overflow-clip rounded-md p-2 group
           ${isDisable ? "hover:bg-gray-100" : " text-gray-400"}`}
           >
             <div className="overflow-x-hidden flex gap-2 w-full">
@@ -44,7 +44,7 @@ const MemberDropdown = ({
               </Avatar>
               <p> {member.userName}</p>
             </div>
-            <div className="grid-cols-1">
+            <div className="grid-cols-1 invisible group-hover:visible">
               <div
                 className="grow"
                 onClick={(e) => {
