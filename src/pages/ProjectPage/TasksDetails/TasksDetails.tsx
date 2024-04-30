@@ -10,7 +10,7 @@ import { ErrorCustom, QUERY_KEY } from "../../../types/GenericType";
 import tasksApi from "../../../libs/tasksApi";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import TasksDetailsLoading from "./TasksDetailsLoading";
-import { FullMember, Project } from "../../../types/ProjectType";
+import { FullMember, Process, Project } from "../../../types/ProjectType";
 import { useState } from "react";
 import { BTN_UPDATE_TASKS, Tasks } from "../../../types/MyTasksType";
 import moment from "moment";
@@ -20,6 +20,7 @@ import SaveTasksDetails from "../../../components/Button/SaveTasksDetails";
 import { toast } from "react-toastify";
 import MemberDropdown from "../../../components/Dropdown/MemberDropdown";
 import { useParams } from "react-router-dom";
+import ProcessDropdown from "../../../components/Dropdown/ProcessDropdown";
 
 type TasksDetailsProps = {
   project?: Project;
@@ -100,6 +101,14 @@ function TasksDetails({ project }: TasksDetailsProps) {
     setAnchorElUser(null);
   };
 
+  const handleSelectProcess = (selectProcessId: string) => {
+    setTasksDetail((prev) => ({
+      ...prev,
+      processId: selectProcessId,
+    }));
+    setAnchorElUser(null);
+  };
+
   return (
     <div
       className={`duration-700 overflow-x-hidden bg-white max-h-full shadow-3xl h-screen font-roboto text-dark
@@ -161,15 +170,17 @@ function TasksDetails({ project }: TasksDetailsProps) {
                   handleSelectMember={handleSelectMember}
                 />
 
-                {/* <ProcessDropdown
-                  process={myProcess as Process}
-                  allProcess={projectData.projectInfo.process}
+                <ProcessDropdown
+                  processId={tasksDetail.processId}
+                  allProcess={project.projectInfo.process}
                   anchorElUser={anchorElUser}
-                  handleSetAnchorElUser={handleSetAnchorElUser}
+                  handleSetAnchorElUser={(element: null | HTMLElement) =>
+                    setAnchorElUser(element)
+                  }
                   handleSelectProcess={handleSelectProcess}
                 />
 
-                <DatePickerRow
+                {/* <DatePickerRow
                   title={LABEL_TASKS_START_DATE}
                   date={tasks.startDate ? moment(tasks.startDate) : null}
                   handleSetDate={handleStartDate}
