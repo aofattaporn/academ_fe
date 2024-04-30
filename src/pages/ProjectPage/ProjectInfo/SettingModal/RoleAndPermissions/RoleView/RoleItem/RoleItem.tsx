@@ -1,15 +1,15 @@
 import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import TextFeildInputComp from "../../../../../../components/Field/TextFeildInputComp";
-import TasksButton from "../../../../../../components/Button/TasksButton";
-import { Role } from "../../../../../../types/Permission";
+import TextFeildInputComp from "../../../../../../../components/Field/TextFeildInputComp";
+import TasksButton from "../../../../../../../components/Button/TasksButton";
+import { Role } from "../../../../../../../types/Permission";
 import {
   BTN_TASKS_CANCEL,
   BTN_TASKS_SAVE,
-} from "../../../../../../types/MyTasksType";
-import ConfirmDelete from "../../../../../../components/Modal/ConfirmDelete";
-import useHandleRole from "../../../../../../hooks/projectHook/useHandleRole";
+} from "../../../../../../../types/MyTasksType";
+import ConfirmDelete from "../../../../../../../components/Modal/ConfirmDelete";
+import useHandleRole from "../../../../../../../hooks/projectHook/useHandleRole";
 
 type RoleItemProps = {
   role: Role;

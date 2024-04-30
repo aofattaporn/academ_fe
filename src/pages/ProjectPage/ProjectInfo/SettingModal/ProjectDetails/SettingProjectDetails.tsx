@@ -1,17 +1,20 @@
-import TextFeildInputComp from "../../../../components/Field/TextFeildInputComp";
-import { PLACHOLDER_INPUT_PROJECT, Size } from "../../../../types/ProjectType";
-import DatePickerRow from "../../../../components/DatePicker/DatePickerRow";
-import CreateProjectButtonComp from "../../../../components/Button/CreateProjectButtonComp";
+import TextFeildInputComp from "../../../../../components/Field/TextFeildInputComp";
+import {
+  PLACHOLDER_INPUT_PROJECT,
+  Size,
+} from "../../../../../types/ProjectType";
+import CreateProjectButtonComp from "../../../../../components/Button/CreateProjectButtonComp";
 import { Alert, Button, CircularProgress } from "@mui/material";
-import AvatarProject from "../../../../components/AvatarProject/AvatarProject";
+import AvatarProject from "../../../../../components/AvatarProject/AvatarProject";
 import moment from "moment";
-import ColorSelection from "../../../../components/Field/ColorSelection";
+import ColorSelection from "../../../../../components/Field/ColorSelection";
 import {
   BTN_TASKS_SAVE,
   LABEL_TASKS_DUE_DATE,
   LABEL_TASKS_START_DATE,
-} from "../../../../types/MyTasksType";
-import useSettingProjectDetails from "../../../../hooks/projectHook/useSettingProjectDetails";
+} from "../../../../../types/MyTasksType";
+import useSettingProjectDetails from "../../../../../hooks/projectHook/useSettingProjectDetails";
+import DatePickerRow from "../../../../../components/DatePicker/DatePickerRow";
 
 const SettingProjectDetails = () => {
   const {
@@ -80,12 +83,14 @@ const SettingProjectDetails = () => {
             date={moment(projectDetails?.startDate)}
             handleSetDate={handleStartDate}
             isClearabler={false}
+            isDisable={true}
           />
           <DatePickerRow
             title={LABEL_TASKS_DUE_DATE}
             date={moment(projectDetails?.dueDate)}
             handleSetDate={handleEndDate}
             isClearabler={false}
+            isDisable={true}
           />
 
           <div className="my-4">

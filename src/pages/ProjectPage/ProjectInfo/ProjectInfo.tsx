@@ -24,9 +24,9 @@ import {
 import { useState, MouseEvent } from "react";
 import { useDispatch } from "react-redux";
 import { openModal } from "../../../stores/modalSlice/modalSlice";
-import SettingProjectDetails from "./SettingModal/SettingProjectDetails";
-import ManageProjectPermissions from "./SettingModal/ManageProjectPermissions";
-import Members from "./SettingModal/Members";
+import SettingProjectDetails from "./SettingModal/ProjectDetails/SettingProjectDetails";
+import ManageProjectPermissions from "./SettingModal/RoleAndPermissions/ManageProjectPermissions";
+import Members from "./SettingModal/MemberView/Members";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import projectApi from "../../../libs/projectApi";

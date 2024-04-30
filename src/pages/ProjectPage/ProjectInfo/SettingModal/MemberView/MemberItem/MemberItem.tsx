@@ -11,14 +11,14 @@ import {
   FullMember,
   MemberSetting,
   RoleProject,
-} from "../../../../../types/ProjectType";
+} from "../../../../../../types/ProjectType";
 import { useMutation, useQueryClient } from "react-query";
-import projectApi from "../../../../../libs/projectApi";
+import projectApi from "../../../../../../libs/projectApi";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../../stores/store";
+import { RootState } from "../../../../../../stores/store";
 import { toast } from "react-toastify";
-import { QUERY_KEY } from "../../../../../types/GenericType";
-import ConfirmDelete from "../../../../../components/Modal/ConfirmDelete";
+import { QUERY_KEY } from "../../../../../../types/GenericType";
+import ConfirmDelete from "../../../../../../components/Modal/ConfirmDelete";
 
 type MemberItemProps = {
   member: FullMember;

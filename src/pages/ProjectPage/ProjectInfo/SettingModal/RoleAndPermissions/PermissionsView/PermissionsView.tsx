@@ -8,18 +8,18 @@ import {
   Role,
   RolePermission,
   TaskPermission,
-} from "../../../../../types/Permission";
-import CreateProjectButtonComp from "../../../../../components/Button/CreateProjectButtonComp";
+} from "../../../../../../types/Permission";
+import CreateProjectButtonComp from "../../../../../../components/Button/CreateProjectButtonComp";
 import SelectRole from "./SelectRole";
-import { BTN_TASKS_SAVE } from "../../../../../types/MyTasksType";
+import { BTN_TASKS_SAVE } from "../../../../../../types/MyTasksType";
 import { Button, Divider, Switch } from "@mui/material";
 import RestoreIcon from "@mui/icons-material/Restore";
 import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
-import projectApi from "../../../../../libs/projectApi";
-import { QUERY_KEY } from "../../../../../types/GenericType";
+import projectApi from "../../../../../../libs/projectApi";
+import { QUERY_KEY } from "../../../../../../types/GenericType";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../../stores/store";
+import { RootState } from "../../../../../../stores/store";
 
 type PermissionsViewProps = {
   roles: Role[];

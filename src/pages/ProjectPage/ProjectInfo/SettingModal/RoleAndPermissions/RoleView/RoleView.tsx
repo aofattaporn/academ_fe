@@ -1,14 +1,18 @@
-import CreateProjectButtonComp from "../../../../../components/Button/CreateProjectButtonComp";
-import TextFeildInputComp from "../../../../../components/Field/TextFeildInputComp";
+import CreateProjectButtonComp from "../../../../../../components/Button/CreateProjectButtonComp";
+import TextFeildInputComp from "../../../../../../components/Field/TextFeildInputComp";
 
-import { ROLE_MEMBER, ROLE_OWNER, Role } from "../../../../../types/Permission";
+import {
+  ROLE_MEMBER,
+  ROLE_OWNER,
+  Role,
+} from "../../../../../../types/Permission";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
-import projectApi from "../../../../../libs/projectApi";
+import projectApi from "../../../../../../libs/projectApi";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import { QUERY_KEY } from "../../../../../types/GenericType";
-import { RootState } from "../../../../../stores/store";
+import { QUERY_KEY } from "../../../../../../types/GenericType";
+import { RootState } from "../../../../../../stores/store";
 import RoleItem from "./RoleItem/RoleItem";
 
 type RoleViewProps = {

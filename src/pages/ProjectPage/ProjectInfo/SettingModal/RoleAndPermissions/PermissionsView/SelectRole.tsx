@@ -1,5 +1,5 @@
 import { Menu, MenuItem } from "@mui/material";
-import { Role } from "../../../../../types/Permission";
+import { Role } from "../../../../../../types/Permission";
 
 type SelectRoleProps = {
   roles: Role[];

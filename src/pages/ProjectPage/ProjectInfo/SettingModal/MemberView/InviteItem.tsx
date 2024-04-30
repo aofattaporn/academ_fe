@@ -3,16 +3,16 @@ import {
   Invite,
   MemberSetting,
   RoleProject,
-} from "../../../../types/ProjectType";
+} from "../../../../../types/ProjectType";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import ConfirmDelete from "../../../../components/Modal/ConfirmDelete";
+import ConfirmDelete from "../../../../../components/Modal/ConfirmDelete";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
-import projectApi from "../../../../libs/projectApi";
-import { QUERY_KEY } from "../../../../types/GenericType";
+import projectApi from "../../../../../libs/projectApi";
+import { QUERY_KEY } from "../../../../../types/GenericType";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../stores/store";
+import { RootState } from "../../../../../stores/store";
 
 type InviteItemProps = {
   invite: Invite;

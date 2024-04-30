@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { MemberSetting } from "../../../../types/ProjectType";
-import { QUERY_KEY } from "../../../../types/GenericType";
+import { MemberSetting } from "../../../../../types/ProjectType";
+import { QUERY_KEY } from "../../../../../types/GenericType";
 import { useQuery } from "react-query";
-import projectApi from "../../../../libs/projectApi";
+import projectApi from "../../../../../libs/projectApi";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../stores/store";
+import { RootState } from "../../../../../stores/store";
 import { Alert, Button, CircularProgress } from "@mui/material";
 import InviteItem from "./InviteItem";
 import MemberItem from "./MemberItem/MemberItem";

@@ -1,12 +1,12 @@
 import { useState } from "react";
 import RoleView from "./RoleView/RoleView";
 import PermissionsView from "./PermissionsView/PermissionsView";
-import { QUERY_KEY } from "../../../../types/GenericType";
+import { QUERY_KEY } from "../../../../../types/GenericType";
 import { useQuery } from "react-query";
-import projectApi from "../../../../libs/projectApi";
+import projectApi from "../../../../../libs/projectApi";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../stores/store";
-import { Role } from "../../../../types/Permission";
+import { RootState } from "../../../../../stores/store";
+import { Role } from "../../../../../types/Permission";
 import { Alert, Button, CircularProgress } from "@mui/material";
 
 enum MANAGE_VIEW {
