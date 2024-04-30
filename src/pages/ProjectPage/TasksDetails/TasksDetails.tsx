@@ -10,7 +10,7 @@ import { ErrorCustom, QUERY_KEY } from "../../../types/GenericType";
 import tasksApi from "../../../libs/tasksApi";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import TasksDetailsLoading from "./TasksDetailsLoading";
-import { FullMember, Process, Project } from "../../../types/ProjectType";
+import { FullMember, Project } from "../../../types/ProjectType";
 import { useState } from "react";
 import {
   BTN_UPDATE_TASKS,
@@ -27,12 +27,14 @@ import MemberDropdown from "../../../components/Dropdown/MemberDropdown";
 import { useParams } from "react-router-dom";
 import ProcessDropdown from "../../../components/Dropdown/ProcessDropdown";
 import DatePickerRow from "../../../components/DatePicker/DatePickerRow";
+import { TaskPermission } from "../../../types/Permission";
 
 type TasksDetailsProps = {
   project?: Project;
+  taskPermission: TaskPermission;
 };
 
-function TasksDetails({ project }: TasksDetailsProps) {
+function TasksDetails({ project, taskPermission }: TasksDetailsProps) {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
   const { projectId } = useParams();
@@ -66,7 +68,6 @@ function TasksDetails({ project }: TasksDetailsProps) {
     }
   );
 
-  // TODO : handle data
   const mutation = useMutation({
     mutationFn: (updateTasks: Tasks) =>
       tasksApi.updateTasks(updateTasks.tasksId, {
@@ -80,9 +81,8 @@ function TasksDetails({ project }: TasksDetailsProps) {
       }),
     onSuccess(data) {
       setTasksDetail(data);
-      // toast.success("Update tasks success");
+      toast.success("Update tasks success");
 
-      // TODO : update all tasks
       queryClient.setQueryData(
         [QUERY_KEY.ALL_TASKS],
         (oldTasks: Tasks[] | undefined) =>
@@ -91,7 +91,6 @@ function TasksDetails({ project }: TasksDetailsProps) {
           ) ?? []
       );
 
-      // TODO : update tasks tasks
       queryClient.setQueryData([QUERY_KEY.Tasks, data.tasksId], data);
     },
     onError: (error: ErrorCustom) => {
@@ -148,6 +147,7 @@ function TasksDetails({ project }: TasksDetailsProps) {
             <div className="pt-1 overflow-hidden whitespace-nowrap overflow-ellipsis w-full">
               <div className="flex">
                 <TextareaAutosize
+                  disabled={!taskPermission.edit}
                   value={tasksDetail.tasksName}
                   onChange={(e) =>
                     setTasksDetail((prev) => ({
@@ -159,7 +159,7 @@ function TasksDetails({ project }: TasksDetailsProps) {
                 />
                 <SettingTasksTile
                   tasksId={tasksDetail.tasksId}
-                  isVisible={true}
+                  isVisible={taskPermission.delete}
                 />
               </div>
 
@@ -174,6 +174,7 @@ function TasksDetails({ project }: TasksDetailsProps) {
                 </div>
 
                 <ProcessDropdown
+                  isDisable={taskPermission.manageProcess}
                   processId={tasksDetail.processId}
                   allProcess={project.projectInfo.process}
                   anchorElUser={anchorElUser}
@@ -184,6 +185,7 @@ function TasksDetails({ project }: TasksDetailsProps) {
                 />
 
                 <MemberDropdown
+                  isDisable={taskPermission.edit}
                   member={tasksDetail.assignee}
                   allMembers={project.projectInfo.members}
                   anchorElUser={anchorElUser}
@@ -194,6 +196,7 @@ function TasksDetails({ project }: TasksDetailsProps) {
                 />
 
                 <DatePickerRow
+                  isDisable={taskPermission.edit}
                   title={LABEL_TASKS_START_DATE}
                   date={
                     tasksDetail.startDate ? moment(tasksDetail.startDate) : null
@@ -203,6 +206,7 @@ function TasksDetails({ project }: TasksDetailsProps) {
                 />
 
                 <DatePickerRow
+                  isDisable={taskPermission.edit}
                   title={LABEL_TASKS_DUE_DATE}
                   date={
                     tasksDetail.dueDate ? moment(tasksDetail.dueDate) : null
@@ -214,7 +218,14 @@ function TasksDetails({ project }: TasksDetailsProps) {
 
               <SaveTasksDetails
                 title={BTN_UPDATE_TASKS}
-                disable={false}
+                disable={
+                  JSON.stringify(tasksDetail) ===
+                  JSON.stringify(
+                    tasksDetails.allTasksDetals[
+                      tasksDetails.tasksSeletedId as string
+                    ]
+                  )
+                }
                 isSaving={mutation.isLoading}
                 handleChange={() => mutation.mutate(tasksDetail)}
               />

@@ -2,6 +2,7 @@ import { Menu, MenuItem } from "@mui/material";
 import { Process } from "../../types/ProjectType";
 
 type ProcessDropdownProps = {
+  isDisable: boolean;
   processId: string;
   allProcess: Process[];
   anchorElUser: HTMLElement | null;
@@ -10,6 +11,7 @@ type ProcessDropdownProps = {
 };
 
 const ProcessDropdown = ({
+  isDisable,
   processId,
   allProcess,
   anchorElUser,
@@ -22,15 +24,19 @@ const ProcessDropdown = ({
       <p className="bg-main py-2 flex justify-center rounded-md">Process</p>
 
       <button
-        className="flex gap-2 grow-0 items-center overflow-clip"
+        className={`flex gap-2 grow-0 items-center overflow-clip rounded-md p-2
+        ${isDisable ? "hover:bg-gray-100" : " text-gray-400"}`}
         id={"Process"}
         onClick={(e) => handleSetAnchorElUser(e.currentTarget)}
+        disabled={!isDisable}
       >
         <div
-          style={{ backgroundColor: process?.processColor }}
+          style={{
+            backgroundColor: process?.processColor,
+          }}
           className="w-4 h-4 bg-black rounded-full"
         ></div>
-        <p> {process?.processName}</p>
+        <p>{process?.processName}</p>
       </button>
 
       <Menu

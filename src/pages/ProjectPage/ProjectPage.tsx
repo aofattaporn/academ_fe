@@ -6,7 +6,6 @@ import { Process } from "../../types/ProjectType";
 import { useSelector } from "react-redux";
 import { RootState } from "../../stores/store";
 import TasksDetails from "./TasksDetails/TasksDetails";
-import { ToastContainer } from "react-toastify";
 import { TaskPermission } from "../../types/Permission";
 
 type ContextType = {
@@ -22,9 +21,7 @@ const ProjectPage = () => {
     <div className="flex text-dark font-roboto">
       <div
         className={`${
-          tasksDetails.isSideBar && projectData?.taskPermission.edit
-            ? "w-4/6"
-            : "w-full"
+          tasksDetails.isSideBar ? "w-4/6" : "w-full"
         } duration-700`}
       >
         <div className="bg-white w-full shadow-sm flex px-4 gap-8 items-end">
@@ -41,11 +38,12 @@ const ProjectPage = () => {
         />
       </div>
 
-      {projectData && projectData.taskPermission.edit ? (
-        <TasksDetails project={projectData} />
+      {projectData && projectData.taskPermission ? (
+        <TasksDetails
+          project={projectData}
+          taskPermission={projectData.taskPermission}
+        />
       ) : null}
-
-      {/* <ToastContainer /> */}
     </div>
   );
 };

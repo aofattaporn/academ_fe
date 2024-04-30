@@ -3,6 +3,7 @@ import { FullMember } from "../../types/ProjectType";
 import { Avatar, IconButton, Menu, MenuItem } from "@mui/material";
 
 type MemberDropdownProps = {
+  isDisable: boolean;
   member?: FullMember;
   allMembers: FullMember[];
   anchorElUser: HTMLElement | null;
@@ -11,6 +12,7 @@ type MemberDropdownProps = {
 };
 
 const MemberDropdown = ({
+  isDisable,
   member,
   allMembers,
   anchorElUser,
@@ -20,14 +22,19 @@ const MemberDropdown = ({
   return (
     <div className=" grid grid-cols-3 gap-4 items-center">
       <p className="bg-main py-2 flex justify-center rounded-md">Asignee</p>
-      <div
-        className="col-span-2 flex justify-center h-full items-center  rounded-md hover:cursor-pointer"
+
+      <button
+        className="col-span-2 flex justify-center h-full items-center rounded-md"
         id={"Member"}
         onClick={(e) => handleSetAnchorElUser(e.currentTarget)}
+        disabled={!isDisable}
       >
         {member ? (
-          <div className="flex gap-2 grow-0 items-center overflow-clip">
-            <div className=" overflow-x-hidden flex gap-2 w-full">
+          <div
+            className={`flex gap-2 grow-0 items-center overflow-clip rounded-md p-2
+          ${isDisable ? "hover:bg-gray-100" : " text-gray-400"}`}
+          >
+            <div className="overflow-x-hidden flex gap-2 w-full">
               <Avatar
                 style={{ backgroundColor: member.avatarColor }}
                 alt={member.userName}
@@ -38,7 +45,7 @@ const MemberDropdown = ({
               <p> {member.userName}</p>
             </div>
             <div className="grid-cols-1">
-              <IconButton
+              <div
                 className="grow"
                 onClick={(e) => {
                   e.stopPropagation();
@@ -46,13 +53,14 @@ const MemberDropdown = ({
                 }}
               >
                 <CloseIcon></CloseIcon>
-              </IconButton>
+              </div>
             </div>
           </div>
         ) : (
           <p>-</p>
         )}
-      </div>
+      </button>
+
       <Menu
         anchorEl={anchorElUser}
         open={Boolean(anchorElUser) && anchorElUser?.id === "Member"}
