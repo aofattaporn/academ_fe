@@ -12,8 +12,13 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import TasksDetailsLoading from "./TasksDetailsLoading";
 import { FullMember, Process, Project } from "../../../types/ProjectType";
 import { useState } from "react";
-import { BTN_UPDATE_TASKS, Tasks } from "../../../types/MyTasksType";
-import moment from "moment";
+import {
+  BTN_UPDATE_TASKS,
+  LABEL_TASKS_DUE_DATE,
+  LABEL_TASKS_START_DATE,
+  Tasks,
+} from "../../../types/MyTasksType";
+import moment, { Moment } from "moment";
 import SettingTasksTile from "../../../components/ListAccordion/ListAccordionItem/SettingTasksTile/SettingTasksTile";
 import { MOCK_TASKS } from "../../../mocks/tasksMock";
 import SaveTasksDetails from "../../../components/Button/SaveTasksDetails";
@@ -21,6 +26,7 @@ import { toast } from "react-toastify";
 import MemberDropdown from "../../../components/Dropdown/MemberDropdown";
 import { useParams } from "react-router-dom";
 import ProcessDropdown from "../../../components/Dropdown/ProcessDropdown";
+import DatePickerRow from "../../../components/DatePicker/DatePickerRow";
 
 type TasksDetailsProps = {
   project?: Project;
@@ -109,6 +115,20 @@ function TasksDetails({ project }: TasksDetailsProps) {
     setAnchorElUser(null);
   };
 
+  const handleEndDate = (dueDate: Moment | null) => {
+    setTasksDetail((prev) => ({
+      ...prev,
+      dueDate: dueDate ? dueDate.toString() : "",
+    }));
+  };
+
+  const handleStartDate = (dueDate: Moment | null) => {
+    setTasksDetail((prev) => ({
+      ...prev,
+      startDate: dueDate ? dueDate.toString() : "",
+    }));
+  };
+
   return (
     <div
       className={`duration-700 overflow-x-hidden bg-white max-h-full shadow-3xl h-screen font-roboto text-dark
@@ -126,13 +146,6 @@ function TasksDetails({ project }: TasksDetailsProps) {
 
           {TasksIsSuccess && project && tasksDetail && tasksDetail.tasksId ? (
             <div className="pt-1 overflow-hidden whitespace-nowrap overflow-ellipsis w-full">
-              <p>{tasksDetail.tasksName}</p>
-              <p>
-                {tasksDetail.assignee ? tasksDetail.assignee?.userName : "-"}
-              </p>
-              <p>{moment(tasksDetail.startDate).format("l")}</p>
-              <p>{moment(tasksDetail.dueDate).format("l")}</p>
-
               <div className="flex">
                 <TextareaAutosize
                   value={tasksDetail.tasksName}
@@ -160,16 +173,6 @@ function TasksDetails({ project }: TasksDetailsProps) {
                   </p>
                 </div>
 
-                <MemberDropdown
-                  member={tasksDetail.assignee}
-                  allMembers={project.projectInfo.members}
-                  anchorElUser={anchorElUser}
-                  handleSetAnchorElUser={(element: null | HTMLElement) =>
-                    setAnchorElUser(element)
-                  }
-                  handleSelectMember={handleSelectMember}
-                />
-
                 <ProcessDropdown
                   processId={tasksDetail.processId}
                   allProcess={project.projectInfo.process}
@@ -180,19 +183,33 @@ function TasksDetails({ project }: TasksDetailsProps) {
                   handleSelectProcess={handleSelectProcess}
                 />
 
-                {/* <DatePickerRow
+                <MemberDropdown
+                  member={tasksDetail.assignee}
+                  allMembers={project.projectInfo.members}
+                  anchorElUser={anchorElUser}
+                  handleSetAnchorElUser={(element: null | HTMLElement) =>
+                    setAnchorElUser(element)
+                  }
+                  handleSelectMember={handleSelectMember}
+                />
+
+                <DatePickerRow
                   title={LABEL_TASKS_START_DATE}
-                  date={tasks.startDate ? moment(tasks.startDate) : null}
+                  date={
+                    tasksDetail.startDate ? moment(tasksDetail.startDate) : null
+                  }
                   handleSetDate={handleStartDate}
                   isClearabler={true}
                 />
 
                 <DatePickerRow
                   title={LABEL_TASKS_DUE_DATE}
-                  date={tasks.dueDate ? moment(tasks.dueDate) : null}
+                  date={
+                    tasksDetail.dueDate ? moment(tasksDetail.dueDate) : null
+                  }
                   handleSetDate={handleEndDate}
                   isClearabler={true}
-                /> */}
+                />
               </div>
 
               <SaveTasksDetails

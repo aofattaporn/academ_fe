@@ -20,14 +20,18 @@ const ProcessDropdown = ({
   return (
     <div className=" grid grid-cols-3 gap-4 items-center">
       <p className="bg-main py-2 flex justify-center rounded-md">Process</p>
-      <p
-        style={{ backgroundColor: process?.processColor }}
-        className="col-span-2 flex justify-center h-full items-center text-white rounded-md hover:cursor-pointer"
+
+      <button
+        className="flex gap-2 grow-0 items-center overflow-clip"
         id={"Process"}
         onClick={(e) => handleSetAnchorElUser(e.currentTarget)}
       >
-        {process?.processName}
-      </p>
+        <div
+          style={{ backgroundColor: process?.processColor }}
+          className="w-4 h-4 bg-black rounded-full"
+        ></div>
+        <p> {process?.processName}</p>
+      </button>
 
       <Menu
         id="Process"

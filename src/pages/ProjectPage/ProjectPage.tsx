@@ -45,7 +45,7 @@ const ProjectPage = () => {
         <TasksDetails project={projectData} />
       ) : null}
 
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </div>
   );
 };
