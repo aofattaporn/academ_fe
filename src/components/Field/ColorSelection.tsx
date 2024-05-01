@@ -9,15 +9,21 @@ const COLORS: string[] = [
 ];
 
 type ColorSelectionProps = {
+  disable: boolean;
   selectColor: string;
   handleColor: (color: string) => void;
 };
-const ColorSelection = ({ selectColor, handleColor }: ColorSelectionProps) => {
+const ColorSelection = ({
+  disable,
+  selectColor,
+  handleColor,
+}: ColorSelectionProps) => {
   return (
     <div className="bg-main flex gap-2 p-2 rounded-md my-2">
       {COLORS.map((color, index) => {
         return (
           <button
+            disabled={disable}
             key={index}
             onClick={() => handleColor(color)}
             style={{

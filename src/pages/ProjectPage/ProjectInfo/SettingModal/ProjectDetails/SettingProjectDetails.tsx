@@ -21,16 +21,17 @@ import AllViewToggle from "../../../../AllMyProjectPage/CreateProjectSideBar/Vie
 const SettingProjectDetails = () => {
   const {
     mutation,
+    projectData,
     projectIsLoading,
     projectIsSuccess,
     projectIsError,
     projectDetails,
+    projectPermission,
     projectRefetch,
     handleProjectName,
     handleColor,
     handleStartDate,
     handleEndDate,
-    handleCheckIsdirty,
     handleSetSelected,
   } = useSettingProjectDetails();
 
@@ -70,11 +71,13 @@ const SettingProjectDetails = () => {
             <div className="grow">
               <p>Project Name</p>
               <TextFeildInputComp
+                disable={projectPermission.editProfile}
                 placeholder={PLACHOLDER_INPUT_PROJECT}
                 value={projectDetails?.projectProfile.projectName as string}
                 handleProjectName={handleProjectName}
               />
               <ColorSelection
+                disable={projectPermission.editProfile}
                 handleColor={handleColor}
                 selectColor={projectDetails.projectProfile.avatarColor}
               />
@@ -87,6 +90,7 @@ const SettingProjectDetails = () => {
             </p>
             <div className="col-span-2 w-full">
               <AllViewToggle
+                disable={projectPermission.editProfile}
                 viewsSelected={projectDetails.views as Views[]}
                 handleSelected={handleSetSelected}
               />
@@ -95,23 +99,34 @@ const SettingProjectDetails = () => {
 
           <DatePickerRow
             title={LABEL_TASKS_START_DATE}
-            date={moment(projectDetails.startDate)}
+            date={
+              projectDetails.projectStartDate
+                ? moment(projectDetails.projectStartDate)
+                : null
+            }
             handleSetDate={handleStartDate}
-            isClearabler={false}
-            isDisable={true}
+            isClearabler={true}
+            isDisable={!projectPermission.editProfile}
           />
           <DatePickerRow
             title={LABEL_TASKS_DUE_DATE}
-            date={moment(projectDetails.dueDate)}
+            date={
+              projectDetails.projectEndDate
+                ? moment(projectDetails.projectEndDate)
+                : null
+            }
             handleSetDate={handleEndDate}
-            isClearabler={false}
-            isDisable={true}
+            isClearabler={true}
+            isDisable={!projectPermission.editProfile}
           />
 
           <div className="my-4">
             <CreateProjectButtonComp
               title={BTN_TASKS_SAVE}
-              disable={handleCheckIsdirty()}
+              disable={
+                JSON.stringify(projectData?.projectDetails) ===
+                JSON.stringify(projectDetails)
+              }
               isCreating={mutation.isLoading}
               handleChange={mutation.mutate}
             />

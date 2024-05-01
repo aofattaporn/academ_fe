@@ -1,5 +1,5 @@
 import { Moment } from "moment";
-import { TaskPermission } from "./Permission";
+import { ProjectPermission, TaskPermission } from "./Permission";
 
 // ------------- composition-type  -----------------------
 // -------------------------------------------------------
@@ -70,13 +70,24 @@ export interface ProjectInfo {
   members: FullMember[];
 }
 
+// -------------------- project-details type ---------------------
+// -------------------------------------------------------
+
+export interface ProjectDetailsPermission {
+  projectDetails: ProjectDetails;
+  projectPermission: ProjectPermission;
+}
+
 export interface ProjectDetails {
   projectId: string;
   projectProfile: ProjectProfile;
   views: string[];
-  startDate?: string | Moment | null;
-  dueDate?: string | Moment | null;
+  projectStartDate: string | Date | null;
+  projectEndDate: string | Date | null;
 }
+
+// --------------- project infomations type ---------------------
+// -------------------------------------------------------
 
 export interface ProjectProfile {
   projectName: string;

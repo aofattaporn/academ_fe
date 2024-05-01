@@ -1,21 +1,27 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import projectApi from "../../libs/projectApi";
 import { QUERY_KEY } from "../../types/GenericType";
-import { Moment } from "moment";
+import moment, { Moment } from "moment";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../stores/store";
 import { Project, ProjectDetails, Views } from "../../types/ProjectType";
 import { closeModal } from "../../stores/modalSlice/modalSlice";
 import { toast } from "react-toastify";
+import { ProjectPermission } from "../../types/Permission";
 
 const useSettingProjectDetails = () => {
+  const [projectPermission, setProjectPermission] = useState<ProjectPermission>(
+    { editProfile: false }
+  );
   const [projectDetails, setProjectDetails] = useState<ProjectDetails>({
     projectId: "",
     projectProfile: {
       projectName: "",
       avatarColor: "",
     },
+    projectStartDate: "",
+    projectEndDate: "",
     views: [],
   });
   const projectId = useSelector((state: RootState) => state.modal.projectId);
@@ -32,9 +38,9 @@ const useSettingProjectDetails = () => {
     QUERY_KEY.PROJECTINFO_SETTING,
     () => projectApi.getProjectDetails(projectId as string),
     {
-      refetchOnWindowFocus: false,
       onSuccess(data) {
-        setProjectDetails(data);
+        setProjectDetails(data.projectDetails);
+        setProjectPermission(data.projectPermission);
       },
     }
   );
@@ -43,8 +49,12 @@ const useSettingProjectDetails = () => {
     mutationFn: () =>
       projectApi.updateProjectDetails(projectId as string, {
         ...projectDetails,
-        startDate: projectDetails.startDate,
-        dueDate: projectDetails.dueDate,
+        projectStartDate: projectDetails.projectStartDate
+          ? moment(projectDetails.projectStartDate).toISOString()
+          : null,
+        projectEndDate: projectDetails.projectEndDate
+          ? moment(projectDetails.projectEndDate).toISOString()
+          : null,
       }),
     onSuccess(data: Project) {
       queryClient.setQueryData([QUERY_KEY.PROJECR, projectId], data);
@@ -77,18 +87,16 @@ const useSettingProjectDetails = () => {
   };
 
   const handleStartDate = (startDate: Moment | null) => {
-    if (!startDate) return;
     setProjectDetails((prev) => ({
       ...prev,
-      startDate: startDate.toISOString(),
+      projectStartDate: startDate ? startDate.toString() : "",
     }));
   };
 
   const handleEndDate = (dueDate: Moment | null) => {
-    if (!dueDate) return;
     setProjectDetails((prev) => ({
       ...prev,
-      dueDate: dueDate.toISOString(),
+      projectEndDate: dueDate ? dueDate.toString() : "",
     }));
   };
 
@@ -125,6 +133,7 @@ const useSettingProjectDetails = () => {
     projectIsError,
     projectData,
     projectDetails,
+    projectPermission,
     projectRefetch,
     handleProjectName,
     handleColor,

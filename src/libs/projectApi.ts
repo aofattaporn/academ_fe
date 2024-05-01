@@ -7,6 +7,7 @@ import {
   MemberSetting,
   Project,
   ProjectDetails,
+  ProjectDetailsPermission,
 } from "../types/ProjectType";
 import axiosInstance from "./axiosInstance";
 import firebaseApi from "./firebaseApi";
@@ -77,7 +78,7 @@ const getProject = async (projectId: string): Promise<Project> => {
 
 const getProjectDetails = async (
   projectId: string
-): Promise<ProjectDetails> => {
+): Promise<ProjectDetailsPermission> => {
   try {
     const token = await firebaseApi.getToken();
     const response = await axiosInstance.get(

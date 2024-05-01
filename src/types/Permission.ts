@@ -14,7 +14,6 @@ export interface MembersPermission {
 
 export interface ProjectPermission {
   editProfile: boolean;
-  manageView: boolean;
 }
 
 export interface TaskPermission {
@@ -48,7 +47,6 @@ const memberRole: Role = {
     },
     project: {
       editProfile: false,
-      manageView: false,
     },
     tasks: {
       addNew: false,
@@ -76,7 +74,6 @@ const ownerRole: Role = {
     },
     project: {
       editProfile: true,
-      manageView: true,
     },
     tasks: {
       addNew: true,
@@ -104,7 +101,6 @@ export const NEW_ROLE: Role = {
     },
     project: {
       editProfile: true,
-      manageView: true,
     },
     tasks: {
       addNew: true,
@@ -132,7 +128,6 @@ export const UPDATE_ROLE_NAME: Role = {
     },
     project: {
       editProfile: true,
-      manageView: true,
     },
     tasks: {
       addNew: true,
@@ -160,7 +155,6 @@ export const UPDATE_ROLE_PERMISSION: Role = {
     },
     project: {
       editProfile: true,
-      manageView: true,
     },
     tasks: {
       addNew: true,
