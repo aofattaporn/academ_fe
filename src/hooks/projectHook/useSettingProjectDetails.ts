@@ -5,7 +5,7 @@ import { Moment } from "moment";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../stores/store";
-import { Project, ProjectDetails } from "../../types/ProjectType";
+import { Project, ProjectDetails, Views } from "../../types/ProjectType";
 import { closeModal } from "../../stores/modalSlice/modalSlice";
 import { toast } from "react-toastify";
 
@@ -96,6 +96,28 @@ const useSettingProjectDetails = () => {
     return JSON.stringify(projectData) === JSON.stringify(projectDetails);
   };
 
+  const handleSetSelected = (view: Views) => {
+    const isSelected = projectDetails.views.some(
+      (selectedView) => selectedView === view
+    );
+
+    if (isSelected) {
+      const updatedViews = projectDetails.views.filter(
+        (selectedView) => selectedView !== view
+      );
+
+      setProjectDetails((prev) => ({
+        ...prev,
+        views: updatedViews,
+      }));
+    } else {
+      setProjectDetails((prev) => ({
+        ...prev,
+        views: [...prev.views, view],
+      }));
+    }
+  };
+
   return {
     mutation,
     projectIsLoading,
@@ -109,6 +131,7 @@ const useSettingProjectDetails = () => {
     handleStartDate,
     handleEndDate,
     handleCheckIsdirty,
+    handleSetSelected,
   };
 };
 

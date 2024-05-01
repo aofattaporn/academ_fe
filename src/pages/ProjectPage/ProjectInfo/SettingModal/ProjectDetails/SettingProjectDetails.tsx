@@ -2,6 +2,7 @@ import TextFeildInputComp from "../../../../../components/Field/TextFeildInputCo
 import {
   PLACHOLDER_INPUT_PROJECT,
   Size,
+  Views,
 } from "../../../../../types/ProjectType";
 import CreateProjectButtonComp from "../../../../../components/Button/CreateProjectButtonComp";
 import { Alert, Button, CircularProgress } from "@mui/material";
@@ -15,6 +16,7 @@ import {
 } from "../../../../../types/MyTasksType";
 import useSettingProjectDetails from "../../../../../hooks/projectHook/useSettingProjectDetails";
 import DatePickerRow from "../../../../../components/DatePicker/DatePickerRow";
+import AllViewToggle from "../../../../AllMyProjectPage/CreateProjectSideBar/ViewToggle/AllViewToggle";
 
 const SettingProjectDetails = () => {
   const {
@@ -29,6 +31,7 @@ const SettingProjectDetails = () => {
     handleStartDate,
     handleEndDate,
     handleCheckIsdirty,
+    handleSetSelected,
   } = useSettingProjectDetails();
 
   if (projectIsLoading) {
@@ -78,16 +81,28 @@ const SettingProjectDetails = () => {
             </div>
           </div>
 
+          <div className="grid grid-cols-3 gap-4 items-center">
+            <p className=" col-span-1 bg-main py-2 flex justify-center rounded-md">
+              Views
+            </p>
+            <div className="col-span-2 w-full">
+              <AllViewToggle
+                viewsSelected={projectDetails.views as Views[]}
+                handleSelected={handleSetSelected}
+              />
+            </div>
+          </div>
+
           <DatePickerRow
             title={LABEL_TASKS_START_DATE}
-            date={moment(projectDetails?.startDate)}
+            date={moment(projectDetails.startDate)}
             handleSetDate={handleStartDate}
             isClearabler={false}
             isDisable={true}
           />
           <DatePickerRow
             title={LABEL_TASKS_DUE_DATE}
-            date={moment(projectDetails?.dueDate)}
+            date={moment(projectDetails.dueDate)}
             handleSetDate={handleEndDate}
             isClearabler={false}
             isDisable={true}
