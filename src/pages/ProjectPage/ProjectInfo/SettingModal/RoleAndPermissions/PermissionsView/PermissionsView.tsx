@@ -5,7 +5,8 @@ import {
   ProjectPermission,
   ROLE_MEMBER,
   ROLE_OWNER,
-  Role,
+  RoleAndFullPermission,
+  RoleAndRolePermission,
   RolePermission,
   TaskPermission,
 } from "../../../../../../types/Permission";
@@ -22,17 +23,20 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../../../stores/store";
 
 type PermissionsViewProps = {
-  roles: Role[];
+  roles: RoleAndFullPermission[];
+  rolePermission: RolePermission;
 };
 
 const PermissionsView = ({ roles }: PermissionsViewProps) => {
   const queryClient = useQueryClient();
   const projectId = useSelector((state: RootState) => state.modal.projectId);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-  const [selectedRole, setSelectedRole] = useState<Role>(roles[0]);
+  const [selectedRole, setSelectedRole] = useState<RoleAndFullPermission>(
+    roles[0]
+  );
   const [permission, setPermission] = useState<Permission>(roles[0].permission);
 
-  const handleSelectRole = (role: Role) => {
+  const handleSelectRole = (role: RoleAndFullPermission) => {
     setAnchorElUser(null);
     setSelectedRole(role);
     setPermission(role.permission);
@@ -70,17 +74,17 @@ const PermissionsView = ({ roles }: PermissionsViewProps) => {
         selectedRole.permission.id,
         permission
       ),
-    onSuccess(data: Role[]) {
+    onSuccess(data: RoleAndRolePermission) {
       queryClient.setQueryData(QUERY_KEY.PERMISSION_SETTING, data);
 
-      const findIndex = data.findIndex(
+      const findIndex = data.rolesAndFullPermission.findIndex(
         (element) => element.roleId === selectedRole.roleId
       );
       if (findIndex === -1) {
         toast.error("Somthing went wrong");
       } else {
-        setSelectedRole(data[findIndex]);
-        setPermission(data[findIndex].permission);
+        setSelectedRole(data.rolesAndFullPermission[findIndex]);
+        setPermission(data.rolesAndFullPermission[findIndex].permission);
         toast.success("Update Permission success");
       }
     },

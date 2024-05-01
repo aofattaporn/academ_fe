@@ -4,7 +4,9 @@ import TextFeildInputComp from "../../../../../../components/Field/TextFeildInpu
 import {
   ROLE_MEMBER,
   ROLE_OWNER,
-  Role,
+  RoleAndFullPermission,
+  RoleAndRolePermission,
+  RolePermission,
 } from "../../../../../../types/Permission";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
@@ -16,9 +18,10 @@ import { RootState } from "../../../../../../stores/store";
 import RoleItem from "./RoleItem/RoleItem";
 
 type RoleViewProps = {
-  roles: Role[];
+  roles: RoleAndFullPermission[];
+  rolePermission: RolePermission;
 };
-const RoleView = ({ roles }: RoleViewProps) => {
+const RoleView = ({ roles, rolePermission }: RoleViewProps) => {
   const [roleName, setRoleName] = useState<string>("");
   const queryClient = useQueryClient();
   const projectId = useSelector((state: RootState) => state.modal.projectId);
@@ -29,7 +32,7 @@ const RoleView = ({ roles }: RoleViewProps) => {
       projectApi.createNewRoleAndPermission(projectId as string, {
         newRole: roleName,
       }),
-    onSuccess(data: Role[]) {
+    onSuccess(data: RoleAndRolePermission) {
       queryClient.setQueryData(QUERY_KEY.PERMISSION_SETTING, data);
       setRoleName("");
       toast.success("Create New Role success");
@@ -49,7 +52,7 @@ const RoleView = ({ roles }: RoleViewProps) => {
               placeholder={"Role Name"}
               value={roleName}
               handleProjectName={handleSetRoleName}
-              disable={false}
+              disable={!rolePermission.addNew}
             />
           </div>
           <div className=" col-span-1">
@@ -71,9 +74,12 @@ const RoleView = ({ roles }: RoleViewProps) => {
               <RoleItem
                 key={index}
                 role={role}
-                enable={
-                  role.roleName !== ROLE_OWNER && role.roleName !== ROLE_MEMBER
+                isDefultRole={
+                  role.roleName === ROLE_OWNER || role.roleName === ROLE_MEMBER
                 }
+                isDisableEdit={rolePermission.edit}
+                isDisableDelete={rolePermission.delete}
+                rolePermission={rolePermission}
               />
             );
           })}

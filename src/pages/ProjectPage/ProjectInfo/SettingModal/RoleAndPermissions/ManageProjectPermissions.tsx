@@ -6,7 +6,11 @@ import { useQuery } from "react-query";
 import projectApi from "../../../../../libs/projectApi";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../stores/store";
-import { RoleAndFullPermission } from "../../../../../types/Permission";
+import {
+  RoleAndFullPermission,
+  RoleAndRolePermission,
+  RolePermission,
+} from "../../../../../types/Permission";
 import { Alert, Button, CircularProgress } from "@mui/material";
 
 enum MANAGE_VIEW {
@@ -26,7 +30,14 @@ const ManageProjectPermissions = () => {
   const [view, setView] = useState<MANAGE_VIEW>(MANAGE_VIEW.ROLE);
   const handleSwitchView = (selectedView: MANAGE_VIEW) => setView(selectedView);
 
-  const [role, setRole] = useState<RoleAndFullPermission[]>([]);
+  const [roleAndFullPermission, setRoleAndFullPermission] = useState<
+    RoleAndFullPermission[]
+  >([]);
+  const [rolePermission, setRolePermission] = useState<RolePermission>({
+    addNew: false,
+    edit: false,
+    delete: false,
+  });
 
   const {
     isLoading: rolePermissionIsLoading,
@@ -37,8 +48,9 @@ const ManageProjectPermissions = () => {
     () => projectApi.getProjectRoleAndPermission(projectId as string),
     {
       refetchOnWindowFocus: false,
-      onSuccess(data) {
-        setRole(data.rolesAndFullPermission);
+      onSuccess(data: RoleAndRolePermission) {
+        setRoleAndFullPermission(data.rolesAndFullPermission);
+        setRolePermission(data.rolePermission);
       },
     }
   );
@@ -88,10 +100,18 @@ const ManageProjectPermissions = () => {
         <div className="border-b-2 col-span-3"></div>
       </div>
 
-      {view === MANAGE_VIEW.ROLE ? <RoleView roles={role} /> : null}
+      {view === MANAGE_VIEW.ROLE ? (
+        <RoleView
+          roles={roleAndFullPermission}
+          rolePermission={rolePermission}
+        />
+      ) : null}
 
       {view === MANAGE_VIEW.PERMMISSION ? (
-        <PermissionsView roles={role} />
+        <PermissionsView
+          roles={roleAndFullPermission}
+          rolePermission={rolePermission}
+        />
       ) : null}
     </div>
   );
