@@ -49,6 +49,7 @@ const RoleView = ({ roles }: RoleViewProps) => {
               placeholder={"Role Name"}
               value={roleName}
               handleProjectName={handleSetRoleName}
+              disable={false}
             />
           </div>
           <div className=" col-span-1">

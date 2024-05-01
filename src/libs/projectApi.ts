@@ -1,5 +1,5 @@
 import { ErrorCustom } from "../types/GenericType";
-import { Permission, Role } from "../types/Permission";
+import { Permission, RoleAndRolePermission } from "../types/Permission";
 import {
   CreateProject,
   Invite,
@@ -122,7 +122,7 @@ const updateProjectDetails = async (
 
 const getProjectRoleAndPermission = async (
   projectId: string
-): Promise<Role[]> => {
+): Promise<RoleAndRolePermission> => {
   try {
     const token = await firebaseApi.getToken();
     const response = await axiosInstance.get(
@@ -144,7 +144,7 @@ const getProjectRoleAndPermission = async (
 const createNewRoleAndPermission = async (
   projectId: string,
   newRole: { newRole: string }
-): Promise<Role[]> => {
+): Promise<RoleAndRolePermission> => {
   try {
     const token = await firebaseApi.getToken();
     const response = await axiosInstance.post(
@@ -168,7 +168,7 @@ const updateRoleName = async (
   projectId: string,
   roleId: string,
   newRole: { newRole: string }
-): Promise<Role[]> => {
+): Promise<RoleAndRolePermission> => {
   try {
     const token = await firebaseApi.getToken();
     const response = await axiosInstance.put(
@@ -191,7 +191,7 @@ const updateRoleName = async (
 const deleteRole = async (
   projectId: string,
   roleId: string
-): Promise<Role[]> => {
+): Promise<RoleAndRolePermission> => {
   try {
     const token = await firebaseApi.getToken();
     const response = await axiosInstance.delete(
@@ -214,7 +214,7 @@ const settingPermission = async (
   projectId: string,
   permissionId: string,
   permission: Permission
-): Promise<Role[]> => {
+): Promise<RoleAndRolePermission> => {
   try {
     const token = await firebaseApi.getToken();
     const response = await axiosInstance.put(

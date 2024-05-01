@@ -29,13 +29,18 @@ export interface RolePermission {
   delete: boolean;
 }
 
-export interface Role {
+export interface RoleAndFullPermission {
   roleId: string;
   roleName: string;
   permission: Permission;
 }
 
-const memberRole: Role = {
+export interface RoleAndRolePermission {
+  rolesAndFullPermission: RoleAndFullPermission[];
+  rolePermission: RolePermission;
+}
+
+const memberRole: RoleAndFullPermission = {
   roleId: "1",
   roleName: "Member",
   permission: {
@@ -62,7 +67,7 @@ const memberRole: Role = {
   },
 };
 
-const ownerRole: Role = {
+const ownerRole: RoleAndFullPermission = {
   roleId: "2",
   roleName: "Owner",
   permission: {
@@ -89,7 +94,7 @@ const ownerRole: Role = {
   },
 };
 
-export const NEW_ROLE: Role = {
+export const NEW_ROLE: RoleAndFullPermission = {
   roleId: "3",
   roleName: "Watcher",
   permission: {
@@ -116,7 +121,7 @@ export const NEW_ROLE: Role = {
   },
 };
 
-export const UPDATE_ROLE_NAME: Role = {
+export const UPDATE_ROLE_NAME: RoleAndFullPermission = {
   roleId: "3",
   roleName: "Watcher Update",
   permission: {
@@ -143,7 +148,7 @@ export const UPDATE_ROLE_NAME: Role = {
   },
 };
 
-export const UPDATE_ROLE_PERMISSION: Role = {
+export const UPDATE_ROLE_PERMISSION: RoleAndFullPermission = {
   roleId: "3",
   roleName: "Watcher",
   permission: {
@@ -169,7 +174,7 @@ export const UPDATE_ROLE_PERMISSION: Role = {
     },
   },
 };
-export const MOCK_ROLE: Role[] = [memberRole, ownerRole];
+export const MOCK_ROLE: RoleAndFullPermission[] = [memberRole, ownerRole];
 
 export const ROLE_OWNER: string = "Owner";
 export const ROLE_MEMBER: string = "Member";

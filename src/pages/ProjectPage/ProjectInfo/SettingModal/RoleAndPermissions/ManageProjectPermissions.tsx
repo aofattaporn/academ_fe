@@ -6,7 +6,7 @@ import { useQuery } from "react-query";
 import projectApi from "../../../../../libs/projectApi";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../stores/store";
-import { Role } from "../../../../../types/Permission";
+import { RoleAndFullPermission } from "../../../../../types/Permission";
 import { Alert, Button, CircularProgress } from "@mui/material";
 
 enum MANAGE_VIEW {
@@ -26,7 +26,7 @@ const ManageProjectPermissions = () => {
   const [view, setView] = useState<MANAGE_VIEW>(MANAGE_VIEW.ROLE);
   const handleSwitchView = (selectedView: MANAGE_VIEW) => setView(selectedView);
 
-  const [role, setRole] = useState<Role[]>([]);
+  const [role, setRole] = useState<RoleAndFullPermission[]>([]);
 
   const {
     isLoading: rolePermissionIsLoading,
@@ -38,7 +38,7 @@ const ManageProjectPermissions = () => {
     {
       refetchOnWindowFocus: false,
       onSuccess(data) {
-        setRole(data);
+        setRole(data.rolesAndFullPermission);
       },
     }
   );
