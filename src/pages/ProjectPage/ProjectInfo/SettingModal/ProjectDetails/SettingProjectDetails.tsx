@@ -71,13 +71,13 @@ const SettingProjectDetails = () => {
             <div className="grow">
               <p>Project Name</p>
               <TextFeildInputComp
-                disable={projectPermission.editProfile}
+                disable={!projectPermission.editProfile}
                 placeholder={PLACHOLDER_INPUT_PROJECT}
                 value={projectDetails?.projectProfile.projectName as string}
                 handleProjectName={handleProjectName}
               />
               <ColorSelection
-                disable={projectPermission.editProfile}
+                disable={!projectPermission.editProfile}
                 handleColor={handleColor}
                 selectColor={projectDetails.projectProfile.avatarColor}
               />
@@ -90,7 +90,7 @@ const SettingProjectDetails = () => {
             </p>
             <div className="col-span-2 w-full">
               <AllViewToggle
-                disable={projectPermission.editProfile}
+                disable={!projectPermission.editProfile}
                 viewsSelected={projectDetails.views as Views[]}
                 handleSelected={handleSetSelected}
               />
@@ -106,7 +106,7 @@ const SettingProjectDetails = () => {
             }
             handleSetDate={handleStartDate}
             isClearabler={true}
-            isDisable={!projectPermission.editProfile}
+            isDisable={projectPermission.editProfile}
           />
           <DatePickerRow
             title={LABEL_TASKS_DUE_DATE}
@@ -117,7 +117,7 @@ const SettingProjectDetails = () => {
             }
             handleSetDate={handleEndDate}
             isClearabler={true}
-            isDisable={!projectPermission.editProfile}
+            isDisable={projectPermission.editProfile}
           />
 
           <div className="my-4">
