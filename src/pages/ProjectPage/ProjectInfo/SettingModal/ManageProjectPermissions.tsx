@@ -97,7 +97,4 @@ const ManageProjectPermissions = () => {
   );
 };
 
-{
-}
-
 export default ManageProjectPermissions;
