@@ -27,7 +27,7 @@ type PermissionsViewProps = {
   rolePermission: RolePermission;
 };
 
-const PermissionsView = ({ roles }: PermissionsViewProps) => {
+const PermissionsView = ({ roles, rolePermission }: PermissionsViewProps) => {
   const queryClient = useQueryClient();
   const projectId = useSelector((state: RootState) => state.modal.projectId);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -145,7 +145,8 @@ const PermissionsView = ({ roles }: PermissionsViewProps) => {
                       <Switch
                         disabled={
                           selectedRole.roleName === ROLE_OWNER ||
-                          selectedRole.roleName === ROLE_MEMBER
+                          selectedRole.roleName === ROLE_MEMBER ||
+                          !rolePermission.edit
                         }
                         checked={value}
                         onChange={(e) => {
