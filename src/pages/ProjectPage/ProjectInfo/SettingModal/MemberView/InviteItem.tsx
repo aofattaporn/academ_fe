@@ -1,7 +1,7 @@
 import { IconButton } from "@mui/material";
 import {
+  AllMemberAndPermission,
   Invite,
-  MemberSetting,
   RoleProject,
 } from "../../../../../types/ProjectType";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
@@ -13,13 +13,15 @@ import projectApi from "../../../../../libs/projectApi";
 import { QUERY_KEY } from "../../../../../types/GenericType";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../stores/store";
+import { MembersPermission } from "../../../../../types/Permission";
 
 type InviteItemProps = {
   invite: Invite;
   roles: RoleProject[];
+  memberPermission: MembersPermission;
 };
 
-const InviteItem = ({ invite, roles }: InviteItemProps) => {
+const InviteItem = ({ invite, roles, memberPermission }: InviteItemProps) => {
   const queryClient = useQueryClient();
   const projectId = useSelector((state: RootState) => state.modal.projectId);
   const [open, setOpen] = useState<boolean>(false);
@@ -30,7 +32,7 @@ const InviteItem = ({ invite, roles }: InviteItemProps) => {
   const mutation = useMutation({
     mutationFn: (inviteId: string) =>
       projectApi.deleteInviteMember(projectId as string, inviteId),
-    onSuccess(data: MemberSetting) {
+    onSuccess(data: AllMemberAndPermission) {
       setOpen(false);
       queryClient.setQueryData([QUERY_KEY.MEMBERS_SETTING, projectId], data);
       toast.success("Invite Member success");
@@ -49,14 +51,17 @@ const InviteItem = ({ invite, roles }: InviteItemProps) => {
       </div>
 
       <button
-        className="flex justify-center items-center rounded-md bg-main text-gray-200 p-2 "
+        className="flex justify-center items-center rounded-md bg-main text-gray-300 p-2 "
         disabled
       >
         <h4>{`${selectedRoleName}`}</h4>
       </button>
 
       <div>
-        <IconButton onClick={() => setOpen(true)}>
+        <IconButton
+          onClick={() => setOpen(true)}
+          disabled={!memberPermission.remove}
+        >
           <DeleteForeverIcon />
         </IconButton>
       </div>

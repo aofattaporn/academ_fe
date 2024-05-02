@@ -8,8 +8,8 @@ export interface Permission {
 
 export interface MembersPermission {
   addRole: boolean;
-  inviteMember: boolean;
-  removeMember: boolean;
+  invite: boolean;
+  remove: boolean;
 }
 
 export interface ProjectPermission {
@@ -47,8 +47,8 @@ const memberRole: RoleAndFullPermission = {
     id: "1",
     member: {
       addRole: false,
-      inviteMember: false,
-      removeMember: false,
+      invite: false,
+      remove: false,
     },
     project: {
       editProfile: false,
@@ -74,8 +74,8 @@ const ownerRole: RoleAndFullPermission = {
     id: "2",
     member: {
       addRole: true,
-      inviteMember: true,
-      removeMember: true,
+      invite: true,
+      remove: true,
     },
     project: {
       editProfile: true,
@@ -101,8 +101,8 @@ export const NEW_ROLE: RoleAndFullPermission = {
     id: "3",
     member: {
       addRole: true,
-      inviteMember: true,
-      removeMember: true,
+      invite: true,
+      remove: true,
     },
     project: {
       editProfile: true,
@@ -128,8 +128,8 @@ export const UPDATE_ROLE_NAME: RoleAndFullPermission = {
     id: "3",
     member: {
       addRole: true,
-      inviteMember: true,
-      removeMember: true,
+      invite: true,
+      remove: true,
     },
     project: {
       editProfile: true,
@@ -155,8 +155,8 @@ export const UPDATE_ROLE_PERMISSION: RoleAndFullPermission = {
     id: "3",
     member: {
       addRole: false,
-      inviteMember: false,
-      removeMember: false,
+      invite: false,
+      remove: false,
     },
     project: {
       editProfile: true,

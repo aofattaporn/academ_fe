@@ -2,8 +2,8 @@ import { Menu, MenuItem } from "@mui/material";
 import TextFeildInputComp from "../../../../../components/Field/TextFeildInputComp";
 import { useState } from "react";
 import {
+  AllMemberAndPermission,
   Invite,
-  MemberSetting,
   RoleProject,
 } from "../../../../../types/ProjectType";
 import { useMutation, useQueryClient } from "react-query";
@@ -13,17 +13,19 @@ import { RootState } from "../../../../../stores/store";
 import CreateProjectButtonComp from "../../../../../components/Button/CreateProjectButtonComp";
 import moment from "moment";
 import { toast } from "react-toastify";
-import { QUERY_KEY } from "../../../../../types/GenericType";
+import { ErrorCustom, QUERY_KEY } from "../../../../../types/GenericType";
+import { MembersPermission } from "../../../../../types/Permission";
 
 type InviteInputProps = {
   roles: RoleProject[];
+  memberPermission: MembersPermission;
 };
 
-const InviteInput = ({ roles }: InviteInputProps) => {
+const InviteInput = ({ roles, memberPermission }: InviteInputProps) => {
   const queryClient = useQueryClient();
   const projectId = useSelector((state: RootState) => state.modal.projectId);
   const [memberEmail, setMemberEmail] = useState<string>("");
-  const [selectedRole, setSelectedRole] = useState<RoleProject>(roles[0]);
+  const [selectedRole, setSelectedRole] = useState<RoleProject>(roles[1]);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const handleOpenAnchorEl = (element: null | HTMLElement) => {
     setAnchorEl(element);
@@ -32,13 +34,13 @@ const InviteInput = ({ roles }: InviteInputProps) => {
   const mutation = useMutation({
     mutationFn: (invite: Invite) =>
       projectApi.inviteMember(projectId as string, invite),
-    onSuccess(data: MemberSetting) {
+    onSuccess(data: AllMemberAndPermission) {
       queryClient.setQueryData([QUERY_KEY.MEMBERS_SETTING, projectId], data);
       toast.success("Invite Member success");
       setMemberEmail("");
     },
-    onError() {
-      toast.error("somthin went wrong");
+    onError(error: ErrorCustom) {
+      toast.error(error.description);
     },
   });
 
@@ -49,12 +51,19 @@ const InviteInput = ({ roles }: InviteInputProps) => {
           placeholder={"Email Invite"}
           value={memberEmail}
           handleProjectName={(email: string) => setMemberEmail(email)}
+          disable={!memberPermission.invite}
         />
       </div>
 
       <div className="col-span-2">
         <button
-          className="flex justify-center items-center rounded-md bg-white p-2 border-2"
+          disabled={!memberPermission.addRole}
+          className={`flex justify-center items-center rounded-md p-2
+          ${
+            !memberPermission.addRole
+              ? "bg-main text-gray-300"
+              : "bg-white border-2"
+          } `}
           onClick={(e) => handleOpenAnchorEl(e.currentTarget)}
         >
           <p>{selectedRole.roleName}</p>

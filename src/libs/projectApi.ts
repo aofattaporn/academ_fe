@@ -1,10 +1,10 @@
 import { ErrorCustom } from "../types/GenericType";
 import { Permission, RoleAndRolePermission } from "../types/Permission";
 import {
+  AllMemberAndPermission,
   CreateProject,
   Invite,
   ListProject,
-  MemberSetting,
   Project,
   ProjectDetails,
   ProjectDetailsPermission,
@@ -234,7 +234,9 @@ const settingPermission = async (
   }
 };
 
-const getAllMembers = async (projectId: string): Promise<MemberSetting> => {
+const getAllMembers = async (
+  projectId: string
+): Promise<AllMemberAndPermission> => {
   try {
     const token = await firebaseApi.getToken();
     const response = await axiosInstance.get(
@@ -257,7 +259,7 @@ const changeRoleMember = async (
   projectId: string,
   memberId: string,
   roleId: string
-): Promise<MemberSetting> => {
+): Promise<AllMemberAndPermission> => {
   try {
     const token = await firebaseApi.getToken();
     const response = await axiosInstance.get(

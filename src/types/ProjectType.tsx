@@ -1,5 +1,9 @@
 import { Moment } from "moment";
-import { ProjectPermission, TaskPermission } from "./Permission";
+import {
+  MembersPermission,
+  ProjectPermission,
+  TaskPermission,
+} from "./Permission";
 
 // ------------- composition-type  -----------------------
 // -------------------------------------------------------
@@ -118,10 +122,18 @@ export interface RoleProject {
   roleName: string;
 }
 
+// --------------- project members type ---------------------
+// -------------------------------------------------------
+
 export interface MemberSetting {
   invites: Invite[];
   members: FullMember[];
   roles: RoleProject[];
+}
+
+export interface AllMemberAndPermission {
+  allMemberProject: MemberSetting;
+  membersPermission: MembersPermission;
 }
 
 export interface Invite {
