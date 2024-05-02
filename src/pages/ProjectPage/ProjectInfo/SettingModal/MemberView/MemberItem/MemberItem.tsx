@@ -17,7 +17,7 @@ import projectApi from "../../../../../../libs/projectApi";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../../stores/store";
 import { toast } from "react-toastify";
-import { QUERY_KEY } from "../../../../../../types/GenericType";
+import { ErrorCustom, QUERY_KEY } from "../../../../../../types/GenericType";
 import ConfirmDelete from "../../../../../../components/Modal/ConfirmDelete";
 import { MembersPermission } from "../../../../../../types/Permission";
 
@@ -55,6 +55,9 @@ const MemberItem = ({ member, roles, memberPermission }: MemberItemProps) => {
       queryClient.setQueryData([QUERY_KEY.MEMBERS_SETTING, projectId], data);
       toast.success("Change role success");
     },
+    onError(error: ErrorCustom) {
+      toast.error(error.description);
+    },
   });
 
   const removeMemberMutation = useMutation({
@@ -64,6 +67,9 @@ const MemberItem = ({ member, roles, memberPermission }: MemberItemProps) => {
       setOpen(false);
       queryClient.setQueryData([QUERY_KEY.MEMBERS_SETTING, projectId], data);
       toast.success("Remove member success");
+    },
+    onError(error: ErrorCustom) {
+      toast.error(error.description);
     },
   });
 

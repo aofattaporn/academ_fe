@@ -27,7 +27,6 @@ const RoleItem = ({
   isDefultRole,
   isDisableEdit,
   isDisableDelete,
-  rolePermission,
 }: RoleItemProps) => {
   const {
     isEdit,
