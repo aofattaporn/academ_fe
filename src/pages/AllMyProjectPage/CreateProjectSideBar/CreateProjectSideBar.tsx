@@ -1,6 +1,5 @@
 import CreateProjectButtonComp from "../../../components/Button/CreateProjectButtonComp";
 import CloseIcon from "@mui/icons-material/Close";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { IconButton, TextField } from "@mui/material";
 import AllViewToggle from "./ViewToggle/AllViewToggle";
 import {
@@ -8,6 +7,8 @@ import {
   PLACHOLDER_INPUT_PROJECT,
 } from "../../../types/ProjectType";
 import useCreateProject from "../../../hooks/projectHook/useCreateProject";
+import DatePickerRow from "../../../components/DatePicker/DatePickerRow";
+import moment from "moment";
 
 type CreateProjectSideBarProps = {
   isOpen: boolean;
@@ -21,10 +22,14 @@ const CreateProjectSideBar = ({
     mutation,
     projectName,
     endDate,
+    startDate,
     viewsSelected,
+    classtName,
     handleSetProjectName,
     handleSetEndDate,
     handleSetSelected,
+    handleSetClassName,
+    handleSetStartDate,
   } = useCreateProject({ handleClose });
 
   return (
@@ -61,20 +66,18 @@ const CreateProjectSideBar = ({
             </div>
             <div className="my-8">
               <p className="text-md text-dark my-2">
-                Project End date <span className="text-error">*</span>
+                Class Name <span className="text-error">*</span>
               </p>
-              <div className="flex justify-between gap-2">
-                <DatePicker
-                  sx={{ width: "100%" }}
-                  defaultValue={endDate}
-                  onChange={(newValue) => handleSetEndDate(newValue)}
-                  slotProps={{
-                    field: {
-                      clearable: true,
-                    },
-                  }}
-                />
-              </div>
+              <TextField
+                id="outlined-basic"
+                variant="outlined"
+                size="small"
+                sx={{ borderRadius: "200px" }}
+                placeholder={"Enter Class Name"}
+                fullWidth
+                value={classtName}
+                onChange={(e) => handleSetClassName(e.target.value)}
+              />
             </div>
             <div className="my-8">
               <p className="text-md text-dark my-2">
@@ -83,14 +86,36 @@ const CreateProjectSideBar = ({
               <AllViewToggle
                 viewsSelected={viewsSelected}
                 handleSelected={handleSetSelected}
+                disable={false}
               />
             </div>
-            <CreateProjectButtonComp
-              title={BTN_CREATE_PROJECT}
-              disable={viewsSelected.length === 0 || projectName.length === 0}
-              isCreating={mutation.isLoading}
-              handleChange={mutation.mutate}
-            />
+            <div className="my-4">
+              <DatePickerRow
+                isDisable={true}
+                title={"Start date "}
+                date={startDate ? moment(startDate) : null}
+                handleSetDate={handleSetStartDate}
+                isClearabler={true}
+              />
+            </div>
+            <div className="my-4">
+              <DatePickerRow
+                isDisable={true}
+                title={"End date "}
+                date={endDate ? moment(endDate) : null}
+                handleSetDate={handleSetEndDate}
+                isClearabler={true}
+              />
+            </div>
+
+            <div className="mt-8">
+              <CreateProjectButtonComp
+                title={BTN_CREATE_PROJECT}
+                disable={viewsSelected.length === 0 || projectName.length === 0}
+                isCreating={mutation.isLoading}
+                handleChange={mutation.mutate}
+              />
+            </div>
           </div>
         </div>
       </div>

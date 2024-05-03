@@ -54,7 +54,9 @@ export interface ListProject {
 
 export interface CreateProject {
   projectName: string;
-  projectEndDate: Moment | null;
+  className: string;
+  projectStartDate: Date | string | null;
+  projectEndDate: Date | string | null;
   views: string[];
 }
 

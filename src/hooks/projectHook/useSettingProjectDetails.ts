@@ -12,7 +12,7 @@ import { ProjectPermission } from "../../types/Permission";
 
 const useSettingProjectDetails = () => {
   const [projectPermission, setProjectPermission] = useState<ProjectPermission>(
-    { editProfile: false }
+    { editProfile: false, archive: false, delete: false }
   );
   const [projectDetails, setProjectDetails] = useState<ProjectDetails>({
     projectId: "",
