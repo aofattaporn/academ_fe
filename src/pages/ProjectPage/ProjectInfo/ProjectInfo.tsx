@@ -1,13 +1,12 @@
 import { Link, useLocation, useParams } from "react-router-dom";
 import AvatarProject from "../../../components/AvatarProject/AvatarProject";
 import { PROJECT_SETTING, Project, Size } from "../../../types/ProjectType";
-import PeopleIcon from "@mui/icons-material/People";
-import { Avatar, AvatarGroup, Button, Tooltip } from "@mui/material";
 import { openModal } from "../../../stores/modalSlice/modalSlice";
 import Members from "./SettingModal/MemberView/Members";
 import moment from "moment";
 import ProjectSetting from "./SettingModal/ProjectSetting";
 import { useDispatch } from "react-redux";
+import ProjectMember from "./SettingModal/ProjectMember";
 
 type ProjectInfoProps = {
   projectData: Project;
@@ -96,45 +95,7 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
           <div className="flex gap-1 mt-2">{renderViews()}</div>
         </div>
       </div>
-
-      <div className="flex gap-4 items-center">
-        <AvatarGroup
-          className="cursor-pointer"
-          onClick={handleOpenMembers}
-          sx={{ flexDirection: "row-reverse" }}
-        >
-          {members.map((member, index) => {
-            return (
-              <Tooltip key={index} title={member.userName}>
-                <Avatar
-                  style={{ backgroundColor: member.avatarColor }}
-                  key={index}
-                  alt={member.userName}
-                >
-                  {member.userName.at(0)}
-                </Avatar>
-              </Tooltip>
-            );
-          })}
-        </AvatarGroup>
-        <Button
-          onClick={handleOpenMembers}
-          startIcon={<PeopleIcon />}
-          size="medium"
-          sx={{
-            textTransform: "none",
-            borderColor: "#AF8AE2",
-            color: "#AF8AE2",
-            "&:hover": {
-              color: "#FFFFF",
-              borderColor: "#AF8AE2",
-            },
-          }}
-          variant="outlined"
-        >
-          Share
-        </Button>
-      </div>
+      <ProjectMember members={members} />
     </div>
   );
 };
