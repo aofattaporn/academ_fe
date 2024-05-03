@@ -7,6 +7,7 @@ import moment from "moment";
 import ProjectSetting from "./SettingModal/ProjectSetting";
 import { useDispatch } from "react-redux";
 import ProjectMember from "./SettingModal/ProjectMember";
+import ProjectAlertItem from "../../../components/Labels/ProjectAlertItem";
 
 type ProjectInfoProps = {
   projectData: Project;
@@ -64,32 +65,10 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
 
             <div className="flex items-center w-full gap-3">
               <ProjectSetting projectData={projectData} />
-
-              {projectData.projectInfo.projectEndDate &&
-              moment(projectData.projectInfo.projectEndDate).isSame(
-                moment(),
-                "day"
-              ) &&
-              !projectData.projectInfo.isArchive ? (
-                <div className="text-sm p-1 px-6 rounded-md border-2 border-red-400 text-red-400">
-                  Project Deadline today
-                </div>
-              ) : null}
-              {projectData.projectInfo.projectEndDate &&
-              moment(projectData.projectInfo.projectEndDate).isBefore(
-                moment(),
-                "day"
-              ) &&
-              !projectData.projectInfo.isArchive ? (
-                <div className="text-sm p-1 px-6 rounded-md border-2 border-red-400 text-red-400">
-                  Project Deadline passed
-                </div>
-              ) : null}
-              {projectData.projectInfo.isArchive ? (
-                <div className="text-sm p-1 px-6 rounded-md border-2 border-success text-success">
-                  Archived
-                </div>
-              ) : null}
+              <ProjectAlertItem
+                projectEndDate={projectData.projectInfo.projectEndDate}
+                isArchive={projectData.projectInfo.isArchive}
+              />
             </div>
           </div>
           <div className="flex gap-1 mt-2">{renderViews()}</div>
