@@ -1,11 +1,7 @@
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import AvatarProject from "../../../components/AvatarProject/AvatarProject";
-import { PROJECT_SETTING, Project, Size } from "../../../types/ProjectType";
-import { openModal } from "../../../stores/modalSlice/modalSlice";
-import Members from "./SettingModal/MemberView/Members";
-import moment from "moment";
+import { Project, Size } from "../../../types/ProjectType";
 import ProjectSetting from "./SettingModal/ProjectSetting";
-import { useDispatch } from "react-redux";
 import ProjectMember from "./SettingModal/ProjectMember";
 import ProjectAlertItem from "../../../components/Labels/ProjectAlertItem";
 
@@ -14,10 +10,8 @@ type ProjectInfoProps = {
 };
 
 const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
-  const { projectId } = useParams();
   const { projectProfile, views, members } = projectData.projectInfo;
   const location = useLocation();
-  const dispatch = useDispatch();
 
   const renderViews = () => {
     return views.map((view, index) => (
@@ -39,16 +33,6 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
     ));
   };
 
-  const handleOpenMembers = () => {
-    dispatch(
-      openModal({
-        title: PROJECT_SETTING.MEMBERS,
-        children: <Members />,
-        projectId: projectId as string,
-      })
-    );
-  };
-
   return (
     <div className="w-full flex justify-between items-center">
       <div className="flex gap-4 pt-2">
@@ -63,13 +47,11 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
           <div className="flex gap-4 items-center w-full ">
             <h2 className="text-xl font-bold">{projectProfile.projectName}</h2>
 
-            <div className="flex items-center w-full gap-3">
-              <ProjectSetting projectData={projectData} />
-              <ProjectAlertItem
-                projectEndDate={projectData.projectInfo.projectEndDate}
-                isArchive={projectData.projectInfo.isArchive}
-              />
-            </div>
+            <ProjectSetting projectData={projectData} />
+            <ProjectAlertItem
+              projectEndDate={projectData.projectInfo.projectEndDate}
+              isArchive={projectData.projectInfo.isArchive}
+            />
           </div>
           <div className="flex gap-1 mt-2">{renderViews()}</div>
         </div>

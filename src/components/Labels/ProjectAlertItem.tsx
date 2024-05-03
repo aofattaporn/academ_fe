@@ -15,15 +15,15 @@ const ProjectAlertItem = ({
       moment(projectEndDate).isSame(moment(), "day") &&
       !isArchive ? (
         <div className="text-sm p-1 px-6 rounded-md border-2 border-red-400 text-red-400">
-          Project Deadline today
+          Deadline today
         </div>
       ) : null}
 
       {projectEndDate &&
       moment(projectEndDate).isBefore(moment(), "day") &&
       !isArchive ? (
-        <div className="text-sm p-1 px-6 rounded-md border-2 border-red-400 text-red-400">
-          Project Deadline passed
+        <div className="text-sm p-1 px-3 rounded-md border-2 border-red-400 text-red-400">
+          Deadline passed
         </div>
       ) : null}
 
