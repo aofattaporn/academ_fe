@@ -27,10 +27,13 @@ import { openModal } from "../../../stores/modalSlice/modalSlice";
 import SettingProjectDetails from "./SettingModal/ProjectDetails/SettingProjectDetails";
 import ManageProjectPermissions from "./SettingModal/RoleAndPermissions/ManageProjectPermissions";
 import Members from "./SettingModal/MemberView/Members";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 import projectApi from "../../../libs/projectApi";
 import ConfirmDelete from "../../../components/Modal/ConfirmDelete";
+import ConfirmArchive from "../../../components/Modal/ConfirmArchive";
+import { QUERY_KEY } from "../../../types/GenericType";
+import moment from "moment";
 
 type ProjectInfoProps = {
   projectData: Project;
@@ -41,11 +44,12 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
   const { projectProfile, views, members } = projectData.projectInfo;
   const location = useLocation();
   const dispatch = useDispatch();
-  const [open, setOpen] = useState<boolean>(false);
-  const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
-  console.log(projectData);
-  console.log(projectData.projectPermission);
+  const [open, setOpen] = useState<boolean>(false);
+  const [isOpenArchive, setIsOpenArchive] = useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -121,6 +125,21 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
     },
   });
 
+  const archive = useMutation({
+    mutationFn: () =>
+      projectApi.archiveProjectById(projectId as string, {
+        isArchive: projectData.projectInfo.isArchive,
+      }),
+    onSuccess(data) {
+      setIsOpenArchive(false);
+      toast.success("Archive Project success");
+      queryClient.setQueryData([QUERY_KEY.PROJECR, projectId], data);
+    },
+    onError() {
+      toast.error("Somthing went wrong");
+    },
+  });
+
   return (
     <div className="w-full flex justify-between items-center">
       <div className="flex gap-4 pt-2">
@@ -132,49 +151,80 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
         />
 
         <div>
-          <div className="flex gap-4 items-center">
+          <div className="flex gap-4 items-center w-full ">
             <h2 className="text-xl font-bold">{projectProfile.projectName}</h2>
 
-            <Box>
-              <IconButton onClick={handleOpenUserMenu}>
-                <ExpandMoreIcon />
-              </IconButton>
-              <Menu
-                anchorEl={anchorElUser}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                <MenuItem onClick={handleOpenTasksDetails}>
-                  <ListItemIcon>
-                    <ModeEditOutlineIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>Edit project Details</ListItemText>
-                </MenuItem>
-                <MenuItem onClick={handleOpenProjectPermissions}>
-                  <ListItemIcon>
-                    <TuneIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>Manage Role & Permissions</ListItemText>
-                </MenuItem>
-                <Divider />
-                <MenuItem disabled={projectData.projectPermission.archive}>
-                  <ListItemIcon>
-                    <ArchiveIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>Archive</ListItemText>
-                </MenuItem>
-                <MenuItem
-                  disabled={projectData.projectPermission.delete}
-                  onClick={() => setOpen(true)}
-                  color="error"
+            <div className="flex items-center w-full gap-3">
+              <Box>
+                <IconButton onClick={handleOpenUserMenu}>
+                  <ExpandMoreIcon />
+                </IconButton>
+                <Menu
+                  anchorEl={anchorElUser}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
                 >
-                  <ListItemIcon>
-                    <DeleteOutlineIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText> Delete Project</ListItemText>
-                </MenuItem>
-              </Menu>
-            </Box>
+                  <MenuItem onClick={handleOpenTasksDetails}>
+                    <ListItemIcon>
+                      <ModeEditOutlineIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>Edit project Details</ListItemText>
+                  </MenuItem>
+                  <MenuItem onClick={handleOpenProjectPermissions}>
+                    <ListItemIcon>
+                      <TuneIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>Manage Role & Permissions</ListItemText>
+                  </MenuItem>
+                  <Divider />
+                  <MenuItem
+                    disabled={!projectData.projectPermission.archive}
+                    onClick={() => setIsOpenArchive(true)}
+                  >
+                    <ListItemIcon>
+                      <ArchiveIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>Archive</ListItemText>
+                  </MenuItem>
+                  <MenuItem
+                    disabled={!projectData.projectPermission.delete}
+                    onClick={() => setOpen(true)}
+                    color="error"
+                  >
+                    <ListItemIcon>
+                      <DeleteOutlineIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText> Delete Project</ListItemText>
+                  </MenuItem>
+                </Menu>
+              </Box>
+
+              {projectData.projectInfo.projectEndDate &&
+              moment(projectData.projectInfo.projectEndDate).isSame(
+                moment(),
+                "day"
+              ) &&
+              !projectData.projectInfo.isArchive ? (
+                <div className="text-sm p-1 px-6 rounded-md border-2 border-red-400 text-red-400">
+                  Project Deadline today
+                </div>
+              ) : null}
+              {projectData.projectInfo.projectEndDate &&
+              moment(projectData.projectInfo.projectEndDate).isBefore(
+                moment(),
+                "day"
+              ) &&
+              !projectData.projectInfo.isArchive ? (
+                <div className="text-sm p-1 px-6 rounded-md border-2 border-red-400 text-red-400">
+                  Project Deadline passed
+                </div>
+              ) : null}
+              {projectData.projectInfo.isArchive ? (
+                <div className="text-sm p-1 px-6 rounded-md border-2 border-success text-success">
+                  Archived
+                </div>
+              ) : null}
+            </div>
           </div>
           <div className="flex gap-1 mt-2">{renderViews()}</div>
         </div>
@@ -221,9 +271,17 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
 
       {open ? (
         <ConfirmDelete
-          isDeleting={false}
+          isDeleting={mutation.isLoading}
           handleClose={() => setOpen(false)}
           handleDelete={mutation.mutate}
+        />
+      ) : null}
+
+      {isOpenArchive ? (
+        <ConfirmArchive
+          isArchiving={archive.isLoading}
+          handleClose={() => setIsOpenArchive(false)}
+          handleArchive={archive.mutate}
         />
       ) : null}
     </div>

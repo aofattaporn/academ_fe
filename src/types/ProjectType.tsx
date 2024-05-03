@@ -73,6 +73,8 @@ export interface ProjectInfo {
   views: string[];
   process: Process[];
   members: FullMember[];
+  isArchive: boolean;
+  projectEndDate: string | Date | null;
 }
 
 // -------------------- project-details type ---------------------

@@ -380,6 +380,30 @@ const deleteProjectById = async (projectId: string) => {
   }
 };
 
+const archiveProjectById = async (
+  projectId: string,
+  isArchive: { isArchive: boolean }
+) => {
+  try {
+    const token = await firebaseApi.getToken();
+    const response = await axiosInstance.put(
+      `/api/v1/projects/${projectId}/archive`,
+      isArchive,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data.data;
+  } catch (error) {
+    const errorCustom = error as ErrorCustom;
+    console.error("Error cant to update permission :", errorCustom.description);
+    throw errorCustom;
+  }
+};
+
 const projectApi = {
   createProject,
   getAllProject,
@@ -399,6 +423,7 @@ const projectApi = {
   removeMember,
   deleteProjectById,
   getAllProjectHomePage,
+  archiveProjectById,
 };
 
 export default projectApi;
