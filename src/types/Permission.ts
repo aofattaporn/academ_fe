@@ -14,6 +14,8 @@ export interface MembersPermission {
 
 export interface ProjectPermission {
   editProfile: boolean;
+  archive: boolean;
+  delete: boolean;
 }
 
 export interface TaskPermission {
@@ -52,6 +54,8 @@ const memberRole: RoleAndFullPermission = {
     },
     project: {
       editProfile: false,
+      archive: false,
+      delete: false,
     },
     tasks: {
       addNew: false,
@@ -79,6 +83,8 @@ const ownerRole: RoleAndFullPermission = {
     },
     project: {
       editProfile: true,
+      archive: true,
+      delete: true,
     },
     tasks: {
       addNew: true,
@@ -105,7 +111,9 @@ export const NEW_ROLE: RoleAndFullPermission = {
       remove: true,
     },
     project: {
-      editProfile: true,
+      editProfile: false,
+      archive: false,
+      delete: false,
     },
     tasks: {
       addNew: true,
@@ -132,7 +140,9 @@ export const UPDATE_ROLE_NAME: RoleAndFullPermission = {
       remove: true,
     },
     project: {
-      editProfile: true,
+      editProfile: false,
+      archive: false,
+      delete: false,
     },
     tasks: {
       addNew: true,
@@ -159,7 +169,9 @@ export const UPDATE_ROLE_PERMISSION: RoleAndFullPermission = {
       remove: false,
     },
     project: {
-      editProfile: true,
+      editProfile: false,
+      archive: false,
+      delete: false,
     },
     tasks: {
       addNew: true,

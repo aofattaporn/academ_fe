@@ -44,6 +44,9 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
   const [open, setOpen] = useState<boolean>(false);
   const navigate = useNavigate();
 
+  console.log(projectData);
+  console.log(projectData.projectPermission);
+
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: MouseEvent<HTMLButtonElement>): void => {
@@ -154,13 +157,17 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
                   <ListItemText>Manage Role & Permissions</ListItemText>
                 </MenuItem>
                 <Divider />
-                <MenuItem disabled>
+                <MenuItem disabled={projectData.projectPermission.archive}>
                   <ListItemIcon>
                     <ArchiveIcon fontSize="small" />
                   </ListItemIcon>
                   <ListItemText>Archive</ListItemText>
                 </MenuItem>
-                <MenuItem onClick={() => setOpen(true)} color="error">
+                <MenuItem
+                  disabled={projectData.projectPermission.delete}
+                  onClick={() => setOpen(true)}
+                  color="error"
+                >
                   <ListItemIcon>
                     <DeleteOutlineIcon fontSize="small" />
                   </ListItemIcon>
