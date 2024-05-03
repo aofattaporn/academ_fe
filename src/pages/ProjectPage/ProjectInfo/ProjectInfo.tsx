@@ -1,39 +1,13 @@
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import AvatarProject from "../../../components/AvatarProject/AvatarProject";
 import { PROJECT_SETTING, Project, Size } from "../../../types/ProjectType";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
-import TuneIcon from "@mui/icons-material/Tune";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import ArchiveIcon from "@mui/icons-material/Archive";
 import PeopleIcon from "@mui/icons-material/People";
-
-import {
-  Avatar,
-  AvatarGroup,
-  Box,
-  Button,
-  Divider,
-  IconButton,
-  ListItemIcon,
-  ListItemText,
-  Menu,
-  MenuItem,
-  Tooltip,
-} from "@mui/material";
-import { useState, MouseEvent } from "react";
-import { useDispatch } from "react-redux";
+import { Avatar, AvatarGroup, Button, Tooltip } from "@mui/material";
 import { openModal } from "../../../stores/modalSlice/modalSlice";
-import SettingProjectDetails from "./SettingModal/ProjectDetails/SettingProjectDetails";
-import ManageProjectPermissions from "./SettingModal/RoleAndPermissions/ManageProjectPermissions";
 import Members from "./SettingModal/MemberView/Members";
-import { useMutation, useQueryClient } from "react-query";
-import { toast } from "react-toastify";
-import projectApi from "../../../libs/projectApi";
-import ConfirmDelete from "../../../components/Modal/ConfirmDelete";
-import ConfirmArchive from "../../../components/Modal/ConfirmArchive";
-import { QUERY_KEY } from "../../../types/GenericType";
 import moment from "moment";
+import ProjectSetting from "./SettingModal/ProjectSetting";
+import { useDispatch } from "react-redux";
 
 type ProjectInfoProps = {
   projectData: Project;
@@ -44,22 +18,6 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
   const { projectProfile, views, members } = projectData.projectInfo;
   const location = useLocation();
   const dispatch = useDispatch();
-  const queryClient = useQueryClient();
-
-  const [open, setOpen] = useState<boolean>(false);
-  const [isOpenArchive, setIsOpenArchive] = useState<boolean>(false);
-
-  const navigate = useNavigate();
-
-  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-
-  const handleOpenUserMenu = (event: MouseEvent<HTMLButtonElement>): void => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseUserMenu = (): void => {
-    setAnchorElUser(null);
-  };
 
   const renderViews = () => {
     return views.map((view, index) => (
@@ -81,28 +39,6 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
     ));
   };
 
-  const handleOpenTasksDetails = () => {
-    setAnchorElUser(null);
-    dispatch(
-      openModal({
-        title: PROJECT_SETTING.PROJECR_DETAILS,
-        children: <SettingProjectDetails />,
-        projectId: projectId as string,
-      })
-    );
-  };
-
-  const handleOpenProjectPermissions = () => {
-    setAnchorElUser(null);
-    dispatch(
-      openModal({
-        title: PROJECT_SETTING.MANAGE_PROJECT_PERMISSIONS,
-        children: <ManageProjectPermissions />,
-        projectId: projectId as string,
-      })
-    );
-  };
-
   const handleOpenMembers = () => {
     dispatch(
       openModal({
@@ -112,33 +48,6 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
       })
     );
   };
-
-  const mutation = useMutation({
-    mutationFn: () => projectApi.deleteProjectById(projectId as string),
-    onSuccess() {
-      setOpen(false);
-      toast.success("Delete Project success");
-      navigate("/projects");
-    },
-    onError() {
-      toast.error("Somthing went wrong");
-    },
-  });
-
-  const archive = useMutation({
-    mutationFn: () =>
-      projectApi.archiveProjectById(projectId as string, {
-        isArchive: projectData.projectInfo.isArchive,
-      }),
-    onSuccess(data) {
-      setIsOpenArchive(false);
-      toast.success("Archive Project success");
-      queryClient.setQueryData([QUERY_KEY.PROJECR, projectId], data);
-    },
-    onError() {
-      toast.error("Somthing went wrong");
-    },
-  });
 
   return (
     <div className="w-full flex justify-between items-center">
@@ -155,49 +64,7 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
             <h2 className="text-xl font-bold">{projectProfile.projectName}</h2>
 
             <div className="flex items-center w-full gap-3">
-              <Box>
-                <IconButton onClick={handleOpenUserMenu}>
-                  <ExpandMoreIcon />
-                </IconButton>
-                <Menu
-                  anchorEl={anchorElUser}
-                  open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
-                >
-                  <MenuItem onClick={handleOpenTasksDetails}>
-                    <ListItemIcon>
-                      <ModeEditOutlineIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Edit project Details</ListItemText>
-                  </MenuItem>
-                  <MenuItem onClick={handleOpenProjectPermissions}>
-                    <ListItemIcon>
-                      <TuneIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Manage Role & Permissions</ListItemText>
-                  </MenuItem>
-                  <Divider />
-                  <MenuItem
-                    disabled={!projectData.projectPermission.archive}
-                    onClick={() => setIsOpenArchive(true)}
-                  >
-                    <ListItemIcon>
-                      <ArchiveIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Archive</ListItemText>
-                  </MenuItem>
-                  <MenuItem
-                    disabled={!projectData.projectPermission.delete}
-                    onClick={() => setOpen(true)}
-                    color="error"
-                  >
-                    <ListItemIcon>
-                      <DeleteOutlineIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText> Delete Project</ListItemText>
-                  </MenuItem>
-                </Menu>
-              </Box>
+              <ProjectSetting projectData={projectData} />
 
               {projectData.projectInfo.projectEndDate &&
               moment(projectData.projectInfo.projectEndDate).isSame(
@@ -268,22 +135,6 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
           Share
         </Button>
       </div>
-
-      {open ? (
-        <ConfirmDelete
-          isDeleting={mutation.isLoading}
-          handleClose={() => setOpen(false)}
-          handleDelete={mutation.mutate}
-        />
-      ) : null}
-
-      {isOpenArchive ? (
-        <ConfirmArchive
-          isArchiving={archive.isLoading}
-          handleClose={() => setIsOpenArchive(false)}
-          handleArchive={archive.mutate}
-        />
-      ) : null}
     </div>
   );
 };
