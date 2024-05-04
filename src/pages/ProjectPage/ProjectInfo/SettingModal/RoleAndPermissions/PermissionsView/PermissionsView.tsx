@@ -5,34 +5,38 @@ import {
   ProjectPermission,
   ROLE_MEMBER,
   ROLE_OWNER,
-  Role,
+  RoleAndFullPermission,
+  RoleAndRolePermission,
   RolePermission,
   TaskPermission,
-} from "../../../../../types/Permission";
-import CreateProjectButtonComp from "../../../../../components/Button/CreateProjectButtonComp";
+} from "../../../../../../types/Permission";
+import CreateProjectButtonComp from "../../../../../../components/Button/CreateProjectButtonComp";
 import SelectRole from "./SelectRole";
-import { BTN_TASKS_SAVE } from "../../../../../types/MyTasksType";
+import { BTN_TASKS_SAVE } from "../../../../../../types/MyTasksType";
 import { Button, Divider, Switch } from "@mui/material";
 import RestoreIcon from "@mui/icons-material/Restore";
 import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
-import projectApi from "../../../../../libs/projectApi";
-import { QUERY_KEY } from "../../../../../types/GenericType";
+import projectApi from "../../../../../../libs/projectApi";
+import { QUERY_KEY } from "../../../../../../types/GenericType";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../../stores/store";
+import { RootState } from "../../../../../../stores/store";
 
 type PermissionsViewProps = {
-  roles: Role[];
+  roles: RoleAndFullPermission[];
+  rolePermission: RolePermission;
 };
 
-const PermissionsView = ({ roles }: PermissionsViewProps) => {
+const PermissionsView = ({ roles, rolePermission }: PermissionsViewProps) => {
   const queryClient = useQueryClient();
   const projectId = useSelector((state: RootState) => state.modal.projectId);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-  const [selectedRole, setSelectedRole] = useState<Role>(roles[0]);
+  const [selectedRole, setSelectedRole] = useState<RoleAndFullPermission>(
+    roles[0]
+  );
   const [permission, setPermission] = useState<Permission>(roles[0].permission);
 
-  const handleSelectRole = (role: Role) => {
+  const handleSelectRole = (role: RoleAndFullPermission) => {
     setAnchorElUser(null);
     setSelectedRole(role);
     setPermission(role.permission);
@@ -70,17 +74,17 @@ const PermissionsView = ({ roles }: PermissionsViewProps) => {
         selectedRole.permission.id,
         permission
       ),
-    onSuccess(data: Role[]) {
+    onSuccess(data: RoleAndRolePermission) {
       queryClient.setQueryData(QUERY_KEY.PERMISSION_SETTING, data);
 
-      const findIndex = data.findIndex(
+      const findIndex = data.rolesAndFullPermission.findIndex(
         (element) => element.roleId === selectedRole.roleId
       );
       if (findIndex === -1) {
         toast.error("Somthing went wrong");
       } else {
-        setSelectedRole(data[findIndex]);
-        setPermission(data[findIndex].permission);
+        setSelectedRole(data.rolesAndFullPermission[findIndex]);
+        setPermission(data.rolesAndFullPermission[findIndex].permission);
         toast.success("Update Permission success");
       }
     },
@@ -141,7 +145,8 @@ const PermissionsView = ({ roles }: PermissionsViewProps) => {
                       <Switch
                         disabled={
                           selectedRole.roleName === ROLE_OWNER ||
-                          selectedRole.roleName === ROLE_MEMBER
+                          selectedRole.roleName === ROLE_MEMBER ||
+                          !rolePermission.edit
                         }
                         checked={value}
                         onChange={(e) => {

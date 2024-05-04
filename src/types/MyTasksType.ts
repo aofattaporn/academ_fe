@@ -14,6 +14,7 @@ export type Project = {
   projectStartDate: string;
   projectEndDate: string;
   createdAt: string;
+  className: string;
   updatedAt: string;
   process: Process[];
 };
@@ -23,16 +24,17 @@ export type MyTasks = {
   tasksName: string;
   projectId: string;
   processId: string;
-  assignee: FullMember;
+  assignee?: FullMember;
   startDate: string | Date | null;
   dueDate: string | Date | null;
 };
 
 export interface Tasks {
   tasksId: string;
-  tasksName: string;
+  projectId: string;
   processId: string;
-  assignee: FullMember;
+  tasksName: string;
+  assignee?: FullMember;
   startDate: string | Date | null;
   dueDate: string | Date | null;
 }

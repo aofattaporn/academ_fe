@@ -1,22 +1,33 @@
 import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import TextFeildInputComp from "../../../../../../components/Field/TextFeildInputComp";
-import TasksButton from "../../../../../../components/Button/TasksButton";
-import { Role } from "../../../../../../types/Permission";
+import TextFeildInputComp from "../../../../../../../components/Field/TextFeildInputComp";
+import TasksButton from "../../../../../../../components/Button/TasksButton";
+import {
+  RoleAndFullPermission,
+  RolePermission,
+} from "../../../../../../../types/Permission";
 import {
   BTN_TASKS_CANCEL,
   BTN_TASKS_SAVE,
-} from "../../../../../../types/MyTasksType";
-import ConfirmDelete from "../../../../../../components/Modal/ConfirmDelete";
-import useHandleRole from "../../../../../../hooks/projectHook/useHandleRole";
+} from "../../../../../../../types/MyTasksType";
+import ConfirmDelete from "../../../../../../../components/Modal/ConfirmDelete";
+import useHandleRole from "../../../../../../../hooks/projectHook/useHandleRole";
 
 type RoleItemProps = {
-  role: Role;
-  enable: boolean;
+  role: RoleAndFullPermission;
+  isDefultRole: boolean;
+  isDisableEdit: boolean;
+  isDisableDelete: boolean;
+  rolePermission: RolePermission;
 };
 
-const RoleItem = ({ role, enable }: RoleItemProps) => {
+const RoleItem = ({
+  role,
+  isDefultRole,
+  isDisableEdit,
+  isDisableDelete,
+}: RoleItemProps) => {
   const {
     isEdit,
     open,
@@ -37,6 +48,7 @@ const RoleItem = ({ role, enable }: RoleItemProps) => {
             placeholder={"Role Name"}
             value={editRole}
             handleProjectName={handleEditRoleName}
+            disable={false}
           />
           <TasksButton
             title={BTN_TASKS_CANCEL}
@@ -52,20 +64,22 @@ const RoleItem = ({ role, enable }: RoleItemProps) => {
       ) : (
         <>
           <div className="grow">
-            {role.roleName} {!enable && <span className="text-error">*</span>}
+            {role.roleName}{" "}
+            {isDefultRole && <span className="text-error">*</span>}
           </div>
           <div>
             <IconButton
               onClick={() => handleEdit(role.roleName)}
-              disabled={!enable}
+              disabled={isDefultRole || !isDisableEdit}
             >
               <EditIcon />
             </IconButton>
           </div>
+
           <div>
             <IconButton
               onClick={() => handleSetIsOpen(true)}
-              disabled={!enable}
+              disabled={isDefultRole || !isDisableDelete}
             >
               <DeleteForeverIcon />
             </IconButton>

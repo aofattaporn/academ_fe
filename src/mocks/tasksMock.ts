@@ -11,7 +11,17 @@ import {
 
 // TODO: MOCK DATA ON TASKS API
 
-const MOCK_TASKS: Tasks[] = [
+export const DEFULT_TASKS: Tasks[] = [
+  {
+    tasksId: "123456789",
+    tasksName: "Complete Report222",
+    processId: "1",
+    startDate: "2024-04-01T00:00:00.000Z",
+    dueDate: "2024-04-10T00:00:00.000Z",
+  },
+];
+
+export const MOCK_TASKS: Tasks[] = [
   {
     tasksId: "123456789",
     tasksName: "Complete Report222",

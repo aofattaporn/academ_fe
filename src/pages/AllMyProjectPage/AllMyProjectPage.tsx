@@ -36,7 +36,7 @@ const AllMyProjectPage = () => {
             </IconButton>
           </div>
           <h4 className="text-gray-300">These projects are available.</h4>
-          <div className="flex flex-wrap my-8 gap-4  w-full justify-center sm:justify-start duration-700">
+          <div className="flex flex-wrap my-8 gap-4  w-full  sm:justify-start duration-700">
             {projectIsSuccess
               ? projectData?.map((project, index) => {
                   return (
@@ -45,7 +45,7 @@ const AllMyProjectPage = () => {
                       prjectId={project.projectId}
                       projectName={project.projectProfile.projectName}
                       avatarColor={project.projectProfile.avatarColor}
-                      membersCounts={project.membersCounts}
+                      membersCounts={project.members.length}
                       projectEndDate={project.projectEndDate}
                     />
                   );

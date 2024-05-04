@@ -61,7 +61,7 @@ const BoardTile = ({
                       }
                       handleClick={() => dispatch(openDetails(true))}
                     >
-                      <BoardItem tasks={task} />
+                      <BoardItem tasks={task} taskPermission={taskPermission} />
                     </Draggable>
                   </Droppable>
                 </button>

@@ -14,9 +14,11 @@ import {
 } from "../../../../types/MyTasksType";
 import DatePickerRow from "../../../../components/DatePicker/DatePickerRow";
 import ProcessDropdown from "../../../../components/Dropdown/ProcessDropdown";
+import { TaskPermission } from "../../../../types/Permission";
 
 type CreateTasksByDateProps = {
   handleClose: () => void;
+  taskPermission: TaskPermission;
 };
 
 const CreateTasksByDate = ({ handleClose }: CreateTasksByDateProps) => {
@@ -26,14 +28,14 @@ const CreateTasksByDate = ({ handleClose }: CreateTasksByDateProps) => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const [startDate, setStartDate] = useState<Moment | null>(moment());
   const [dueDate, setDueDate] = useState<Moment | null>(moment());
-  const [myProcess, setMyProcess] = useState<Process | undefined>(
-    process?.at(0)
+  const [myProcess, setMyProcess] = useState<string>(
+    process?.at(0)?.processId as string
   );
 
   const { mutation, tasks, handleSetTasks, handleSubmit } = useCreateTasks();
 
-  const handleSelectProcess = (selectProcess: Process) => {
-    setMyProcess(selectProcess);
+  const handleSelectProcess = (selectProcessId: string) => {
+    setMyProcess(selectProcessId);
     setAnchorElUser(null);
   };
 
@@ -67,20 +69,22 @@ const CreateTasksByDate = ({ handleClose }: CreateTasksByDateProps) => {
           />
           <div className="grid grid-cols-1 gap-2 my-2">
             <ProcessDropdown
-              key="Process"
-              process={myProcess as Process}
+              isDisable={true}
+              processId={myProcess}
               allProcess={process as Process[]}
               anchorElUser={anchorElUser}
               handleSetAnchorElUser={handleSetAnchorElUser}
               handleSelectProcess={handleSelectProcess}
             />
             <DatePickerRow
+              isDisable={true}
               title={LABEL_TASKS_START_DATE}
               date={startDate}
               handleSetDate={handleSetStartDate}
               isClearabler={false}
             />
             <DatePickerRow
+              isDisable={true}
               title={LABEL_TASKS_DUE_DATE}
               date={dueDate}
               handleSetDate={handleSetDueDate}
@@ -95,9 +99,9 @@ const CreateTasksByDate = ({ handleClose }: CreateTasksByDateProps) => {
             handleSave={() =>
               handleSubmit(
                 projectId as string,
-                myProcess?.processId as string,
-                startDate?.toString() as string,
-                dueDate?.toString() as string
+                myProcess,
+                moment(startDate).toISOString(),
+                moment(dueDate).toISOString()
               )
             }
           />

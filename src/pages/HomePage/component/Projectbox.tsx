@@ -8,6 +8,7 @@ import moment from "moment";
 import AvatarProject from "../../../components/AvatarProject/AvatarProject";
 import { Size } from "../../../types/ProjectType";
 import { Divider } from "@mui/material";
+import ProjectAlertItem from "../../../components/Labels/ProjectAlertItem";
 
 const ProjectBox = () => {
   const { isLoading, isError, data, error } = useQuery(
@@ -35,7 +36,7 @@ const ProjectBox = () => {
           {data.map((item, index) => (
             <div
               key={index}
-              className="flex align-middle items-center gap-4 p-2 cursor-pointer"
+              className="flex align-middle gap-4 p-2 cursor-pointer"
             >
               <AvatarProject
                 isLoading={false}
@@ -45,13 +46,17 @@ const ProjectBox = () => {
               />
 
               <div>
-                <h4 className="font-semibold my-1">
+                <h4 className="font-semibold">
                   {item.projectProfile.projectName}
                 </h4>
                 <p className="text-gray-300">
                   {moment(item.projectEndDate).format("l")}
                 </p>
               </div>
+              <ProjectAlertItem
+                projectEndDate={item.projectEndDate}
+                isArchive={false}
+              />
             </div>
           ))}
         </div>

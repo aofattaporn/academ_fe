@@ -1,12 +1,13 @@
 import { ErrorCustom } from "../types/GenericType";
-import { Permission, Role } from "../types/Permission";
+import { Permission, RoleAndRolePermission } from "../types/Permission";
 import {
+  AllMemberAndPermission,
   CreateProject,
   Invite,
   ListProject,
-  MemberSetting,
   Project,
   ProjectDetails,
+  ProjectDetailsPermission,
 } from "../types/ProjectType";
 import axiosInstance from "./axiosInstance";
 import firebaseApi from "./firebaseApi";
@@ -47,9 +48,6 @@ const getAllProjectHomePage = async (): Promise<ListProject[]> => {
 const getAllProject = async (): Promise<ListProject[]> => {
   try {
     const token = await firebaseApi.getToken();
-    console.log(token);
-    console.log("zzzzz");
-
     const response = await axiosInstance.get("/api/v1/projects/users/id", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -80,7 +78,7 @@ const getProject = async (projectId: string): Promise<Project> => {
 
 const getProjectDetails = async (
   projectId: string
-): Promise<ProjectDetails> => {
+): Promise<ProjectDetailsPermission> => {
   try {
     const token = await firebaseApi.getToken();
     const response = await axiosInstance.get(
@@ -124,7 +122,7 @@ const updateProjectDetails = async (
 
 const getProjectRoleAndPermission = async (
   projectId: string
-): Promise<Role[]> => {
+): Promise<RoleAndRolePermission> => {
   try {
     const token = await firebaseApi.getToken();
     const response = await axiosInstance.get(
@@ -146,7 +144,7 @@ const getProjectRoleAndPermission = async (
 const createNewRoleAndPermission = async (
   projectId: string,
   newRole: { newRole: string }
-): Promise<Role[]> => {
+): Promise<RoleAndRolePermission> => {
   try {
     const token = await firebaseApi.getToken();
     const response = await axiosInstance.post(
@@ -170,7 +168,7 @@ const updateRoleName = async (
   projectId: string,
   roleId: string,
   newRole: { newRole: string }
-): Promise<Role[]> => {
+): Promise<RoleAndRolePermission> => {
   try {
     const token = await firebaseApi.getToken();
     const response = await axiosInstance.put(
@@ -193,7 +191,7 @@ const updateRoleName = async (
 const deleteRole = async (
   projectId: string,
   roleId: string
-): Promise<Role[]> => {
+): Promise<RoleAndRolePermission> => {
   try {
     const token = await firebaseApi.getToken();
     const response = await axiosInstance.delete(
@@ -216,7 +214,7 @@ const settingPermission = async (
   projectId: string,
   permissionId: string,
   permission: Permission
-): Promise<Role[]> => {
+): Promise<RoleAndRolePermission> => {
   try {
     const token = await firebaseApi.getToken();
     const response = await axiosInstance.put(
@@ -236,7 +234,9 @@ const settingPermission = async (
   }
 };
 
-const getAllMembers = async (projectId: string): Promise<MemberSetting> => {
+const getAllMembers = async (
+  projectId: string
+): Promise<AllMemberAndPermission> => {
   try {
     const token = await firebaseApi.getToken();
     const response = await axiosInstance.get(
@@ -259,7 +259,7 @@ const changeRoleMember = async (
   projectId: string,
   memberId: string,
   roleId: string
-): Promise<MemberSetting> => {
+): Promise<AllMemberAndPermission> => {
   try {
     const token = await firebaseApi.getToken();
     const response = await axiosInstance.get(
@@ -380,6 +380,30 @@ const deleteProjectById = async (projectId: string) => {
   }
 };
 
+const archiveProjectById = async (
+  projectId: string,
+  isArchive: { isArchive: boolean }
+) => {
+  try {
+    const token = await firebaseApi.getToken();
+    const response = await axiosInstance.put(
+      `/api/v1/projects/${projectId}/archive`,
+      isArchive,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data.data;
+  } catch (error) {
+    const errorCustom = error as ErrorCustom;
+    console.error("Error cant to update permission :", errorCustom.description);
+    throw errorCustom;
+  }
+};
+
 const projectApi = {
   createProject,
   getAllProject,
@@ -399,6 +423,7 @@ const projectApi = {
   removeMember,
   deleteProjectById,
   getAllProjectHomePage,
+  archiveProjectById,
 };
 
 export default projectApi;
