@@ -51,7 +51,7 @@ export default {
           white: "#FFFFFF",
         },
         boxShadow: {
-          homepageItemBox: '0 2px 8px 0px rgba(99, 99, 99, 0.2)',
+          homepageItemBox: "0 2px 8px 0px rgba(99, 99, 99, 0.2)",
         },
         main: "#fafafc",
         dark: "#333333",
@@ -65,7 +65,7 @@ export default {
         "32px": "32px",
       },
       boxShadow: {
-        "3xl": "rgba(0, 0, 0, 0.09) 0px 3px 12px;",
+        "3xl": "rgba(0, 0, 0, 0.09) 0px 3px 12px",
       },
     },
   },

@@ -42,7 +42,12 @@ export interface RoleAndRolePermission {
   rolePermission: RolePermission;
 }
 
-const memberRole: RoleAndFullPermission = {
+export const MOCK_ROLE_PERMSSION: RolePermission = {
+  addNew: false,
+  edit: false,
+  delete: false,
+};
+export const memberRole: RoleAndFullPermission = {
   roleId: "1",
   roleName: "Member",
   permission: {
@@ -67,35 +72,6 @@ const memberRole: RoleAndFullPermission = {
       addNew: false,
       edit: false,
       delete: false,
-    },
-  },
-};
-
-const ownerRole: RoleAndFullPermission = {
-  roleId: "2",
-  roleName: "Owner",
-  permission: {
-    id: "2",
-    member: {
-      addRole: true,
-      invite: true,
-      remove: true,
-    },
-    project: {
-      editProfile: true,
-      archive: true,
-      delete: true,
-    },
-    tasks: {
-      addNew: true,
-      delete: true,
-      edit: true,
-      manageProcess: true,
-    },
-    role: {
-      addNew: true,
-      edit: true,
-      delete: true,
     },
   },
 };
@@ -186,7 +162,6 @@ export const UPDATE_ROLE_PERMISSION: RoleAndFullPermission = {
     },
   },
 };
-export const MOCK_ROLE: RoleAndFullPermission[] = [memberRole, ownerRole];
 
 export const ROLE_OWNER: string = "Owner";
 export const ROLE_MEMBER: string = "Member";

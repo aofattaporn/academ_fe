@@ -1,6 +1,6 @@
 import CloseIcon from "@mui/icons-material/Close";
 import { FullMember } from "../../types/ProjectType";
-import { Avatar, IconButton, Menu, MenuItem } from "@mui/material";
+import { Avatar, Menu, MenuItem } from "@mui/material";
 
 type MemberDropdownProps = {
   isDisable: boolean;
