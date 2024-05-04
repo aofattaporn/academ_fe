@@ -43,7 +43,6 @@ export const handlers = [
   // tasks-mock-api
   tasksMock.getAllTasksByProjectId,
   tasksMock.getTasksByTasksId,
-  tasksMock.createTasks,
   tasksMock.updateTasksByTasksId,
   tasksMock.changeProcess,
   tasksMock.deleteTasks,

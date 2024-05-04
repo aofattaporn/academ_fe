@@ -1,11 +1,11 @@
 import { Menu, MenuItem } from "@mui/material";
-import { Role } from "../../../../../../types/Permission";
+import { RoleAndFullPermission } from "../../../../../../types/Permission";
 
 type SelectRoleProps = {
-  roles: Role[];
+  roles: RoleAndFullPermission[];
   roleName: string;
   anchorEl: null | HTMLElement;
-  handleSelect: (role: Role) => void;
+  handleSelect: (role: RoleAndFullPermission) => void;
   handleSetAnchorElUser: (element: null | HTMLElement) => void;
 };
 

@@ -18,11 +18,9 @@ import {
   Views,
 } from "../types/ProjectType";
 import {
-  MOCK_ROLE,
-  NEW_ROLE,
-  Role,
-  UPDATE_ROLE_NAME,
-  UPDATE_ROLE_PERMISSION,
+  MOCK_ROLE_PERMSSION,
+  RoleAndRolePermission,
+  memberRole,
 } from "../types/Permission";
 
 const PROJECT_DETAILS: ProjectDetails = {
@@ -32,8 +30,14 @@ const PROJECT_DETAILS: ProjectDetails = {
     avatarColor: "#AF8AE2",
   },
   views: [Views.LIST, Views.BOARD, Views.TIMELINE, Views.CALENDAR],
-  startDate: "2024-03-01T00:00:00.000Z",
-  dueDate: "2024-04-01T00:00:00.000Z",
+  projectStartDate: "2024-03-01T00:00:00.000Z",
+  projectEndDate: "2024-04-01T00:00:00.000Z",
+  className: "ClassA",
+};
+
+const MOCK_ROLE_PERMISSION: RoleAndRolePermission = {
+  rolesAndFullPermission: [memberRole],
+  rolePermission: MOCK_ROLE_PERMSSION,
 };
 
 const mockedMembers: FullMember[] = [
@@ -95,7 +99,7 @@ const createProjectSuccess = http.post(
           projectName: "EchoEcho",
           avatarColor: "#6985FF",
         },
-        membersCounts: 4,
+        members: mockedMembers,
         projectEndDate: new Date(),
       },
     };
@@ -126,7 +130,7 @@ const getAllProjectSuccess = http.get("/api/v1/projects/users/id", async () => {
           projectName: "Academ",
           avatarColor: "#AF8AE2",
         },
-        membersCounts: 4,
+        members: mockedMembers,
         projectEndDate: new Date(),
       },
       {
@@ -135,7 +139,7 @@ const getAllProjectSuccess = http.get("/api/v1/projects/users/id", async () => {
           projectName: "TungTee",
           avatarColor: "#FFA8A7",
         },
-        membersCounts: 4,
+        members: mockedMembers,
         projectEndDate: new Date(),
       },
       {
@@ -144,7 +148,7 @@ const getAllProjectSuccess = http.get("/api/v1/projects/users/id", async () => {
           projectName: "XTra",
           avatarColor: "#6985FF",
         },
-        membersCounts: 4,
+        members: mockedMembers,
         projectEndDate: new Date(),
       },
     ],
@@ -166,7 +170,10 @@ const getProjectSuccess = http.get("/api/v1/projects/:projectId", async () => {
           projectName: "Sample Project",
           avatarColor: "#AF8AE2",
         },
+        isArchive: false,
+        className: "ClassA",
         views: [Views.LIST, Views.BOARD, Views.TIMELINE, Views.CALENDAR],
+        projectEndDate: null,
         process: [
           {
             processId: "1",
@@ -213,6 +220,11 @@ const getProjectSuccess = http.get("/api/v1/projects/:projectId", async () => {
         delete: true,
         edit: true,
         manageProcess: true,
+      },
+      projectPermission: {
+        editProfile: false,
+        archive: false,
+        delete: false,
       },
     },
   };
@@ -292,13 +304,12 @@ const updateProjectDetailsFailedNotFoundProjectId = http.put(
 const getProjectRoleAndPermissionSuccess = http.get(
   "/api/v1/projects/:projectId/roleAndPermission",
   async () => {
-    const mockRes: ResponseCustom<Role[]> = {
+    const mockRes: ResponseCustom<RoleAndRolePermission[]> = {
       status: 200,
       message: RESPONSE_OK,
       description: "Success",
-      data: MOCK_ROLE,
+      data: [MOCK_ROLE_PERMISSION],
     };
-
     await delay(1000);
 
     return HttpResponse.json(mockRes, { status: 200 });
@@ -326,11 +337,11 @@ const getProjectRoleAndPermissionFailedNotFoundProjectId = http.get(
 const createProjectRoleAndPermissionSuccess = http.post(
   "/api/v1/projects/:projectId/roleAndPermission",
   async () => {
-    const mockRes: ResponseCustom<Role[]> = {
+    const mockRes: ResponseCustom<RoleAndRolePermission[]> = {
       status: 200,
       message: RESPONSE_OK,
       description: "Success",
-      data: [...MOCK_ROLE, NEW_ROLE],
+      data: [MOCK_ROLE_PERMISSION],
     };
 
     await delay(1000);
@@ -342,11 +353,11 @@ const createProjectRoleAndPermissionSuccess = http.post(
 const updateRoleNameSuccess = http.put(
   "/api/v1/projects/:projectId/roles/:roleId",
   async () => {
-    const mockRes: ResponseCustom<Role[]> = {
+    const mockRes: ResponseCustom<RoleAndRolePermission[]> = {
       status: 200,
       message: RESPONSE_OK,
       description: "Success",
-      data: [...MOCK_ROLE, UPDATE_ROLE_NAME],
+      data: [MOCK_ROLE_PERMISSION],
     };
 
     await delay(1000);
@@ -381,11 +392,11 @@ const deleteRoleFailedInternalError = http.delete(
 const deleteRoleSuccess = http.delete(
   "/api/v1/projects/:projectId/roles/:roleId",
   async () => {
-    const mockRes: ResponseCustom<Role[]> = {
+    const mockRes: ResponseCustom<RoleAndRolePermission[]> = {
       status: 200,
       message: RESPONSE_OK,
       description: "Success",
-      data: MOCK_ROLE,
+      data: [MOCK_ROLE_PERMISSION],
     };
 
     await delay(1000);
@@ -410,11 +421,11 @@ const deleteRoleFailedHaveSomeOnewithinRole = http.delete(
 const updatePermissionSuccess = http.put(
   "/api/v1/projects/:projectId/roles/:roleId/permissions",
   async () => {
-    const mockRes: ResponseCustom<Role[]> = {
+    const mockRes: ResponseCustom<RoleAndRolePermission[]> = {
       status: 200,
       message: RESPONSE_OK,
       description: "Success",
-      data: [...MOCK_ROLE, UPDATE_ROLE_PERMISSION],
+      data: [MOCK_ROLE_PERMISSION],
     };
 
     await delay(1000);

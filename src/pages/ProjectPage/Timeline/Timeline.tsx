@@ -121,8 +121,11 @@ const Timeline = () => {
             }}
           />
 
-          {isOpen ? (
-            <CreateTasksByDate handleClose={() => setIsOpen(false)} />
+          {isOpen && taskPermission ? (
+            <CreateTasksByDate
+              handleClose={() => setIsOpen(false)}
+              taskPermission={taskPermission}
+            />
           ) : null}
         </div>
       ) : null}
