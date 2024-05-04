@@ -16,6 +16,7 @@ const useSettingProjectDetails = () => {
   );
   const [projectDetails, setProjectDetails] = useState<ProjectDetails>({
     projectId: "",
+    className: "",
     projectProfile: {
       projectName: "",
       avatarColor: "",
@@ -73,6 +74,13 @@ const useSettingProjectDetails = () => {
         ...prev.projectProfile,
         projectName: newName,
       },
+    }));
+  };
+
+  const haandleClassName = (newClass: string) => {
+    setProjectDetails((prev) => ({
+      ...prev,
+      className: newClass,
     }));
   };
 
@@ -141,6 +149,7 @@ const useSettingProjectDetails = () => {
     handleEndDate,
     handleCheckIsdirty,
     handleSetSelected,
+    haandleClassName,
   };
 };
 

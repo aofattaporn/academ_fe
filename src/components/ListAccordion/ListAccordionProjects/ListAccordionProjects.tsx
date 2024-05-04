@@ -3,6 +3,7 @@ import { MyTasks, Project } from "../../../types/MyTasksType";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ListAccordion from "../ListAccordionItem/ListAccordion";
 import ProjectAlertItem from "../../Labels/ProjectAlertItem";
+import ClassNameItem from "../../Labels/ClassNameItem";
 
 type ListAccordionProjectsProps = {
   projectInfo: Project;
@@ -38,11 +39,16 @@ const ListAccordionProjects = ({
           </h1>
 
           <div className="col-span-9">
-            <div className=" w-fit">
-              <ProjectAlertItem
-                projectEndDate={projectInfo.projectEndDate}
-                isArchive={false}
-              />
+            <div className="grid grid-cols-12 gap-4">
+              <div className="col-span-2">
+                <ClassNameItem className={projectInfo.className} />
+              </div>
+              <div className="col-span-3">
+                <ProjectAlertItem
+                  projectEndDate={projectInfo.projectEndDate}
+                  isArchive={false}
+                />
+              </div>
             </div>
           </div>
         </div>

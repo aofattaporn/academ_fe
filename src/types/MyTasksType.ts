@@ -14,6 +14,7 @@ export type Project = {
   projectStartDate: string;
   projectEndDate: string;
   createdAt: string;
+  className: string;
   updatedAt: string;
   process: Process[];
 };

@@ -4,6 +4,7 @@ import { Project, Size } from "../../../types/ProjectType";
 import ProjectSetting from "./SettingModal/ProjectSetting";
 import ProjectMember from "./SettingModal/ProjectMember";
 import ProjectAlertItem from "../../../components/Labels/ProjectAlertItem";
+import ClassNameItem from "../../../components/Labels/ClassNameItem";
 
 type ProjectInfoProps = {
   projectData: Project;
@@ -48,6 +49,7 @@ const ProjectInfo = ({ projectData }: ProjectInfoProps) => {
             <h2 className="text-xl font-bold">{projectProfile.projectName}</h2>
 
             <ProjectSetting projectData={projectData} />
+            <ClassNameItem className={projectData.projectInfo.className} />
             <ProjectAlertItem
               projectEndDate={projectData.projectInfo.projectEndDate}
               isArchive={projectData.projectInfo.isArchive}

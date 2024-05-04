@@ -45,7 +45,7 @@ const AllMyProjectPage = () => {
                       prjectId={project.projectId}
                       projectName={project.projectProfile.projectName}
                       avatarColor={project.projectProfile.avatarColor}
-                      membersCounts={project.membersCounts}
+                      membersCounts={project.members.length}
                       projectEndDate={project.projectEndDate}
                     />
                   );

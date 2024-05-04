@@ -1,5 +1,6 @@
 import TextFeildInputComp from "../../../../../components/Field/TextFeildInputComp";
 import {
+  PLACHOLDER_INPUT_CLASS,
   PLACHOLDER_INPUT_PROJECT,
   Size,
   Views,
@@ -33,6 +34,7 @@ const SettingProjectDetails = () => {
     handleStartDate,
     handleEndDate,
     handleSetSelected,
+    haandleClassName,
   } = useSettingProjectDetails();
 
   if (projectIsLoading) {
@@ -93,6 +95,19 @@ const SettingProjectDetails = () => {
                 disable={!projectPermission.editProfile}
                 viewsSelected={projectDetails.views as Views[]}
                 handleSelected={handleSetSelected}
+              />
+            </div>
+          </div>
+          <div className="grid grid-cols-3 gap-4 items-center">
+            <p className=" col-span-1 bg-main py-2 flex justify-center rounded-md">
+              Class Name
+            </p>
+            <div className="col-span-2 w-full">
+              <TextFeildInputComp
+                disable={!projectPermission.editProfile}
+                placeholder={PLACHOLDER_INPUT_CLASS}
+                value={projectDetails?.className as string}
+                handleProjectName={haandleClassName}
               />
             </div>
           </div>

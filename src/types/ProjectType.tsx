@@ -11,6 +11,7 @@ import {
 export const COUNT_ITEMS_SKELETON: number = 3;
 export const BTN_CREATE_PROJECT: string = "Create Project";
 export const PLACHOLDER_INPUT_PROJECT: string = "Enter your project name";
+export const PLACHOLDER_INPUT_CLASS: string = "Enter your class name";
 
 export const PROJECT_SETTING = {
   PROJECR_DETAILS: "Project Details",
@@ -45,7 +46,7 @@ export enum Size {
 export interface ListProject {
   projectId: string;
   projectProfile: ProjectProfile;
-  membersCounts: number;
+  members: Member[];
   projectEndDate: Date;
 }
 
@@ -72,6 +73,7 @@ export interface Project {
 export interface ProjectInfo {
   projectId: string;
   projectProfile: ProjectProfile;
+  className: string;
   views: string[];
   process: Process[];
   members: FullMember[];
@@ -89,6 +91,7 @@ export interface ProjectDetailsPermission {
 
 export interface ProjectDetails {
   projectId: string;
+  className: string;
   projectProfile: ProjectProfile;
   views: string[];
   projectStartDate: string | Date | null;
