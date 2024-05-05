@@ -11,19 +11,19 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import GenericModal from "./hoc/GenericModal.tsx";
 
-// async function enableMocking() {
-//   console.log(import.meta.env.MODE);
-//   if (import.meta.env.MODE !== "test") {
-//     return;
-//   }
+async function enableMocking() {
+  console.log(import.meta.env.MODE);
+  if (import.meta.env.MODE !== "test") {
+    return;
+  }
 
-//   const { worker } = await import("./mocks/browser");
-//   return worker.start();
-// }
+  const { worker } = await import("./mocks/browser");
+  return worker.start();
+}
 
 const queryClient = new QueryClient();
 
-() => {
+enableMocking().then(() => {
   const root = ReactDOM.createRoot(document.getElementById("root")!);
   root.render(
     <React.StrictMode>
@@ -42,4 +42,4 @@ const queryClient = new QueryClient();
       </AuthProvider>
     </React.StrictMode>
   );
-};
+});
