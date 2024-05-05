@@ -99,6 +99,7 @@ const createProjectSuccess = http.post(
           projectName: "EchoEcho",
           avatarColor: "#6985FF",
         },
+        isArchive: false,
         members: mockedMembers,
         projectEndDate: new Date(),
       },
@@ -132,6 +133,7 @@ const getAllProjectSuccess = http.get("/api/v1/projects/users/id", async () => {
         },
         members: mockedMembers,
         projectEndDate: new Date(),
+        isArchive: false,
       },
       {
         projectId: "2",
@@ -141,6 +143,7 @@ const getAllProjectSuccess = http.get("/api/v1/projects/users/id", async () => {
         },
         members: mockedMembers,
         projectEndDate: new Date(),
+        isArchive: false,
       },
       {
         projectId: "3",
@@ -148,6 +151,7 @@ const getAllProjectSuccess = http.get("/api/v1/projects/users/id", async () => {
           projectName: "XTra",
           avatarColor: "#6985FF",
         },
+        isArchive: false,
         members: mockedMembers,
         projectEndDate: new Date(),
       },

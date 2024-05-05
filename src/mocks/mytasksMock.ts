@@ -14,6 +14,7 @@ const myTasksSuccess = http.get("/api/v1/projects/tasks/users", () => {
             avatarColor: "#6985FF",
             projectName: "Jit:D",
           },
+          isArchive: false,
           className: "classA",
           projectId: "2",
           projectStartDate: "12/4/2024",
@@ -49,6 +50,7 @@ const myTasksSuccess = http.get("/api/v1/projects/tasks/users", () => {
           projectEndDate: "12/7/2024",
           createdAt: "12/7/2024",
           updatedAt: "12/8/2024",
+          isArchive: false,
           process: [
             {
               processId: "1",
