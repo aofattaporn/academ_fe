@@ -39,13 +39,15 @@ const MytaskPage = () => {
           </Alert>
         ) : null}
         {isSuccess && data && data.projects
-          ? data.projects.map((project, index) => (
-              <ListAccordionProjects
-                key={index}
-                projectInfo={project}
-                myTasksData={data.tasks}
-              />
-            ))
+          ? data.projects
+              .filter((item) => !item.isArchive)
+              .map((project, index) => (
+                <ListAccordionProjects
+                  key={index}
+                  projectInfo={project}
+                  myTasksData={data.tasks}
+                />
+              ))
           : null}
       </div>
     </div>

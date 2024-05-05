@@ -17,6 +17,7 @@ export type Project = {
   className: string;
   updatedAt: string;
   process: Process[];
+  isArchive: boolean;
 };
 
 export type MyTasks = {

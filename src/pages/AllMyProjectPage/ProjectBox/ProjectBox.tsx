@@ -2,6 +2,7 @@ import { Size } from "../../../types/ProjectType";
 import AvatarProject from "../../../components/AvatarProject/AvatarProject";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import ProjectAlertItem from "../../../components/Labels/ProjectAlertItem";
 type ProjectBoxProps = {
   prjectId: string;
   projectName: string;
@@ -36,13 +37,14 @@ const ProjectBox = ({
             </div>
           </div>
         </div>
-        <div className="w-full h-2/6 bg-main rounded-md flex px-8 items-center">
+        <div className="w-full h-2/6 bg-main rounded-md flex px-8 items-center justify-between">
           <div>
             <p className="text-gray-300 text-sm">End Date</p>
             <p className="text-gray-600 text-sm font-semibold">
               {moment(projectEndDate).format("ll")}
             </p>
           </div>
+          <ProjectAlertItem projectEndDate={projectEndDate} isArchive={false} />
         </div>
       </div>
     </Link>

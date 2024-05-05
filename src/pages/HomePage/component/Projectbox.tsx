@@ -33,32 +33,34 @@ const ProjectBox = () => {
         <h2 className="text-black font-bold text-xl p-2 pt-4">Project</h2>
         <Divider />
         <div className="rounded-xl grid grid-cols-1 lg:grid-cols-2 gap-4 mt-8">
-          {data.map((item, index) => (
-            <div
-              key={index}
-              className="flex align-middle gap-4 p-2 cursor-pointer"
-            >
-              <AvatarProject
-                isLoading={false}
-                size={Size.medium}
-                color={item.projectProfile.avatarColor}
-                projectName={item.projectProfile.projectName}
-              />
+          {data
+            .filter((item) => !item.isArchive)
+            .map((item, index) => (
+              <div
+                key={index}
+                className="flex align-middle gap-4 p-2 cursor-pointer"
+              >
+                <AvatarProject
+                  isLoading={false}
+                  size={Size.medium}
+                  color={item.projectProfile.avatarColor}
+                  projectName={item.projectProfile.projectName}
+                />
 
-              <div>
-                <h4 className="font-semibold">
-                  {item.projectProfile.projectName}
-                </h4>
-                <p className="text-gray-300">
-                  {moment(item.projectEndDate).format("l")}
-                </p>
+                <div>
+                  <h4 className="font-semibold">
+                    {item.projectProfile.projectName}
+                  </h4>
+                  <p className="text-gray-300">
+                    {moment(item.projectEndDate).format("l")}
+                  </p>
+                </div>
+                <ProjectAlertItem
+                  projectEndDate={item.projectEndDate}
+                  isArchive={false}
+                />
               </div>
-              <ProjectAlertItem
-                projectEndDate={item.projectEndDate}
-                isArchive={false}
-              />
-            </div>
-          ))}
+            ))}
         </div>
       </div>
     </div>
