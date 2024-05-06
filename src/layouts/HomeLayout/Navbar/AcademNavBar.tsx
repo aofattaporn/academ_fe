@@ -6,7 +6,7 @@ import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { QUERY_KEY } from "../../../types/GenericType";
 import userApi from "../../../libs/userApi";
-import Search from "../../../pages/ProjectPage/ProjectInfo/SettingModal/Search";
+import Search from "./Search/Search";
 import { useDispatch } from "react-redux";
 import { openModal } from "../../../stores/modalSlice/modalSlice";
 
