@@ -63,16 +63,18 @@ const ToggleItem = ({
         ) : null}
 
         {isSuccess
-          ? data?.map((project, index) => (
-              <ToggleTile
-                key={index}
-                title={title}
-                ItemId={project.projectId}
-                ItemName={project.projectProfile.projectName}
-                isSelected={project.projectId === projectId}
-                avatarColor={project.projectProfile.avatarColor}
-              />
-            ))
+          ? data
+              ?.filter((item) => !item.isArchive)
+              .map((project, index) => (
+                <ToggleTile
+                  key={index}
+                  title={title}
+                  ItemId={project.projectId}
+                  ItemName={project.projectProfile.projectName}
+                  isSelected={project.projectId === projectId}
+                  avatarColor={project.projectProfile.avatarColor}
+                />
+              ))
           : null}
 
         {isError ? (

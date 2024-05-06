@@ -8,13 +8,14 @@ export interface Permission {
 
 export interface MembersPermission {
   addRole: boolean;
-  inviteMember: boolean;
-  removeMember: boolean;
+  invite: boolean;
+  remove: boolean;
 }
 
 export interface ProjectPermission {
   editProfile: boolean;
-  manageView: boolean;
+  archive: boolean;
+  delete: boolean;
 }
 
 export interface TaskPermission {
@@ -30,25 +31,36 @@ export interface RolePermission {
   delete: boolean;
 }
 
-export interface Role {
+export interface RoleAndFullPermission {
   roleId: string;
   roleName: string;
   permission: Permission;
 }
 
-const memberRole: Role = {
+export interface RoleAndRolePermission {
+  rolesAndFullPermission: RoleAndFullPermission[];
+  rolePermission: RolePermission;
+}
+
+export const MOCK_ROLE_PERMSSION: RolePermission = {
+  addNew: false,
+  edit: false,
+  delete: false,
+};
+export const memberRole: RoleAndFullPermission = {
   roleId: "1",
   roleName: "Member",
   permission: {
     id: "1",
     member: {
       addRole: false,
-      inviteMember: false,
-      removeMember: false,
+      invite: false,
+      remove: false,
     },
     project: {
       editProfile: false,
-      manageView: false,
+      archive: false,
+      delete: false,
     },
     tasks: {
       addNew: false,
@@ -64,47 +76,20 @@ const memberRole: Role = {
   },
 };
 
-const ownerRole: Role = {
-  roleId: "2",
-  roleName: "Owner",
-  permission: {
-    id: "2",
-    member: {
-      addRole: true,
-      inviteMember: true,
-      removeMember: true,
-    },
-    project: {
-      editProfile: true,
-      manageView: true,
-    },
-    tasks: {
-      addNew: true,
-      delete: true,
-      edit: true,
-      manageProcess: true,
-    },
-    role: {
-      addNew: true,
-      edit: true,
-      delete: true,
-    },
-  },
-};
-
-export const NEW_ROLE: Role = {
+export const NEW_ROLE: RoleAndFullPermission = {
   roleId: "3",
   roleName: "Watcher",
   permission: {
     id: "3",
     member: {
       addRole: true,
-      inviteMember: true,
-      removeMember: true,
+      invite: true,
+      remove: true,
     },
     project: {
-      editProfile: true,
-      manageView: true,
+      editProfile: false,
+      archive: false,
+      delete: false,
     },
     tasks: {
       addNew: true,
@@ -120,19 +105,20 @@ export const NEW_ROLE: Role = {
   },
 };
 
-export const UPDATE_ROLE_NAME: Role = {
+export const UPDATE_ROLE_NAME: RoleAndFullPermission = {
   roleId: "3",
   roleName: "Watcher Update",
   permission: {
     id: "3",
     member: {
       addRole: true,
-      inviteMember: true,
-      removeMember: true,
+      invite: true,
+      remove: true,
     },
     project: {
-      editProfile: true,
-      manageView: true,
+      editProfile: false,
+      archive: false,
+      delete: false,
     },
     tasks: {
       addNew: true,
@@ -148,19 +134,20 @@ export const UPDATE_ROLE_NAME: Role = {
   },
 };
 
-export const UPDATE_ROLE_PERMISSION: Role = {
+export const UPDATE_ROLE_PERMISSION: RoleAndFullPermission = {
   roleId: "3",
   roleName: "Watcher",
   permission: {
     id: "3",
     member: {
       addRole: false,
-      inviteMember: false,
-      removeMember: false,
+      invite: false,
+      remove: false,
     },
     project: {
-      editProfile: true,
-      manageView: true,
+      editProfile: false,
+      archive: false,
+      delete: false,
     },
     tasks: {
       addNew: true,
@@ -175,7 +162,6 @@ export const UPDATE_ROLE_PERMISSION: Role = {
     },
   },
 };
-export const MOCK_ROLE: Role[] = [memberRole, ownerRole];
 
 export const ROLE_OWNER: string = "Owner";
 export const ROLE_MEMBER: string = "Member";

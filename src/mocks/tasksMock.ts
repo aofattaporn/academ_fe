@@ -11,76 +11,39 @@ import {
 
 // TODO: MOCK DATA ON TASKS API
 
-const MOCK_TASKS: Tasks[] = [
+export const DEFULT_TASKS: Tasks[] = [
   {
-    tasksId: "123456789",
-    tasksName: "Complete Report222",
-    processId: "1",
+    tasksId: "1",
+    projectId: "123",
+    processId: "456",
+    tasksName: "Task 1",
     assignee: {
+      userId: "789",
       userName: "John Doe",
       email: "john@example.com",
       roleId: "1",
-      userId: "1",
-      avatarColor: "#FFFFFF",
+      avatarColor: "#336699",
     },
-    startDate: "2024-04-01T00:00:00.000Z",
-    dueDate: "2024-04-10T00:00:00.000Z",
+    startDate: "2024-05-01T00:00:00Z",
+    dueDate: "2024-05-10T00:00:00Z",
   },
+];
+
+export const MOCK_TASKS: Tasks[] = [
   {
-    tasksId: "987654321",
-    tasksName: "Review Presentation A ",
-    processId: "1",
+    tasksId: "1",
+    projectId: "123",
+    processId: "456",
+    tasksName: "Task 1",
     assignee: {
+      userId: "789",
       userName: "John Doe",
       email: "john@example.com",
       roleId: "1",
-      userId: "1",
-      avatarColor: "#FFFFFF",
+      avatarColor: "#336699",
     },
-    startDate: "",
-    dueDate: "2024-03-28T00:00:00.000Z",
-  },
-  {
-    tasksId: "987654325",
-    tasksName: "Review Presentation B",
-    processId: "1",
-    assignee: {
-      userName: "John Doe",
-      email: "john@example.com",
-      roleId: "1",
-      userId: "1",
-      avatarColor: "#FFFFFF",
-    },
-    startDate: "2024-04-01T00:00:00.000Z",
-    dueDate: "2024-04-01T00:00:00.000Z",
-  },
-  {
-    tasksId: "987654215",
-    tasksName: "Review Testcase",
-    processId: "2",
-    assignee: {
-      userName: "John Doe",
-      email: "john@example.com",
-      roleId: "1",
-      userId: "1",
-      avatarColor: "#FFFFFF",
-    },
-    startDate: "2024-04-01T00:00:00.000Z",
-    dueDate: "2024-04-10T00:00:00.000Z",
-  },
-  {
-    tasksId: "987654324",
-    tasksName: "Testing",
-    processId: "2",
-    assignee: {
-      userName: "John Doe",
-      email: "john@example.com",
-      roleId: "1",
-      userId: "1",
-      avatarColor: "#FFFFFF",
-    },
-    startDate: "2024-04-02T00:00:00.000Z",
-    dueDate: "2024-04-10T00:00:00.000Z",
+    startDate: "2024-05-01T00:00:00Z",
+    dueDate: "2024-05-10T00:00:00Z",
   },
 ];
 
@@ -126,37 +89,6 @@ const getTasksByTasksId = http.get("api/v1/tasks/:tasksId", async () => {
   };
 
   await delay(1000);
-
-  return HttpResponse.json(mockRes, { status: 200 });
-});
-
-const createTasks = http.post("api/v1/tasks", async ({ request }) => {
-  const newTasks = (await request.json()) as Tasks;
-
-  const mockRes: ResponseCustom<Tasks[]> = {
-    status: 200,
-    message: RESPONSE_OK,
-    description: "Success",
-    data: [
-      ...MOCK_TASKS,
-      {
-        tasksId: "xxxxxx",
-        tasksName: newTasks.tasksName,
-        processId: newTasks.processId,
-        assignee: {
-          userName: "John Doe",
-          email: "john@example.com",
-          roleId: "1",
-          userId: "1",
-          avatarColor: "#FFFFFF",
-        },
-        startDate: newTasks.startDate,
-        dueDate: newTasks.dueDate,
-      },
-    ],
-  };
-
-  await delay(3000);
 
   return HttpResponse.json(mockRes, { status: 200 });
 });
@@ -214,78 +146,7 @@ const deleteTasks = http.delete("api/v1/tasks/:tasksId", async () => {
     status: 200,
     message: RESPONSE_OK,
     description: "Success",
-    data: [
-      {
-        tasksId: "123456789",
-        tasksName: "Complete Report222",
-        processId: "1",
-        assignee: {
-          userName: "John Doe",
-          email: "john@example.com",
-          roleId: "1",
-          userId: "1",
-          avatarColor: "#FFFFFF",
-        },
-        startDate: "2024-03-06T00:00:00.000Z",
-        dueDate: "2024-03-06T00:00:00.000Z",
-      },
-      {
-        tasksId: "987654321",
-        tasksName: "Review Presentation",
-        processId: "1",
-        assignee: {
-          userName: "John Doe",
-          email: "john@example.com",
-          roleId: "1",
-          userId: "1",
-          avatarColor: "#FFFFFF",
-        },
-        startDate: "2024-03-06T00:00:00.000Z",
-        dueDate: "2024-03-06T00:00:00.000Z",
-      },
-      {
-        tasksId: "987654325",
-        tasksName: "Review Presentation",
-        processId: "1",
-        assignee: {
-          userName: "John Doe",
-          email: "john@example.com",
-          roleId: "1",
-          userId: "1",
-          avatarColor: "#FFFFFF",
-        },
-        startDate: "2024-03-06T00:00:00.000Z",
-        dueDate: "2024-03-06T00:00:00.000Z",
-      },
-      {
-        tasksId: "987654215",
-        tasksName: "Review Testcase",
-        processId: "2",
-        assignee: {
-          userName: "John Doe",
-          email: "john@example.com",
-          roleId: "1",
-          userId: "1",
-          avatarColor: "#FFFFFF",
-        },
-        startDate: "2024-03-06T00:00:00.000Z",
-        dueDate: "2024-03-06T00:00:00.000Z",
-      },
-      {
-        tasksId: "987654324",
-        tasksName: "Testing",
-        processId: "2",
-        assignee: {
-          userName: "John Doe",
-          email: "john@example.com",
-          roleId: "1",
-          userId: "1",
-          avatarColor: "#FFFFFF",
-        },
-        startDate: "2024-03-06T00:00:00.000Z",
-        dueDate: "2024-03-06T00:00:00.000Z",
-      },
-    ],
+    data: DEFULT_TASKS,
   };
 
   await delay(3000);
@@ -353,7 +214,6 @@ export const tasksMock = {
   updateTasksByTasksIdFailedNotFoudId,
 
   // create-tasks-api-mocking
-  createTasks,
   createTasksFailedInternalError,
   createTasksFaildInvalidFeild,
 

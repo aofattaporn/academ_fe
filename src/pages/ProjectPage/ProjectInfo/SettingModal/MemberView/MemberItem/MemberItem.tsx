@@ -8,24 +8,26 @@ import {
 } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import {
+  AllMemberAndPermission,
   FullMember,
-  MemberSetting,
   RoleProject,
-} from "../../../../../types/ProjectType";
+} from "../../../../../../types/ProjectType";
 import { useMutation, useQueryClient } from "react-query";
-import projectApi from "../../../../../libs/projectApi";
+import projectApi from "../../../../../../libs/projectApi";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../../stores/store";
+import { RootState } from "../../../../../../stores/store";
 import { toast } from "react-toastify";
-import { QUERY_KEY } from "../../../../../types/GenericType";
-import ConfirmDelete from "../../../../../components/Modal/ConfirmDelete";
+import { ErrorCustom, QUERY_KEY } from "../../../../../../types/GenericType";
+import ConfirmDelete from "../../../../../../components/Modal/ConfirmDelete";
+import { MembersPermission } from "../../../../../../types/Permission";
 
 type MemberItemProps = {
   member: FullMember;
   roles: RoleProject[];
+  memberPermission: MembersPermission;
 };
 
-const MemberItem = ({ member, roles }: MemberItemProps) => {
+const MemberItem = ({ member, roles, memberPermission }: MemberItemProps) => {
   const queryClient = useQueryClient();
   const projectId = useSelector((state: RootState) => state.modal.projectId);
   const [selectedRole, setSelectedRole] = useState<string>(member.roleId);
@@ -45,23 +47,29 @@ const MemberItem = ({ member, roles }: MemberItemProps) => {
       roleId: string;
     }) =>
       await projectApi.changeRoleMember(projectId as string, memberId, roleId),
-    onSuccess(data: MemberSetting) {
-      const newRole = data.members.find(
+    onSuccess(data: AllMemberAndPermission) {
+      const newRole = data.allMemberProject.members.find(
         (member2) => member2.userId === member.userId
       );
       setSelectedRole(newRole?.roleId as string);
       queryClient.setQueryData([QUERY_KEY.MEMBERS_SETTING, projectId], data);
       toast.success("Change role success");
     },
+    onError(error: ErrorCustom) {
+      toast.error(error.description);
+    },
   });
 
   const removeMemberMutation = useMutation({
     mutationFn: async ({ memberId }: { memberId: string }) =>
       await projectApi.removeMember(projectId as string, memberId),
-    onSuccess(data: MemberSetting) {
+    onSuccess(data: AllMemberAndPermission) {
       setOpen(false);
       queryClient.setQueryData([QUERY_KEY.MEMBERS_SETTING, projectId], data);
       toast.success("Remove member success");
+    },
+    onError(error: ErrorCustom) {
+      toast.error(error.description);
     },
   });
 
@@ -89,7 +97,13 @@ const MemberItem = ({ member, roles }: MemberItemProps) => {
 
       <div className="items-center">
         <button
-          className="flex justify-center items-center rounded-md bg-white p-2 border-2 "
+          className={`flex justify-center items-center rounded-md p-2
+          ${
+            !memberPermission.addRole
+              ? "bg-main text-gray-300"
+              : "bg-white border-2"
+          } `}
+          disabled={!memberPermission.addRole}
           onClick={(e) => handleOpenAnchorEl(e.currentTarget)}
         >
           {mutation.isLoading ? (
@@ -115,7 +129,10 @@ const MemberItem = ({ member, roles }: MemberItemProps) => {
         </Menu>
       </div>
       <div>
-        <IconButton onClick={() => setOpen(true)} disabled={!true}>
+        <IconButton
+          onClick={() => setOpen(true)}
+          disabled={!memberPermission.remove}
+        >
           <DeleteForeverIcon />
         </IconButton>
       </div>

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { MyTasks, Project } from "../../../types/MyTasksType";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ListAccordion from "../ListAccordionItem/ListAccordion";
+import ProjectAlertItem from "../../Labels/ProjectAlertItem";
+import ClassNameItem from "../../Labels/ClassNameItem";
 
 type ListAccordionProjectsProps = {
   projectInfo: Project;
@@ -24,17 +26,33 @@ const ListAccordionProjects = ({
         onClick={handleToggle}
         className="flex w-full justify-between items-center p-4"
       >
-        <div className="flex gap-4 items-center">
+        <div className=" grid grid-cols-12 items-center w-full">
           <h1
             style={{ backgroundColor: projectInfo.projectProfile.avatarColor }}
-            className="text-3xl font-bold bg-primary p-4 rounded-md  w-16 h-16 flex justify-center text-white"
+            className=" col-span-1 text-3xl font-bold bg-primary p-4 rounded-md  w-16 h-16 flex justify-center text-white"
           >
             {projectInfo.projectProfile.projectName.charAt(0)}
           </h1>
-          <h1 className="text-3xl font-bold text-dark">
+
+          <h1 className=" col-span-2 text-start text-3xl font-bold text-dark">
             {projectInfo.projectProfile.projectName}
           </h1>
+
+          <div className="col-span-9">
+            <div className="grid grid-cols-12 gap-4">
+              <div className="col-span-2">
+                <ClassNameItem className={projectInfo.className} />
+              </div>
+              <div className="col-span-3">
+                <ProjectAlertItem
+                  projectEndDate={projectInfo.projectEndDate}
+                  isArchive={false}
+                />
+              </div>
+            </div>
+          </div>
         </div>
+
         <ExpandMoreIcon className={isToggle ? "rotate-0" : "-rotate-90"} />
       </button>
 
@@ -45,9 +63,6 @@ const ListAccordionProjects = ({
       >
         <div className="px-8 pb-8">
           {projectInfo.process.map((process, index) => {
-            console.log(process.processId);
-            console.log(projectInfo.projectId);
-
             return (
               <ListAccordion
                 key={index}

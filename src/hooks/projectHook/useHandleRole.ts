@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import projectApi from "../../libs/projectApi";
 import { RootState } from "../../stores/store";
 import { QUERY_KEY, ErrorCustom } from "../../types/GenericType";
-import { Role } from "../../types/Permission";
+import { RoleAndRolePermission } from "../../types/Permission";
 
 const useHandleRole = () => {
   const queryClient = useQueryClient();
@@ -33,7 +33,7 @@ const useHandleRole = () => {
       projectApi.updateRoleName(projectId as string, roleId, {
         newRole: editRole,
       }),
-    onSuccess(data: Role[]) {
+    onSuccess(data: RoleAndRolePermission) {
       queryClient.setQueryData(QUERY_KEY.PERMISSION_SETTING, data);
       setIsEdit(false);
       toast.success("Update Role success");
@@ -46,7 +46,7 @@ const useHandleRole = () => {
   const deleteRoleMutation = useMutation({
     mutationFn: (roleName: string) =>
       projectApi.deleteRole(projectId as string, roleName),
-    onSuccess(data: Role[]) {
+    onSuccess(data: RoleAndRolePermission) {
       queryClient.setQueryData(QUERY_KEY.PERMISSION_SETTING, data);
       setOpen(false);
       toast.success("Delete Role success");

@@ -2,6 +2,7 @@ import { DatePicker } from "@mui/x-date-pickers";
 import { Moment } from "moment";
 
 type DatePickerRowProps = {
+  isDisable: boolean;
   title: string;
   date: Moment | null;
   handleSetDate: (date: Moment | null) => void;
@@ -9,6 +10,7 @@ type DatePickerRowProps = {
 };
 
 const DatePickerRow = ({
+  isDisable,
   title,
   date,
   isClearabler,
@@ -24,6 +26,7 @@ const DatePickerRow = ({
           defaultValue={date}
           value={date}
           onChange={handleSetDate}
+          disabled={!isDisable}
           slotProps={{
             field: { clearable: isClearabler },
             textField: {

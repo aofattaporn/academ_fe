@@ -1,14 +1,17 @@
+import { requestNotificationPermission } from "../Firebase";
 import { ResponseCustom } from "../types/GenericType";
 import { UserType } from "../types/UserType";
 import axiosInstance from "./axiosInstance";
 
 const signInApi = async (tokenID: string): Promise<ResponseCustom<null>> => {
+  const fcmToekn = await requestNotificationPermission();
   const response = await axiosInstance.post(
     "api/v1/sign-in",
     {},
     {
       headers: {
         Authorization: `Bearer ${tokenID}`,
+        FCM_TOEKN: fcmToekn,
       },
     }
   );
@@ -32,9 +35,11 @@ const signInWithGoogle = async (
   form: UserType,
   token: string
 ): Promise<ResponseCustom<null>> => {
+  const fcmToekn = await requestNotificationPermission();
   const response = await axiosInstance.post("api/v1/sign-in/google", form, {
     headers: {
       Authorization: `Bearer ${token}`,
+      FCM_TOEKN: fcmToekn,
     },
   });
 

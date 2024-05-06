@@ -1,16 +1,20 @@
-import moment, { Moment } from "moment";
+import { Moment } from "moment";
 import { useState } from "react";
 import { useQueryClient, useMutation } from "react-query";
 import projectApi from "../../libs/projectApi";
 import { QUERY_KEY } from "../../types/GenericType";
 import { Views, ListProject } from "../../types/ProjectType";
+import moment from "moment";
 
 type useCreateProjectProps = {
   handleClose: () => void;
 };
 const useCreateProject = ({ handleClose }: useCreateProjectProps) => {
   const [projectName, setProjectName] = useState<string>("");
-  const [endDate, setEndDate] = useState<Moment | null | undefined>();
+  const [classtName, setClasstName] = useState<string>("");
+  const [endDate, setEndDate] = useState<string | Date | null>(null);
+  const [startDate, setStartDate] = useState<string | Date | null>(null);
+
   const [viewsSelected, setViewsSelected] = useState<Views[]>([]);
   const queryClient = useQueryClient();
 
@@ -18,12 +22,14 @@ const useCreateProject = ({ handleClose }: useCreateProjectProps) => {
     mutationFn: () =>
       projectApi.createProject({
         projectName: projectName,
-        projectEndDate: endDate ? endDate : moment(),
+        className: classtName,
+        projectStartDate: startDate ? moment(startDate).toISOString() : null,
+        projectEndDate: endDate ? moment(endDate).toISOString() : null,
         views: viewsSelected,
       }),
     onSuccess: (data) => {
       setProjectName("");
-      setEndDate(undefined);
+      setEndDate(null);
       setViewsSelected([]);
       handleClose();
 
@@ -54,16 +60,35 @@ const useCreateProject = ({ handleClose }: useCreateProjectProps) => {
   const handleSetProjectName = (projectName: string) => {
     setProjectName(projectName);
   };
-  const handleSetEndDate = (endDate: Moment | null) => setEndDate(endDate);
+
+  const handleSetClassName = (className: string) => {
+    setClasstName(className);
+  };
+
+  // const handleSetEndDate = (endDate: Moment | null) => setEndDate(endDate);
+
+  const handleSetEndDate = (endDate: Moment | null) => {
+    const projectDate = endDate ? endDate.toString() : "";
+    setEndDate(projectDate);
+  };
+
+  const handleSetStartDate = (startDate: Moment | null) => {
+    const projectDate = startDate ? startDate.toString() : "";
+    setStartDate(projectDate);
+  };
 
   return {
     mutation,
     projectName,
     endDate,
+    startDate,
     viewsSelected,
+    classtName,
     handleSetProjectName,
     handleSetEndDate,
     handleSetSelected,
+    handleSetClassName,
+    handleSetStartDate,
   };
 };
 

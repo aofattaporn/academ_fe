@@ -19,11 +19,12 @@ const MytaskPage = () => {
     <div className="w-full h-full bg-main">
       <div className="w-full h-12 bg-primary-light"></div>
       <div className="flex justify-start px-8 py-8">
-        <div className="flex flex-col items-center">
+        <div>
           <h1 className="font-bold text-4xl text-dark">My Tasks List</h1>
+          <h3 className="text-grey">Show your my tasks asignee</h3>
         </div>
       </div>
-      <div className="px-8">
+      <div className="px-8 pb-10">
         {isLoading
           ? Array.from({ length: COUNT_ITEMS_SKELETON }).map((_, index) => {
               return <ListAccordionProjectsLoading key={index} />;
@@ -38,13 +39,15 @@ const MytaskPage = () => {
           </Alert>
         ) : null}
         {isSuccess && data && data.projects
-          ? data.projects.map((project, index) => (
-              <ListAccordionProjects
-                key={index}
-                projectInfo={project}
-                myTasksData={data.tasks}
-              />
-            ))
+          ? data.projects
+              .filter((item) => !item.isArchive)
+              .map((project, index) => (
+                <ListAccordionProjects
+                  key={index}
+                  projectInfo={project}
+                  myTasksData={data.tasks}
+                />
+              ))
           : null}
       </div>
     </div>

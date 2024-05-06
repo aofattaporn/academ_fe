@@ -1,5 +1,9 @@
 import { Moment } from "moment";
-import { TaskPermission } from "./Permission";
+import {
+  MembersPermission,
+  ProjectPermission,
+  TaskPermission,
+} from "./Permission";
 
 // ------------- composition-type  -----------------------
 // -------------------------------------------------------
@@ -7,6 +11,7 @@ import { TaskPermission } from "./Permission";
 export const COUNT_ITEMS_SKELETON: number = 3;
 export const BTN_CREATE_PROJECT: string = "Create Project";
 export const PLACHOLDER_INPUT_PROJECT: string = "Enter your project name";
+export const PLACHOLDER_INPUT_CLASS: string = "Enter your class name";
 
 export const PROJECT_SETTING = {
   PROJECR_DETAILS: "Project Details",
@@ -41,7 +46,8 @@ export enum Size {
 export interface ListProject {
   projectId: string;
   projectProfile: ProjectProfile;
-  membersCounts: number;
+  members: Member[];
+  isArchive: boolean;
   projectEndDate: Date;
 }
 
@@ -50,7 +56,9 @@ export interface ListProject {
 
 export interface CreateProject {
   projectName: string;
-  projectEndDate: Moment | null;
+  className: string;
+  projectStartDate: Date | string | null;
+  projectEndDate: Date | string | null;
   views: string[];
 }
 
@@ -60,23 +68,39 @@ export interface CreateProject {
 export interface Project {
   projectInfo: ProjectInfo;
   taskPermission: TaskPermission;
+  projectPermission: ProjectPermission;
 }
 
 export interface ProjectInfo {
   projectId: string;
   projectProfile: ProjectProfile;
+  className: string;
   views: string[];
   process: Process[];
   members: FullMember[];
+  isArchive: boolean;
+  projectEndDate: string | Date | null;
+}
+
+// -------------------- project-details type ---------------------
+// -------------------------------------------------------
+
+export interface ProjectDetailsPermission {
+  projectDetails: ProjectDetails;
+  projectPermission: ProjectPermission;
 }
 
 export interface ProjectDetails {
   projectId: string;
+  className: string;
   projectProfile: ProjectProfile;
   views: string[];
-  startDate?: string | Moment | null;
-  dueDate?: string | Moment | null;
+  projectStartDate: string | Date | null;
+  projectEndDate: string | Date | null;
 }
+
+// --------------- project infomations type ---------------------
+// -------------------------------------------------------
 
 export interface ProjectProfile {
   projectName: string;
@@ -107,10 +131,18 @@ export interface RoleProject {
   roleName: string;
 }
 
+// --------------- project members type ---------------------
+// -------------------------------------------------------
+
 export interface MemberSetting {
   invites: Invite[];
   members: FullMember[];
   roles: RoleProject[];
+}
+
+export interface AllMemberAndPermission {
+  allMemberProject: MemberSetting;
+  membersPermission: MembersPermission;
 }
 
 export interface Invite {

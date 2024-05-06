@@ -2,12 +2,10 @@ import { useState } from "react";
 import {
   NAVIGATOR,
   PAGE_ITEM,
-  PAGE_ITEM_CLASS,
   PAGE_ITEM_PROJECT,
 } from "../../../types/GenericType";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { Divider } from "@mui/material";
-import SchoolIcon from "@mui/icons-material/School";
 import FolderIcon from "@mui/icons-material/Folder";
 import NavigateItem from "./NavigateItem/NavigateItem";
 import AcademTitle from "./AcademTitle/AcademTitle";
