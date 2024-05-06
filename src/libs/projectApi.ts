@@ -432,6 +432,30 @@ const updateProcess = async (
   }
 };
 
+const createProcess = async (
+  projectId: string,
+  process: Process
+): Promise<Project> => {
+  try {
+    const token = await firebaseApi.getToken();
+    const response = await axiosInstance.post(
+      `/api/v1/projects/${projectId}/process`,
+      process,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data.data;
+  } catch (error) {
+    const errorCustom = error as ErrorCustom;
+    console.error("Error cant to update permission :", errorCustom.description);
+    throw errorCustom;
+  }
+};
+
 const deleteProcess = async (
   projectId: string,
   processId: string
@@ -477,6 +501,7 @@ const projectApi = {
   archiveProjectById,
   updateProcess,
   deleteProcess,
+  createProcess,
 };
 
 export default projectApi;

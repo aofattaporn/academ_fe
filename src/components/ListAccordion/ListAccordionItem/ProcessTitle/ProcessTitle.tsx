@@ -72,8 +72,7 @@ const ProcessTitle = ({
   const deleteProcess = useMutation({
     mutationFn: () => projectApi.deleteProcess(projectId as string, processId),
     onSuccess: (data: Project) => {
-      queryClient.setQueryData([QUERY_KEY.PROJECR, projectId], data);
-      toast.success("Delete process success");
+      window.location.reload();
     },
     onError: () => {
       toast.error("Failed to update project details");
