@@ -47,6 +47,7 @@ export interface ListProject {
   projectId: string;
   projectProfile: ProjectProfile;
   members: Member[];
+  className: string;
   isArchive: boolean;
   projectEndDate: Date;
 }

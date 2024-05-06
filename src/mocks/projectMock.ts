@@ -101,6 +101,7 @@ const createProjectSuccess = http.post(
         },
         isArchive: false,
         members: mockedMembers,
+        className: "mock class",
         projectEndDate: new Date(),
       },
     };
@@ -134,6 +135,7 @@ const getAllProjectSuccess = http.get("/api/v1/projects/users/id", async () => {
         members: mockedMembers,
         projectEndDate: new Date(),
         isArchive: false,
+        className: "mock class",
       },
       {
         projectId: "2",
@@ -144,6 +146,7 @@ const getAllProjectSuccess = http.get("/api/v1/projects/users/id", async () => {
         members: mockedMembers,
         projectEndDate: new Date(),
         isArchive: false,
+        className: "mock class",
       },
       {
         projectId: "3",
@@ -154,6 +157,7 @@ const getAllProjectSuccess = http.get("/api/v1/projects/users/id", async () => {
         isArchive: false,
         members: mockedMembers,
         projectEndDate: new Date(),
+        className: "mock class",
       },
     ],
   };
