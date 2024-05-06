@@ -43,6 +43,7 @@ const ConfirmDelete = ({
             ) : (
               <Button
                 variant="contained"
+                onClick={(e) => e.stopPropagation()}
                 onMouseDown={(e) => {
                   e.stopPropagation();
                   handleDelete();
@@ -54,6 +55,7 @@ const ConfirmDelete = ({
             )}
 
             <Button
+              onClick={(e) => e.stopPropagation()}
               onMouseDown={(e) => {
                 e.stopPropagation();
                 handleClose();

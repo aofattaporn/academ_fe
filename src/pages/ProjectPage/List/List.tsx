@@ -52,6 +52,10 @@ const List = () => {
           : Array.from({ length: COUNT_ITEMS_SKELETON }).map((_, index) => {
               return <ListAccordionLoading key={index} />;
             })}
+        // TODO : Aadd New Process
+        {process && allTaksIsSuccesss && tempTasks && taskPermission ? (
+          <div></div>
+        ) : null}
       </DndContext>
     </div>
   );

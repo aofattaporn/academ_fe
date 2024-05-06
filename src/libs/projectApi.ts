@@ -5,6 +5,7 @@ import {
   CreateProject,
   Invite,
   ListProject,
+  Process,
   Project,
   ProjectDetails,
   ProjectDetailsPermission,
@@ -404,6 +405,56 @@ const archiveProjectById = async (
   }
 };
 
+// process
+
+const updateProcess = async (
+  projectId: string,
+  processId: string,
+  process: Process
+): Promise<Project> => {
+  try {
+    const token = await firebaseApi.getToken();
+    const response = await axiosInstance.put(
+      `/api/v1/projects/${projectId}/process/${processId}`,
+      process,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data.data;
+  } catch (error) {
+    const errorCustom = error as ErrorCustom;
+    console.error("Error cant to update permission :", errorCustom.description);
+    throw errorCustom;
+  }
+};
+
+const deleteProcess = async (
+  projectId: string,
+  processId: string
+): Promise<Project> => {
+  try {
+    const token = await firebaseApi.getToken();
+    const response = await axiosInstance.delete(
+      `/api/v1/projects/${projectId}/process/${processId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data.data;
+  } catch (error) {
+    const errorCustom = error as ErrorCustom;
+    console.error("Error cant to update permission :", errorCustom.description);
+    throw errorCustom;
+  }
+};
+
 const projectApi = {
   createProject,
   getAllProject,
@@ -424,6 +475,8 @@ const projectApi = {
   deleteProjectById,
   getAllProjectHomePage,
   archiveProjectById,
+  updateProcess,
+  deleteProcess,
 };
 
 export default projectApi;
