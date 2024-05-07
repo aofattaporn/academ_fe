@@ -10,7 +10,6 @@ import { Process } from "../../../types/ProjectType";
 import { Tasks } from "../../../types/MyTasksType";
 import useTasksHandle from "../../../hooks/tasksHook/useTasksHandler";
 import { TaskPermission } from "../../../types/Permission";
-import { useState } from "react";
 
 type ListAccordionProps = {
   taskPermission: TaskPermission;

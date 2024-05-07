@@ -4,9 +4,11 @@ import TasksButton from "../../../components/Button/TasksButton";
 import ColorSelection from "../../../components/Field/ColorSelection";
 import { BTN_TASKS_CANCEL, BTN_TASKS_SAVE } from "../../../types/MyTasksType";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 import projectApi from "../../../libs/projectApi";
+import { Project } from "../../../types/ProjectType";
+import { QUERY_KEY } from "../../../types/GenericType";
 
 const ListCreateProcess = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -16,6 +18,8 @@ const ListCreateProcess = () => {
 
   const [tempColor, setTempColor] = useState<string>("#BDBDBD");
   const [tempProcess, setTempProcess] = useState<string>("");
+
+  const queryClient = useQueryClient();
 
   const handleButtonClick = () => {
     setIsCreating(true);
@@ -33,8 +37,11 @@ const ListCreateProcess = () => {
         processName: tempProcess,
         processColor: tempColor,
       }),
-    onSuccess: () => {
-      window.location.reload();
+    onSuccess: (data: Project) => {
+      setTempColor("#BDBDBD");
+      setTempProcess("");
+      setIsCreating(false);
+      queryClient.setQueryData([QUERY_KEY.PROJECR, projectId], data);
     },
     onError: () => {
       toast.error("Failed to update project details");

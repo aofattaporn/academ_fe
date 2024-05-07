@@ -10,7 +10,7 @@ import {
 import TasksButton from "../../../Button/TasksButton";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
-import { QueryClient, useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 import projectApi from "../../../../libs/projectApi";
 import { QUERY_KEY } from "../../../../types/GenericType";
@@ -38,15 +38,12 @@ const ProcessTitle = ({
 }: ProcessTitleProps) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
 
-  const [originalColor, setOriginalColor] = useState<string>(processColor);
-  const [originalProcess, setOriginalProcess] = useState<string>(processName);
-
   const [tempColor, setTempColor] = useState<string>(processColor);
   const [tempProcess, setTempProcess] = useState<string>(processName);
   const inputRef = useRef<HTMLInputElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const { projectId } = useParams<string>();
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
   const [isConfirmDelete, setConfirmDelete] = useState<boolean>(false);
 
   const updateProcess = useMutation({
@@ -59,8 +56,6 @@ const ProcessTitle = ({
     onSuccess: (data: Project) => {
       setIsEdit(false);
       setAnchorElUser(null);
-      setOriginalProcess(tempProcess);
-      setOriginalColor(tempColor);
       queryClient.setQueryData([QUERY_KEY.PROJECR, projectId], data);
       toast.success("Update process success");
     },
@@ -72,10 +67,12 @@ const ProcessTitle = ({
   const deleteProcess = useMutation({
     mutationFn: () => projectApi.deleteProcess(projectId as string, processId),
     onSuccess: (data: Project) => {
-      window.location.reload();
+      setConfirmDelete(false);
+      queryClient.setQueryData([QUERY_KEY.PROJECR, projectId], data);
+      toast.success("Success to delete process");
     },
     onError: () => {
-      toast.error("Failed to update project details");
+      toast.error("Failed to delete process");
     },
   });
 
@@ -150,7 +147,7 @@ const ProcessTitle = ({
   return (
     <button className="flex gap-4 w-full group/process" onClick={handleToggle}>
       <div
-        style={{ background: originalColor }}
+        style={{ background: processColor }}
         className={`w-4 h-4 flex justify-center items-center  p-4 rounded-md text-white
         ${isToggle && anchorElUser === null ? "rotate-180" : "rotate-90"} `}
       >
@@ -158,11 +155,11 @@ const ProcessTitle = ({
       </div>
       <div className="flex items-center w-full gap-8">
         <div
-          style={{ background: originalColor }}
+          style={{ background: processColor }}
           className="h-4 w-2 py-4 rounded-sm"
         ></div>
 
-        <p className="text-xl font-bold">{originalProcess}</p>
+        <p className="text-xl font-bold">{processName}</p>
         <div className=" group-hover/process:visible invisible">
           <IconButton
             onClick={(e) => {

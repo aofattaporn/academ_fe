@@ -53,7 +53,8 @@ const List = () => {
           : Array.from({ length: COUNT_ITEMS_SKELETON }).map((_, index) => {
               return <ListAccordionLoading key={index} />;
             })}
-        <ListCreateProcess />
+
+        {taskPermission && taskPermission.edit ? <ListCreateProcess /> : null}
 
         {process && allTaksIsSuccesss && tempTasks && taskPermission ? (
           <div></div>

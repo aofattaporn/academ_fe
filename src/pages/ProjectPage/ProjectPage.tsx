@@ -34,7 +34,7 @@ const ProjectPage = () => {
         {process && projectData ? (
           <Outlet
             context={{
-              taskPermission: projectData,
+              taskPermission: projectData.taskPermission,
               process: process,
             }}
           />
