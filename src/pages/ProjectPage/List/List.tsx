@@ -6,6 +6,7 @@ import ListAccordion from "../../../components/ListAccordion/ListAccordionItem/L
 import ListAccordionLoading from "../../../components/ListAccordion/ListAccordionLoading/ListAccordionLoading";
 
 import { Alert, Button } from "@mui/material";
+import ListCreateProcess from "./ListCreateProcess";
 
 const List = () => {
   const { process, taskPermission } = useProjectPermission();
@@ -52,6 +53,8 @@ const List = () => {
           : Array.from({ length: COUNT_ITEMS_SKELETON }).map((_, index) => {
               return <ListAccordionLoading key={index} />;
             })}
+
+        {taskPermission && taskPermission.edit ? <ListCreateProcess /> : null}
       </DndContext>
     </div>
   );

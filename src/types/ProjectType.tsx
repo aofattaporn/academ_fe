@@ -67,6 +67,7 @@ export interface CreateProject {
 // -------------------------------------------------------
 
 export interface Project {
+  navigateView: string;
   projectInfo: ProjectInfo;
   taskPermission: TaskPermission;
   projectPermission: ProjectPermission;

@@ -40,8 +40,12 @@ const ListAccordion = ({
       <ProcessTitle
         handleToggle={handleToggle}
         isToggle={isToggle}
+        processId={process.processId}
         processColor={process.processColor}
         processName={process.processName}
+        tasksLength={
+          tasks.filter((task) => task.processId === process.processId).length
+        }
       />
 
       <div

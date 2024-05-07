@@ -6,6 +6,7 @@ import { COUNT_ITEMS_SKELETON } from "../../../types/ProjectType";
 import { useProjectPermission } from "../ProjectPage";
 import BoardTile from "./BoardTile/BoardTile";
 import { Tasks } from "../../../types/MyTasksType";
+import BoardCreateProcess from "./BoradCreateProcess/BoardCreateProcess";
 
 const Board = () => {
   const { process, taskPermission } = useProjectPermission();
@@ -39,30 +40,36 @@ const Board = () => {
           </Button>
         </Alert>
       ) : null}
-      <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-        <div className="flex gap-12">
-          {process &&
-          allTaksIsSuccesss &&
-          tempTasks &&
-          taskPermission &&
-          allTaksData
-            ? process.map((item, index) => {
-                return (
-                  <BoardTile
-                    key={index}
-                    process={item}
-                    tasks={allTaksData}
-                    taskPermission={taskPermission}
-                    activeId={activeId}
-                    maxTasks={findMaxTasks(allTaksData as Tasks[])}
-                  />
-                );
-              })
-            : Array.from({ length: COUNT_ITEMS_SKELETON }).map((_, index) => {
-                return <ListAccordionLoading key={index} />;
-              })}
-        </div>
-      </DndContext>
+      <div className="overflow-x-scroll min-w-96 ">
+        <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+          <div className="flex gap-12">
+            {process &&
+            allTaksIsSuccesss &&
+            tempTasks &&
+            taskPermission &&
+            allTaksData
+              ? process.map((item, index) => {
+                  return (
+                    <BoardTile
+                      key={index}
+                      process={item}
+                      tasks={allTaksData}
+                      taskPermission={taskPermission}
+                      activeId={activeId}
+                      maxTasks={findMaxTasks(allTaksData as Tasks[])}
+                    />
+                  );
+                })
+              : Array.from({ length: COUNT_ITEMS_SKELETON }).map((_, index) => {
+                  return <ListAccordionLoading key={index} />;
+                })}
+
+            {taskPermission && taskPermission.edit ? (
+              <BoardCreateProcess />
+            ) : null}
+          </div>
+        </DndContext>
+      </div>
     </div>
   );
 };

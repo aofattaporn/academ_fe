@@ -172,12 +172,14 @@ const getProjectSuccess = http.get("/api/v1/projects/:projectId", async () => {
     message: RESPONSE_OK,
     description: "Success",
     data: {
+      navigateView: "List",
       projectInfo: {
         projectId: "123",
         projectProfile: {
           projectName: "Sample Project",
           avatarColor: "#AF8AE2",
         },
+
         isArchive: false,
         className: "ClassA",
         views: [Views.LIST, Views.BOARD, Views.TIMELINE, Views.CALENDAR],

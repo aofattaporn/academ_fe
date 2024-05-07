@@ -5,6 +5,7 @@ import {
   CreateProject,
   Invite,
   ListProject,
+  Process,
   Project,
   ProjectDetails,
   ProjectDetailsPermission,
@@ -30,14 +31,12 @@ const createProject = async (data: CreateProject): Promise<ListProject> => {
 const getAllProjectHomePage = async (): Promise<ListProject[]> => {
   try {
     const token = await firebaseApi.getToken();
-    console.log(token);
 
     const response = await axiosInstance.get("/api/v1/projects/homepage", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(token);
     return response.data.data;
   } catch (error) {
     console.error("Error fetching projects:", error);
@@ -53,7 +52,6 @@ const getAllProject = async (): Promise<ListProject[]> => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(token);
     return response.data.data;
   } catch (error) {
     console.error("Error fetching projects:", error);
@@ -404,6 +402,83 @@ const archiveProjectById = async (
   }
 };
 
+// process
+
+const updateProcess = async (
+  projectId: string,
+  processId: string,
+  process: Process,
+  viewName: string
+): Promise<Project> => {
+  try {
+    const token = await firebaseApi.getToken();
+    const response = await axiosInstance.put(
+      `/api/v1/projects/${projectId}/process/${processId}/views/${viewName}`,
+      process,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data.data;
+  } catch (error) {
+    const errorCustom = error as ErrorCustom;
+    console.error("Error cant to update permission :", errorCustom.description);
+    throw errorCustom;
+  }
+};
+
+const createProcess = async (
+  projectId: string,
+  process: Process,
+  viewName: string
+): Promise<Project> => {
+  try {
+    const token = await firebaseApi.getToken();
+    const response = await axiosInstance.post(
+      `/api/v1/projects/${projectId}/process/views/${viewName}`,
+      process,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data.data;
+  } catch (error) {
+    const errorCustom = error as ErrorCustom;
+    console.error("Error cant to update permission :", errorCustom.description);
+    throw errorCustom;
+  }
+};
+
+const deleteProcess = async (
+  projectId: string,
+  processId: string,
+  viewName: string
+): Promise<Project> => {
+  try {
+    const token = await firebaseApi.getToken();
+    const response = await axiosInstance.delete(
+      `/api/v1/projects/${projectId}/process/${processId}/views/${viewName}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data.data;
+  } catch (error) {
+    const errorCustom = error as ErrorCustom;
+    console.error("Error cant to update permission :", errorCustom.description);
+    throw errorCustom;
+  }
+};
+
 const projectApi = {
   createProject,
   getAllProject,
@@ -424,6 +499,9 @@ const projectApi = {
   deleteProjectById,
   getAllProjectHomePage,
   archiveProjectById,
+  updateProcess,
+  deleteProcess,
+  createProcess,
 };
 
 export default projectApi;

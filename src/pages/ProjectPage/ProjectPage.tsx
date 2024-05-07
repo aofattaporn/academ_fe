@@ -14,7 +14,8 @@ type ContextType = {
 };
 
 const ProjectPage = () => {
-  const { projectIsLoading, projectIsSuccess, projectData } = useProject();
+  const { projectIsLoading, projectIsSuccess, projectData, process } =
+    useProject();
   const tasksDetails = useSelector((state: RootState) => state.tasksDetails);
 
   return (
@@ -30,12 +31,14 @@ const ProjectPage = () => {
             <ProjectInfo projectData={projectData} />
           ) : null}
         </div>
-        <Outlet
-          context={{
-            taskPermission: projectData?.taskPermission,
-            process: projectData?.projectInfo.process,
-          }}
-        />
+        {process && projectData ? (
+          <Outlet
+            context={{
+              taskPermission: projectData.taskPermission,
+              process: process,
+            }}
+          />
+        ) : null}
       </div>
 
       {projectData && projectData.taskPermission ? (
