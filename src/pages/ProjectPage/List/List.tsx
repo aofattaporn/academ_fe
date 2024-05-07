@@ -55,10 +55,6 @@ const List = () => {
             })}
 
         {taskPermission && taskPermission.edit ? <ListCreateProcess /> : null}
-
-        {process && allTaksIsSuccesss && tempTasks && taskPermission ? (
-          <div></div>
-        ) : null}
       </DndContext>
     </div>
   );

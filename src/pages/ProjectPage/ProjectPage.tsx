@@ -1,4 +1,4 @@
-import { Outlet, useOutletContext } from "react-router-dom";
+import { Outlet, useNavigate, useOutletContext } from "react-router-dom";
 import useProject from "../../hooks/projectHook/useProject";
 import ProjectInfo from "./ProjectInfo/ProjectInfo";
 import ProjectInfoLoading from "./ProjectInfo/ProjectInfoLoading";

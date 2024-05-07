@@ -3,7 +3,7 @@ import projectApi from "../../libs/projectApi";
 import { QUERY_KEY } from "../../types/GenericType";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
-import { Process } from "../../types/ProjectType";
+import { Process, Project } from "../../types/ProjectType";
 
 const useProject = () => {
   const { projectId } = useParams<string>();
@@ -21,8 +21,9 @@ const useProject = () => {
     () => projectApi.getProject(projectId as string),
     {
       refetchOnWindowFocus: false,
-      onSuccess(data) {
-        if (data) navigate(data?.projectInfo.views[0]);
+      onSuccess(data: Project) {
+        navigate(data.projectInfo.views[0]);
+        // navigate(data.navigateView);
         setProcess(data.projectInfo.process);
       },
     }

@@ -7,6 +7,7 @@ import BoardItem from "../BoardItem/BoardItem";
 import CreateBoardItem from "../CreateBoardItem/CreateBoardItem";
 import useTasksHandle from "../../../../hooks/tasksHook/useTasksHandler";
 import { TaskPermission } from "../../../../types/Permission";
+import BoardHeader from "../BoardHeader/BoardHeader";
 
 type BoardTileProps = {
   process: Process;
@@ -27,14 +28,15 @@ const BoardTile = ({
     useTasksHandle();
 
   return (
-    <div className="w-80 font-roboto text-dark group/create">
-      <div className="my-4 shadow-3xl rounded-md bg-main flex items-center gap-4">
-        <div
-          style={{ background: process.processColor }}
-          className="w-4 h-12"
-        ></div>
-        <p>{process.processName}</p>
-      </div>
+    <div className="w-80 min-w-80 px-1 font-roboto text-dark group/create">
+      <BoardHeader
+        processColor={process.processColor}
+        processName={process.processName}
+        processId={process.processId}
+        tasksLength={
+          tasks.filter((item) => item.processId === process.processId).length
+        }
+      />
 
       <div
         style={{ height: maxTasks * 150 }}
