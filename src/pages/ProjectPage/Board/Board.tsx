@@ -6,8 +6,6 @@ import { COUNT_ITEMS_SKELETON } from "../../../types/ProjectType";
 import { useProjectPermission } from "../ProjectPage";
 import BoardTile from "./BoardTile/BoardTile";
 import { Tasks } from "../../../types/MyTasksType";
-import CreateTasksItem from "../../../components/ListAccordion/ListAccordionItem/CreateTasksItem/CreateTasksItem";
-import ListCreateProcess from "../List/ListCreateProcess";
 import BoardCreateProcess from "./BoradCreateProcess/BoardCreateProcess";
 
 const Board = () => {
