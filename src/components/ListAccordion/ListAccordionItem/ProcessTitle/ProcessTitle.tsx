@@ -48,11 +48,16 @@ const ProcessTitle = ({
 
   const updateProcess = useMutation({
     mutationFn: () =>
-      projectApi.updateProcess(projectId as string, processId, {
-        processId: processId,
-        processName: tempProcess,
-        processColor: tempColor,
-      }),
+      projectApi.updateProcess(
+        projectId as string,
+        processId,
+        {
+          processId: processId,
+          processName: tempProcess,
+          processColor: tempColor,
+        },
+        "List"
+      ),
     onSuccess: (data: Project) => {
       setIsEdit(false);
       setAnchorElUser(null);
@@ -65,7 +70,8 @@ const ProcessTitle = ({
   });
 
   const deleteProcess = useMutation({
-    mutationFn: () => projectApi.deleteProcess(projectId as string, processId),
+    mutationFn: () =>
+      projectApi.deleteProcess(projectId as string, processId, "List"),
     onSuccess: (data: Project) => {
       setConfirmDelete(false);
       queryClient.setQueryData([QUERY_KEY.PROJECR, projectId], data);

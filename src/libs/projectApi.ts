@@ -407,12 +407,13 @@ const archiveProjectById = async (
 const updateProcess = async (
   projectId: string,
   processId: string,
-  process: Process
+  process: Process,
+  viewName: string
 ): Promise<Project> => {
   try {
     const token = await firebaseApi.getToken();
     const response = await axiosInstance.put(
-      `/api/v1/projects/${projectId}/process/${processId}`,
+      `/api/v1/projects/${projectId}/process/${processId}/views/${viewName}`,
       process,
       {
         headers: {
@@ -431,12 +432,13 @@ const updateProcess = async (
 
 const createProcess = async (
   projectId: string,
-  process: Process
+  process: Process,
+  viewName: string
 ): Promise<Project> => {
   try {
     const token = await firebaseApi.getToken();
     const response = await axiosInstance.post(
-      `/api/v1/projects/${projectId}/process`,
+      `/api/v1/projects/${projectId}/process/views/${viewName}`,
       process,
       {
         headers: {
@@ -455,12 +457,13 @@ const createProcess = async (
 
 const deleteProcess = async (
   projectId: string,
-  processId: string
+  processId: string,
+  viewName: string
 ): Promise<Project> => {
   try {
     const token = await firebaseApi.getToken();
     const response = await axiosInstance.delete(
-      `/api/v1/projects/${projectId}/process/${processId}`,
+      `/api/v1/projects/${projectId}/process/${processId}/views/${viewName}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

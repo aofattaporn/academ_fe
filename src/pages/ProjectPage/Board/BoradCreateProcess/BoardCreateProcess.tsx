@@ -35,11 +35,15 @@ const BoardCreateProcess = () => {
 
   const updateProcess = useMutation({
     mutationFn: () =>
-      projectApi.createProcess(projectId as string, {
-        processId: "",
-        processName: tempProcess,
-        processColor: tempColor,
-      }),
+      projectApi.createProcess(
+        projectId as string,
+        {
+          processId: "",
+          processName: tempProcess,
+          processColor: tempColor,
+        },
+        "Board"
+      ),
     onSuccess: (data: Project) => {
       setTempColor("#BDBDBD");
       setTempProcess("");

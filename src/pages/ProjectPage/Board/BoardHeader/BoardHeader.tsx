@@ -44,11 +44,16 @@ const BoardHeader = ({
 
   const updateProcess = useMutation({
     mutationFn: () =>
-      projectApi.updateProcess(projectId as string, processId, {
-        processId: processId,
-        processName: tempProcess,
-        processColor: tempColor,
-      }),
+      projectApi.updateProcess(
+        projectId as string,
+        processId,
+        {
+          processId: processId,
+          processName: tempProcess,
+          processColor: tempColor,
+        },
+        "Board"
+      ),
     onSuccess: (data: Project) => {
       setIsEdit(false);
       setAnchorElUser(null);
@@ -62,7 +67,8 @@ const BoardHeader = ({
   });
 
   const deleteProcess = useMutation({
-    mutationFn: () => projectApi.deleteProcess(projectId as string, processId),
+    mutationFn: () =>
+      projectApi.deleteProcess(projectId as string, processId, "Board"),
     onSuccess: (data: Project) => {
       setConfirmDelete(false);
       queryClient.setQueryData([QUERY_KEY.PROJECR, projectId], data);
@@ -100,7 +106,7 @@ const BoardHeader = ({
             ref={inputRef}
             value={tempProcess}
             onChange={(e) => setTempProcess(e.target.value)}
-            className="flex justify-center bg-transparent bottom-0 text-xl font-bold
+            className="flex justify-center bg-transparent bottom-0 font-bold
               border-none focus:outline-none text-dark"
           />
         </div>
@@ -130,55 +136,57 @@ const BoardHeader = ({
   return (
     <div className="my-4 shadow-3xl rounded-md bg-main flex items-center gap-4 group/process">
       <div style={{ background: processColor }} className="w-4 h-12"></div>
-      <p>{processName}</p>
-      <div className=" group-hover/process:visible invisible">
-        <IconButton
-          onClick={(e) => {
-            e.stopPropagation();
-            setAnchorElUser(e.currentTarget);
-          }}
-        >
-          <MoreVertIcon fontSize="small" />
-        </IconButton>
-
-        <Menu
-          anchorEl={anchorElUser}
-          open={Boolean(anchorElUser)}
-          onClose={() => setAnchorElUser(null)}
-        >
-          <MenuItem
-            className="flex gap-4"
+      <div className="flex justify-between items-center w-full">
+        <p className=" font-bold">{processName}</p>
+        <div className=" group-hover/process:visible invisible">
+          <IconButton
             onClick={(e) => {
               e.stopPropagation();
-              handleButtonClick();
+              setAnchorElUser(e.currentTarget);
             }}
           >
-            <EditIcon />
-            <p>Rename </p>
-          </MenuItem>
-          <MenuItem
-            className="flex gap-4"
-            onClick={(e) => {
-              e.stopPropagation();
-              setConfirmDelete(true);
-            }}
+            <MoreVertIcon fontSize="small" />
+          </IconButton>
+
+          <Menu
+            anchorEl={anchorElUser}
+            open={Boolean(anchorElUser)}
+            onClose={() => setAnchorElUser(null)}
           >
-            <DeleteForeverIcon />
-            <p>Delete</p>
-          </MenuItem>
-        </Menu>
+            <MenuItem
+              className="flex gap-4"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleButtonClick();
+              }}
+            >
+              <EditIcon />
+              <p>Rename </p>
+            </MenuItem>
+            <MenuItem
+              className="flex gap-4"
+              onClick={(e) => {
+                e.stopPropagation();
+                setConfirmDelete(true);
+              }}
+            >
+              <DeleteForeverIcon />
+              <p>Delete</p>
+            </MenuItem>
+          </Menu>
 
-        {isConfirmDelete && tasksLength === 0 ? (
-          <ConfirmDelete
-            handleDelete={() => deleteProcess.mutate()}
-            handleClose={() => setConfirmDelete(false)}
-            isDeleting={deleteProcess.isLoading}
-          />
-        ) : null}
+          {isConfirmDelete && tasksLength === 0 ? (
+            <ConfirmDelete
+              handleDelete={() => deleteProcess.mutate()}
+              handleClose={() => setConfirmDelete(false)}
+              isDeleting={deleteProcess.isLoading}
+            />
+          ) : null}
 
-        {isConfirmDelete && tasksLength !== 0 ? (
-          <CantDeleteModal handleClose={() => setConfirmDelete(false)} />
-        ) : null}
+          {isConfirmDelete && tasksLength !== 0 ? (
+            <CantDeleteModal handleClose={() => setConfirmDelete(false)} />
+          ) : null}
+        </div>
       </div>
     </div>
   );

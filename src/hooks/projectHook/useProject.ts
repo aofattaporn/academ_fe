@@ -22,8 +22,8 @@ const useProject = () => {
     {
       refetchOnWindowFocus: false,
       onSuccess(data: Project) {
-        navigate(data.projectInfo.views[0]);
-        // navigate(data.navigateView);
+        navigate(data.navigateView);
+        navigate(data.navigateView);
         setProcess(data.projectInfo.process);
       },
     }
