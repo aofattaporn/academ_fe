@@ -2,10 +2,12 @@ const COLORS: string[] = [
   "#AF8AE2",
   "#6985FF",
   "#3FB1B2",
+  "#72C554",
   "#64C7A2",
+  "#F9E116",
   "#E68945",
   "#DD646A",
-  "#BDBDBD",
+  "#C2C2C2",
 ];
 
 type ColorSelectionProps = {
