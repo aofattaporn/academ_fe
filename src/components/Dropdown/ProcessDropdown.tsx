@@ -34,7 +34,7 @@ const ProcessDropdown = ({
           style={{
             backgroundColor: process?.processColor,
           }}
-          className="w-4 h-4 bg-black rounded-full"
+          className="w-4 min-h-4 h-4 min-w-4 bg-black rounded-full"
         ></div>
         <p>{process?.processName}</p>
       </button>
