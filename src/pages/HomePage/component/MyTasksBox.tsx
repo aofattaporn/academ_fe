@@ -23,6 +23,9 @@ const MytaskBox = () => {
   if (!data) {
     return <BoxNulldata title={"Tasks"} />;
   }
+  if (data.length == 0) {
+    return <BoxNulldata title={"Tasks"} />;
+  }
 
   return (
     <div className="p-4 bg-background-white shadow-3xl rounded-xl font-roboto h-full">

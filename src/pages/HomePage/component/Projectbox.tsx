@@ -26,6 +26,9 @@ const ProjectBox = () => {
   if (!data) {
     return <BoxNulldata title={"Project"} />;
   }
+  if (data.length == 0) {
+    return <BoxNulldata title={"Project"} />;
+  }
 
   return (
     <div className="p-4 bg-background-white shadow-3xl rounded-xl font-roboto h-full">
