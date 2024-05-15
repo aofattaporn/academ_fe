@@ -1,6 +1,4 @@
 if ("serviceWorker" in navigator) {
-  // Register a service worker hosted at the root of the
-  // site using the default scope.
   navigator.serviceWorker
     .register(`https://academ-fe.onrender.com/service-worker.js`)
     .then(

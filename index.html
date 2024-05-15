@@ -9,6 +9,25 @@
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Academ</title>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register(`https://academ-fe.onrender.com/service-worker.js`)
+          .then(
+            (registration) => {
+              console.log(
+                "Service worker registration succeeded:",
+                registration
+              );
+            },
+            /*catch*/ (error) => {
+              console.error(`Service worker registration failed: ${error}`);
+            }
+          );
+      } else {
+        console.error("Service workers are not supported.");
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
