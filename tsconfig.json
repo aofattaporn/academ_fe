@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "playground-2.mongodb.js"],
+  "include": ["src", "playground-2.mongodb.js", "service-worker.js"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
