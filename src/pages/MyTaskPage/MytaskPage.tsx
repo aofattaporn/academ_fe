@@ -21,7 +21,7 @@ const MytaskPage = () => {
       <div className="flex justify-start px-8 py-8">
         <div>
           <h1 className="font-bold text-4xl text-dark">My Tasks List</h1>
-          <h3 className="text-grey">Show your my tasks asignee</h3>
+          <h3 className="text-grey">Show your my tasks assignee</h3>
         </div>
       </div>
       <div className="px-8 pb-10">
@@ -38,6 +38,13 @@ const MytaskPage = () => {
             </Button>
           </Alert>
         ) : null}
+
+        {isSuccess && data && data.projects.length == 0 ? (
+          <div className="w-full h-96 flex items-center justify-center">
+            <p className="text-grey">You dont have any tasks yet.</p>
+          </div>
+        ) : null}
+
         {isSuccess && data && data.projects
           ? data.projects
               .filter((item) => !item.isArchive)

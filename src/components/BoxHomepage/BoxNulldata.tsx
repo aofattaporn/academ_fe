@@ -10,7 +10,7 @@ export const BoxNulldata = ({ title }: BoxNulldataProps) => {
       </div>
       <div className="h-4/5 bg-main rounded-xl grid place-content-center">
         <h2 className="text-grey font-normal text-xl">
-          There are no class at moment.
+          There are no nothing at moment.
         </h2>
       </div>
     </div>
