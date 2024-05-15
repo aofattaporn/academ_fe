@@ -32,6 +32,7 @@ export const requestNotificationPermission = async () => {
           "BIB7rdk1yUCifFxK7PdTOGKe37fcoM3_k3KeRtC_ZzOf6nWTbQPJ3mdubyLvKTs6FA6R4bL3pl7fYakXg_rv8H0",
       });
       console.log(token);
+      console.log("==================================");
 
       return token;
     } else if (permission === "denied") {
