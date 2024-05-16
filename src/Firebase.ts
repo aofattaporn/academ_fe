@@ -35,11 +35,11 @@ export const requestNotificationPermission = async () => {
       return token;
     } else if (permission === "denied") {
       console.log("Notification permission denied.");
-      return "";
+      return "ea_GlmGV0GyawwlSd1mp-m:APA91bFR1ZEQZcCWhlLZ5H9DmECnJ_Oz-grgmjzwgsA2dqdpPVN5jhUqwMtEHcmpeON2UdMY_4ruQ2Z3H_OFdvI_bMtKMBYFRY-QFiXSfGfpQc9Blze66VvfoArQDSf4IJooSQkG42jO";
     }
   } catch (error) {
     console.error("Error requesting notification permission:", error);
-    return "";
+    return "ea_GlmGV0GyawwlSd1mp-m:APA91bFR1ZEQZcCWhlLZ5H9DmECnJ_Oz-grgmjzwgsA2dqdpPVN5jhUqwMtEHcmpeON2UdMY_4ruQ2Z3H_OFdvI_bMtKMBYFRY-QFiXSfGfpQc9Blze66VvfoArQDSf4IJooSQkG42jO";
   }
 };
 
