@@ -16,8 +16,33 @@ import Board from "./pages/ProjectPage/Board/Board";
 import Calendar from "./pages/ProjectPage/Calendar/Calendar";
 import Timeline from "./pages/ProjectPage/Timeline/Timeline";
 import InvitePage from "./pages/InvitePage/InvitePage";
+import { getToken } from "firebase/messaging";
+import { messaging } from "./Firebase";
+import { useEffect } from "react";
 
 function App() {
+  async function requestPermission() {
+    //requesting permission using Notification API
+    const permission = await Notification.requestPermission();
+
+    if (permission === "granted") {
+      const token = await getToken(messaging, {
+        vapidKey:
+          "BIB7rdk1yUCifFxK7PdTOGKe37fcoM3_k3KeRtC_ZzOf6nWTbQPJ3mdubyLvKTs6FA6R4bL3pl7fYakXg_rv8H0",
+      });
+
+      //We can send token to server
+      console.log("Token generated : ", token);
+    } else if (permission === "denied") {
+      //notifications are blocked
+      alert("You denied for the notification");
+    }
+  }
+
+  useEffect(() => {
+    requestPermission();
+  }, []);
+
   return (
     <Routes>
       <Route element={<PublicRoute />}>

@@ -11,7 +11,7 @@ const TasksTile = ({ task }: TasksTileProps) => {
     <div
       className={`grid grid-cols-4 p-2 group-hover:bg-gray-100 w-full items-center`}
     >
-      <div className="text-center overflow-x-scroll">
+      <div className="text-center overflow-x-clip">
         <div>{task.tasksName}</div>
       </div>
 
