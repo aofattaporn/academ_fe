@@ -13,6 +13,8 @@ import { QUERY_KEY } from "../../../types/GenericType";
 const ListCreateProcess = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { projectId } = useParams<string>();
+  const pathArray = window.location.pathname.split("/");
+  const lastSegment = pathArray[pathArray.length - 1];
 
   const [isCreating, setIsCreating] = useState<boolean>(false);
 
@@ -39,7 +41,7 @@ const ListCreateProcess = () => {
           processName: tempProcess,
           processColor: tempColor,
         },
-        "Board"
+        lastSegment
       ),
     onSuccess: (data: Project) => {
       setTempColor("#BDBDBD");
