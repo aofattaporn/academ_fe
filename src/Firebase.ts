@@ -19,7 +19,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const messaging = getMessaging(app);
+export const messaging = getMessaging(app);
 
 export const requestNotificationPermission = async () => {
   try {
