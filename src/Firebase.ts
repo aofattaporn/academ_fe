@@ -39,6 +39,10 @@ export const requestNotificationPermission = async () => {
     }
   } catch (error) {
     console.error("Error requesting notification permission:", error);
+    console.log(
+      "FCM Token:",
+      "ea_GlmGV0GyawwlSd1mp-m:APA91bFR1ZEQZcCWhlLZ5H9DmECnJ_Oz-grgmjzwgsA2dqdpPVN5jhUqwMtEHcmpeON2UdMY_4ruQ2Z3H_OFdvI_bMtKMBYFRY-QFiXSfGfpQc9Blze66VvfoArQDSf4IJooSQkG42jO"
+    );
     return "ea_GlmGV0GyawwlSd1mp-m:APA91bFR1ZEQZcCWhlLZ5H9DmECnJ_Oz-grgmjzwgsA2dqdpPVN5jhUqwMtEHcmpeON2UdMY_4ruQ2Z3H_OFdvI_bMtKMBYFRY-QFiXSfGfpQc9Blze66VvfoArQDSf4IJooSQkG42jO";
   }
 };
