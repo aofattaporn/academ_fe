@@ -1,10 +1,10 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import {
-  MessagePayload,
   getMessaging,
   getToken,
   onMessage,
+  MessagePayload,
 } from "firebase/messaging";
 
 const firebaseConfig = {
@@ -19,28 +19,26 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-export const messaging = getMessaging(app);
+const messaging = getMessaging(app);
 
 export const requestNotificationPermission = async () => {
   try {
     const permission = await Notification.requestPermission();
     if (permission === "granted") {
-      console.log("permission === granted");
+      console.log("Notification permission granted.");
 
       const token = await getToken(messaging, {
         vapidKey:
           "BIB7rdk1yUCifFxK7PdTOGKe37fcoM3_k3KeRtC_ZzOf6nWTbQPJ3mdubyLvKTs6FA6R4bL3pl7fYakXg_rv8H0",
       });
-      console.log(token);
-      console.log("==================================");
-
+      console.log("FCM Token:", token);
       return token;
     } else if (permission === "denied") {
-      console.log("permission === denied");
+      console.log("Notification permission denied.");
       return "";
     }
   } catch (error) {
-    console.error("Error requesting permission:", error);
+    console.error("Error requesting notification permission:", error);
     return "";
   }
 };
@@ -48,6 +46,7 @@ export const requestNotificationPermission = async () => {
 export const onMessageListener = () =>
   new Promise((resolve) => {
     onMessage(messaging, (payload: MessagePayload) => {
+      console.log("Foreground message received:", payload);
       resolve(payload);
     });
   });
