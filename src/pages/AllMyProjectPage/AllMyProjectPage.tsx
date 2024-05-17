@@ -94,8 +94,9 @@ const AllMyProjectPage = () => {
 
             <h4 className="text-gray-300">{projectType.DESCRIPTION}</h4>
             <div className="flex flex-wrap my-8 gap-4  w-full  sm:justify-start duration-700">
-              {projectType.PROJECT_TYPE === "Published" && projectIsSuccess
-                ? projectData
+              {projectType.PROJECT_TYPE === "Published" && projectIsSuccess ? (
+                projectData && projectData.length > 0 ? (
+                  projectData
                     ?.filter((item) => item.isArchive === false)
                     .map((project, index) => {
                       return (
@@ -109,10 +110,18 @@ const AllMyProjectPage = () => {
                         />
                       );
                     })
-                : null}
+                ) : (
+                  <div className="h-full w-full flex items-center">
+                    <h2 className="text-grey font-normal text-xl">
+                      There are no nothing at moment.
+                    </h2>
+                  </div>
+                )
+              ) : null}
 
-              {projectType.PROJECT_TYPE === "Archive" && projectIsSuccess
-                ? projectData
+              {projectType.PROJECT_TYPE === "Archive" && projectIsSuccess ? (
+                projectData && projectData.length > 0 ? (
+                  projectData
                     ?.filter((item) => item.isArchive === true)
                     .map((project, index) => {
                       return (
@@ -126,7 +135,14 @@ const AllMyProjectPage = () => {
                         />
                       );
                     })
-                : null}
+                ) : (
+                  <div className="h-full w-full flex items-center">
+                    <h2 className="text-grey font-normal text-xl">
+                      There are no nothing at moment.
+                    </h2>
+                  </div>
+                )
+              ) : null}
 
               {projectIsLoading
                 ? Array.from({ length: COUNT_ITEMS_SKELETON }).map(

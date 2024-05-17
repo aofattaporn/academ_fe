@@ -39,14 +39,15 @@ const MytaskPage = () => {
           </Alert>
         ) : null}
 
-        {isSuccess && data && data.projects.length == 0 ? (
+        {isSuccess && data && data.projects.length === 0 ? (
           <div className="w-full h-96 flex items-center justify-center">
             <p className="text-grey">You dont have any tasks yet.</p>
           </div>
         ) : null}
 
-        {isSuccess && data && data.projects
-          ? data.projects
+        {isSuccess && data && data.projects ? (
+          data.projects && data.projects.length > 0 ? (
+            data.projects
               .filter((item) => !item.isArchive)
               .map((project, index) => (
                 <ListAccordionProjects
@@ -55,7 +56,12 @@ const MytaskPage = () => {
                   myTasksData={data.tasks}
                 />
               ))
-          : null}
+          ) : (
+            <div className="w-full h-96 flex items-center justify-center">
+              <p className="text-grey">You dont have any tasks yet.</p>
+            </div>
+          )
+        ) : null}
       </div>
     </div>
   );
