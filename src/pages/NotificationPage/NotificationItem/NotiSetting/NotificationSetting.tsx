@@ -1,4 +1,4 @@
-import { Menu, MenuItem } from "@mui/material";
+import { IconButton, Menu, MenuItem } from "@mui/material";
 import { useState } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
@@ -62,7 +62,7 @@ const NotificationSetting = ({
 
   return (
     <>
-      <div
+      <IconButton
         className="rounded-md"
         onClick={(e) => {
           const target = e.currentTarget as HTMLElement;
@@ -70,14 +70,14 @@ const NotificationSetting = ({
         }}
       >
         <MoreVertIcon />
-      </div>
+      </IconButton>
 
       <Menu
         anchorEl={anchorElUser}
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        {fromItem !== "NOTI_ITEM" ? (
+        {fromItem === "NOTI_ITEM" ? (
           <MenuItem
             className="flex gap-4"
             onClick={() => {

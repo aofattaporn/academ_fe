@@ -32,7 +32,7 @@ const NotificationClearItem = ({ notiData }: NotificationClearItemProps) => {
         <Divider orientation="vertical" flexItem />
       </div>
 
-      <div className="col-span-8">
+      <div className="col-span-8 pt-2 overflow-x-clip">
         <h3 className="font-bold text-lg">{notiData.title}</h3>
         <h3>{notiData.body}</h3>
       </div>

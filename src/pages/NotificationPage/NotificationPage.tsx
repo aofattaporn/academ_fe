@@ -5,6 +5,7 @@ import { QUERY_KEY } from "../../types/GenericType";
 import notificationApi from "../../libs/notificationApi";
 import { useQuery } from "react-query";
 import { Notification } from "../../types/NotificationType";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 
 enum NOTIFICATION_TAB {
   PROJECT_NOTI = "PROJECT_NOTI",
@@ -40,7 +41,12 @@ const NotificationPage = () => {
       <div className="w-full h-12 bg-primary-light"></div>
       <div className="flex justify-start px-8 py-8">
         <div className=" items-center">
-          <h1 className="font-bold text-4xl text-dark">Notification</h1>
+          <h1 className="font-bold text-4xl text-dark">
+            Notification{" "}
+            <span>
+              <NotificationsIcon sx={{ width: "36px" }} />
+            </span>
+          </h1>
           <h3 className="text-grey">Show your notification</h3>
         </div>
       </div>
@@ -57,6 +63,15 @@ const NotificationPage = () => {
               }`}
             >
               <p>Project Notification</p>
+              {allNoti.filter((item) => !item.isClear).length > 0 ? (
+                <p
+                  className={`w-2 h-2 rounded-full ${
+                    currentTab === NOTIFICATION_TAB.PROJECT_NOTI
+                      ? "bg-error"
+                      : "bg-error"
+                  }`}
+                ></p>
+              ) : null}
             </button>
             <button
               onClick={() => setCurrentTab(NOTIFICATION_TAB.CLEAR_NOTI)}
@@ -72,7 +87,7 @@ const NotificationPage = () => {
             <div className="col-span-8 flex justify-center border-b-4"></div>
           </div>
 
-          <div className="max-h-96 overflow-y-scroll">
+          <div className="max-h-96 min-h-72 overflow-y-scroll">
             {currentTab === NOTIFICATION_TAB.PROJECT_NOTI &&
             notiSuccess &&
             notiData ? (
@@ -80,6 +95,7 @@ const NotificationPage = () => {
                 notiData={allNoti.filter((item) => item.isClear === false)}
               />
             ) : null}
+
             {currentTab === NOTIFICATION_TAB.CLEAR_NOTI &&
             notiSuccess &&
             notiData ? (

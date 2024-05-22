@@ -9,7 +9,10 @@ const ClearNotiTab = ({ notiData }: ClearNotiTabProps) => {
   if (notiData.length == 0) {
     return (
       <div className="flex items-center justify-center p-32">
-        <p className="text-grey">No Notices Right Now.</p>
+        <div className="text-center text-grey">
+          <h2 className="text-lg font-bold">Clear Notifications</h2>
+          <p>You have no notifications to clear at this time.</p>
+        </div>
       </div>
     );
   }

@@ -9,7 +9,10 @@ const ProjectNotiTab = ({ notiData }: ProjectNotiTabProps) => {
   if (notiData.length == 0) {
     return (
       <div className="flex items-center justify-center p-32">
-        <p className="text-grey">No Notices Right Now.</p>
+        <div className="text-center text-grey">
+          <h2 className="text-lg font-bold">Notifications Empty</h2>
+          <p>You have no notifications at this time.</p>
+        </div>
       </div>
     );
   }
