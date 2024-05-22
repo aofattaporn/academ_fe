@@ -13,7 +13,7 @@ import ToggleItem from "./ToggleItem/ToggleItem";
 import useAllMyProjects from "../../../hooks/projectHook/useAllMyProjects";
 
 const SideBar = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(true);
   const {
     projectIsLoading,
     projectIsSuccess,
@@ -42,6 +42,7 @@ const SideBar = () => {
           <NavigateItem key={index} index={index} menu={menu} open={isOpen} />
         ))}
 
+        {/* // TODO : When Close how to click see all */}
         <Divider sx={{ marginTop: "2rem" }} />
         <ToggleItem
           icons={<FolderIcon style={{ width: "36px" }} />}
