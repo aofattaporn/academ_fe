@@ -127,7 +127,7 @@ const ProjectSetting = ({ projectData }: ProjectSettingProps) => {
           <ListItemIcon>
             <ArchiveIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText>Archive</ListItemText>
+          <ListItemText>Complete project</ListItemText>
         </MenuItem>
         <MenuItem
           disabled={!projectData.projectPermission.delete}

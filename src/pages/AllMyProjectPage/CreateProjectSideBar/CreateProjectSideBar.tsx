@@ -65,9 +65,7 @@ const CreateProjectSideBar = ({
               />
             </div>
             <div className="my-8">
-              <p className="text-md text-dark my-2">
-                Class Name <span className="text-error">*</span>
-              </p>
+              <p className="text-md text-dark my-2">Class Name</p>
               <TextField
                 id="outlined-basic"
                 variant="outlined"
