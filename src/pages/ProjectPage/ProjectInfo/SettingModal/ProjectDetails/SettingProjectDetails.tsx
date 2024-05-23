@@ -90,7 +90,7 @@ const SettingProjectDetails = () => {
             <p className=" col-span-1 bg-main py-2 flex justify-center rounded-md">
               Views
             </p>
-            <div className="col-span-2 w-full">
+            <div className="col-span-2 w-9/12">
               <AllViewToggle
                 disable={!projectPermission.editProfile}
                 viewsSelected={projectDetails.views as Views[]}

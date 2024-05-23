@@ -2,7 +2,6 @@ import ListIcon from "@mui/icons-material/List";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ViewTimelineIcon from "@mui/icons-material/ViewTimeline";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-import EditNoteIcon from "@mui/icons-material/EditNote";
 import { Views } from "../../../../types/ProjectType";
 import { Tooltip } from "@mui/material";
 
@@ -76,21 +75,6 @@ const AllViewToggle = ({
       w-12 h-12 rounded-md border border-solid flex justify-center items-center`}
         >
           <CalendarTodayIcon />
-        </button>
-      </Tooltip>
-
-      <Tooltip title={Views.NOTE} arrow>
-        <button
-          disabled={disable}
-          onClick={() => handleSelected(Views.NOTE)}
-          className={`${
-            viewsSelected.some((item) => item === Views.NOTE)
-              ? `${disable ? "bg-primary-light" : "bg-primary"} text-white `
-              : "bg-white text-gray-500"
-          }
-      w-12 h-12 rounded-md border border-solid flex justify-center items-center`}
-        >
-          <EditNoteIcon />
         </button>
       </Tooltip>
     </div>
