@@ -9,6 +9,8 @@ import AvatarProject from "../../../components/AvatarProject/AvatarProject";
 import { Size } from "../../../types/ProjectType";
 import { Divider } from "@mui/material";
 import ProjectAlertItem from "../../../components/Labels/ProjectAlertItem";
+import ProjectBoxItem from "./ProjectBoxItem/ProjectBoxItem";
+import { Link } from "react-router-dom";
 
 const ProjectBox = () => {
   const { isLoading, isError, data, error } = useQuery(
@@ -39,30 +41,13 @@ const ProjectBox = () => {
           {data
             .filter((item) => !item.isArchive)
             .map((item, index) => (
-              <div
-                key={index}
-                className="flex align-middle gap-4 p-2 cursor-pointer"
-              >
-                <AvatarProject
-                  isLoading={false}
-                  size={Size.medium}
-                  color={item.projectProfile.avatarColor}
-                  projectName={item.projectProfile.projectName}
+              <Link key={index} to={`projects/${item.projectId}`}>
+                <ProjectBoxItem
+                  key={index}
+                  projectProfile={item.projectProfile}
+                  endDate={item.projectEndDate}
                 />
-
-                <div>
-                  <h4 className="font-semibold">
-                    {item.projectProfile.projectName}
-                  </h4>
-                  <p className="text-gray-300">
-                    {moment(item.projectEndDate).format("l")}
-                  </p>
-                </div>
-                <ProjectAlertItem
-                  projectEndDate={item.projectEndDate}
-                  isArchive={false}
-                />
-              </div>
+              </Link>
             ))}
         </div>
       </div>
