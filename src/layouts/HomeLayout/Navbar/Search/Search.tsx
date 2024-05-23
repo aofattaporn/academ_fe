@@ -33,8 +33,13 @@ const Search = () => {
       {projectData
         ?.filter((project) => {
           const projectName = project.projectProfile.projectName.toLowerCase();
+          const className = project.className.toLowerCase();
           const searchItem = search.toLowerCase();
-          return searchItem === "" || projectName.includes(searchItem);
+          return (
+            searchItem === "" ||
+            projectName.includes(searchItem) ||
+            className.includes(searchItem)
+          );
         })
         .map((project) => {
           return (
