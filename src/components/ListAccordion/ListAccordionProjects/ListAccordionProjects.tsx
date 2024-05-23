@@ -62,22 +62,24 @@ const ListAccordionProjects = ({
         }`}
       >
         <div className="px-8 pb-8">
-          {projectInfo.process.map((process, index) => {
-            return (
-              <ListAccordion
-                key={index}
-                taskPermission={{
-                  addNew: false,
-                  delete: false,
-                  edit: false,
-                  manageProcess: false,
-                }}
-                activeId={null}
-                process={process}
-                tasks={myTasksData}
-              />
-            );
-          })}
+          {projectInfo.process
+            .filter((p) => myTasksData.some((s) => s.processId === p.processId))
+            .map((process, index) => {
+              return (
+                <ListAccordion
+                  key={index}
+                  taskPermission={{
+                    addNew: false,
+                    delete: false,
+                    edit: false,
+                    manageProcess: false,
+                  }}
+                  activeId={null}
+                  process={process}
+                  tasks={myTasksData}
+                />
+              );
+            })}
         </div>
       </div>
     </div>
