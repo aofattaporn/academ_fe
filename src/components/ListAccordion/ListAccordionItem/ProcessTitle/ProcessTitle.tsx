@@ -22,6 +22,7 @@ import CantDeleteModal from "../../../Modal/CantDeleteModal";
 type ProcessTitleProps = {
   handleToggle: () => void;
   isToggle: boolean;
+  isShowManageProcess: boolean;
   tasksLength: number;
   processId: string;
   processColor: string;
@@ -31,6 +32,7 @@ type ProcessTitleProps = {
 const ProcessTitle = ({
   handleToggle,
   isToggle,
+  isShowManageProcess,
   tasksLength,
   processId,
   processColor,
@@ -167,14 +169,16 @@ const ProcessTitle = ({
 
         <p className="text-xl font-bold">{processName}</p>
         <div className=" group-hover/process:visible invisible">
-          <IconButton
-            onClick={(e) => {
-              e.stopPropagation();
-              setAnchorElUser(e.currentTarget);
-            }}
-          >
-            <MoreVertIcon fontSize="small" />
-          </IconButton>
+          {isShowManageProcess ? (
+            <IconButton
+              onClick={(e) => {
+                e.stopPropagation();
+                setAnchorElUser(e.currentTarget);
+              }}
+            >
+              <MoreVertIcon fontSize="small" />
+            </IconButton>
+          ) : null}
 
           <Menu
             anchorEl={anchorElUser}

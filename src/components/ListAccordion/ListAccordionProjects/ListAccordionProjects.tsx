@@ -77,6 +77,7 @@ const ListAccordionProjects = ({
                   activeId={null}
                   process={process}
                   tasks={myTasksData}
+                  isShowManageProcess={false}
                 />
               );
             })}

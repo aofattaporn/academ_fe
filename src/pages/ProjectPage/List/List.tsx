@@ -47,6 +47,7 @@ const List = () => {
                   key={index}
                   activeId={activeId}
                   taskPermission={taskPermission}
+                  isShowManageProcess={true}
                 />
               );
             })
