@@ -1,11 +1,11 @@
 import moment from "moment";
 import AvatarProject from "../../../../components/AvatarProject/AvatarProject";
-import ProjectAlertItem from "../../../../components/Labels/ProjectAlertItem";
 import { ProjectProfile, Size } from "../../../../types/ProjectType";
+import ProjectAlertItem from "../../../../components/Labels/ProjectAlertItem";
 
 type ProjectBoxItemProps = {
   projectProfile: ProjectProfile;
-  endDate: Date;
+  endDate: string;
 };
 
 const ProjectBoxItem = ({ projectProfile, endDate }: ProjectBoxItemProps) => {
@@ -20,7 +20,7 @@ const ProjectBoxItem = ({ projectProfile, endDate }: ProjectBoxItemProps) => {
 
       <div>
         <h4 className="font-semibold">{projectProfile.projectName}</h4>
-        <p className="text-gray-300">{moment(endDate).format("l")}</p>
+        <p className="text-gray-300">{moment(endDate).format("ll")}</p>
       </div>
       <ProjectAlertItem projectEndDate={endDate} isArchive={false} />
     </div>
