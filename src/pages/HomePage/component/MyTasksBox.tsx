@@ -1,10 +1,6 @@
-import { useQuery } from "react-query";
 import { BoxNulldata } from "../../../components/BoxHomepage/BoxNulldata";
 import BoxLoading from "../../../components/BoxHomepage/BoxLoading";
 import BoxError from "../../../components/BoxHomepage/BoxError";
-import tasksApi from "../../../libs/tasksApi";
-import { QUERY_KEY } from "../../../types/GenericType";
-import moment from "moment";
 import { Divider } from "@mui/material";
 import { MytaskType } from "../../../types/MyTasksType";
 import { Link } from "react-router-dom";
