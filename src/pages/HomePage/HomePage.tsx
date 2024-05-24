@@ -1,8 +1,12 @@
 import moment from "moment";
 import { useEffect, useState } from "react";
-import MytaskBox from "./component/MyTasksBox";
 import { GreetingType } from "../../types/HomeType";
 import ProjectBox from "./component/Projectbox";
+import { useQuery } from "react-query";
+import myTasksApi from "../../libs/mytaskApi";
+import { QUERY_KEY } from "../../types/GenericType";
+import { Project } from "../../types/MyTasksType";
+import MytaskBox from "./component/MyTasksBox";
 
 const HomePage = () => {
   const currentHour = new Date().getHours();
@@ -23,6 +27,10 @@ const HomePage = () => {
     }
   }, [currentHour]);
 
+  const { isLoading, isError, data } = useQuery(QUERY_KEY.MY_TASKS, () =>
+    myTasksApi.mytasksApi()
+  );
+
   return (
     <div className="w-full h-full bg-main">
       <div className="w-full h-12 bg-primary-light"></div>
@@ -34,8 +42,12 @@ const HomePage = () => {
       </div>
 
       <div className="px-8 grid md:grid-cols-2 grid-cols-1 gap-4 gap-y-10 gap-x-8">
-        <ProjectBox />
-        <MytaskBox />
+        <ProjectBox
+          projectData={data?.projects as Project[]}
+          isLoading={isLoading}
+          isError={isError}
+        />
+        <MytaskBox myTasks={data} isLoading={isLoading} isError={isError} />
       </div>
     </div>
   );

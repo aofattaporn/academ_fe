@@ -33,12 +33,31 @@ const TasksTile = ({ task }: TasksTileProps) => {
           ""
         )}
       </div>
-      <div className="text-center">
-        {task.startDate ? moment(task.startDate).format("l") : ""}
-      </div>
-      <div className="text-center">
-        {task.dueDate ? moment(task.dueDate).format("l") : ""}
-      </div>
+      {task.startDate ? (
+        moment(task.startDate).isSame(moment(), "day") ? (
+          <div className="text-center text-red-500 font-bold">
+            <p>Today</p>
+          </div>
+        ) : (
+          <div className="text-center">
+            {moment(task.startDate).format("ll")}
+          </div>
+        )
+      ) : (
+        <div className="text-center"></div>
+      )}
+
+      {task.dueDate ? (
+        moment(task.dueDate).isSame(moment(), "day") ? (
+          <div className="text-center text-red-500">
+            <p>Today</p>
+          </div>
+        ) : (
+          <div className="text-center">{moment(task.dueDate).format("ll")}</div>
+        )
+      ) : (
+        <div className="text-center"></div>
+      )}
     </div>
   );
 };

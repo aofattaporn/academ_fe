@@ -55,7 +55,7 @@ const CreateTasksItem = ({ projectId, processId }: CreateTasksProps) => {
   }
   return (
     <button
-      className="w-full p-1 bg-gray-100 rounded-md cursor-pointer text-gray-300 invisible group-hover/create:visible"
+      className="w-full p-1 bg-primary-subtle rounded-md cursor-pointer text-gray-300 invisible group-hover/create:visible"
       onClick={handleButtonClick}
     >
       <div className="flex gap-4 items-center">

@@ -112,10 +112,10 @@ const ListCreateProcess = () => {
 
   return (
     <div
-      className="w-full p-4 rounded-md  bg-gray-100 hover:cursor-pointer "
+      className="w-full p-4 rounded-md bg-primary-subtle  hover:cursor-pointer "
       onClick={handleButtonClick}
     >
-      <div className={`h-fit py-2 items-center text-gray-200`}>
+      <div className={`h-fit py-2 items-center text-gray-400`}>
         <h4>Create New Process</h4>
       </div>
     </div>

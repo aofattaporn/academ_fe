@@ -7,9 +7,12 @@ import { useProjectPermission } from "../ProjectPage";
 import BoardTile from "./BoardTile/BoardTile";
 import { Tasks } from "../../../types/MyTasksType";
 import BoardCreateProcess from "./BoradCreateProcess/BoardCreateProcess";
+import CreateTasksByDate from "../Calendar/CreateTasksByDate/CreateTasksByDate";
+import { useState } from "react";
 
 const Board = () => {
   const { process, taskPermission } = useProjectPermission();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const {
     allTaksIsSuccesss,
@@ -27,7 +30,22 @@ const Board = () => {
 
   return (
     <div className="p-6 text-dark font-roboto">
-      <h1 className="text-2xl font-bold">Board</h1>
+      <div className="flex justify-between">
+        <h1 className="text-2xl font-bold">Board</h1>
+        <button
+          className="test py-1.5 px-2 text-white rounded-[4px]"
+          onClick={() => setIsOpen(true)}
+        >
+          Add Task
+        </button>
+        {taskPermission && isOpen ? (
+          <CreateTasksByDate
+            handleClose={() => setIsOpen(false)}
+            taskPermission={taskPermission}
+          />
+        ) : null}
+      </div>
+
       {(allTaksIsError && allTasksError) || mutation.isError ? (
         <Alert severity="error" className="my-8">
           Something went wrong

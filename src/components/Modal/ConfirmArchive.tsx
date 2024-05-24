@@ -19,10 +19,10 @@ const ConfirmArchive = ({
       className="flex justify-center"
     >
       <div className="bg-white rounded-md py-8 px-8 h-fit my-12 w-full sm:w-1/2 md:w-2/6">
-        <h2 className=" text-xl my-2 font-bold">Confirm Archive</h2>
+        <h2 className=" text-xl my-2 font-bold">Confirm complete project</h2>
         <p>Are you sure you want to archive this project?</p>
         <p className="mt-4">
-          Your form will not accept submissions while it is archived.
+          Your form will not accept submissions while it is completed.
         </p>
         <div
           style={{

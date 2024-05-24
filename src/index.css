@@ -28,6 +28,7 @@ body {
     rgba(174, 120, 214, 1) 59%,
     rgba(147, 121, 224, 1) 100%
   );
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .fc-h-event {
@@ -49,24 +50,24 @@ body {
   border: none !important;
 }
 
-.fc-toolbar-chunk button {
+.fc-today-button,
+.fc-prev-button,
+.fc-next-button,
+.fc-resourceTimelineTenDay-button,
+.fc-resourceTimelineMonth-button,
+.fc-resourceTimelineYear-button {
   background-color: #af8ae2 !important;
   border: 0px !important;
-  box-shadow: 2px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
-/* .fc-timeline-event-harness a {
-  background-color: transparent !important;
+.fc-addTasksButton-button {
+  background: linear-gradient(
+    90deg,
+    rgba(215, 128, 225, 1) 0%,
+    rgba(174, 120, 214, 1) 59%,
+    rgba(147, 121, 224, 1) 100%
+  ) !important;
+  border: 0px !important;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
-
-.Toastify__progress-bar-theme--light {
-  background-color: #af8ae2 !important;
-}
-
-.Toastify__progress-bar-theme--light {
-  background-color: #af8ae2 !important;
-}
-
-.progress {
-  background-color: red !important;
-} */

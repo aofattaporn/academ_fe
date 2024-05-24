@@ -102,10 +102,10 @@ const BoardCreateProcess = () => {
 
   return (
     <div
-      className="my-4 w-80 min-w-80 p-2 rounded-md  bg-gray-100 hover:cursor-pointer "
+      className="my-4 w-80 min-w-80 p-2 rounded-md  bg-primary-subtle hover:cursor-pointer "
       onClick={handleButtonClick}
     >
-      <div className={`h-fit py-2 items-center text-gray-200`}>
+      <div className={`h-fit py-2 items-center text-gray-400`}>
         <h4>Create New Process</h4>
       </div>
     </div>

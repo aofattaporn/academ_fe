@@ -30,7 +30,7 @@ const ToggleItem = ({
   refetch,
 }: ToggleItemProps) => {
   const { projectId } = useParams();
-  const [isCollapse, setIsCollapse] = useState<boolean>(false);
+  const [isCollapse, setIsCollapse] = useState<boolean>(true);
 
   useEffect(() => {
     if (!isOpen) {

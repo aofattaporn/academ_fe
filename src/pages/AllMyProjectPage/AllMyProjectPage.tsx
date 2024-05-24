@@ -20,7 +20,7 @@ const MY_PROJECT_TYPE: PROJECT_TYPE[] = [
     DESCRIPTION: "These projects are currently available.",
   },
   {
-    PROJECT_TYPE: "Archive",
+    PROJECT_TYPE: "Completed",
     DESCRIPTION: "These projects are archived and no longer active.",
   },
 ];

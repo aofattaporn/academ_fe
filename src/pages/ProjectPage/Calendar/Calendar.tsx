@@ -1,7 +1,7 @@
 import { Alert, Button } from "@mui/material";
 import useAllTasks from "../../../hooks/tasksHook/useAllTasks";
 import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
+import dayGridPlugin from "@fullcalendar/daygrid";
 import { EventClickArg, EventSourceInput } from "@fullcalendar/core/index.js";
 import { Tasks } from "../../../types/MyTasksType";
 import moment from "moment";

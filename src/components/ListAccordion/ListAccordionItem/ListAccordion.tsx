@@ -16,6 +16,7 @@ type ListAccordionProps = {
   activeId: string | null;
   process: Process;
   tasks: Tasks[];
+  isShowManageProcess: boolean;
 };
 
 const ListAccordion = ({
@@ -23,6 +24,7 @@ const ListAccordion = ({
   activeId,
   tasks,
   taskPermission,
+  isShowManageProcess,
 }: ListAccordionProps) => {
   const {
     projectId,
@@ -40,6 +42,7 @@ const ListAccordion = ({
       <ProcessTitle
         handleToggle={handleToggle}
         isToggle={isToggle}
+        isShowManageProcess={isShowManageProcess}
         processId={process.processId}
         processColor={process.processColor}
         processName={process.processName}

@@ -36,7 +36,7 @@ const InviteInput = ({ roles, memberPermission }: InviteInputProps) => {
       projectApi.inviteMember(projectId as string, invite),
     onSuccess(data: AllMemberAndPermission) {
       queryClient.setQueryData([QUERY_KEY.MEMBERS_SETTING, projectId], data);
-      toast.success("Invite Member success");
+      toast.success("The invitation has been sent to your email");
       setMemberEmail("");
     },
     onError(error: ErrorCustom) {
