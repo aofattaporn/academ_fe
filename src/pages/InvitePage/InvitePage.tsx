@@ -55,7 +55,7 @@ const InvitePage = () => {
             to become a collaborator on the project Website ideas success
             <div className="my-8">
               <Link to={`/projects`}>
-                <Button>Navigat to your project</Button>
+                <Button>Navigate to your project</Button>
               </Link>
             </div>
           </p>
