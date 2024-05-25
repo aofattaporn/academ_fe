@@ -101,6 +101,7 @@ const AllMyProjectPage = () => {
                       return (
                         <ProjectBox
                           key={index}
+                          isArchive={project.isArchive}
                           prjectId={project.projectId}
                           projectName={project.projectProfile.projectName}
                           avatarColor={project.projectProfile.avatarColor}
@@ -111,13 +112,14 @@ const AllMyProjectPage = () => {
                     })
                 : null}
 
-              {projectType.PROJECT_TYPE === "Archive" && projectIsSuccess
+              {projectType.PROJECT_TYPE === "Completed" && projectIsSuccess
                 ? projectData
                     ?.filter((item) => item.isArchive === true)
                     .map((project, index) => {
                       return (
                         <ProjectBox
                           key={index}
+                          isArchive={project.isArchive}
                           prjectId={project.projectId}
                           projectName={project.projectProfile.projectName}
                           avatarColor={project.projectProfile.avatarColor}

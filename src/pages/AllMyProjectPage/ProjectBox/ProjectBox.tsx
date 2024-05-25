@@ -4,6 +4,7 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 import ProjectAlertItem from "../../../components/Labels/ProjectAlertItem";
 type ProjectBoxProps = {
+  isArchive: boolean;
   prjectId: string;
   projectName: string;
   avatarColor: string;
@@ -12,6 +13,7 @@ type ProjectBoxProps = {
 };
 
 const ProjectBox = ({
+  isArchive,
   prjectId,
   projectName,
   avatarColor,
@@ -44,7 +46,12 @@ const ProjectBox = ({
               {moment(projectEndDate).format("ll")}
             </p>
           </div>
-          <ProjectAlertItem projectEndDate={projectEndDate} isArchive={false} />
+          {isArchive === false ? (
+            <ProjectAlertItem
+              projectEndDate={projectEndDate}
+              isArchive={false}
+            />
+          ) : null}
         </div>
       </div>
     </Link>
