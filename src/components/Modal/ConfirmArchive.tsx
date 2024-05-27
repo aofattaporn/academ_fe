@@ -44,7 +44,7 @@ const ConfirmArchive = ({
                   handleArchive();
                 }}
               >
-                Archive
+                Complete
               </Button>
             )}
 
