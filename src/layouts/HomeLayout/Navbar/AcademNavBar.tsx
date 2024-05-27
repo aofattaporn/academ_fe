@@ -10,7 +10,7 @@ import Search from "./Search/Search";
 import { useDispatch } from "react-redux";
 import { openModal } from "../../../stores/modalSlice/modalSlice";
 
-const settings: string[] = ["Profile", "Account", "Logout"];
+const settings: string[] = ["Logout"];
 
 function AcademNaveBar(): ReactElement {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);

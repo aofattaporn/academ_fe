@@ -18,11 +18,7 @@ const NotificationPage = () => {
   );
   const [allNoti, setAllNoti] = useState<Notification[]>([]);
 
-  const {
-    isLoading: notiLoading,
-    isSuccess: notiSuccess,
-    data: notiData,
-  } = useQuery(
+  const { isSuccess: notiSuccess, data: notiData } = useQuery(
     QUERY_KEY.NOTIFICATIONS,
     () => notificationApi.getAllNotification(),
     {
@@ -31,10 +27,6 @@ const NotificationPage = () => {
       },
     }
   );
-
-  {
-    notiLoading ? <></> : null;
-  }
 
   return (
     <div className="w-full h-full bg-main">
